@@ -1,0 +1,12 @@
+{
+  "title": "Full Stack Developer - NodeJs mixed mock - seed 22",
+  "question_ids": [
+    "NODE-JAVASCRIPT-05-B12",
+    "NODE-BACKEND-01-I05",
+    "NODE-JAVASCRIPT-01-A13"
+  ],
+  "bank_sha256": "540ea8ff4cc72906182eca63e7d7a65b75aae07b618f87fa250d69b5b102fa8f",
+  "total_suggested_minutes": 90,
+  "native_execution_verified": false,
+  "note": "Review/run in the intended runtime before administration. No CoderPad upload was performed."
+}

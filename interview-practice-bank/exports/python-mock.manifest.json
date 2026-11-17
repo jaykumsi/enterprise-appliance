@@ -1,0 +1,12 @@
+{
+  "title": "Python intermediate mock - seed 21",
+  "question_ids": [
+    "PY-COLLECTIONS-03-I11",
+    "PY-FUNDAMENTALS-03-I05",
+    "PY-STRINGS-02-I08"
+  ],
+  "bank_sha256": "540ea8ff4cc72906182eca63e7d7a65b75aae07b618f87fa250d69b5b102fa8f",
+  "total_suggested_minutes": 90,
+  "native_execution_verified": false,
+  "note": "Review/run in the intended runtime before administration. No CoderPad upload was performed."
+}

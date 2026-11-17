@@ -1,0 +1,12 @@
+{
+  "title": "Azure Data Engineering mixed mock - seed 22",
+  "question_ids": [
+    "AZ-OPERATIONS-03-B08",
+    "AZ-IDENTITY-03-I06",
+    "AZ-INGESTION-01-A03"
+  ],
+  "bank_sha256": "540ea8ff4cc72906182eca63e7d7a65b75aae07b618f87fa250d69b5b102fa8f",
+  "total_suggested_minutes": 90,
+  "native_execution_verified": false,
+  "note": "Review/run in the intended runtime before administration. No CoderPad upload was performed."
+}

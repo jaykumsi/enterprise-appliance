@@ -1,0 +1,14 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "PHARMA-OPERATORS-01-B15",
+    "PHARMA-ANALYTICAL_FUNCTIONS-06-I07",
+    "PHARMA-AGGREGATES-02-A09"
+  ],
+  "canonical_prompt_sha256": {
+    "PHARMA-OPERATORS-01-B15": "70bcfe6443fbd8a3b71dc45cf5aa6d563eb1b2ab41788bb193a3aad9d0e42258",
+    "PHARMA-ANALYTICAL_FUNCTIONS-06-I07": "c6dc265902e7792644e58ac2ac89119cdc64363caaf60d1c117f78eee3d23102",
+    "PHARMA-AGGREGATES-02-A09": "6372dbe89ce7b9be4a651c0f93ef561cd2621c92db7846598cbbf807fd3b331c"
+  },
+  "coding_minutes": 105
+}

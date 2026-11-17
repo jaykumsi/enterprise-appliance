@@ -1,0 +1,125 @@
+== banking: 480 items, 4 flagged
+  CONSTRAINTS-A09 | leftover:patient
+  DATATYPES-A03 | empty
+  DML-B06 | error:The statement has been terminated. (3621)')
+  DML-A08 | error:The statement has been terminated. (3621)')
+== brokerage: 480 items, 5 flagged
+  CONSTRAINTS-A05 | leftover:RX-,prescri ; error:Column name or number of supplied values does not match table definition. (213) (SQLExecDirectW)')
+  CONSTRAINTS-A09 | leftover:patient
+  DDL-B09 | leftover:Rx
+  DML-A08 | error:The statement has been terminated. (3621)')
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+== oil: 480 items, 20 flagged
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-A09 | leftover:patient
+  CTE-A06 | error:The statement has been terminated. (3621)')
+  DDL-B09 | leftover:Rx
+  DML-B05 | empty
+  DML-A08 | error:The statement has been terminated. (3621)')
+  JOINS-B06 | empty
+  JOINS-B10 | empty
+  JOINS-A05 | empty
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-A02 | empty
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | empty
+  SET_OPERATIONS-I10 | empty
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | empty
+== pharma: 480 items, 24 flagged
+  CONSTRAINTS-B10 | error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Rx_MaxQty". The conflict occurred in database "WB_pharma", table "pharma.Inventory", column \
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-A09 | leftover:patient
+  CTE-B03 | empty
+  CTE-A06 | error:The statement has been terminated. (3621)')
+  DATATYPES-A03 | empty
+  DDL-B09 | leftover:Rx
+  DML-A08 | error:The statement has been terminated. (3621)')
+  JOINS-B06 | empty
+  JOINS-B10 | empty
+  JOINS-A05 | empty
+  JOINS-A09 | empty
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-I06 | empty
+  OPERATORS-A02 | empty
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | empty
+  SET_OPERATIONS-I10 | empty
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B08 | empty
+  SUBQUERIES-I02 | empty
+== retail: 480 items, 15 flagged
+  CONSTRAINTS-I06 | error:Column name or number of supplied values does not match table definition. (213) (SQLExecDirectW)')
+  CONSTRAINTS-A09 | leftover:patient
+  CTE-A06 | error:The statement has been terminated. (3621)')
+  DDL-B09 | leftover:Rx
+  DML-B05 | empty
+  DML-A08 | error:The statement has been terminated. (3621)')
+  JOINS-B10 | empty
+  JOINS-A05 | empty
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-A02 | empty
+  SET_OPERATIONS-B06 | empty
+  STRING_FUNCTIONS-I08 | empty
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | empty
+== retail_inventory: 480 items, 20 flagged
+  ANALYTICAL_FUNCTIONS-A04 | empty
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-A09 | leftover:patient
+  CTE-B03 | empty
+  DATATYPES-A03 | empty
+  DML-B05 | empty
+  DML-A08 | error:The statement has been terminated. (3621)')
+  JOINS-B06 | empty
+  JOINS-A09 | empty
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-A02 | empty
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | empty
+  SET_OPERATIONS-I10 | empty
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B08 | empty
+  SUBQUERIES-B10 | empty
+== retail_logistics: 480 items, 7 flagged
+  CONSTRAINTS-A05 | leftover:prescri ; error:Operand type clash: int is incompatible with date (206) (SQLExecDirectW)')
+  CONSTRAINTS-A09 | leftover:patient
+  DDL-B09 | leftover:Rx
+  DML-I08 | error:The statement has been terminated. (3621)')
+  DML-A08 | error:The statement has been terminated. (3621)')
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-I07 | empty
+== retail_manufacturing: 480 items, 22 flagged
+  CONSTRAINTS-B10 | error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Rx_MaxQty". The conflict occurred in database "WB_retail_manufacturing", table "retail_manufa
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-A09 | leftover:patient
+  CTE-B03 | empty
+  CTE-A06 | error:The statement has been terminated. (3621)')
+  DDL-B09 | leftover:Rx
+  DML-B05 | empty
+  DML-A08 | error:The statement has been terminated. (3621)')
+  JOINS-B06 | empty
+  JOINS-B10 | empty
+  JOINS-A05 | empty
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-A02 | empty
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | empty
+  SET_OPERATIONS-I10 | empty
+  STRING_FUNCTIONS-I08 | empty
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B08 | empty
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | empty

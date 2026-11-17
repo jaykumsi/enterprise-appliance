@@ -1,0 +1,20 @@
+{
+  "commit": "a28cd34bc454af6cf8bf1862fceec17300ed0876",
+  "verified_git_objects": 23,
+  "tracked_files": 20,
+  "all_commit_tree_objects_present": true,
+  "repair_files": [
+    ".git/config",
+    ".git/HEAD",
+    ".git/refs/heads/main",
+    ".git/refs/remotes/origin/main",
+    ".git/logs/HEAD",
+    ".git/index"
+  ],
+  "working_tree_changes": "None permitted during repair;the consolidated assignments are outside this repository.",
+  "remote_url": "Not supplied;left unconfigured.",
+  "method": "Restore HEAD/refs from intact reflogs;rebuild index into a separate temporary file,then install only .git/index. Do not checkout/reset/clean files.",
+  "status": "completed",
+  "approval": "User explicitly approved metadata-only repair.",
+  "verification_report": "GIT_RECOVERY_VALIDATION.json"
+}

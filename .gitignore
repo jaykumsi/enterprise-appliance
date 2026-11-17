@@ -1,0 +1,11 @@
+# Python caches
+__pycache__/
+*.pyc
+
+# Separate repository with its own history; its README only links to SQL/Excerises
+amerimed-healthcare-sql/
+
+# OS / editor files
+Thumbs.db
+desktop.ini
+.DS_Store

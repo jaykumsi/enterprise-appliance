@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "PHARMA-CTE-03-A06",
+    "PHARMA-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "PHARMA-CTE-03-A06": "7984165cc92cb6cb1498524359d5a281e451d1c1b4ce87c5ca9e681104963f93",
+    "PHARMA-JOINS-02-A15": "89465df7f0b068cd4f566998d35e8c3485d0207263b81ab7464e089feedff167"
+  },
+  "coding_minutes": 120
+}

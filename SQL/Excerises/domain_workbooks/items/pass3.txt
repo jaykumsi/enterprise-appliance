@@ -1,0 +1,8 @@
+== banking: 480 items, 0 flagged
+== brokerage: 480 items, 0 flagged
+== oil: 480 items, 0 flagged
+== pharma: 480 items, 0 flagged
+== retail: 480 items, 0 flagged
+== retail_inventory: 480 items, 0 flagged
+== retail_logistics: 480 items, 0 flagged
+== retail_manufacturing: 480 items, 0 flagged

@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "RETAIL_MANUFACTURING-CTE-03-A06",
+    "RETAIL_MANUFACTURING-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "RETAIL_MANUFACTURING-CTE-03-A06": "03860b67a0704c741e89e125e4b2cc0cf7481dd161176af4de53ef66f60a29f6",
+    "RETAIL_MANUFACTURING-JOINS-02-A15": "3e38f87bc31b03a10deaf37b45df532d48a2802237b0fb29758b8b0154fb9158"
+  },
+  "coding_minutes": 120
+}

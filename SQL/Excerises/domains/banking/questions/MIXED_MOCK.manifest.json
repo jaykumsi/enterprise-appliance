@@ -1,0 +1,14 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "BANKING-OPERATORS-01-B15",
+    "BANKING-ANALYTICAL_FUNCTIONS-06-I07",
+    "BANKING-AGGREGATES-02-A09"
+  ],
+  "canonical_prompt_sha256": {
+    "BANKING-OPERATORS-01-B15": "64e416be537e5ca648373b8448cefa0c56dfee4a697f73dfea797afdf08eb112",
+    "BANKING-ANALYTICAL_FUNCTIONS-06-I07": "391f732e7d5997739fb080f366d612c81dde118c7d2516a94f8fee750058bb6f",
+    "BANKING-AGGREGATES-02-A09": "13f8014a46309b4632a52905e5c42961dd72133b609be2149f5f848ded38c0e1"
+  },
+  "coding_minutes": 105
+}

@@ -1,0 +1,55 @@
+-- Drops only the 45 named project tables. Deliberate reset in your training database only.
+SET XACT_ABORT ON;
+BEGIN TRANSACTION;
+BEGIN TRY
+DROP TABLE IF EXISTS [retail].[Payments];
+DROP TABLE IF EXISTS [retail].[OrderItems];
+DROP TABLE IF EXISTS [retail].[Orders];
+DROP TABLE IF EXISTS [retail].[Products];
+DROP TABLE IF EXISTS [retail].[Customers];
+DROP TABLE IF EXISTS [banking].[Loans];
+DROP TABLE IF EXISTS [banking].[Transactions];
+DROP TABLE IF EXISTS [banking].[Accounts];
+DROP TABLE IF EXISTS [banking].[Customers];
+DROP TABLE IF EXISTS [banking].[Branches];
+DROP TABLE IF EXISTS [pharma].[Inventory];
+DROP TABLE IF EXISTS [pharma].[Batches];
+DROP TABLE IF EXISTS [pharma].[Warehouses];
+DROP TABLE IF EXISTS [pharma].[Products];
+DROP TABLE IF EXISTS [pharma].[Suppliers];
+DROP TABLE IF EXISTS [healthcare].[Prescriptions];
+DROP TABLE IF EXISTS [healthcare].[Encounters];
+DROP TABLE IF EXISTS [healthcare].[Medications];
+DROP TABLE IF EXISTS [healthcare].[Doctors];
+DROP TABLE IF EXISTS [healthcare].[Patients];
+DROP TABLE IF EXISTS [oil].[ShipmentItems];
+DROP TABLE IF EXISTS [oil].[Shipments];
+DROP TABLE IF EXISTS [oil].[Products];
+DROP TABLE IF EXISTS [oil].[Carriers];
+DROP TABLE IF EXISTS [oil].[Sites];
+DROP TABLE IF EXISTS [retail_manufacturing].[MaterialUsage];
+DROP TABLE IF EXISTS [retail_manufacturing].[BillOfMaterials];
+DROP TABLE IF EXISTS [retail_manufacturing].[ProductionOrders];
+DROP TABLE IF EXISTS [retail_manufacturing].[Materials];
+DROP TABLE IF EXISTS [retail_manufacturing].[Products];
+DROP TABLE IF EXISTS [retail_logistics].[TrackingEvents];
+DROP TABLE IF EXISTS [retail_logistics].[ShipmentPackages];
+DROP TABLE IF EXISTS [retail_logistics].[Shipments];
+DROP TABLE IF EXISTS [retail_logistics].[Carriers];
+DROP TABLE IF EXISTS [retail_logistics].[Customers];
+DROP TABLE IF EXISTS [retail_inventory].[StockBalances];
+DROP TABLE IF EXISTS [retail_inventory].[StockMovements];
+DROP TABLE IF EXISTS [retail_inventory].[Suppliers];
+DROP TABLE IF EXISTS [retail_inventory].[Products];
+DROP TABLE IF EXISTS [retail_inventory].[Warehouses];
+DROP TABLE IF EXISTS [brokerage].[Executions];
+DROP TABLE IF EXISTS [brokerage].[TradeOrders];
+DROP TABLE IF EXISTS [brokerage].[BrokerageAccounts];
+DROP TABLE IF EXISTS [brokerage].[Securities];
+DROP TABLE IF EXISTS [brokerage].[Clients];
+COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+IF @@TRANCOUNT>0 ROLLBACK TRANSACTION;
+THROW;
+END CATCH;

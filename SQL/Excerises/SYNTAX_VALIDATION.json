@@ -1,0 +1,7 @@
+{
+  "parser": "Microsoft ScriptDom TSql140Parser (SQL Server 2017 grammar)",
+  "assemblyVersion": "16.1.0.0",
+  "blocksChecked": 37911,
+  "errors": [],
+  "runtimeExecuted": false
+}

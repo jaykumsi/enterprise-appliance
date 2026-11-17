@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "HEALTHCARE-CTE-03-A06",
+    "HEALTHCARE-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "HEALTHCARE-CTE-03-A06": "cd8b274e7f465099c67a4a00ef3aefc64e5d66bf112071ad5c2eaaa10667e7b5",
+    "HEALTHCARE-JOINS-02-A15": "11cef0abaa803e104c44f46e0930efec24d4237979f53d10d2723db27a163a84"
+  },
+  "coding_minutes": 120
+}

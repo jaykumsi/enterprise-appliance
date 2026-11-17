@@ -1,0 +1,880 @@
+== brokerage: 480 items, 137 flagged
+  AGGREGATES-B10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  AGGREGATES-I04 | leftover:rx
+  AGGREGATES-I05 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  AGGREGATES-I08 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B05 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-B10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-I10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A02 | leftover:Medicat,medicat,refill,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,LIC-
+  CONSTRAINTS-B04 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-B05 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-B06 | leftover:HEA-
+  CONSTRAINTS-B07 | leftover:HEA-
+  CONSTRAINTS-I06 | leftover:MED-,Medicat ; error:Cannot find the object "brokerage.Medications" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_BrokerageAccounts_Number". The conflict occurred in database "WB_brokerage", table "brokerage
+  CONSTRAINTS-I10 | leftover:Medicat
+  CONSTRAINTS-A05 | leftover:RX-,encounter,prescri ; error:Column name or number of supplied values does not match table definition. (213) (SQLExecDirectW)')
+  CONSTRAINTS-A07 | leftover:Medicat,RX-,medicat ; error:Column name or number of supplied values does not match table definition. (213) (SQLMoreResults)')
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:Medicat,RX-,encounter,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLMoreResults)")
+  CONSTRAINTS-A10 | leftover:PT- ; error:Column name or number of supplied values does not match table definition. (213) (SQLExecDirectW)')
+  CTE-B02 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  CTE-B03 | leftover:Visit
+  CTE-B10 | leftover:Medicat,Rx,medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  CTE-I09 | leftover:Visit,rx
+  CTE-A01 | leftover:Medicat,medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  CTE-A06 | leftover:Medicat,prescri ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:clinic
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-B04 | leftover:Medicat ; empty
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:Medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DATATYPES-A08 | leftover:Medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DDL-B06 | leftover:Medicat ; error:Cannot find the object "brokerage.Medications" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Rx
+  DDL-I10 | leftover:Medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DDL-A04 | leftover:Medicat
+  DDL-A09 | leftover:Medicat ; error:Cannot find the object "brokerage.Medications" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DML-B01 | leftover:PT- ; error:The statement has been terminated. (3621)")
+  DML-B02 | leftover:Dr. ; error:The statement has been terminated. (3621)")
+  DML-B04 | leftover:visit
+  DML-B05 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DML-B06 | leftover:Medicat,Prescri,medicat,prescri ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DML-B07 | leftover:rx
+  DML-I02 | leftover:rx,telehealth
+  DML-I05 | leftover:Visit
+  DML-I06 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DML-I07 | leftover:PT- ; error:The statement has been terminated. (3621)")
+  DML-I08 | leftover:rx
+  DML-I10 | leftover:PT- ; error:The statement has been terminated. (3621)")
+  DML-A01 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLMoreResults)")
+  DML-A02 | leftover:Medicat
+  DML-A08 | leftover:rx
+  DML-A09 | leftover:HEA-
+  DQL-B05 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DQL-B07 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-I09 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DQL-A09 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:Medicat,medicat,prescri ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:Medicat,rx
+  JOINS-B03 | leftover:Medicat,medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit
+  JOINS-B10 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I01 | leftover:Medicat,medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I07 | leftover:Medicat,medicat,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I08 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I10 | leftover:Medicat,medicat,refill,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  JOINS-A03 | leftover:visit
+  JOINS-A04 | leftover:rx
+  JOINS-A05 | leftover:Medicat,medicat,prescri,rx,visit ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:visit
+  JOINS-A10 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-B03 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-B06 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-B07 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I05 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-I09 | empty
+  OPERATORS-I10 | leftover:Dr.,LIC-
+  OPERATORS-A02 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-A04 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-A08 | leftover:HEA-
+  OPERATORS-A10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-B06 | leftover:Medicat,medicat,prescri ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-B09 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-I08 | leftover:Medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A04 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A05 | leftover:Dr. ; empty
+  SET_OPERATIONS-A07 | leftover:rx
+  SET_OPERATIONS-A08 | leftover:Visit,rx
+  SET_OPERATIONS-A09 | leftover:rx
+  STRING_FUNCTIONS-B01 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B03 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Dr.
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-B10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I03 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I05 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I06 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I08 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A01 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A02 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A06 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B02 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B06 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B07 | leftover:Medicat,medicat,prescri ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B08 | leftover:Visit
+  SUBQUERIES-B10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I02 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I07 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I10 | leftover:Medicat,medicat,prescri,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A03 | leftover:Medicat,medicat,prescri,refill,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A06 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-A08 | leftover:rx
+  SUBQUERIES-A10 | leftover:Medicat,medicat ; error:Invalid object name 'brokerage.Medications'. (208) (SQLExecDirectW)")
+== oil: 480 items, 103 flagged
+  AGGREGATES-I04 | leftover:rx
+  AGGREGATES-I05 | leftover:prescri,rx
+  AGGREGATES-I08 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-A02 | leftover:refill,rx
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,LIC-,Specialt ; error:Invalid column name 'Specialty'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B04 | leftover:MED-
+  CONSTRAINTS-B06 | leftover:HEA-
+  CONSTRAINTS-B07 | leftover:HEA-
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-I06 | leftover:MED-
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Sites_Number". The conflict occurred in database "WB_oil", table "oil.Sites", column \'SiteCo
+  CONSTRAINTS-A05 | leftover:RX-,encounter,prescri
+  CONSTRAINTS-A07 | leftover:RX- ; error:Conversion failed when converting the varchar value 'RX-ORPHAN' to data type int. (245) (SQLMoreResults)")
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:RX-,encounter,medicat ; error:Invalid column name 'ShipmentItemReference'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-A10 | leftover:PT-
+  CTE-B03 | leftover:Visit
+  CTE-B10 | leftover:Rx,rx ; error:Invalid column name 'ShipmentItemReference'. (207) (SQLExecDirectW)")
+  CTE-I09 | leftover:Visit,rx
+  CTE-A01 | leftover:rx
+  CTE-A06 | leftover:prescri ; error:The statement has been terminated. (3621)')
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:clinic
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:rx
+  DATATYPES-A08 | leftover:rx
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Rx
+  DML-B01 | leftover:PT-
+  DML-B02 | leftover:Dr.,Specialt ; error:Invalid column name 'Specialty'. (207)")
+  DML-B04 | leftover:visit
+  DML-B05 | empty
+  DML-B06 | leftover:Prescri,prescri
+  DML-B07 | leftover:rx
+  DML-I02 | leftover:rx,telehealth
+  DML-I05 | leftover:Visit
+  DML-I07 | leftover:PT-
+  DML-I08 | leftover:rx
+  DML-I10 | leftover:PT-
+  DML-A01 | leftover:MED-
+  DML-A08 | leftover:rx
+  DML-A09 | leftover:HEA- ; error:The statement has been terminated. (3621)')
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:prescri
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:rx
+  JOINS-B03 | leftover:rx ; error:Invalid column name 'ShipmentItemReference'. (207) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit ; empty
+  JOINS-B10 | leftover:prescri,rx ; empty
+  JOINS-I01 | leftover:rx
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I07 | leftover:rx ; error:Invalid column name 'ShipmentItemReference'. (207) (SQLExecDirectW)")
+  JOINS-I08 | leftover:prescri,rx
+  JOINS-I10 | leftover:refill,rx
+  JOINS-A03 | leftover:visit
+  JOINS-A04 | leftover:rx
+  JOINS-A05 | leftover:prescri,rx,visit ; empty
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:visit
+  JOINS-A10 | leftover:prescri,rx
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I10 | leftover:Dr.,LIC-
+  OPERATORS-A02 | empty
+  OPERATORS-A08 | leftover:HEA-
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | leftover:prescri ; empty
+  SET_OPERATIONS-I10 | empty
+  SET_OPERATIONS-A05 | leftover:Dr. ; empty
+  SET_OPERATIONS-A07 | leftover:rx
+  SET_OPERATIONS-A08 | leftover:Visit,rx ; error:Invalid column name 'ShipmentItemReference'. (207) (SQLExecDirectW)")
+  SET_OPERATIONS-A09 | leftover:rx
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Dr.
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-I03 | leftover:MED-
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-A02 | leftover:MED-
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B07 | leftover:prescri
+  SUBQUERIES-B08 | leftover:Visit
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | leftover:prescri,rx ; empty
+  SUBQUERIES-I10 | leftover:prescri,rx ; error:Invalid column name 'ShipmentItemReference'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A03 | leftover:prescri,refill,rx
+  SUBQUERIES-A08 | leftover:rx
+== pharma: 480 items, 129 flagged
+  AGGREGATES-B10 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  AGGREGATES-I04 | leftover:rx
+  AGGREGATES-I05 | leftover:prescri,rx ; error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  AGGREGATES-I08 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B05 | error:Invalid column name 'UnitCost'. (207)")
+  ANALYTICAL_FUNCTIONS-B10 | error:Invalid column name 'UnitCost'. (207)")
+  ANALYTICAL_FUNCTIONS-I10 | error:Invalid column name 'UnitCost'. (207)")
+  ANALYTICAL_FUNCTIONS-A02 | leftover:refill,rx
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,LIC-,Specialt ; error:Invalid column name 'Specialty'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B04 | leftover:MED- ; error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B05 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B06 | leftover:HEA-
+  CONSTRAINTS-B07 | leftover:HEA-
+  CONSTRAINTS-B10 | error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Rx_MaxQty". The conflict occurred in database "WB_pharma", table "pharma.Inventory", column \
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-I06 | leftover:MED-
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Suppliers_Number". The conflict occurred in database "WB_pharma", table "pharma.Suppliers", c
+  CONSTRAINTS-A05 | leftover:RX-,encounter,prescri ; error:Operand type clash: int is incompatible with date (206) (SQLExecDirectW)')
+  CONSTRAINTS-A07 | leftover:RX- ; error:Operand type clash: int is incompatible with date (206) (SQLMoreResults)')
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:RX-,encounter,medicat ; error:Invalid column name 'InventoryReference'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-A10 | leftover:PT-
+  CTE-B02 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  CTE-B03 | leftover:Visit ; empty
+  CTE-B10 | leftover:Rx,rx ; error:Invalid column name 'InventoryReference'. (207) (SQLExecDirectW)")
+  CTE-I09 | leftover:Visit,rx
+  CTE-A01 | leftover:rx ; error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  CTE-A06 | leftover:prescri ; error:The statement has been terminated. (3621)')
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:clinic
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-B04 | empty
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:rx ; error:Invalid column name 'UnitCost'. (207)")
+  DATATYPES-A03 | empty
+  DATATYPES-A08 | leftover:rx ; error:Invalid column name 'UnitCost'. (207)")
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Rx
+  DDL-I10 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  DDL-A09 | error:Invalid column name 'UnitCost'. (207)")
+  DML-B01 | leftover:PT-
+  DML-B02 | leftover:Dr.,Specialt ; error:Invalid column name 'Specialty'. (207)")
+  DML-B04 | leftover:visit
+  DML-B05 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  DML-B06 | leftover:Prescri,prescri
+  DML-B07 | leftover:rx
+  DML-I02 | leftover:rx,telehealth
+  DML-I05 | leftover:Visit
+  DML-I06 | error:Invalid column name 'UnitCost'. (207)")
+  DML-I07 | leftover:PT-
+  DML-I08 | leftover:rx
+  DML-I10 | leftover:PT-
+  DML-A01 | leftover:MED- ; error:Invalid column name 'UnitCost'. (207)")
+  DML-A08 | leftover:rx
+  DML-A09 | leftover:HEA- ; error:The statement has been terminated. (3621)')
+  DQL-B05 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  DQL-B07 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-I09 | error:Invalid column name 'UnitCost'. (207) (SQLExecDirectW)")
+  DQL-A09 | error:Invalid column name 'UnitCost'. (207)")
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:prescri
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:rx
+  JOINS-B03 | leftover:rx ; error:Invalid column name 'InventoryReference'. (207) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit ; empty
+  JOINS-B10 | leftover:prescri,rx ; empty
+  JOINS-I01 | leftover:rx
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I07 | leftover:rx ; error:Invalid column name 'UnitCost'. (207)")
+  JOINS-I08 | leftover:prescri,rx
+  JOINS-I10 | leftover:refill,rx
+  JOINS-A03 | leftover:visit
+  JOINS-A04 | leftover:rx
+  JOINS-A05 | leftover:prescri,rx,visit ; empty
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:visit ; empty
+  JOINS-A10 | leftover:prescri,rx
+  OPERATORS-B03 | error:Invalid column name 'UnitCost'. (207)")
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I06 | empty
+  OPERATORS-I10 | leftover:Dr.,LIC-
+  OPERATORS-A02 | empty
+  OPERATORS-A04 | error:Invalid column name 'UnitCost'. (207)")
+  OPERATORS-A08 | leftover:HEA-
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | leftover:prescri ; empty
+  SET_OPERATIONS-I08 | error:Invalid column name 'UnitCost'. (207) (SQLMoreResults)")
+  SET_OPERATIONS-I10 | empty
+  SET_OPERATIONS-A05 | leftover:Dr. ; empty
+  SET_OPERATIONS-A07 | leftover:rx
+  SET_OPERATIONS-A08 | leftover:Visit,rx ; error:Invalid column name 'InventoryReference'. (207) (SQLExecDirectW)")
+  SET_OPERATIONS-A09 | leftover:rx
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Dr.
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-I03 | leftover:MED-
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-A02 | leftover:MED-
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A06 | error:Invalid column name 'UnitCost'. (207)")
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B02 | error:Invalid column name 'UnitCost'. (207)")
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B06 | error:Invalid column name 'UnitCost'. (207)")
+  SUBQUERIES-B07 | leftover:prescri
+  SUBQUERIES-B08 | leftover:Visit ; empty
+  SUBQUERIES-B10 | error:Invalid column name 'UnitCost'. (207)")
+  SUBQUERIES-I02 | leftover:prescri,rx ; empty
+  SUBQUERIES-I07 | error:Invalid column name 'UnitCost'. (207)")
+  SUBQUERIES-I10 | leftover:prescri,rx ; error:Invalid column name 'InventoryReference'. (207)")
+  SUBQUERIES-A03 | leftover:prescri,refill,rx
+  SUBQUERIES-A06 | error:Invalid column name 'UnitCost'. (207)")
+  SUBQUERIES-A08 | leftover:rx
+  SUBQUERIES-A10 | error:Invalid column name 'UnitCost'. (207)")
+== retail: 480 items, 125 flagged
+  AGGREGATES-I04 | leftover:rx
+  AGGREGATES-I05 | leftover:prescri,rx
+  AGGREGATES-I08 | leftover:Visit
+  AGGREGATES-A10 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207)")
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-A01 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207)")
+  ANALYTICAL_FUNCTIONS-A02 | leftover:refill,rx
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A09 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,Doctor,LIC-,Specialt,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-B04 | leftover:MED-
+  CONSTRAINTS-B06 | leftover:Doctor,HEA- ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B07 | leftover:Doctor,HEA- ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B09 | leftover:Doctor,doctor ; error:Cannot find the object "retail.Doctors" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  CONSTRAINTS-I01 | leftover:Doctor,doctor ; error:Could not create constraint or index. See previous errors. (1750)")
+  CONSTRAINTS-I05 | leftover:Doctor
+  CONSTRAINTS-I06 | leftover:MED- ; error:Column name or number of supplied values does not match table definition. (213) (SQLExecDirectW)')
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Customers_Number". The conflict occurred in database "WB_retail", table "retail.Customers", c
+  CONSTRAINTS-A05 | leftover:RX-,encounter,prescri
+  CONSTRAINTS-A07 | leftover:RX- ; error:Conversion failed when converting the varchar value 'RX-ORPHAN' to data type int. (245) (SQLMoreResults)")
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:RX-,encounter,medicat ; error:Invalid column name 'OrderItemReference'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-A10 | leftover:PT-
+  CTE-B03 | leftover:Visit
+  CTE-B06 | leftover:Doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  CTE-B10 | leftover:Rx,rx ; error:Invalid column name 'OrderItemReference'. (207) (SQLExecDirectW)")
+  CTE-I09 | leftover:Visit,rx
+  CTE-A01 | leftover:rx
+  CTE-A06 | leftover:prescri ; error:The statement has been terminated. (3621)')
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:clinic
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:rx
+  DATATYPES-A08 | leftover:rx
+  DDL-B04 | leftover:Doctor ; error:Cannot find the object "retail.Doctors" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Rx
+  DDL-I03 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  DDL-A07 | leftover:Doctor ; error:Column name 'DoctorID' does not exist in the target table or view. (1911) (SQLExecDirectW)")
+  DML-B01 | leftover:PT-
+  DML-B02 | leftover:Doctor,Dr.,Specialt,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  DML-B04 | leftover:visit
+  DML-B05 | empty
+  DML-B06 | leftover:Prescri,prescri
+  DML-B07 | leftover:rx
+  DML-I02 | leftover:rx,telehealth
+  DML-I05 | leftover:Visit
+  DML-I07 | leftover:PT-
+  DML-I08 | leftover:rx
+  DML-I10 | leftover:PT-
+  DML-A01 | leftover:MED-
+  DML-A04 | leftover:Doctor,doctor ; error:Cannot find the object "retail.Doctors" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DML-A08 | leftover:rx ; error:The statement has been terminated. (3621)')
+  DML-A09 | leftover:Doctor,HEA- ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  DQL-B04 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:prescri
+  INTRODUCTION-I02 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:Doctor,rx ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  JOINS-B02 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-B03 | leftover:rx ; error:Invalid column name 'OrderItemReference'. (207) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit
+  JOINS-B07 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-B09 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-B10 | leftover:prescri,rx ; empty
+  JOINS-I01 | leftover:rx
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I05 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-I07 | leftover:rx ; error:Invalid column name 'OrderItemReference'. (207) (SQLExecDirectW)")
+  JOINS-I08 | leftover:prescri,rx
+  JOINS-I10 | leftover:refill,rx
+  JOINS-A02 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-A03 | leftover:Doctor,doctor,visit ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  JOINS-A04 | leftover:rx
+  JOINS-A05 | leftover:prescri,rx,visit ; empty
+  JOINS-A06 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:Doctor,doctor,visit ; error:Invalid column name 'DoctorID'. (207)")
+  JOINS-A10 | leftover:prescri,rx
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I10 | leftover:Doctor,Dr.,LIC-,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  OPERATORS-A02 | empty
+  OPERATORS-A08 | leftover:HEA-
+  SET_OPERATIONS-B06 | leftover:prescri ; empty
+  SET_OPERATIONS-B08 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-I05 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207)")
+  SET_OPERATIONS-I07 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A05 | leftover:Doctor,Dr.,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A07 | leftover:rx
+  SET_OPERATIONS-A08 | leftover:Visit,rx ; error:Invalid column name 'OrderItemReference'. (207) (SQLExecDirectW)")
+  SET_OPERATIONS-A09 | leftover:rx
+  STRING_FUNCTIONS-B02 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Doctor,Dr.,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-I03 | leftover:MED-
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-I09 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A02 | leftover:MED-
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:Doctor,doctor,dr. ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B07 | leftover:prescri
+  SUBQUERIES-B08 | leftover:Visit
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | leftover:prescri,rx ; empty
+  SUBQUERIES-I04 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I10 | leftover:prescri,rx ; error:Invalid column name 'OrderItemReference'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A03 | leftover:prescri,refill,rx
+  SUBQUERIES-A05 | leftover:Doctor,doctor ; error:Invalid object name 'retail.Doctors'. (208) (SQLExecDirectW)")
+  SUBQUERIES-A08 | leftover:rx
+== retail_inventory: 480 items, 112 flagged
+  AGGREGATES-I04 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  AGGREGATES-I05 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  AGGREGATES-I08 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-A02 | leftover:Prescri,prescri,refill,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A04 | empty
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,LIC-,Specialt ; error:Invalid column name 'Specialty'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B04 | leftover:MED-
+  CONSTRAINTS-B06 | leftover:HEA-
+  CONSTRAINTS-B07 | leftover:HEA- ; error:The statement has been terminated. (3621)")
+  CONSTRAINTS-B10 | leftover:Prescri ; error:Cannot find the object "retail_inventory.Prescriptions" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-I05 | leftover:Prescri
+  CONSTRAINTS-I06 | leftover:MED-
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Warehouses_Number". The conflict occurred in database "WB_retail_inventory", table "retail_in
+  CONSTRAINTS-A05 | leftover:Prescri,RX-,encounter,prescri ; error:The object 'retail_inventory.Prescriptions' does not exist or is invalid for this operation. (8197) (SQLExecDirectW)")
+  CONSTRAINTS-A07 | leftover:Prescri,RX- ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:Prescri,RX-,encounter,medicat,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLMoreResults)")
+  CONSTRAINTS-A10 | leftover:PT-
+  CTE-B03 | leftover:Visit ; empty
+  CTE-B10 | leftover:Prescri,Rx,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  CTE-I09 | leftover:Prescri,Visit,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  CTE-A01 | leftover:Prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  CTE-A06 | leftover:prescri ; error:The statement has been terminated. (3621)')
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:Prescri,clinic ; error:Cannot find the object 'Prescriptions', because it does not exist or you do not have permission. (15151) (SQLExecDirectW)")
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DATATYPES-A03 | empty
+  DATATYPES-A08 | leftover:Prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Prescri,Rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DDL-I02 | leftover:Prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-B01 | leftover:PT-
+  DML-B02 | leftover:Dr.,Specialt ; error:Invalid column name 'Specialty'. (207)")
+  DML-B04 | leftover:visit
+  DML-B05 | empty
+  DML-B06 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-B07 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-I02 | leftover:Prescri,prescri,rx,telehealth ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-I05 | leftover:Visit
+  DML-I07 | leftover:PT-
+  DML-I08 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-I10 | leftover:PT-
+  DML-A01 | leftover:MED-
+  DML-A06 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-A08 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DML-A09 | leftover:HEA- ; error:The statement has been terminated. (3621)")
+  DQL-B08 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:Prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-B03 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit ; empty
+  JOINS-B10 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-I01 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I07 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-I08 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-I10 | leftover:Prescri,prescri,refill,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-A03 | leftover:visit
+  JOINS-A04 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-A05 | leftover:Prescri,prescri,rx,visit ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:visit ; empty
+  JOINS-A10 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-B10 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I10 | leftover:Dr.,LIC-
+  OPERATORS-A02 | empty
+  OPERATORS-A08 | leftover:HEA-
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-I10 | empty
+  SET_OPERATIONS-A04 | leftover:Prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A05 | leftover:Dr. ; empty
+  SET_OPERATIONS-A07 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A08 | leftover:Prescri,Visit,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A09 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Dr.
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-I03 | leftover:MED-
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-A02 | leftover:MED-
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B07 | leftover:Prescri,prescri ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B08 | leftover:Visit ; empty
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I10 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SUBQUERIES-A03 | leftover:Prescri,prescri,refill,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+  SUBQUERIES-A08 | leftover:Prescri,prescri,rx ; error:Invalid object name 'retail_inventory.Prescriptions'. (208) (SQLExecDirectW)")
+== retail_logistics: 480 items, 137 flagged
+  AGGREGATES-B10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  AGGREGATES-I04 | leftover:rx
+  AGGREGATES-I05 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  AGGREGATES-I08 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-B05 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-B10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-I10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A02 | leftover:Medicat,medicat,refill,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,LIC-
+  CONSTRAINTS-B04 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-B05 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-B06 | leftover:HEA-
+  CONSTRAINTS-B07 | leftover:HEA-
+  CONSTRAINTS-I06 | leftover:MED-,Medicat ; error:Cannot find the object "retail_logistics.Medications" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Customers_Number". The conflict occurred in database "WB_retail_logistics", table "retail_log
+  CONSTRAINTS-I10 | leftover:Medicat
+  CONSTRAINTS-A05 | leftover:RX-,encounter,prescri ; error:Operand type clash: int is incompatible with date (206) (SQLExecDirectW)')
+  CONSTRAINTS-A07 | leftover:Medicat,RX-,medicat ; error:Operand type clash: int is incompatible with date (206) (SQLMoreResults)')
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:Medicat,RX-,encounter,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLMoreResults)")
+  CONSTRAINTS-A10 | leftover:PT-
+  CTE-B02 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  CTE-B03 | leftover:Visit
+  CTE-B10 | leftover:Medicat,Rx,medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  CTE-I09 | leftover:Visit,rx
+  CTE-A01 | leftover:Medicat,medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  CTE-A06 | leftover:Medicat,prescri ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:clinic
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-B04 | leftover:Medicat ; empty
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:Medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DATATYPES-A08 | leftover:Medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DDL-B06 | leftover:Medicat ; error:Cannot find the object "retail_logistics.Medications" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Rx
+  DDL-I10 | leftover:Medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DDL-A04 | leftover:Medicat
+  DDL-A09 | leftover:Medicat ; error:Cannot find the object "retail_logistics.Medications" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DML-B01 | leftover:PT-
+  DML-B02 | leftover:Dr.
+  DML-B04 | leftover:visit
+  DML-B05 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DML-B06 | leftover:Medicat,Prescri,medicat,prescri ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DML-B07 | leftover:rx
+  DML-I02 | leftover:rx,telehealth ; error:The statement has been terminated. (3621)')
+  DML-I05 | leftover:Visit
+  DML-I06 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DML-I07 | leftover:PT-
+  DML-I08 | leftover:rx ; error:The statement has been terminated. (3621)')
+  DML-I10 | leftover:PT-
+  DML-A01 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLMoreResults)")
+  DML-A02 | leftover:Medicat
+  DML-A08 | leftover:rx ; error:The statement has been terminated. (3621)')
+  DML-A09 | leftover:HEA-
+  DQL-B05 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DQL-B07 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-I09 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DQL-A09 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:Medicat,medicat,prescri ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:Medicat,rx
+  JOINS-B03 | leftover:Medicat,medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit
+  JOINS-B10 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I01 | leftover:Medicat,medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I07 | leftover:Medicat,medicat,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I08 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  JOINS-I10 | leftover:Medicat,medicat,refill,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  JOINS-A03 | leftover:visit
+  JOINS-A04 | leftover:rx
+  JOINS-A05 | leftover:Medicat,medicat,prescri,rx,visit ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:visit
+  JOINS-A10 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-B03 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-B06 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-B07 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I05 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-I09 | empty
+  OPERATORS-I10 | leftover:Dr.,LIC-
+  OPERATORS-A02 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-A04 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  OPERATORS-A08 | leftover:HEA-
+  OPERATORS-A10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-B06 | leftover:Medicat,medicat,prescri ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-B09 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-I08 | leftover:Medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A04 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A05 | leftover:Dr. ; empty
+  SET_OPERATIONS-A07 | leftover:rx
+  SET_OPERATIONS-A08 | leftover:Visit,rx
+  SET_OPERATIONS-A09 | leftover:rx
+  STRING_FUNCTIONS-B01 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B03 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Dr.
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-B10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I03 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I05 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I06 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-I08 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A01 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A02 | leftover:MED-,Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A06 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:dr. ; empty
+  SUBQUERIES-B02 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B06 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B07 | leftover:Medicat,medicat,prescri ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B08 | leftover:Visit
+  SUBQUERIES-B10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I02 | leftover:Medicat,medicat,prescri,rx ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I07 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I10 | leftover:Medicat,medicat,prescri,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A03 | leftover:Medicat,medicat,prescri,refill,rx ; error:Invalid column name 'MedicationID'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A06 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+  SUBQUERIES-A08 | leftover:rx
+  SUBQUERIES-A10 | leftover:Medicat,medicat ; error:Invalid object name 'retail_logistics.Medications'. (208) (SQLExecDirectW)")
+== retail_manufacturing: 480 items, 130 flagged
+  AGGREGATES-I04 | leftover:rx
+  AGGREGATES-I05 | leftover:prescri,rx
+  AGGREGATES-I08 | leftover:Visit
+  AGGREGATES-A10 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207)")
+  ANALYTICAL_FUNCTIONS-B02 | leftover:Visit
+  ANALYTICAL_FUNCTIONS-A01 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207)")
+  ANALYTICAL_FUNCTIONS-A02 | leftover:refill,rx
+  ANALYTICAL_FUNCTIONS-A03 | leftover:clinic
+  ANALYTICAL_FUNCTIONS-A09 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  ANALYTICAL_FUNCTIONS-A10 | leftover:Healthcare,readmi
+  CONSTRAINTS-B02 | leftover:PT-
+  CONSTRAINTS-B03 | leftover:Cardiolog,Doctor,LIC-,Specialt,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  CONSTRAINTS-B04 | leftover:MED-
+  CONSTRAINTS-B06 | leftover:Doctor,HEA- ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B07 | leftover:Doctor,HEA- ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-B09 | leftover:Doctor,doctor ; error:Cannot find the object "retail_manufacturing.Doctors" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  CONSTRAINTS-B10 | error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Rx_MaxQty". The conflict occurred in database "WB_retail_manufacturing", table "retail_manufa
+  CONSTRAINTS-I01 | leftover:Doctor,doctor ; error:Could not create constraint or index. See previous errors. (1750)")
+  CONSTRAINTS-I03 | error:The statement has been terminated. (3621)')
+  CONSTRAINTS-I05 | leftover:Doctor
+  CONSTRAINTS-I06 | leftover:MED-
+  CONSTRAINTS-I09 | leftover:PT- ; error:The ALTER TABLE statement conflicted with the CHECK constraint "CK_Products_Number". The conflict occurred in database "WB_retail_manufacturing", table "retail_
+  CONSTRAINTS-A05 | leftover:RX-,encounter,prescri ; error:Operand type clash: int is incompatible with date (206) (SQLExecDirectW)')
+  CONSTRAINTS-A07 | leftover:RX- ; error:Operand type clash: int is incompatible with date (206) (SQLMoreResults)')
+  CONSTRAINTS-A08 | leftover:Beds,Wards,beds,ward
+  CONSTRAINTS-A09 | leftover:RX-,encounter,medicat ; error:Invalid column name 'MaterialUsageReference'. (207) (SQLExecDirectW)")
+  CONSTRAINTS-A10 | leftover:PT-
+  CTE-B03 | leftover:Visit ; empty
+  CTE-B06 | leftover:Doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  CTE-B10 | leftover:Rx,rx ; error:Invalid column name 'MaterialUsageReference'. (207) (SQLExecDirectW)")
+  CTE-I09 | leftover:Visit,rx
+  CTE-A01 | leftover:rx
+  CTE-A06 | leftover:prescri ; error:The statement has been terminated. (3621)')
+  DATABASE_SCHEMA_USER-B01 | leftover:Amerimed
+  DATABASE_SCHEMA_USER-B03 | leftover:Healthcare
+  DATABASE_SCHEMA_USER-I04 | leftover:clinic
+  DATABASE_SCHEMA_USER-I05 | leftover:clinic
+  DATABASE_SCHEMA_USER-I07 | leftover:clinic
+  DATABASE_SCHEMA_USER-I09 | leftover:clinic
+  DATABASE_SCHEMA_USER-A01 | leftover:Healthcare,clinic
+  DATABASE_SCHEMA_USER-A03 | leftover:clinic
+  DATABASE_SCHEMA_USER-A07 | leftover:Visit
+  DATATYPES-I06 | leftover:PT-
+  DATATYPES-I08 | leftover:rx
+  DATATYPES-A08 | leftover:rx
+  DDL-B04 | leftover:Doctor ; error:Cannot find the object "retail_manufacturing.Doctors" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DDL-B08 | leftover:Visit
+  DDL-B09 | leftover:Rx
+  DDL-I03 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  DDL-A07 | leftover:Doctor ; error:Column name 'DoctorID' does not exist in the target table or view. (1911) (SQLExecDirectW)")
+  DML-B01 | leftover:PT-
+  DML-B02 | leftover:Doctor,Dr.,Specialt,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  DML-B04 | leftover:visit
+  DML-B05 | empty
+  DML-B06 | leftover:Prescri,prescri
+  DML-B07 | leftover:rx
+  DML-I02 | leftover:rx,telehealth
+  DML-I05 | leftover:Visit
+  DML-I07 | leftover:PT-
+  DML-I08 | leftover:rx
+  DML-I10 | leftover:PT-
+  DML-A01 | leftover:MED-
+  DML-A04 | leftover:Doctor,doctor ; error:Cannot find the object "retail_manufacturing.Doctors" because it does not exist or you do not have permissions. (4902) (SQLExecDirectW)')
+  DML-A08 | leftover:rx ; error:The statement has been terminated. (3621)')
+  DML-A09 | leftover:Doctor,HEA- ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  DQL-B04 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  DQL-I03 | leftover:Telehealth,Visit,visit
+  DQL-A10 | leftover:Visit,visit
+  INTRODUCTION-B08 | leftover:prescri
+  INTRODUCTION-I02 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  INTRODUCTION-I07 | leftover:PT-
+  INTRODUCTION-A04 | leftover:Doctor,rx ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  JOINS-B02 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-B03 | leftover:rx ; error:Invalid column name 'MaterialUsageReference'. (207) (SQLExecDirectW)")
+  JOINS-B06 | leftover:visit ; empty
+  JOINS-B07 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-B09 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-B10 | leftover:prescri,rx ; empty
+  JOINS-I01 | leftover:rx
+  JOINS-I03 | empty
+  JOINS-I04 | empty
+  JOINS-I05 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-I07 | leftover:rx ; error:Invalid column name 'MaterialUsageReference'. (207) (SQLExecDirectW)")
+  JOINS-I08 | leftover:prescri,rx
+  JOINS-I10 | leftover:refill,rx
+  JOINS-A02 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-A03 | leftover:Doctor,doctor,visit ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  JOINS-A04 | leftover:rx
+  JOINS-A05 | leftover:prescri,rx,visit ; empty
+  JOINS-A06 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  JOINS-A08 | empty
+  JOINS-A09 | leftover:Doctor,doctor,visit ; error:Invalid column name 'DoctorID'. (207)")
+  JOINS-A10 | leftover:prescri,rx
+  OPERATORS-B06 | empty
+  OPERATORS-B07 | empty
+  OPERATORS-I03 | leftover:PT-
+  OPERATORS-I10 | leftover:Doctor,Dr.,LIC-,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  OPERATORS-A02 | empty
+  OPERATORS-A08 | leftover:HEA-
+  SET_OPERATIONS-B05 | empty
+  SET_OPERATIONS-B06 | leftover:prescri ; empty
+  SET_OPERATIONS-B08 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-I05 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207)")
+  SET_OPERATIONS-I07 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-I10 | empty
+  SET_OPERATIONS-A05 | leftover:Doctor,Dr.,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  SET_OPERATIONS-A07 | leftover:rx
+  SET_OPERATIONS-A08 | leftover:Visit,rx ; error:Invalid column name 'MaterialUsageReference'. (207) (SQLExecDirectW)")
+  SET_OPERATIONS-A09 | leftover:rx
+  STRING_FUNCTIONS-B02 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B05 | leftover:HEA-
+  STRING_FUNCTIONS-B07 | leftover:Doctor,Dr.,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  STRING_FUNCTIONS-B08 | leftover:Clinic
+  STRING_FUNCTIONS-I03 | leftover:MED-
+  STRING_FUNCTIONS-I08 | empty
+  STRING_FUNCTIONS-I09 | leftover:Doctor,doctor ; error:Invalid column name 'DoctorID'. (207) (SQLExecDirectW)")
+  STRING_FUNCTIONS-A02 | leftover:MED-
+  STRING_FUNCTIONS-A04 | leftover:PT-
+  STRING_FUNCTIONS-A08 | leftover:visit
+  STRING_FUNCTIONS-A10 | leftover:Doctor,doctor,dr. ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  SUBQUERIES-B04 | empty
+  SUBQUERIES-B07 | leftover:prescri
+  SUBQUERIES-B08 | leftover:Visit ; empty
+  SUBQUERIES-B10 | empty
+  SUBQUERIES-I02 | leftover:prescri,rx ; empty
+  SUBQUERIES-I04 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  SUBQUERIES-I10 | leftover:prescri,rx ; error:Invalid column name 'MaterialUsageReference'. (207) (SQLExecDirectW)")
+  SUBQUERIES-A03 | leftover:prescri,refill,rx
+  SUBQUERIES-A05 | leftover:Doctor,doctor ; error:Invalid object name 'retail_manufacturing.Doctors'. (208) (SQLExecDirectW)")
+  SUBQUERIES-A08 | leftover:rx

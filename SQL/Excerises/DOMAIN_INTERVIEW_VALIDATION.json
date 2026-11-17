@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "domains": 9,
+  "subtopics_per_domain": 132,
+  "domain_subtopic_pairs": 1188,
+  "levelled_questions": 53460,
+  "per_level": {
+    "Beginner": 17820,
+    "Intermediate": 17820,
+    "Advanced": 17820
+  },
+  "runnable_queries": 32400,
+  "practical_lab_rubrics": 21060,
+  "student_local_links_checked": 5282,
+  "exact_canonical_mock_handouts_checked": 18,
+  "native_evidence_checked": true,
+  "native_query_results_compared": 32400,
+  "native_adversarial_populations": 30,
+  "native_adversarial_results_compared": 1320,
+  "labs_native_executed": false,
+  "note": "Native query comparisons and schema-valid student contracts pass. Open-ended lab extensions require instructor case review and demonstration;not all53,460 questions are automatically graded."
+}

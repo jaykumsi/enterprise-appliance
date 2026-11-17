@@ -1,0 +1,14 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "OIL-OPERATORS-01-B15",
+    "OIL-ANALYTICAL_FUNCTIONS-06-I07",
+    "OIL-AGGREGATES-02-A09"
+  ],
+  "canonical_prompt_sha256": {
+    "OIL-OPERATORS-01-B15": "10e49423982ebe0eaa9c69cbb7c3626448ac43dde60fe891ca9dcf1c60b2de29",
+    "OIL-ANALYTICAL_FUNCTIONS-06-I07": "a50001cf3e4d7af975e34d263cc13af86e9b7906a3d05b1d39e11eff61060636",
+    "OIL-AGGREGATES-02-A09": "9a836c44b0e92bbf491ed87a809288ef9996be8c91fed5ce49c28f642eebbc14"
+  },
+  "coding_minutes": 105
+}

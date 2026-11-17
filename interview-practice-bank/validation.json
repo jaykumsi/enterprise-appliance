@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "errors": [],
+  "subjects": 10,
+  "subtopics": 180,
+  "questions": 8100,
+  "per_level": {
+    "Beginner": 2700,
+    "Intermediate": 2700,
+    "Advanced": 2700
+  },
+  "original_sql_subtopics_preserved": 132,
+  "portable_sql_assertions": 6,
+  "current_canonical_handouts_checked": 12,
+  "native_sql_server_postgresql_snowflake_or_cloud_execution": false,
+  "generated_question_solutions_complete": false,
+  "note": "Structural and export checks plus six portable SQL result assertions; not an independent expert review or execution of every question."
+}

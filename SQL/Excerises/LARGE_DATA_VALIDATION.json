@@ -1,0 +1,276 @@
+{
+  "validation": "Portable constraint, key, foreign-key, string-length, minimum-count and cross-table business consistency checks passed",
+  "sql_server_runtime_executed": false,
+  "domains": [
+    {
+      "domain": "retail",
+      "tables": [
+        {
+          "name": "Customers",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Products",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Orders",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "OrderItems",
+          "role": "Transaction / detail",
+          "rows": 524
+        },
+        {
+          "name": "Payments",
+          "role": "Transaction / detail",
+          "rows": 260
+        }
+      ]
+    },
+    {
+      "domain": "banking",
+      "tables": [
+        {
+          "name": "Branches",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Customers",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Accounts",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Transactions",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "Loans",
+          "role": "Transaction / detail",
+          "rows": 100
+        }
+      ]
+    },
+    {
+      "domain": "pharma",
+      "tables": [
+        {
+          "name": "Suppliers",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Products",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Warehouses",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Batches",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "Inventory",
+          "role": "Transaction / detail",
+          "rows": 408
+        }
+      ]
+    },
+    {
+      "domain": "healthcare",
+      "tables": [
+        {
+          "name": "Patients",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Doctors",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Medications",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Encounters",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "Prescriptions",
+          "role": "Transaction / detail",
+          "rows": 164
+        }
+      ]
+    },
+    {
+      "domain": "oil",
+      "tables": [
+        {
+          "name": "Sites",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Carriers",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Products",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Shipments",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "ShipmentItems",
+          "role": "Transaction / detail",
+          "rows": 492
+        }
+      ]
+    },
+    {
+      "domain": "retail_manufacturing",
+      "tables": [
+        {
+          "name": "Products",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Materials",
+          "role": "Master",
+          "rows": 60
+        },
+        {
+          "name": "ProductionOrders",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "BillOfMaterials",
+          "role": "Transaction / detail",
+          "rows": 200
+        },
+        {
+          "name": "MaterialUsage",
+          "role": "Transaction / detail",
+          "rows": 912
+        }
+      ]
+    },
+    {
+      "domain": "retail_logistics",
+      "tables": [
+        {
+          "name": "Customers",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Carriers",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Shipments",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "ShipmentPackages",
+          "role": "Transaction / detail",
+          "rows": 427
+        },
+        {
+          "name": "TrackingEvents",
+          "role": "Transaction / detail",
+          "rows": 1194
+        }
+      ]
+    },
+    {
+      "domain": "retail_inventory",
+      "tables": [
+        {
+          "name": "Warehouses",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Products",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Suppliers",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "StockMovements",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "StockBalances",
+          "role": "Transaction / detail",
+          "rows": 100
+        }
+      ]
+    },
+    {
+      "domain": "brokerage",
+      "tables": [
+        {
+          "name": "Clients",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "Securities",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "BrokerageAccounts",
+          "role": "Master",
+          "rows": 100
+        },
+        {
+          "name": "TradeOrders",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "Executions",
+          "role": "Transaction / detail",
+          "rows": 304
+        }
+      ]
+    }
+  ]
+}

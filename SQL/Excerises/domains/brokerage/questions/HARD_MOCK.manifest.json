@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "BROKERAGE-CTE-03-A06",
+    "BROKERAGE-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "BROKERAGE-CTE-03-A06": "1bdc3b8434a86f3e639e9ae00f814e286f83f6ebcfe70cc5cedf77ed3c529f2d",
+    "BROKERAGE-JOINS-02-A15": "5967aef57800af9d1ce6b75248650c7ad330bcec405abe1cd113c3885575db76"
+  },
+  "coding_minutes": 120
+}

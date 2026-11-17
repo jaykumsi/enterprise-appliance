@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "RETAIL_LOGISTICS-CTE-03-A06",
+    "RETAIL_LOGISTICS-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "RETAIL_LOGISTICS-CTE-03-A06": "db04878baf1bb4363841ad8a4125aced72030ccd5dfcd5d1f0b7d3ef6b16c34a",
+    "RETAIL_LOGISTICS-JOINS-02-A15": "9fb4a1e49d2c5d7e420c308beeb9e0a6b2d5ff0586fc28b82178c664aea48681"
+  },
+  "coding_minutes": 120
+}

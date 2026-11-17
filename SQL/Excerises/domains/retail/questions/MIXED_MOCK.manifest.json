@@ -1,0 +1,14 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "RETAIL-OPERATORS-01-B15",
+    "RETAIL-ANALYTICAL_FUNCTIONS-06-I07",
+    "RETAIL-AGGREGATES-02-A09"
+  ],
+  "canonical_prompt_sha256": {
+    "RETAIL-OPERATORS-01-B15": "a051e42e064a33cd8f1eae3aa2ff245ff12634e0bf7563bcb63e652df5df89eb",
+    "RETAIL-ANALYTICAL_FUNCTIONS-06-I07": "c9a94b1266c95ba300144fd74885e6eee371e46ca2639f1fc7e6fe6a49387960",
+    "RETAIL-AGGREGATES-02-A09": "57144f31959fadb41cbcf8ddb896a71f74d020f4b9cbfd60843ae6fa0c40bcd2"
+  },
+  "coding_minutes": 105
+}

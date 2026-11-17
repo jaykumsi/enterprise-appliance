@@ -1,0 +1,3794 @@
+{
+  "policy": "One canonical Healthcare/AmeriMed bank. Preserve all 5,940 levelled questions; publish only selected historical applied labs. Original records remain private regeneration inputs.",
+  "primary_questions": 5940,
+  "historical_records_reviewed": 480,
+  "retained_applied_cases": 55,
+  "retired_historical_cases": 425,
+  "decisions": [
+    {
+      "id": "AGGREGATES-B01",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B02",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B03",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B04",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B05",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B06",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B07",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B08",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B09",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-B10",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-B01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I01",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I02",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I03",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I04",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I05",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I06",
+      "topic": "AGGREGATES",
+      "decision": "keep",
+      "replacement": "AGGREGATES-I06",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "AGGREGATES-I07",
+      "topic": "AGGREGATES",
+      "decision": "keep",
+      "replacement": "AGGREGATES-I07",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "AGGREGATES-I08",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I09",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-I01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-I10",
+      "topic": "AGGREGATES",
+      "decision": "keep",
+      "replacement": "AGGREGATES-I10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "AGGREGATES-A01",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A02",
+      "topic": "AGGREGATES",
+      "decision": "keep",
+      "replacement": "AGGREGATES-A02",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "AGGREGATES-A03",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A04",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A05",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A06",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A07",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A08",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A09",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "AGGREGATES-A10",
+      "topic": "AGGREGATES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-AGGREGATES-01-A01",
+      "replacement_topic": "AGGREGATES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B01",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B02",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B03",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B04",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B05",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B06",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B07",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B08",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B09",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-B10",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-B01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I01",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I02",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I03",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I04",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I05",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I06",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I07",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I08",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I09",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-I01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-I10",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "keep",
+      "replacement": "ANALYTICAL_FUNCTIONS-I10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A01",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A02",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "DML-A03",
+      "replacement_topic": "DML",
+      "reason": "Legitimate repeated prescriptions must not be deleted as duplicate clinical records. Practise exact-row cleanup in staging only."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A03",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A04",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A05",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A06",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A07",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A08",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A09",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "ANALYTICAL_FUNCTIONS-A10",
+      "topic": "ANALYTICAL_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-ANALYTICAL_FUNCTIONS-01-A01",
+      "replacement_topic": "ANALYTICAL_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B01",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B02",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B03",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B04",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B05",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B06",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B07",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B08",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-B09",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "CONSTRAINTS-I08",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Patient and doctor display names are not unique business identities. Use the optional NationalID filtered unique index instead."
+    },
+    {
+      "id": "CONSTRAINTS-B10",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-B01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-I01",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-I01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-I02",
+      "topic": "CONSTRAINTS",
+      "decision": "keep",
+      "replacement": "CONSTRAINTS-I02",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "CONSTRAINTS-I03",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-I01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-I04",
+      "topic": "CONSTRAINTS",
+      "decision": "keep",
+      "replacement": "CONSTRAINTS-I04",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "CONSTRAINTS-I05",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-I01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-I06",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-I01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-I07",
+      "topic": "CONSTRAINTS",
+      "decision": "keep",
+      "replacement": "CONSTRAINTS-I07",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "CONSTRAINTS-I08",
+      "topic": "CONSTRAINTS",
+      "decision": "keep",
+      "replacement": "CONSTRAINTS-I08",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "CONSTRAINTS-I09",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-I01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-I10",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-I01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A01",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A02",
+      "topic": "CONSTRAINTS",
+      "decision": "keep",
+      "replacement": "CONSTRAINTS-A02",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "CONSTRAINTS-A03",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A04",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A05",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A06",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A07",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A08",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A09",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CONSTRAINTS-A10",
+      "topic": "CONSTRAINTS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CONSTRAINTS-01-A01",
+      "replacement_topic": "CONSTRAINTS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B01",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B02",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B03",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B04",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B05",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B06",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B07",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B08",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B09",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-B10",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-B01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I01",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I02",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I03",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I04",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I05",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I06",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I07",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I08",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I09",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-I10",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-I01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A01",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A02",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A03",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A04",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A05",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A06",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A07",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A08",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A09",
+      "topic": "CTE",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-CTE-01-A01",
+      "replacement_topic": "CTE",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "CTE-A10",
+      "topic": "CTE",
+      "decision": "keep",
+      "replacement": "CTE-A10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B01",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B02",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B03",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B04",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B05",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B06",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B07",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B08",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B09",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-B10",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-B01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I01",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-I01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I02",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-I01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I03",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-I03",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I04",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-I04",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I05",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-I05",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I06",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-I06",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I07",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-I01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I08",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-I08",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I09",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-I01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-I10",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-I01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A01",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-A01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A02",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-A01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A03",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-A03",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A04",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-A01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A05",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "DATABASE_SCHEMA_USER-I08",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "The old prompt asks for controlled INSERT but its answer performs UPDATE; use the consistent access-control lab."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A06",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-A01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A07",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-A01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A08",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-A01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A09",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATABASE_SCHEMA_USER-01-A01",
+      "replacement_topic": "DATABASE_SCHEMA_USER",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATABASE_SCHEMA_USER-A10",
+      "topic": "DATABASE_SCHEMA_USER",
+      "decision": "keep",
+      "replacement": "DATABASE_SCHEMA_USER-A10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-B01",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B02",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B03",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B04",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B05",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B06",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B07",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B08",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B09",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-B10",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-B01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-I01",
+      "topic": "DATATYPES",
+      "decision": "keep",
+      "replacement": "DATATYPES-I01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-I02",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-I01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-I03",
+      "topic": "DATATYPES",
+      "decision": "keep",
+      "replacement": "DATATYPES-I03",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-I04",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-I01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-I05",
+      "topic": "DATATYPES",
+      "decision": "keep",
+      "replacement": "DATATYPES-I05",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-I06",
+      "topic": "DATATYPES",
+      "decision": "keep",
+      "replacement": "DATATYPES-I06",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-I07",
+      "topic": "DATATYPES",
+      "decision": "keep",
+      "replacement": "DATATYPES-I07",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-I08",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-I01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-I09",
+      "topic": "DATATYPES",
+      "decision": "keep",
+      "replacement": "DATATYPES-I09",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATATYPES-I10",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-I01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A01",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A02",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A03",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "The old LEN-based migration check omits trailing spaces; prefer the current migration lab with explicit storage requirements."
+    },
+    {
+      "id": "DATATYPES-A04",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A05",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A06",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A07",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A08",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A09",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATATYPES-A10",
+      "topic": "DATATYPES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATATYPES-01-A01",
+      "replacement_topic": "DATATYPES",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B01",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B02",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B03",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B04",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B05",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B06",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B07",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B08",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B09",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-B10",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-B01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I01",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I02",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I03",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I04",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I05",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "keep",
+      "replacement": "DATE_FUNCTIONS-I05",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I06",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I07",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I08",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I09",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-I10",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-I01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A01",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A02",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A03",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A04",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A05",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A06",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "keep",
+      "replacement": "DATE_FUNCTIONS-A06",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A07",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "keep",
+      "replacement": "DATE_FUNCTIONS-A07",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A08",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A09",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DATE_FUNCTIONS-A10",
+      "topic": "DATE_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DATE_FUNCTIONS-01-A01",
+      "replacement_topic": "DATE_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B01",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B02",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B03",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B04",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B05",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B06",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B07",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B08",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B09",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-B10",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-B01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I01",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I02",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I03",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I04",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-I04",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DDL-I05",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-I05",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DDL-I06",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I07",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I08",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I09",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-I01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-I10",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-I10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DDL-A01",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-A01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-A02",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-A02",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DDL-A03",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-A01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-A04",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-A04",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DDL-A05",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-A01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-A06",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-A01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-A07",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-A01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-A08",
+      "topic": "DDL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DDL-01-A01",
+      "replacement_topic": "DDL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DDL-A09",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-A09",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DDL-A10",
+      "topic": "DDL",
+      "decision": "keep",
+      "replacement": "DDL-A10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DML-B01",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B02",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B03",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B04",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B05",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B06",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B07",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B08",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B09",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-B10",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-B01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I01",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I02",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I03",
+      "topic": "DML",
+      "decision": "keep",
+      "replacement": "DML-I03",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DML-I04",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I05",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I06",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I07",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-I08",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "The title promises oldest-first deletion but DELETE TOP has no ordering. Prefer the current DML practical assessment."
+    },
+    {
+      "id": "DML-I09",
+      "topic": "DML",
+      "decision": "keep",
+      "replacement": "DML-I09",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DML-I10",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-I01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A01",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A02",
+      "topic": "DML",
+      "decision": "keep",
+      "replacement": "DML-A02",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DML-A03",
+      "topic": "DML",
+      "decision": "keep",
+      "replacement": "DML-A03",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DML-A04",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A05",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A06",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A07",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A08",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A09",
+      "topic": "DML",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DML-01-A01",
+      "replacement_topic": "DML",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DML-A10",
+      "topic": "DML",
+      "decision": "keep",
+      "replacement": "DML-A10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DQL-B01",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B02",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B03",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B04",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B05",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B06",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B07",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B08",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B09",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-B10",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-B01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I01",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I02",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I03",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I04",
+      "topic": "DQL",
+      "decision": "keep",
+      "replacement": "DQL-I04",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "DQL-I05",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I06",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I07",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I08",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I09",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-I10",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-I01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A01",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A02",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A03",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A04",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A05",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A06",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A07",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A08",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A09",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "DQL-A10",
+      "topic": "DQL",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-DQL-01-A01",
+      "replacement_topic": "DQL",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B01",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B02",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B03",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B04",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B05",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B06",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B07",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B08",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B09",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-B10",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-B01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I01",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I02",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I03",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I04",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I05",
+      "topic": "INTRODUCTION",
+      "decision": "keep",
+      "replacement": "INTRODUCTION-I05",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "INTRODUCTION-I06",
+      "topic": "INTRODUCTION",
+      "decision": "keep",
+      "replacement": "INTRODUCTION-I06",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "INTRODUCTION-I07",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I08",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I09",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-I10",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-I01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A01",
+      "topic": "INTRODUCTION",
+      "decision": "keep",
+      "replacement": "INTRODUCTION-A01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "INTRODUCTION-A02",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A03",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A04",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A05",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A06",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A07",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A08",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "INTRODUCTION-A09",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Matching counts alone does not prove the two query results contain the same rows. Prefer the current query comparison assessment."
+    },
+    {
+      "id": "INTRODUCTION-A10",
+      "topic": "INTRODUCTION",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-INTRODUCTION-01-A01",
+      "replacement_topic": "INTRODUCTION",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B01",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B02",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B03",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B04",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B05",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B06",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B07",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B08",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B09",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-B10",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I01",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I02",
+      "topic": "JOINS",
+      "decision": "keep",
+      "replacement": "JOINS-I02",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "JOINS-I03",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I04",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I05",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I06",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I07",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I08",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I09",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-I10",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A01",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A02",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A03",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A04",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A05",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A06",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A07",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A08",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A09",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "JOINS-A10",
+      "topic": "JOINS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B01",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B02",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B03",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B04",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B05",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B06",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B07",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B08",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B09",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-B10",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-B01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I01",
+      "topic": "OPERATORS",
+      "decision": "keep",
+      "replacement": "OPERATORS-I01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "OPERATORS-I02",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I03",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I04",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I05",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I06",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I07",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I08",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I09",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-I10",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-I01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A01",
+      "topic": "OPERATORS",
+      "decision": "keep",
+      "replacement": "OPERATORS-A01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "OPERATORS-A02",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A03",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A04",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A05",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A06",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A07",
+      "topic": "OPERATORS",
+      "decision": "keep",
+      "replacement": "OPERATORS-A07",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "OPERATORS-A08",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A09",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "OPERATORS-A10",
+      "topic": "OPERATORS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-OPERATORS-01-A01",
+      "replacement_topic": "OPERATORS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B01",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B02",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B03",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B04",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B05",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B06",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B07",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B08",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B09",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-B10",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-B01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I01",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I02",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I03",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I04",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I05",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I06",
+      "topic": "SET_OPERATIONS",
+      "decision": "keep",
+      "replacement": "SET_OPERATIONS-I06",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "SET_OPERATIONS-I07",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I08",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I09",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-I01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-I10",
+      "topic": "SET_OPERATIONS",
+      "decision": "keep",
+      "replacement": "SET_OPERATIONS-I10",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "SET_OPERATIONS-A01",
+      "topic": "SET_OPERATIONS",
+      "decision": "keep",
+      "replacement": "SET_OPERATIONS-A01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "SET_OPERATIONS-A02",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Grand-total equality alone cannot establish row-level reconciliation; use the current explicit reconciliation contract."
+    },
+    {
+      "id": "SET_OPERATIONS-A03",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A04",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A05",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A06",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A07",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A08",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A09",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SET_OPERATIONS-A10",
+      "topic": "SET_OPERATIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-SET_OPERATIONS-01-A01",
+      "replacement_topic": "SET_OPERATIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B01",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B02",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B03",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B04",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B05",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B06",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B07",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B08",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B09",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-B10",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-B01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I01",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I02",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I03",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I04",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I05",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I06",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I07",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I08",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "keep",
+      "replacement": "STRING_FUNCTIONS-I08",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I09",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-I10",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-I01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A01",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A02",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A03",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A04",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A05",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A06",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A07",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A08",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A09",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "STRING_FUNCTIONS-A10",
+      "topic": "STRING_FUNCTIONS",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-STRING_FUNCTIONS-01-A01",
+      "replacement_topic": "STRING_FUNCTIONS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B01",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B02",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B03",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B04",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B05",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B06",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B07",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B08",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B09",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-B10",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-B01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I01",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I02",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I03",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I04",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I05",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I06",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I07",
+      "topic": "SUBQUERIES",
+      "decision": "keep",
+      "replacement": "SUBQUERIES-I07",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "SUBQUERIES-I08",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I09",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-I10",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-I01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A01",
+      "topic": "SUBQUERIES",
+      "decision": "keep",
+      "replacement": "SUBQUERIES-A01",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "SUBQUERIES-A02",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A03",
+      "topic": "SUBQUERIES",
+      "decision": "keep",
+      "replacement": "SUBQUERIES-A03",
+      "reason": "Retain as applied SQL Server or clinical-data practice alongside the stronger levelled bank. Historical tier letters do not determine current interview difficulty."
+    },
+    {
+      "id": "SUBQUERIES-A04",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A05",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A06",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A07",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A08",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A09",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    },
+    {
+      "id": "SUBQUERIES-A10",
+      "topic": "SUBQUERIES",
+      "decision": "retire",
+      "replacement": "HEALTHCARE-JOINS-01-A01",
+      "replacement_topic": "JOINS",
+      "reason": "Prefer the current levelled contract with its explicit deliverables and assessment rules; do not publish another overlapping historical exercise."
+    }
+  ]
+}

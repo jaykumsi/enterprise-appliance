@@ -1,0 +1,12 @@
+{
+  "title": "AWS Data Engineering mixed mock - seed 22",
+  "question_ids": [
+    "AWS-IDENTITY-02-B12",
+    "AWS-COMPUTE-01-I05",
+    "AWS-FOUNDATIONS-01-A13"
+  ],
+  "bank_sha256": "540ea8ff4cc72906182eca63e7d7a65b75aae07b618f87fa250d69b5b102fa8f",
+  "total_suggested_minutes": 90,
+  "native_execution_verified": false,
+  "note": "Review/run in the intended runtime before administration. No CoderPad upload was performed."
+}

@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "OIL-CTE-03-A06",
+    "OIL-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "OIL-CTE-03-A06": "31a2ffe96de1e63f6a54e493621b28a0b803a9b34929517bddca3f340f0b1a4d",
+    "OIL-JOINS-02-A15": "e1b15f3cbba98074985d9d28957d91c382abf9425ed91e143d63d50b550534c7"
+  },
+  "coding_minutes": 120
+}

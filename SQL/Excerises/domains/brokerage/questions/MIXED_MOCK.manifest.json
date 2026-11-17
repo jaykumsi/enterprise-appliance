@@ -1,0 +1,14 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "BROKERAGE-OPERATORS-01-B15",
+    "BROKERAGE-ANALYTICAL_FUNCTIONS-06-I07",
+    "BROKERAGE-AGGREGATES-02-A09"
+  ],
+  "canonical_prompt_sha256": {
+    "BROKERAGE-OPERATORS-01-B15": "6a8b993ac69489e027ccb398271d822365b95932aaacd09f34297a84e14f7a44",
+    "BROKERAGE-ANALYTICAL_FUNCTIONS-06-I07": "ccc56bca9d86507a50faae6ca07203b113baae5feac93fb14e9df2336588e68f",
+    "BROKERAGE-AGGREGATES-02-A09": "4f599ac50a227827db45698fc32d04b79ed81ad97b096073a36d3b469bf983de"
+  },
+  "coding_minutes": 105
+}

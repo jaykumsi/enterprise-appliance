@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "RETAIL_INVENTORY-CTE-03-A06",
+    "RETAIL_INVENTORY-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "RETAIL_INVENTORY-CTE-03-A06": "41ff197b594b6ffa10297817b4084dffe6c11d9bfd7f099a69bcad7f8f69674b",
+    "RETAIL_INVENTORY-JOINS-02-A15": "414e8553e4480f19bb43d1fac0754c665eebcc2b56952ddcd12188b2a4c0ee57"
+  },
+  "coding_minutes": 120
+}

@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "RETAIL-CTE-03-A06",
+    "RETAIL-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "RETAIL-CTE-03-A06": "e47f589e9e43f9084085c004af0ccb807f0966cc3207609149218cd35a1d38c4",
+    "RETAIL-JOINS-02-A15": "82953d67695042304f2afcfbbf1fae8ad44181c83fa180d945870336289d794a"
+  },
+  "coding_minutes": 120
+}

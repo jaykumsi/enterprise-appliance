@@ -1,0 +1,25 @@
+{
+  "portableQueriesExecuted": 2052,
+  "portableQueriesSkipped": 63,
+  "independentExactResultChecks": 11,
+  "fixtureDomainsChecked": 9,
+  "connectedTablesChecked": 45,
+  "domainReportsExecuted": 54,
+  "rejectedInvalidWrites": 138,
+  "constraintAnswerMutationsRejected": 225,
+  "scope": "SQLite supplemental relational checks; not SQL Server runtime verification.",
+  "translations": [
+    "map SQL Server schema types to SQLite affinities",
+    "remove Unicode literal N prefix",
+    "convert constant CONVERT(date,...,112) to fixture date text",
+    "convert logistics delivery date to comparable YYYYMMDD text",
+    "remove MAXRECURSION hint",
+    "register YEAR/MONTH and comparison collation"
+  ],
+  "skippedForms": [
+    "TOP",
+    "DATEADD",
+    "CROSS JOIN VALUES alias"
+  ],
+  "sqlServerRuntimeExecuted": false
+}

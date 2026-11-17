@@ -1,0 +1,145 @@
+AGGREGATES-B10 | Average medication cost | What is the average unit cost of all medications, rounded to 2 decimals?
+AGGREGATES-I04 | Average with decimals | On average, how many prescriptions does a patient with prescriptions have? Show the answer with decimals.
+AGGREGATES-I05 | Medication spend by medication | For each medication that was prescribed, show the total quantity and total cost (quantity × unit cost). Top 10 by cost.
+AGGREGATES-A10 | Doctors above their region's average | For each doctor, compare their total charge with the average doctor total in the same patient region. Show only doctors above their region's average.
+ANALYTICAL_FUNCTIONS-B05 | ROW_NUMBER vs RANK vs DENSE_RANK | Show the three ranking functions side by side for medications ordered by unit cost (highest first).
+ANALYTICAL_FUNCTIONS-B10 | Split into quartiles | Split medications into 4 equal price bands (1 = most expensive) using NTILE.
+ANALYTICAL_FUNCTIONS-I10 | Percentile rank | Show each medication's unit cost and its percentile rank (0 = cheapest, 1 = most expensive).
+ANALYTICAL_FUNCTIONS-A01 | Top 2 encounters per doctor | For each doctor, show their 2 highest-charge encounters. If charges tie, keep all tied rows.
+ANALYTICAL_FUNCTIONS-A02 | Delete duplicates, keep one | Interview classic: patients often get the same medication again (refills). Keep only each patient's FIRST prescription for each medication and delete the repeats. (Runs i
+ANALYTICAL_FUNCTIONS-A09 | Monthly rank of doctors | For each month, rank doctors by their total charge that month and show only the top doctor (ties included).
+ANALYTICAL_FUNCTIONS-A10 | Return visits within N days | Find encounters that happened within @Days days of the same patient's previous encounter (a readmission-style check). Use @Days = 145. Show patient, previous date, curren
+CONSTRAINTS-B03 | NOT NULL rejects missing values | Try to insert a doctor without a DoctorName.
+CONSTRAINTS-B04 | UNIQUE constraint | Try to insert a new medication with a MedicationCode that already exists (MED-00001).
+CONSTRAINTS-B05 | CHECK constraint | Try to set a medication's UnitCost to -5.
+CONSTRAINTS-B06 | FOREIGN KEY rejects orphans | Try to add an encounter for PatientID 5000, which does not exist.
+CONSTRAINTS-B07 | DEFAULT fills a value | Insert an encounter without giving a Status, then check which Status it got.
+CONSTRAINTS-B09 | Add a UNIQUE constraint | Make sure no two doctors share the same name by adding a UNIQUE constraint on DoctorName.
+CONSTRAINTS-B10 | Drop a constraint | Add a CHECK that Quantity is at most 365 on Prescriptions, then drop it.
+CONSTRAINTS-I01 | Composite primary key | Create a table healthcare.DoctorSchedule with a primary key on (DoctorID, WorkDate), and show that the same doctor cannot be scheduled twice on one date.
+CONSTRAINTS-I05 | Load order from foreign keys | Why must Patients and Doctors be loaded before Encounters, and Encounters before Prescriptions? Show it by deleting a patient who has encounters.
+CONSTRAINTS-I06 | Disable and re-enable a constraint | Disable the CHECK on Medications.UnitCost, insert a bad row, then re-enable the CHECK WITH CHECK and see what happens.
+CONSTRAINTS-I10 | Default from a function | Add a CreatedOn column to Medications that defaults to today's date.
+CONSTRAINTS-A03 | Self-referencing foreign key | Encounters.ParentEncounterID references Encounters.EncounterID. Try to point encounter 2 to a parent that does not exist, and try to point encounter 2 to itself.
+CONSTRAINTS-A04 | Cascade risks with self-references | Explain why ON DELETE CASCADE cannot be added to the self-referencing key on Encounters. Try it.
+CONSTRAINTS-A05 | Business rule across tables | A CHECK cannot look at other tables. Write a trigger that stops prescriptions being added to Pending encounters, then test it.
+CONSTRAINTS-A07 | Find orphans before adding a FK | A copy of Prescriptions has a row pointing to a missing medication. Find the orphan rows before adding a foreign key.
+CONSTRAINTS-A08 | Cascade an update | Create a small parent/child pair (Wards, Beds) with ON UPDATE CASCADE, change a ward code, and show the beds follow.
+CONSTRAINTS-A09 | Validate before insert with MERGE-free logic | Insert three new prescriptions from a staging list, but only those whose EncounterID and MedicationID exist, so no FK error is raised. Show how many were inserted.
+CTE-B02 | CTE with a calculation | Use a CTE to calculate the pack cost (UnitCost × 30) for each medication, then list those with a pack cost above 6.
+CTE-B06 | Readable column names | Write a CTE with a column list (ID, Name) over Doctors, and select from it.
+CTE-B10 | Prescriptions with names via CTE | Use a CTE that joins Prescriptions to Medications, then return the 5 largest quantities with medication names.
+CTE-I06 | Visit chain from one encounter | Starting from encounter 1, use a recursive CTE to list it and every follow-up below it (follow-ups point to their parent through ParentEncounterID), with a level number.
+CTE-I09 | Patient summary in steps | Build a summary per patient: number of visits, total charge and number of prescriptions, using one CTE per measure.
+CTE-A01 | Top 3 medications by spend per region | For each region, show the 3 medications with the highest total spend (quantity × unit cost).
+CTE-A03 | Full follow-up tree with path | For every original visit (no parent), list its whole follow-up tree with the level and a path like 1 > 96 > 191.
+CTE-A04 | Deepest chain | Which visit chains are the longest? Show the root encounter ID and the depth of its deepest follow-up.
+CTE-A06 | Find missing IDs | Interview classic: find missing numbers in an ID column. Medications 5 and 10 were never prescribed and get deleted (the DELETE is part of the setup and is rolled back he
+DATABASE_SCHEMA_USER-I04 | Database roles | Create a role clinical_reader, give it SELECT on Encounters and Prescriptions, and add report_reader to it.
+DATATYPES-B04 | Decimal precision and scale | What do the numbers in decimal(12,2) mean? Show the precision and scale of Medications.UnitCost.
+DATATYPES-I08 | Money calculation with the right scale | Calculate each prescription's cost (Quantity × UnitCost) and show it as decimal(10,2).
+DATATYPES-A08 | sql_variant and type checking | Show the base type, precision and scale of Charge, UnitCost * Quantity, and AVG(Charge).
+DATE_FUNCTIONS-B04 | Add days | Show each encounter date and a follow-up date 30 days later.
+DDL-B04 | Add a column with a default | Add a column IsActive (bit, not null) to healthcare.Doctors with a default value of 1.
+DDL-B06 | Drop a column | Add a temporary column TempNote to Medications, then drop it.
+DDL-B09 | TRUNCATE vs DELETE | Copy Prescriptions into a temp table #Rx, then remove all rows from the copy with TRUNCATE and check the count.
+DDL-I02 | Computed column | Add a computed column LineTotal to a copy of Prescriptions that equals Quantity × 0.15.
+DDL-I03 | Create a view | Create a view healthcare.vEncounterDetails showing encounter ID, date, patient name, doctor name and charge.
+DDL-I10 | Schema-bound view | Create a view WITH SCHEMABINDING over Medications and confirm it is schema-bound.
+DDL-A04 | Temporal (history) table | Create a system-versioned table healthcare.PriceList that automatically keeps the history of price changes.
+DDL-A07 | Rebuild an index and check fragmentation | Create an index on Encounters(DoctorID), rebuild it, and show its fragmentation percentage.
+DDL-A09 | Change a column type with data | Change Medications.UnitCost from decimal(12,2) to decimal(12,4) and confirm the values are kept.
+DML-B02 | Insert several rows | Add two doctors in one statement: (51, 'Dr. Maya Ross', MD-SIM-000051) and (52, 'Dr. Owen Hart', MD-SIM-000052), both Family Medicine.
+DML-B05 | Update with a calculation | Increase the unit cost of all Vitamin medications by 10%.
+DML-B06 | Delete rows | Delete medications that have never been prescribed.
+DML-B07 | Preview before you change | Before deleting Pending encounters that have no prescriptions, preview how many rows would be affected.
+DML-I02 | Delete using a join | Delete the prescriptions written during telehealth encounters (EncounterType 'C').
+DML-I06 | Conditional update with CASE | Re-price medications: below 0.10 add 0.02, from 0.10 to 0.20 add 0.03, above 0.20 add 0.05. Show how many medications fall in each band.
+DML-I08 | Delete the oldest rows in batches | Delete Closed encounters' prescriptions in batches of 50 rows, and report how many batches it took.
+DML-A01 | MERGE: sync a staging table | Sync medication prices from a staging list: update prices that changed, insert new medications, and report each action.
+DML-A02 | Audit trail with OUTPUT INTO | Raise every Ibuprofen price by 0.01 and write the old and new prices into an audit table in the same statement.
+DML-A04 | Soft delete | Instead of deleting doctors, mark them inactive. Add IsDeleted (bit, default 0), soft-delete doctor 50, and show active doctors count.
+DML-A06 | Error handling in a data change | Move encounter 1's prescriptions to its follow-up, encounter 96, inside TRY/CATCH with a transaction, and roll back on any error.
+DML-A08 | Delete parents and children in order | Delete patient 4 and everything that depends on them (prescriptions, follow-ups and encounters) in the right order.
+DML-A09 | Generate test rows with a set | Insert 20 test encounters for patient 96 in one statement, one per day starting 2025-01-01, with IDs 1001-1020.
+DML-A10 | Lock-friendly update pattern | Update only rows that really change: set Note to 'Follow-up with established primary care physician' for type B encounters, skipping rows that already have that note. Rep
+DQL-B04 | Sort the result | List all doctors sorted by name from A to Z.
+DQL-B05 | Most expensive medications | Show the 5 medications with the highest unit cost.
+DQL-B07 | Rename columns with aliases | List medication names and costs, but show the column headings as Medicine and Price.
+DQL-B08 | Calculated column | For every prescription show the quantity and the quantity doubled (for a two-month supply). Call the new column TwoMonthQty.
+DQL-I03 | Translate codes into words | EncounterType A means Office visit, B means Follow-up, C means Telehealth. Show each encounter ID with the readable visit type.
+DQL-I05 | Missing values with IS NULL | Find encounters that are NOT linked to a parent encounter (ParentEncounterID is empty).
+DQL-I09 | Sort by a calculated value | List medications by the cost of a 30-tablet pack, most expensive first. Show the name and the pack cost.
+DQL-A09 | Percent of total in the same row | Show each medication's unit cost and what percent it is of the total of all unit costs, rounded to 2 decimals. Highest first.
+INTRODUCTION-B06 | What does NULL mean? | What does NULL mean, and how many encounters have a NULL ParentEncounterID?
+INTRODUCTION-B08 | Many-to-many relationship | How are Encounters and Medications related? Which table makes it work?
+INTRODUCTION-I02 | Why not store everything in one table? | Show the problem with a denormalized design: how many times is each doctor's name repeated if we put it on every encounter row?
+INTRODUCTION-A04 | Star schema from OLTP | Sketch how the Amerimed OLTP tables would become a star schema for reporting. Then write the query that would load a FactEncounter table.
+JOINS-B02 | Doctor on each visit | Show each encounter ID with the name of the doctor who saw the patient.
+JOINS-B03 | Medication name on each prescription | List each prescription reference with the medication name and quantity.
+JOINS-B07 | Three tables in one query | Show encounter ID, patient name and doctor name for every encounter.
+JOINS-B09 | RIGHT JOIN | Using RIGHT JOIN, list every doctor and the encounters they handled (doctors with none must still appear).
+JOINS-B10 | Medications never prescribed | Which medications have never been prescribed?
+JOINS-I01 | Four-table chain | For every prescription show the patient name, encounter date, medication name and quantity.
+JOINS-I03 | Self join: follow-up and original visit | Each follow-up encounter points to its original visit through ParentEncounterID. Show the follow-up ID and date next to the original encounter's ID and date.
+JOINS-I04 | Days between visit and follow-up | Using the self join, show how many days passed between each original visit and its follow-up. Show the 5 longest gaps.
+JOINS-I05 | Total charge per doctor | Show each doctor's name, number of encounters and total charge. Highest total first.
+JOINS-I07 | Medication cost per prescription | For each prescription show the medication, quantity, unit cost and the line cost (quantity × unit cost). Most expensive first.
+JOINS-I08 | FULL OUTER JOIN | Show every medication and every prescription in one result: medications never prescribed and prescriptions with no matching medication both appear.
+JOINS-I10 | Patients with repeat prescriptions | Which patients have received 3 or more prescriptions? Show the patient name, the number of prescriptions and the number of different medications.
+JOINS-A02 | Top-earning doctor per region | For each patient region, find the doctor with the highest total charge. If two doctors tie, show both.
+JOINS-A03 | Patient's latest visit with doctor | For every patient who has visited, show their most recent encounter date and the doctor they saw on that visit.
+JOINS-A04 | Joins that multiply rows | Show each patient's total encounter charge and total number of prescriptions. Make sure the charge is not double counted.
+JOINS-A05 | Patients who got a specific drug and visited again | Find patients who were prescribed any 'Ibuprofen' medication and also have a later encounter after that prescription's visit. Show patient name, the prescription visit da
+JOINS-A06 | Doctors with no Open encounters | List doctors who have encounters but none of them are Open.
+JOINS-A08 | Visit chains two levels deep | Some follow-ups have their own follow-ups. Show chains of three visits: original → follow-up → second follow-up, with their IDs.
+JOINS-A09 | Patients sharing a doctor | Find pairs of different patients who were seen by the same doctor. Show the doctor name and both patient names, each pair once.
+JOINS-A10 | Most prescribed medication per encounter type | For each encounter type, show the medication prescribed most often (by number of prescriptions). Keep ties.
+OPERATORS-B03 | Greater than or equal | List medications that cost 0.25 or more per unit.
+OPERATORS-B06 | Starts with (LIKE) | Find medications whose name starts with 'Vitamin'.
+OPERATORS-B07 | Contains (LIKE) | Find medications with '500mg' anywhere in the name.
+OPERATORS-B10 | Arithmetic operators | For each prescription, show quantity, quantity divided by 30 (months of supply), and the remainder of quantity divided by 30.
+OPERATORS-I05 | NOT LIKE | List medications whose strength is NOT measured in mg (the name does not contain 'mg').
+OPERATORS-I10 | String concatenation operator | Show each doctor as 'Name (License)', for example 'Dr. Olivia Chen (LIC-...)'.
+OPERATORS-A02 | Search ignoring case and spaces | Find medications whose name contains 'acid' in any letter case.
+OPERATORS-A04 | Divide-by-zero safety | Show each medication's cost per mg-free unit as UnitCost divided by (MedicationID % 5). Avoid errors when the divisor is 0.
+OPERATORS-A10 | Short-circuit is not guaranteed | Return medications where the name has a space and the text before the first space is longer than 8 characters. Write it safely so CHARINDEX never gives a negative length.
+SET_OPERATIONS-B06 | Medications never prescribed with EXCEPT | List medication IDs that have never been prescribed.
+SET_OPERATIONS-B08 | Column names come from the first query | Combine doctor names and patient names into one list with a column called PersonName and a Role column.
+SET_OPERATIONS-B09 | Matching column count | Combine medication names (text) with medication codes (text) in one column called Label.
+SET_OPERATIONS-I05 | Doctors without Open work | Using EXCEPT, list doctors who have encounters but none that are Open.
+SET_OPERATIONS-I07 | UNION with a join | List every person with an encounter on 2024-12-31: the patient's name and the doctor's name, each on its own row with a Role column.
+SET_OPERATIONS-I08 | Compare two versions of a table | Data check: copy Medications into #MedCopy, change one price, then use EXCEPT to show which rows differ.
+SET_OPERATIONS-A04 | Full outer join with UNION | Without FULL OUTER JOIN, list all medication IDs from Medications and Prescriptions with a flag showing where each appears (Both, Medications only, Prescriptions only).
+SET_OPERATIONS-A05 | Find duplicate rows across tables | Which first names are used by both a patient and a doctor? (Doctor names start with 'Dr. ', which must be removed first.)
+SET_OPERATIONS-A07 | Set compare: identical lists? | Check whether the set of patients with prescriptions is exactly the same as the set of patients with Closed encounters. Return the count of differences in each direction.
+SET_OPERATIONS-A08 | UNION ALL for an audit trail | Build one timeline for patient 1: each encounter (as 'Visit') and each prescription (as 'Prescription') with its date, ordered by date.
+SET_OPERATIONS-A09 | EXCEPT vs NOT EXISTS with duplicates | Compare EXCEPT and NOT EXISTS for 'encounters of patients without prescriptions'. Show the row count from each and explain the difference.
+STRING_FUNCTIONS-B01 | Length of text | Show each medication name and how many characters it has.
+STRING_FUNCTIONS-B02 | Upper and lower case | Show each doctor's name in UPPER case and in lower case.
+STRING_FUNCTIONS-B03 | First characters | Show the first 3 characters of each medication code.
+STRING_FUNCTIONS-B07 | Replace text | Show doctor names without the 'Dr. ' title.
+STRING_FUNCTIONS-B10 | Reverse text | Show each medication code written backwards.
+STRING_FUNCTIONS-I03 | Number from a code | Turn the numeric part of each medication code (MED-00012) into an integer.
+STRING_FUNCTIONS-I05 | Medication strength | Extract the strength (e.g. '500mg') from each medication name. The strength is the second word.
+STRING_FUNCTIONS-I06 | Count a character | Count how many spaces are in each medication name.
+STRING_FUNCTIONS-I08 | Case-insensitive search | Find medications that contain 'ACID' regardless of case, and show the position where it starts.
+STRING_FUNCTIONS-I09 | STRING_AGG | For each doctor, list their patients' names in one comma-separated cell.
+STRING_FUNCTIONS-A01 | Last word of a name | Return the last word of each medication name (e.g. 'tablet'), using REVERSE.
+STRING_FUNCTIONS-A02 | Validate a code format | Find medication codes that are not 'MED-' followed by exactly 5 digits.
+STRING_FUNCTIONS-A06 | Drug family summary | Group medications by family (the first word of the name) and show the number of strengths and the price range as 'min - max'.
+STRING_FUNCTIONS-A10 | Compare text ignoring spaces and case | Check whether ' dr. olivia CHEN ' matches any doctor's name when spaces at the ends and case are ignored.
+SUBQUERIES-B02 | Most expensive medication | Show the name of the medication with the highest unit cost.
+SUBQUERIES-B06 | Subquery in SELECT | Show each medication with the overall average unit cost next to it.
+SUBQUERIES-B07 | Medications that were prescribed | List the medications that appear in at least one prescription.
+SUBQUERIES-B10 | Cheaper than a given drug | List medications cheaper than 'Omeprazole 20mg tablet'.
+SUBQUERIES-I02 | NOT EXISTS | List medications that were never prescribed, using NOT EXISTS.
+SUBQUERIES-I04 | Count in a SELECT subquery | Show each doctor with the number of encounters they handled, using a subquery in SELECT.
+SUBQUERIES-I07 | ANY / ALL | List medications that cost more than ALL Ibuprofen medications.
+SUBQUERIES-I10 | Prescriptions of the costliest medication | List the prescriptions for the most expensive medication that was actually prescribed.
+SUBQUERIES-A01 | NOT IN and the NULL trap | Interview trap: show why NOT IN fails when the list contains NULL. Find encounters that are not a parent of any other encounter, first with NOT IN (wrong), then with NOT 
+SUBQUERIES-A03 | Patients with refills | Find patients who were prescribed the same medication more than once (refills), using EXISTS.
+SUBQUERIES-A05 | Doctors whose every encounter is Closed | List doctors who have encounters and all of them are Closed.
+SUBQUERIES-A06 | Rank without window functions | Rank medications by unit cost (1 = most expensive) using a correlated subquery instead of RANK().
+SUBQUERIES-A08 | Visits after a patient's first prescription | For each patient who has a prescription, count how many of their encounters happened after the encounter of their first prescription.
+SUBQUERIES-A10 | Medications priced above their group's average | Medications come in families (the first word of the name, e.g. 'Ibuprofen'). List medications that cost more than the average of their own family.

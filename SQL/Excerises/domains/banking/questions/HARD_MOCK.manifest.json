@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "BANKING-CTE-03-A06",
+    "BANKING-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "BANKING-CTE-03-A06": "716f1011c63fd8681ee32bca5a346ff4f20b3e59638e284b61f7799202e35c3e",
+    "BANKING-JOINS-02-A15": "f63c8a991fd009755cdbb9eb15a685988f4787bafc3d3b1454ffd95c5202468e"
+  },
+  "coding_minutes": 120
+}

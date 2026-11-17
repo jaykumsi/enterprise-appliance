@@ -1,0 +1,380 @@
+[
+  {
+    "id": "RETAIL-REPORT-01",
+    "domain": "Retail",
+    "prompt": "Return each Customers ID and name, including masters with no Orders, with the count of related events and total known OrderTotal. Order by master ID.",
+    "sql": "SELECT p.CustomerID, p.CustomerName, COUNT(f.OrderID) AS EventCount, SUM(f.OrderTotal) AS TotalAmount FROM [retail].[Customers] p LEFT JOIN [retail].[Orders] f ON p.CustomerID=f.CustomerID GROUP BY p.CustomerID, p.CustomerName ORDER BY p.CustomerID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "RETAIL-REPORT-02",
+    "domain": "Retail",
+    "prompt": "Return Customers with no related Orders using NOT EXISTS.",
+    "sql": "SELECT p.CustomerID, p.CustomerName FROM [retail].[Customers] p WHERE NOT EXISTS (SELECT 1 FROM [retail].[Orders] f WHERE f.CustomerID=p.CustomerID) ORDER BY p.CustomerID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "RETAIL-REPORT-03",
+    "domain": "Retail",
+    "prompt": "Use ROW_NUMBER to select the highest OrderTotal event for each active master. Break ties by OrderID ascending.",
+    "sql": ";WITH Ranked AS (SELECT OrderID,CustomerID,OrderTotal,ROW_NUMBER() OVER(PARTITION BY CustomerID ORDER BY OrderTotal DESC,OrderID) AS rn FROM [retail].[Orders]) SELECT OrderID,CustomerID,OrderTotal FROM Ranked WHERE rn=1 ORDER BY CustomerID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "RETAIL-REPORT-04",
+    "domain": "Retail",
+    "prompt": "Show order ID, customer name, product name, quantity, historical line price and line total for every order line.",
+    "sql": "SELECT o.OrderID,c.CustomerName,p.ProductName,i.Quantity,i.UnitPrice,i.Quantity*i.UnitPrice AS LineTotal FROM [retail].[Orders] o JOIN [retail].[Customers] c ON c.CustomerID=o.CustomerID JOIN [retail].[OrderItems] i ON i.OrderID=o.OrderID JOIN [retail].[Products] p ON p.ProductID=i.ProductID ORDER BY o.OrderID,i.OrderItemID;",
+    "check": "6 rows; line totals sum to 850. Product catalog prices are not substituted for historical line prices."
+  },
+  {
+    "id": "RETAIL-REPORT-05",
+    "domain": "Retail",
+    "prompt": "For all orders, return OrderID, OrderTotal, line total, paid total and outstanding amount. Aggregate lines and payments separately before joining. Preserve unknown OrderTotal; missing lines/payments count as zero.",
+    "sql": ";WITH Lines AS (SELECT OrderID,SUM(Quantity*UnitPrice) AS LineTotal FROM retail.OrderItems GROUP BY OrderID), Paid AS (SELECT OrderID,SUM(PaidAmount) AS PaidTotal FROM retail.Payments GROUP BY OrderID) SELECT o.OrderID,o.OrderTotal,COALESCE(l.LineTotal,0) AS LineTotal,COALESCE(p.PaidTotal,0) AS PaidTotal,o.OrderTotal-COALESCE(p.PaidTotal,0) AS Outstanding FROM retail.Orders o LEFT JOIN Lines l ON l.OrderID=o.OrderID LEFT JOIN Paid p ON p.OrderID=o.OrderID ORDER BY o.OrderID;",
+    "check": "12 rows. Order 1 has line total 100, paid 100, outstanding 0 despite having two lines and two payments. Order 3 outstanding=100. Order 4 outstanding=NULL."
+  },
+  {
+    "id": "RETAIL-REPORT-06",
+    "domain": "Retail",
+    "prompt": "Return product ID and name for products never used on an order line.",
+    "sql": "SELECT p.ProductID,p.ProductName FROM retail.Products p WHERE NOT EXISTS(SELECT 1 FROM retail.OrderItems i WHERE i.ProductID=p.ProductID) ORDER BY p.ProductID;",
+    "check": "Products 4 and 5."
+  },
+  {
+    "id": "BANKING-REPORT-01",
+    "domain": "Banking / Finance",
+    "prompt": "Return each Accounts ID and name, including masters with no Transactions, with the count of related events and total known Amount. Order by master ID.",
+    "sql": "SELECT p.AccountID, p.AccountName, COUNT(f.TransactionID) AS EventCount, SUM(f.Amount) AS TotalAmount FROM [banking].[Accounts] p LEFT JOIN [banking].[Transactions] f ON p.AccountID=f.AccountID GROUP BY p.AccountID, p.AccountName ORDER BY p.AccountID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "BANKING-REPORT-02",
+    "domain": "Banking / Finance",
+    "prompt": "Return Accounts with no related Transactions using NOT EXISTS.",
+    "sql": "SELECT p.AccountID, p.AccountName FROM [banking].[Accounts] p WHERE NOT EXISTS (SELECT 1 FROM [banking].[Transactions] f WHERE f.AccountID=p.AccountID) ORDER BY p.AccountID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "BANKING-REPORT-03",
+    "domain": "Banking / Finance",
+    "prompt": "Use ROW_NUMBER to select the highest Amount event for each active master. Break ties by TransactionID ascending.",
+    "sql": ";WITH Ranked AS (SELECT TransactionID,AccountID,Amount,ROW_NUMBER() OVER(PARTITION BY AccountID ORDER BY Amount DESC,TransactionID) AS rn FROM [banking].[Transactions]) SELECT TransactionID,AccountID,Amount FROM Ranked WHERE rn=1 ORDER BY AccountID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "BANKING-REPORT-04",
+    "domain": "Banking / Finance",
+    "prompt": "Show every transaction ID, account name, customer name, branch name and amount.",
+    "sql": "SELECT t.TransactionID,a.AccountName,c.CustomerName,b.BranchName,t.Amount FROM banking.Transactions t JOIN banking.Accounts a ON a.AccountID=t.AccountID JOIN banking.Customers c ON c.CustomerID=a.CustomerID JOIN banking.Branches b ON b.BranchID=a.BranchID ORDER BY t.TransactionID;",
+    "check": "12 rows; every transaction has a valid account, customer and branch."
+  },
+  {
+    "id": "BANKING-REPORT-05",
+    "domain": "Banking / Finance",
+    "prompt": "Return each customer with transaction amount total through their accounts and principal total through their loans. Aggregate the two measures independently; use zero for no activity.",
+    "sql": ";WITH Activity AS (SELECT a.CustomerID,SUM(t.Amount) AS TransactionTotal FROM banking.Accounts a JOIN banking.Transactions t ON t.AccountID=a.AccountID GROUP BY a.CustomerID), Lending AS (SELECT CustomerID,SUM(Principal) AS PrincipalTotal FROM banking.Loans GROUP BY CustomerID) SELECT c.CustomerID,COALESCE(a.TransactionTotal,0) AS TransactionTotal,COALESCE(l.PrincipalTotal,0) AS PrincipalTotal FROM banking.Customers c LEFT JOIN Activity a ON a.CustomerID=c.CustomerID LEFT JOIN Lending l ON l.CustomerID=c.CustomerID ORDER BY c.CustomerID;",
+    "check": "5 rows. Customer 1: transaction total 420, principal 15000. Principal totals sum to 58000, not multiplied by transaction count."
+  },
+  {
+    "id": "BANKING-REPORT-06",
+    "domain": "Banking / Finance",
+    "prompt": "Show all branches and their account counts, including branches without activity; count accounts rather than transactions.",
+    "sql": "SELECT b.BranchID,b.BranchName,COUNT(a.AccountID) AS AccountCount FROM banking.Branches b LEFT JOIN banking.Accounts a ON a.BranchID=b.BranchID GROUP BY b.BranchID,b.BranchName ORDER BY b.BranchID;",
+    "check": "Five branches, one account each. An account with no transactions still counts."
+  },
+  {
+    "id": "PHARMA-REPORT-01",
+    "domain": "Pharma",
+    "prompt": "Return each Suppliers ID and name, including masters with no Batches, with the count of related events and total known BatchCost. Order by master ID.",
+    "sql": "SELECT p.SupplierID, p.SupplierName, COUNT(f.BatchID) AS EventCount, SUM(f.BatchCost) AS TotalAmount FROM [pharma].[Suppliers] p LEFT JOIN [pharma].[Batches] f ON p.SupplierID=f.SupplierID GROUP BY p.SupplierID, p.SupplierName ORDER BY p.SupplierID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "PHARMA-REPORT-02",
+    "domain": "Pharma",
+    "prompt": "Return Suppliers with no related Batches using NOT EXISTS.",
+    "sql": "SELECT p.SupplierID, p.SupplierName FROM [pharma].[Suppliers] p WHERE NOT EXISTS (SELECT 1 FROM [pharma].[Batches] f WHERE f.SupplierID=p.SupplierID) ORDER BY p.SupplierID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "PHARMA-REPORT-03",
+    "domain": "Pharma",
+    "prompt": "Use ROW_NUMBER to select the highest BatchCost event for each active master. Break ties by BatchID ascending.",
+    "sql": ";WITH Ranked AS (SELECT BatchID,SupplierID,BatchCost,ROW_NUMBER() OVER(PARTITION BY SupplierID ORDER BY BatchCost DESC,BatchID) AS rn FROM [pharma].[Batches]) SELECT BatchID,SupplierID,BatchCost FROM Ranked WHERE rn=1 ORDER BY SupplierID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "PHARMA-REPORT-04",
+    "domain": "Pharma",
+    "prompt": "Show inventory ID, batch code, supplier name, product name, warehouse name and quantity on hand by joining all five tables.",
+    "sql": "SELECT i.InventoryID,b.BatchCode,s.SupplierName,p.ProductName,w.WarehouseName,i.QuantityOnHand FROM pharma.Inventory i JOIN pharma.Batches b ON b.BatchID=i.BatchID JOIN pharma.Suppliers s ON s.SupplierID=b.SupplierID JOIN pharma.Products p ON p.ProductID=b.ProductID JOIN pharma.Warehouses w ON w.WarehouseID=i.WarehouseID ORDER BY i.InventoryID;",
+    "check": "6 inventory rows; quantity total=150."
+  },
+  {
+    "id": "PHARMA-REPORT-05",
+    "domain": "Pharma",
+    "prompt": "List every batch with supplier name, batch cost and total stock across warehouses. Include unstocked batches with zero units; do not multiply batch cost by location count.",
+    "sql": ";WITH Stock AS (SELECT BatchID,SUM(QuantityOnHand) AS Units FROM pharma.Inventory GROUP BY BatchID) SELECT b.BatchID,s.SupplierName,b.BatchCost,COALESCE(x.Units,0) AS StockUnits FROM pharma.Batches b JOIN pharma.Suppliers s ON s.SupplierID=b.SupplierID LEFT JOIN Stock x ON x.BatchID=b.BatchID ORDER BY b.BatchID;",
+    "check": "12 rows. Batch 1 has 50 units and cost 100 once. Batch 4 has zero stock and unknown cost."
+  },
+  {
+    "id": "PHARMA-REPORT-06",
+    "domain": "Pharma",
+    "prompt": "Return warehouses with no inventory rows; distinguish this from a warehouse holding a zero-quantity inventory row.",
+    "sql": "SELECT w.WarehouseID,w.WarehouseName FROM pharma.Warehouses w WHERE NOT EXISTS(SELECT 1 FROM pharma.Inventory i WHERE i.WarehouseID=w.WarehouseID) ORDER BY w.WarehouseID;",
+    "check": "Warehouse 5 only. Warehouse 4 has an inventory row with zero quantity and is not returned."
+  },
+  {
+    "id": "HEALTHCARE-REPORT-01",
+    "domain": "Healthcare",
+    "prompt": "Return each Patients ID and name, including masters with no Encounters, with the count of related events and total known Charge. Order by master ID.",
+    "sql": "SELECT p.PatientID, p.PatientName, COUNT(f.EncounterID) AS EventCount, SUM(f.Charge) AS TotalAmount FROM [healthcare].[Patients] p LEFT JOIN [healthcare].[Encounters] f ON p.PatientID=f.PatientID GROUP BY p.PatientID, p.PatientName ORDER BY p.PatientID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "HEALTHCARE-REPORT-02",
+    "domain": "Healthcare",
+    "prompt": "Return Patients with no related Encounters using NOT EXISTS.",
+    "sql": "SELECT p.PatientID, p.PatientName FROM [healthcare].[Patients] p WHERE NOT EXISTS (SELECT 1 FROM [healthcare].[Encounters] f WHERE f.PatientID=p.PatientID) ORDER BY p.PatientID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "HEALTHCARE-REPORT-03",
+    "domain": "Healthcare",
+    "prompt": "Use ROW_NUMBER to select the highest Charge event for each active master. Break ties by EncounterID ascending.",
+    "sql": ";WITH Ranked AS (SELECT EncounterID,PatientID,Charge,ROW_NUMBER() OVER(PARTITION BY PatientID ORDER BY Charge DESC,EncounterID) AS rn FROM [healthcare].[Encounters]) SELECT EncounterID,PatientID,Charge FROM Ranked WHERE rn=1 ORDER BY PatientID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "HEALTHCARE-REPORT-04",
+    "domain": "Healthcare",
+    "prompt": "Show prescription reference, patient name, doctor name, encounter ID, medication name and prescribed quantity by joining all five tables.",
+    "sql": "SELECT r.PrescriptionReference,p.PatientName,d.DoctorName,e.EncounterID,m.MedicationName,r.Quantity FROM healthcare.Prescriptions r JOIN healthcare.Encounters e ON e.EncounterID=r.EncounterID JOIN healthcare.Patients p ON p.PatientID=e.PatientID JOIN healthcare.Doctors d ON d.DoctorID=e.DoctorID JOIN healthcare.Medications m ON m.MedicationID=r.MedicationID ORDER BY r.PrescriptionID;",
+    "check": "5 rows; no real clinical instructions are implied."
+  },
+  {
+    "id": "HEALTHCARE-REPORT-05",
+    "domain": "Healthcare",
+    "prompt": "Return every encounter, patient name, charge and prescription count. Count prescriptions before joining, so charges appear only once per encounter.",
+    "sql": ";WITH Rx AS (SELECT EncounterID,COUNT(*) AS PrescriptionCount FROM healthcare.Prescriptions GROUP BY EncounterID) SELECT e.EncounterID,p.PatientName,e.Charge,COALESCE(r.PrescriptionCount,0) AS PrescriptionCount FROM healthcare.Encounters e JOIN healthcare.Patients p ON p.PatientID=e.PatientID LEFT JOIN Rx r ON r.EncounterID=e.EncounterID ORDER BY e.EncounterID;",
+    "check": "12 rows. Encounter 1 charge=100 and prescription count=2. Encounter 4 charge=NULL and count=0. Known charges total 1700."
+  },
+  {
+    "id": "HEALTHCARE-REPORT-06",
+    "domain": "Healthcare",
+    "prompt": "Find medication IDs and names never referenced by a prescription.",
+    "sql": "SELECT m.MedicationID,m.MedicationName FROM healthcare.Medications m WHERE NOT EXISTS(SELECT 1 FROM healthcare.Prescriptions p WHERE p.MedicationID=m.MedicationID) ORDER BY m.MedicationID;",
+    "check": "Medication 5 only."
+  },
+  {
+    "id": "OIL-REPORT-01",
+    "domain": "Oil",
+    "prompt": "Return each Sites ID and name, including masters with no Shipments, with the count of related events and total known ShipmentValue. Order by master ID.",
+    "sql": "SELECT p.SiteID, p.SiteName, COUNT(f.ShipmentID) AS EventCount, SUM(f.ShipmentValue) AS TotalAmount FROM [oil].[Sites] p LEFT JOIN [oil].[Shipments] f ON p.SiteID=f.SiteID GROUP BY p.SiteID, p.SiteName ORDER BY p.SiteID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "OIL-REPORT-02",
+    "domain": "Oil",
+    "prompt": "Return Sites with no related Shipments using NOT EXISTS.",
+    "sql": "SELECT p.SiteID, p.SiteName FROM [oil].[Sites] p WHERE NOT EXISTS (SELECT 1 FROM [oil].[Shipments] f WHERE f.SiteID=p.SiteID) ORDER BY p.SiteID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "OIL-REPORT-03",
+    "domain": "Oil",
+    "prompt": "Use ROW_NUMBER to select the highest ShipmentValue event for each active master. Break ties by ShipmentID ascending.",
+    "sql": ";WITH Ranked AS (SELECT ShipmentID,SiteID,ShipmentValue,ROW_NUMBER() OVER(PARTITION BY SiteID ORDER BY ShipmentValue DESC,ShipmentID) AS rn FROM [oil].[Shipments]) SELECT ShipmentID,SiteID,ShipmentValue FROM Ranked WHERE rn=1 ORDER BY SiteID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "OIL-REPORT-04",
+    "domain": "Oil",
+    "prompt": "Show each shipment line with site name, carrier name, product name, quantity and historical price per unit using all five tables.",
+    "sql": "SELECT i.ShipmentItemID,s.SiteName,c.CarrierName,p.ProductName,i.Quantity,i.PricePerUnit FROM oil.ShipmentItems i JOIN oil.Shipments h ON h.ShipmentID=i.ShipmentID JOIN oil.Sites s ON s.SiteID=h.SiteID JOIN oil.Carriers c ON c.CarrierID=h.CarrierID JOIN oil.Products p ON p.ProductID=i.ProductID ORDER BY i.ShipmentItemID;",
+    "check": "5 line rows; each resolves to a site, carrier and product."
+  },
+  {
+    "id": "OIL-REPORT-05",
+    "domain": "Oil",
+    "prompt": "List every shipment, site name, carrier name, recorded shipment value and total of quantity times historical price. Include missing detail as zero; return recorded value minus line total as Difference.",
+    "sql": ";WITH Lines AS (SELECT ShipmentID,SUM(Quantity*PricePerUnit) AS LineTotal FROM oil.ShipmentItems GROUP BY ShipmentID) SELECT h.ShipmentID,s.SiteName,c.CarrierName,h.ShipmentValue,COALESCE(l.LineTotal,0) AS LineTotal,h.ShipmentValue-COALESCE(l.LineTotal,0) AS Difference FROM oil.Shipments h JOIN oil.Sites s ON s.SiteID=h.SiteID JOIN oil.Carriers c ON c.CarrierID=h.CarrierID LEFT JOIN Lines l ON l.ShipmentID=h.ShipmentID ORDER BY h.ShipmentID;",
+    "check": "12 shipments; shipment 1 line total=100 and Difference=0. Shipment 4 Difference=NULL. All known recorded values sum to 1700."
+  },
+  {
+    "id": "OIL-REPORT-06",
+    "domain": "Oil",
+    "prompt": "List carriers never assigned to any shipment, including their Active flag.",
+    "sql": "SELECT c.CarrierID,c.CarrierName,c.Active FROM oil.Carriers c WHERE NOT EXISTS(SELECT 1 FROM oil.Shipments s WHERE s.CarrierID=c.CarrierID) ORDER BY c.CarrierID;",
+    "check": "Carrier 5, Active=0."
+  },
+  {
+    "id": "RETAIL_MANUFACTURING-REPORT-01",
+    "domain": "Retail Manufacturing",
+    "prompt": "Return each Products ID and name, including masters with no ProductionOrders, with the count of related events and total known PlannedCost. Order by master ID.",
+    "sql": "SELECT p.ProductID, p.ProductName, COUNT(f.ProductionOrderID) AS EventCount, SUM(f.PlannedCost) AS TotalAmount FROM [retail_manufacturing].[Products] p LEFT JOIN [retail_manufacturing].[ProductionOrders] f ON p.ProductID=f.ProductID GROUP BY p.ProductID, p.ProductName ORDER BY p.ProductID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "RETAIL_MANUFACTURING-REPORT-02",
+    "domain": "Retail Manufacturing",
+    "prompt": "Return Products with no related ProductionOrders using NOT EXISTS.",
+    "sql": "SELECT p.ProductID, p.ProductName FROM [retail_manufacturing].[Products] p WHERE NOT EXISTS (SELECT 1 FROM [retail_manufacturing].[ProductionOrders] f WHERE f.ProductID=p.ProductID) ORDER BY p.ProductID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "RETAIL_MANUFACTURING-REPORT-03",
+    "domain": "Retail Manufacturing",
+    "prompt": "Use ROW_NUMBER to select the highest PlannedCost event for each active master. Break ties by ProductionOrderID ascending.",
+    "sql": ";WITH Ranked AS (SELECT ProductionOrderID,ProductID,PlannedCost,ROW_NUMBER() OVER(PARTITION BY ProductID ORDER BY PlannedCost DESC,ProductionOrderID) AS rn FROM [retail_manufacturing].[ProductionOrders]) SELECT ProductionOrderID,ProductID,PlannedCost FROM Ranked WHERE rn=1 ORDER BY ProductID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "RETAIL_MANUFACTURING-REPORT-04",
+    "domain": "Retail Manufacturing",
+    "prompt": "For each material-usage row, show production reference, product name, material name, actual quantity and recipe quantity per unit. Join all five tables; keep usage with no matching recipe using a LEFT JOIN to BillOfMaterials.",
+    "sql": "SELECT u.UsageID,o.ProductionReference,p.ProductName,m.MaterialName,u.QuantityUsed,b.QuantityPerUnit FROM retail_manufacturing.MaterialUsage u JOIN retail_manufacturing.ProductionOrders o ON o.ProductionOrderID=u.ProductionOrderID JOIN retail_manufacturing.Products p ON p.ProductID=o.ProductID JOIN retail_manufacturing.Materials m ON m.MaterialID=u.MaterialID LEFT JOIN retail_manufacturing.BillOfMaterials b ON b.ProductID=o.ProductID AND b.MaterialID=u.MaterialID ORDER BY u.UsageID;",
+    "check": "6 rows. Usage 3 is 4.5 units of Fabric for a product requiring 2 units of Fabric per finished unit."
+  },
+  {
+    "id": "RETAIL_MANUFACTURING-REPORT-05",
+    "domain": "Retail Manufacturing",
+    "prompt": "For every production order and recipe material, show planned units, required material quantity, actual usage (zero when missing) and ActualMinusRequired. Multiply recipe quantity by PlannedUnits; aggregate usage for each order and material pair before joining.",
+    "sql": ";WITH Used AS (SELECT ProductionOrderID,MaterialID,SUM(QuantityUsed) AS ActualQuantity FROM retail_manufacturing.MaterialUsage GROUP BY ProductionOrderID,MaterialID) SELECT o.ProductionOrderID,b.MaterialID,o.PlannedUnits,o.PlannedUnits*b.QuantityPerUnit AS RequiredQuantity,COALESCE(u.ActualQuantity,0) AS ActualQuantity,COALESCE(u.ActualQuantity,0)-o.PlannedUnits*b.QuantityPerUnit AS ActualMinusRequired FROM retail_manufacturing.ProductionOrders o JOIN retail_manufacturing.BillOfMaterials b ON b.ProductID=o.ProductID LEFT JOIN Used u ON u.ProductionOrderID=o.ProductionOrderID AND u.MaterialID=b.MaterialID ORDER BY o.ProductionOrderID,b.MaterialID;",
+    "check": "18 rows. Order 2/material 1: planned units=2, required=4, actual=4.5, difference=0.5. Negative values on unstarted orders indicate unrecorded consumption, not necessarily a favorable completed-production variance."
+  },
+  {
+    "id": "RETAIL_MANUFACTURING-REPORT-06",
+    "domain": "Retail Manufacturing",
+    "prompt": "Return materials not used in any bill of materials. Explain how this differs from a recipe material that has not yet been consumed.",
+    "sql": "SELECT m.MaterialID,m.MaterialName FROM retail_manufacturing.Materials m WHERE NOT EXISTS(SELECT 1 FROM retail_manufacturing.BillOfMaterials b WHERE b.MaterialID=m.MaterialID) ORDER BY m.MaterialID;",
+    "check": "Material 5 only. Material 4 is in a recipe even though no actual usage is recorded."
+  },
+  {
+    "id": "RETAIL_LOGISTICS-REPORT-01",
+    "domain": "Retail Logistics",
+    "prompt": "Return each Customers ID and name, including masters with no Shipments, with the count of related events and total known FreightCharge. Order by master ID.",
+    "sql": "SELECT p.CustomerID, p.CustomerName, COUNT(f.ShipmentID) AS EventCount, SUM(f.FreightCharge) AS TotalAmount FROM [retail_logistics].[Customers] p LEFT JOIN [retail_logistics].[Shipments] f ON p.CustomerID=f.CustomerID GROUP BY p.CustomerID, p.CustomerName ORDER BY p.CustomerID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "RETAIL_LOGISTICS-REPORT-02",
+    "domain": "Retail Logistics",
+    "prompt": "Return Customers with no related Shipments using NOT EXISTS.",
+    "sql": "SELECT p.CustomerID, p.CustomerName FROM [retail_logistics].[Customers] p WHERE NOT EXISTS (SELECT 1 FROM [retail_logistics].[Shipments] f WHERE f.CustomerID=p.CustomerID) ORDER BY p.CustomerID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "RETAIL_LOGISTICS-REPORT-03",
+    "domain": "Retail Logistics",
+    "prompt": "Use ROW_NUMBER to select the highest FreightCharge event for each active master. Break ties by ShipmentID ascending.",
+    "sql": ";WITH Ranked AS (SELECT ShipmentID,CustomerID,FreightCharge,ROW_NUMBER() OVER(PARTITION BY CustomerID ORDER BY FreightCharge DESC,ShipmentID) AS rn FROM [retail_logistics].[Shipments]) SELECT ShipmentID,CustomerID,FreightCharge FROM Ranked WHERE rn=1 ORDER BY CustomerID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "RETAIL_LOGISTICS-REPORT-04",
+    "domain": "Retail Logistics",
+    "prompt": "Show every package, its shipment ID, customer name, carrier name, latest tracking status and scan time. Join all five tables, choosing the latest scan by ScanTime descending then TrackingEventID descending. Keep packages with no scan.",
+    "sql": ";WITH Latest AS (SELECT PackageID,EventStatus,ScanTime,ROW_NUMBER() OVER(PARTITION BY PackageID ORDER BY ScanTime DESC,TrackingEventID DESC) AS rn FROM retail_logistics.TrackingEvents) SELECT p.PackageID,h.ShipmentID,c.CustomerName,r.CarrierName,l.EventStatus,l.ScanTime FROM retail_logistics.ShipmentPackages p JOIN retail_logistics.Shipments h ON h.ShipmentID=p.ShipmentID JOIN retail_logistics.Customers c ON c.CustomerID=h.CustomerID JOIN retail_logistics.Carriers r ON r.CarrierID=h.CarrierID LEFT JOIN Latest l ON l.PackageID=p.PackageID AND l.rn=1 ORDER BY p.PackageID;",
+    "check": "5 rows. Package 1 is Delivered; package 2 is InTransit; package 5 has NULL status/time."
+  },
+  {
+    "id": "RETAIL_LOGISTICS-REPORT-05",
+    "domain": "Retail Logistics",
+    "prompt": "Find packages whose first Delivered scan occurred on a calendar date after PromisedDate. Show package ID, promised date and first delivery time. A package without a Delivered scan must not be labeled delivered late.",
+    "sql": ";WITH Delivered AS (SELECT PackageID,MIN(ScanTime) AS DeliveredAt FROM retail_logistics.TrackingEvents WHERE EventStatus='Delivered' GROUP BY PackageID) SELECT p.PackageID,p.PromisedDate,d.DeliveredAt FROM retail_logistics.ShipmentPackages p JOIN Delivered d ON d.PackageID=p.PackageID WHERE CONVERT(date,d.DeliveredAt)>p.PromisedDate ORDER BY p.PackageID;",
+    "check": "Package 3 only: promised 2024-01-04, first delivered 2024-01-05. Package 1 was delivered on its promised date."
+  },
+  {
+    "id": "RETAIL_LOGISTICS-REPORT-06",
+    "domain": "Retail Logistics",
+    "prompt": "Return all shipments with recorded freight charge, declared package count and actual package count. Pre-aggregate package rows; do not join raw tracking scans into monetary totals.",
+    "sql": ";WITH Packages AS (SELECT ShipmentID,COUNT(*) AS ActualPackages FROM retail_logistics.ShipmentPackages GROUP BY ShipmentID) SELECT s.ShipmentID,s.FreightCharge,s.DeclaredPackages,COALESCE(p.ActualPackages,0) AS ActualPackages FROM retail_logistics.Shipments s LEFT JOIN Packages p ON p.ShipmentID=s.ShipmentID ORDER BY s.ShipmentID;",
+    "check": "12 rows; known freight charges total 1700 once each. Shipment 1 declares 1 package but has 2 recorded packages: flag the mismatch rather than changing the seed."
+  },
+  {
+    "id": "RETAIL_INVENTORY-REPORT-01",
+    "domain": "Retail Inventory",
+    "prompt": "Return each Warehouses ID and name, including masters with no StockMovements, with the count of related events and total known MovementValue. Order by master ID.",
+    "sql": "SELECT p.WarehouseID, p.WarehouseName, COUNT(f.MovementID) AS EventCount, SUM(f.MovementValue) AS TotalAmount FROM [retail_inventory].[Warehouses] p LEFT JOIN [retail_inventory].[StockMovements] f ON p.WarehouseID=f.WarehouseID GROUP BY p.WarehouseID, p.WarehouseName ORDER BY p.WarehouseID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "RETAIL_INVENTORY-REPORT-02",
+    "domain": "Retail Inventory",
+    "prompt": "Return Warehouses with no related StockMovements using NOT EXISTS.",
+    "sql": "SELECT p.WarehouseID, p.WarehouseName FROM [retail_inventory].[Warehouses] p WHERE NOT EXISTS (SELECT 1 FROM [retail_inventory].[StockMovements] f WHERE f.WarehouseID=p.WarehouseID) ORDER BY p.WarehouseID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "RETAIL_INVENTORY-REPORT-03",
+    "domain": "Retail Inventory",
+    "prompt": "Use ROW_NUMBER to select the highest MovementValue event for each active master. Break ties by MovementID ascending.",
+    "sql": ";WITH Ranked AS (SELECT MovementID,WarehouseID,MovementValue,ROW_NUMBER() OVER(PARTITION BY WarehouseID ORDER BY MovementValue DESC,MovementID) AS rn FROM [retail_inventory].[StockMovements]) SELECT MovementID,WarehouseID,MovementValue FROM Ranked WHERE rn=1 ORDER BY WarehouseID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "RETAIL_INVENTORY-REPORT-04",
+    "domain": "Retail Inventory",
+    "prompt": "Show every stock movement with warehouse, product, originating supplier, direction, moved units and the matching current on-hand balance using all five tables. Join balances on BOTH warehouse and product.",
+    "sql": "SELECT m.MovementID,w.WarehouseName,p.ProductName,s.SupplierName,m.Direction,m.MovedUnits,b.QuantityOnHand FROM retail_inventory.StockMovements m JOIN retail_inventory.Warehouses w ON w.WarehouseID=m.WarehouseID JOIN retail_inventory.Products p ON p.ProductID=m.ProductID JOIN retail_inventory.Suppliers s ON s.SupplierID=m.SupplierID LEFT JOIN retail_inventory.StockBalances b ON b.WarehouseID=m.WarehouseID AND b.ProductID=m.ProductID ORDER BY m.MovementID;",
+    "check": "12 rows; every seed movement resolves to one warehouse/product snapshot. A warehouse-only join would multiply rows."
+  },
+  {
+    "id": "RETAIL_INVENTORY-REPORT-05",
+    "domain": "Retail Inventory",
+    "prompt": "For each warehouse/product snapshot, show opening quantity, signed net movement (IN positive, OUT negative), expected on-hand, stored on-hand and stored-minus-expected discrepancy. Include snapshots with no movements. All supplied movements are after the opening snapshot.",
+    "sql": ";WITH Net AS (SELECT WarehouseID,ProductID,SUM(CASE Direction WHEN 'IN' THEN MovedUnits ELSE -MovedUnits END) AS NetUnits FROM retail_inventory.StockMovements GROUP BY WarehouseID,ProductID) SELECT b.WarehouseID,b.ProductID,b.OpeningQuantity,COALESCE(n.NetUnits,0) AS NetUnits,b.OpeningQuantity+COALESCE(n.NetUnits,0) AS ExpectedOnHand,b.QuantityOnHand,b.QuantityOnHand-(b.OpeningQuantity+COALESCE(n.NetUnits,0)) AS Discrepancy FROM retail_inventory.StockBalances b LEFT JOIN Net n ON n.WarehouseID=b.WarehouseID AND n.ProductID=b.ProductID ORDER BY b.WarehouseID,b.ProductID;",
+    "check": "11 rows; all discrepancies=0. Warehouse 2/product 4: opening=10, net=8, on-hand=18. Total opening=110 and total on-hand=120."
+  },
+  {
+    "id": "RETAIL_INVENTORY-REPORT-06",
+    "domain": "Retail Inventory",
+    "prompt": "Find warehouse/product balances below ReorderLevel. Show warehouse ID, product name, on-hand units, reorder level, units needed to reach that level and current stock value at the product UnitCost.",
+    "sql": "SELECT b.WarehouseID,p.ProductName,b.QuantityOnHand,b.ReorderLevel,b.ReorderLevel-b.QuantityOnHand AS UnitsToReorder,b.QuantityOnHand*p.UnitCost AS StockValue FROM retail_inventory.StockBalances b JOIN retail_inventory.Products p ON p.ProductID=b.ProductID WHERE b.QuantityOnHand<b.ReorderLevel ORDER BY b.WarehouseID,b.ProductID;",
+    "check": "4 rows: (warehouse,product)=(1,2),(1,3),(3,1),(4,4). Units to reorder are 2,3,1,4 respectively."
+  },
+  {
+    "id": "BROKERAGE-REPORT-01",
+    "domain": "Brokerage",
+    "prompt": "Return each BrokerageAccounts ID and name, including masters with no TradeOrders, with the count of related events and total known EstimatedValue. Order by master ID.",
+    "sql": "SELECT p.AccountID, p.AccountName, COUNT(f.OrderID) AS EventCount, SUM(f.EstimatedValue) AS TotalAmount FROM [brokerage].[BrokerageAccounts] p LEFT JOIN [brokerage].[TradeOrders] f ON p.AccountID=f.AccountID GROUP BY p.AccountID, p.AccountName ORDER BY p.AccountID;",
+    "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
+  },
+  {
+    "id": "BROKERAGE-REPORT-02",
+    "domain": "Brokerage",
+    "prompt": "Return BrokerageAccounts with no related TradeOrders using NOT EXISTS.",
+    "sql": "SELECT p.AccountID, p.AccountName FROM [brokerage].[BrokerageAccounts] p WHERE NOT EXISTS (SELECT 1 FROM [brokerage].[TradeOrders] f WHERE f.AccountID=p.AccountID) ORDER BY p.AccountID;",
+    "check": "Only master ID 5."
+  },
+  {
+    "id": "BROKERAGE-REPORT-03",
+    "domain": "Brokerage",
+    "prompt": "Use ROW_NUMBER to select the highest EstimatedValue event for each active master. Break ties by OrderID ascending.",
+    "sql": ";WITH Ranked AS (SELECT OrderID,AccountID,EstimatedValue,ROW_NUMBER() OVER(PARTITION BY AccountID ORDER BY EstimatedValue DESC,OrderID) AS rn FROM [brokerage].[TradeOrders]) SELECT OrderID,AccountID,EstimatedValue FROM Ranked WHERE rn=1 ORDER BY AccountID;",
+    "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
+  },
+  {
+    "id": "BROKERAGE-REPORT-04",
+    "domain": "Brokerage",
+    "prompt": "Join all five tables to show execution reference, client name, account number, security symbol, order ID, executed quantity, price and gross executed value.",
+    "sql": "SELECT e.ExecutionReference,c.ClientName,a.AccountNumber,s.Symbol,o.OrderID,e.ExecutedQuantity,e.ExecutionPrice,e.ExecutedQuantity*e.ExecutionPrice AS GrossValue FROM brokerage.Executions e JOIN brokerage.TradeOrders o ON o.OrderID=e.OrderID JOIN brokerage.BrokerageAccounts a ON a.AccountID=o.AccountID JOIN brokerage.Clients c ON c.ClientID=a.ClientID JOIN brokerage.Securities s ON s.SecurityID=o.SecurityID ORDER BY e.ExecutionID;",
+    "check": "6 fills; gross executed values total 702.60. All clients and securities are fictitious."
+  },
+  {
+    "id": "BROKERAGE-REPORT-05",
+    "domain": "Brokerage",
+    "prompt": "For all orders, return requested, filled and remaining quantities, gross executed value and quantity-weighted average execution price. Use zero filled/gross for unfilled orders, but NULL average. Identify any overfills.",
+    "sql": ";WITH Fills AS (SELECT OrderID,SUM(ExecutedQuantity) AS FilledQuantity,SUM(ExecutedQuantity*ExecutionPrice) AS GrossValue FROM brokerage.Executions GROUP BY OrderID) SELECT o.OrderID,o.RequestedQuantity,COALESCE(f.FilledQuantity,0) AS FilledQuantity,o.RequestedQuantity-COALESCE(f.FilledQuantity,0) AS RemainingQuantity,COALESCE(f.GrossValue,0) AS GrossValue,f.GrossValue/NULLIF(f.FilledQuantity,0) AS AverageExecutionPrice FROM brokerage.TradeOrders o LEFT JOIN Fills f ON f.OrderID=o.OrderID ORDER BY o.OrderID;",
+    "check": "12 orders. Order 1: filled=1, remaining=0, gross=100.60, average=100.60. Order 2: filled=1.5, remaining=0.5, gross=149, average approximately 99.333333. Order 4 has NULL average. No order is overfilled."
+  },
+  {
+    "id": "BROKERAGE-REPORT-06",
+    "domain": "Brokerage",
+    "prompt": "Return all clients with gross executed value and number of fills through their accounts, including clients without executions. Avoid multiplying order estimates by fill counts.",
+    "sql": ";WITH Activity AS (SELECT a.ClientID,SUM(e.ExecutedQuantity*e.ExecutionPrice) AS GrossValue,COUNT(e.ExecutionID) AS FillCount FROM brokerage.BrokerageAccounts a JOIN brokerage.TradeOrders o ON o.AccountID=a.AccountID JOIN brokerage.Executions e ON e.OrderID=o.OrderID GROUP BY a.ClientID) SELECT c.ClientID,c.ClientName,COALESCE(a.GrossValue,0) AS GrossValue,COALESCE(a.FillCount,0) AS FillCount FROM brokerage.Clients c LEFT JOIN Activity a ON a.ClientID=c.ClientID ORDER BY c.ClientID;",
+    "check": "5 clients. Client 1: gross 249.60 and 4 fills; client 2: 303 and 1 fill; client 3: 150 and 1 fill; clients 4 and 5: zero. These are executed notionals, not balances or profits."
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "status": "metadata_repaired",
+  "commit": "a28cd34bc454af6cf8bf1862fceec17300ed0876",
+  "git_objects_verified": 23,
+  "index_entries": 20,
+  "working_files_checked": 465,
+  "working_files_unchanged": true,
+  "git_object_bytes_unchanged": true,
+  "index_matches_committed_tree": true,
+  "fsck_passed": true,
+  "fsck_output": "",
+  "remote_url_configured": false,
+  "remote_note": "No valid remote URL supplied;left unset rather than guessed.",
+  "restored_files": [
+    ".git/config",
+    ".git/HEAD",
+    ".git/refs/heads/main",
+    ".git/refs/remotes/origin/main",
+    ".git/logs/HEAD",
+    ".git/index"
+  ]
+}

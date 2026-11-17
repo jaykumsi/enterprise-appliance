@@ -1,0 +1,21 @@
+{
+  "database": "Tinitiate_DomainInterview_20261116_v1",
+  "engine": "SQL Server LocalDB",
+  "phase": "native_differential",
+  "executed_queries": 773,
+  "analysis_populations": 720,
+  "errors": [],
+  "reference_source_sha256": {
+    "domain_interview_focus.py": "181dafcbc92705ec07d0c5157fefd06f4d38bc96a196a165a7a6b5412b0eb888",
+    "domain_interview_queries.py": "58fd0a6cdc02e214c27a3e8149111e7823a97d3f7fc5cbd2451670c8d2195cb2",
+    "domain_interview_reconciliation.py": "dc4f05a8eebd15c70547eb11b28428c6eb130cdbaf63d7eca0cba078ec403555",
+    "domain_interview_oracle.py": "b46c0d6d200d377190d3c6644cbb3d03738aa04947edb49fb0d753a30aeb0bb0",
+    "domain_interview_domain_oracle.py": "a3ec04620eae0c539de646dd10577085df2c3cba7aca9ae4800f6d359f81cb79",
+    "domain_interview_edge_tests.py": "09a89ee5ca8b38f8041cfa316df0759765b266b5e3281e4acf6cae940e0d4f28"
+  },
+  "full_expected_result_comparison": true,
+  "report_results_compared": 32400,
+  "unique_python_oracle_calculations": 2552,
+  "adversarial_populations": 30,
+  "adversarial_result_comparisons": 1320
+}
