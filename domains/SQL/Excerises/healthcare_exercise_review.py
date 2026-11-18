@@ -144,7 +144,7 @@ def publish_review(put, rows):
 
 
 def amerimed_menu():
-    prefix = '../SQL/Excerises/domains/healthcare/'
+    prefix = '../domains/SQL/Excerises/domains/healthcare/'
     topics = sorted(KEEP)
     lines = ['# AmeriMed Healthcare SQL assignments', '',
         'AmeriMed and Healthcare share one maintained set of questions and instructor answers. Every link below opens the canonical Healthcare file; edits there apply to both names.', '',

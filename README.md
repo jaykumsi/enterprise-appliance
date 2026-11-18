@@ -1,6 +1,8 @@
 # Tinitiate training
 
-For SQL,start with the [domain assignments and hard interview practice](SQL/Excerises/domains/README.md). The assignments are in the requested `SQL/Excerises/domains/<domain>/questions` folders,with matching private instructor files in each domain's `solutions` folder.
+All tech stacks (SQL, AWS, Azure, GCP, Snowflake, Postgres, Python, full stack) live in [domains](domains/README.md).
+
+For SQL,start with the [domain assignments and hard interview practice](domains/SQL/Excerises/domains/README.md). The assignments are in the requested `domains/SQL/Excerises/domains/<domain>/questions` folders,with matching private instructor files in each domain's `solutions` folder.
 
 Every SQL domain has all132 subtopics,with15 Beginner,15 Intermediate and15 Advanced questions per subtopic:5,940 levelled questions per domain. Practice and interview handouts use identical canonical IDs and prompts.
 

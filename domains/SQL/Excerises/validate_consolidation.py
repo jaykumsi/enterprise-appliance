@@ -32,7 +32,7 @@ def validate():
                 assert qids[q['id']]==expected,q['id']
                 assert aids[q['id']]==expected,q['id']
     # Both names lead to the very same files; every retired ID has a live replacement.
-    standalone=ROOT.parent.parent/'amerimed-healthcare-sql'
+    standalone=ROOT.parent.parent.parent/'amerimed-healthcare-sql'
     assert (standalone/'README.md').read_text(encoding='utf-8')==amerimed_menu()
     for file in [standalone/'README.md',ROOT/'domains/healthcare/questions/BEST_EXERCISES.md',ROOT/'domains/healthcare/solutions/EXERCISE_SELECTION.md']:
         for url in re.findall(r'\]\(([^)]+)\)',file.read_text(encoding='utf-8')):
@@ -44,7 +44,7 @@ def validate():
     assert not list((ROOT/'questions').glob('*.md'))
     assert not list((ROOT/'solutions').glob('*_SOLUTIONS.md'))
     assert not (ROOT/'domains/healthcare/interview_ready').exists()
-    assert not (ROOT.parent.parent/'interview-practice-bank/questions/sql-server').exists()
+    assert not (ROOT.parent.parent.parent/'interview-practice-bank/questions/sql-server').exists()
     for directory in (ROOT/'domains').iterdir():
         if not directory.is_dir():continue
         assert not (directory/'REPORTING_ASSIGNMENTS.md').exists()

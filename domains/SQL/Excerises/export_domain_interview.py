@@ -38,7 +38,7 @@ def fixture(model):
 
 def save(path,questions,models,title):
     path=path.resolve()
-    if not path.is_relative_to(ROOT/'domains'):raise ValueError('Student exports must stay under SQL/Excerises/domains.')
+    if not path.is_relative_to(ROOT/'domains'):raise ValueError('Student exports must stay under domains/SQL/Excerises/domains.')
     path.parent.mkdir(parents=True,exist_ok=True)
     lines=[f'# {title}','',
            'These are the exact practice-bank contracts with unchanged IDs. Setup is outside coding time. '+

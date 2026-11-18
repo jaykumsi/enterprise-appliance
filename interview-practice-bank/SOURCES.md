@@ -1,6 +1,6 @@
 # Source material and technical references
 
-Local source coverage is recorded per subtopic in `coverage.csv`. SQL Server records originate in `../SQL/Excerises/curriculum.json`;native Retail fixture definitions and rows are copied without executing them. Original files are retained. Existing source IDs are recorded on reused core records; new IDs distinguish the expanded interview requirement from the old core exercise.
+Local source coverage is recorded per subtopic in `coverage.csv`. SQL Server records originate in `../domains/SQL/Excerises/curriculum.json`;native Retail fixture definitions and rows are copied without executing them. Original files are retained. Existing source IDs are recorded on reused core records; new IDs distinguish the expanded interview requirement from the old core exercise.
 
 The following primary references were checked while preparing runtime/model boundaries. They are references for instructors,not proof that every generated extension has a validated implementation.
 

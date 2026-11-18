@@ -25,7 +25,7 @@ COMPANIES = {
 }
 
 ROOT=Path(__file__).resolve().parent
-WORKSPACE=ROOT.parent.parent
+WORKSPACE=ROOT.parent.parent.parent
 SOURCE=ROOT/'consolidated_supplements.json'
 REPORT=ROOT/'CONSOLIDATION_REPORT.json'
 SUPPLEMENT='<!-- CONSOLIDATED_UNIQUE_MATERIAL -->'

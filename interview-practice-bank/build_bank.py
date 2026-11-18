@@ -62,7 +62,7 @@ def slug(text):
 
 
 def sql_course():
-    records = json.loads((WORKSPACE / 'SQL/Excerises/curriculum.json').read_text(encoding='utf-8'))
+    records = json.loads((WORKSPACE / 'domains/SQL/Excerises/curriculum.json').read_text(encoding='utf-8'))
     groups = defaultdict(list)
     for r in records:
         if r['domain'] == 'Retail':
@@ -114,7 +114,7 @@ def sql_course():
         rows.append(dict(topic='SUBQUERIES', subtopic=subtopic, family='query',
                          source_id=f'SUBQUERIES-{i:02d}', choices=[dict(core=core,legacy_id=None)],
                          example='Use fixtures/sqlserver_retail.sql. For an empty required-product set,all five fixture customers qualify.'))
-    return dict(name='SQL Server', source='Existing SQL/Excerises/curriculum.json: all 132 original subtopics; explicit subquery extensions from healthcare interview coverage.', rows=rows), references
+    return dict(name='SQL Server', source='Existing domains/SQL/Excerises/curriculum.json: all 132 original subtopics; explicit subquery extensions from healthcare interview coverage.', rows=rows), references
 
 
 def write(path, text):
@@ -131,7 +131,7 @@ def fixture_for(subject, row):
 
 
 def main():
-    # SQL is published only in SQL/Excerises/domains.
+    # SQL is published only in domains/SQL/Excerises/domains.
     courses = dict(SUBJECTS)
     bank = dict(schema_version=1, title='Interview practice and assessment bank',
                 levels=[x[0] for x in LEVELS], questions_per_subtopic_per_level=15,
@@ -204,7 +204,7 @@ def main():
             writer.writeheader()
             writer.writerows(rows)
     lines=['# Master question index','',f'{len(courses)} subjects/shared tracks · {len(coverage)} subtopics · {len(bank["questions"]):,} questions. Every subtopic has 15 questions at each of three levels.','',
-           'SQL is maintained once in [the domain assignments](../SQL/Excerises/domains/README.md).\n\nRead [Student guide](STUDENT_GUIDE.md),[track mapping](TRACKS.md),[CoderPad instructions](CODERPAD.md) and [validation limits](VALIDATION.md).','',
+           'SQL is maintained once in [the domain assignments](../domains/SQL/Excerises/domains/README.md).\n\nRead [Student guide](STUDENT_GUIDE.md),[track mapping](TRACKS.md),[CoderPad instructions](CODERPAD.md) and [validation limits](VALIDATION.md).','',
            '| Subject | Subtopics | Beginner | Intermediate | Advanced | Total |','|---|---:|---:|---:|---:|---:|']
     for subject,course in courses.items():
         count=len(course['rows'])

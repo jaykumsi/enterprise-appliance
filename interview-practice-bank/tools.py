@@ -128,7 +128,7 @@ def validate(bank):
         if len(set(q['core']+'\n'+q['extension'] for q in rows))!=45:
             errors.append(f'{sub}: duplicate complete question')
     # Ensure every original SQL leaf is retained, not just total counts.
-    source=json.loads((ROOT.parent/'SQL/Excerises/curriculum.json').read_text(encoding='utf-8'))
+    source=json.loads((ROOT.parent/'domains/SQL/Excerises/curriculum.json').read_text(encoding='utf-8'))
     original={(r['topic'],r['subtopic']) for r in source}
     actual={(q['topic'],q['subtopic']) for q in questions if q['subject']=='sql-server'}
     if actual and original-actual: errors.append(f'Missing original SQL leaves: {sorted(original-actual)}')

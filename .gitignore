@@ -2,7 +2,7 @@
 __pycache__/
 *.pyc
 
-# Separate repository with its own history; its README only links to SQL/Excerises
+# Separate repository with its own history; its README only links to domains/SQL/Excerises
 amerimed-healthcare-sql/
 
 # OS / editor files
