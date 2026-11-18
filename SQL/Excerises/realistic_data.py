@@ -23,9 +23,9 @@ NOTES = {
     'pharma': 'BatchType A=scheduled run, B=contract run, C=small run. Costs and inventory use 30-tablet packs. Inventory is a 2025-01-10 snapshot; held batches have no released stock.',
     'healthcare': 'EncounterType A=office visit, B=follow-up, C=telehealth. All doctors practice Family Medicine. Medication rows and quantities are illustrative, not prescribing instructions.',
     'oil': 'ShipmentType A=contract delivery, B=spot delivery, C=terminal transfer. Products are packaged lubricants; quantity is containers and value equals item extensions.',
-    'retail_manufacturing': 'ProductionCategory A=standard run, B=replenishment, C=small run. Materials use meters for fabric/thread and pieces for zippers. Planned cost is BOM material cost; actual usage includes small waste variances.',
+    'retail_supply_chain': 'MovementCategory A=receipt, B=dispatch, C=return. Only Closed movements affect balances. Products 1-50 are Bought; 51-100 are Made in the Private Label plant (SupplierID 50) from BillOfMaterials recipes, and their receipts link to the production order. PlannedCost is recipe material cost; actual usage includes small waste variances.',
+    'ecommerce': 'SalesChannel A=mobile app, B=website, C=voice assistant. About 32,000 orders in 2024 with evening and weekend peaks, a Bazaar Days sale on 16-17 July and a holiday rush. Closed orders are delivered and paid, Open orders are in progress (cash-on-delivery ones are unpaid until delivery), Pending orders await payment. OrderTotal equals the sum of its items.',
     'retail_logistics': 'ShipmentCategory A=standard, B=express, C=freight. Declared packages match package rows. Closed shipments are delivered, Open in transit, Pending picked up awaiting linehaul.',
-    'retail_inventory': 'MovementCategory A=receipt, B=dispatch, C=return. Only Closed movements affect balances. Opening plus signed completed movements equals quantity on hand; SupplierID identifies product source.',
     'brokerage': 'RoutingCategory A=market, B=limit, C=scheduled. All orders are Buy per the schema. Securities and prices are fictional; Closed orders fully fill, Open partially fill, Pending have no executions.',
 }
 
@@ -95,7 +95,12 @@ def build(original):
             event(i, account, cat, amount, 1, rng.choice(['Payroll direct deposit', 'ACH transfer received']) if cat == 'A' else rng.choice(['Grocery card purchase', 'Utility bill payment', 'Insurance premium', 'Online purchase']) if cat == 'B' else 'Monthly account service fee')
         master('Loans', 100, lambda i: dict(CustomerID=(i - 1) % 85 + 1, AccountID=(i - 1) % 85 + 1, LoanReference=f'LN-2024-{i:06}', Principal=rng.randrange(20, 601) * 500, AnnualRate=money(rng.uniform(4.75, 12.5))))
 
-    elif slug in ('retail', 'retail_inventory'):
+    elif slug in ('retail_supply_chain', 'ecommerce'):
+        from large_data_extra import large_rows
+        for name, data in large_rows(slug).items():
+            rows[name] = data
+
+    elif slug == 'retail':
         master('Products', 100, lambda i: dict(ProductName=catalog(i)[0], SKU=f'HOME-{i:05}', **({'UnitPrice': catalog(i)[1], 'StockQuantity': rng.randrange(0, 240)} if slug == 'retail' else {'UnitCost': money(catalog(i)[1] * .58)})))
         if slug == 'retail':
             master('Customers', 100, lambda i: dict(CustomerName=person(i), CustomerCode=f'CUS-{i:06}', Region=location(i)[1]))
@@ -112,20 +117,6 @@ def build(original):
                     amounts = [money(paid * .4), money(paid - money(paid * .4))] if i % 7 == 0 else [paid]
                     for offset, amount in enumerate(amounts):
                         add('Payments', OrderID=i, PaymentReference=f'PAY-{i:06}-{offset + 1}', PaidAmount=amount, PaymentDate=(day + timedelta(days=offset + 1)).strftime('%Y%m%d'))
-        else:
-            master('Warehouses', 50, lambda i: dict(WarehouseName=f'{location(i)[0]} {"Fulfillment Center" if i <= 25 else "Store Replenishment Depot"}', WarehouseCode=f'WH-{i:04}', Region=location(i)[1]))
-            master('Suppliers', 50, lambda i: dict(SupplierName=f'{BRANDS[(i - 1) % 25]} {"Home Goods" if i <= 25 else "Retail Supply"}', SupplierCode=f'SUP-{i:04}', LeadTimeDays=rng.choice([3, 5, 7, 10, 14, 21])))
-            # Two products per location, each with a replenishment and later dispatch.
-            for i in range(1, 241):
-                pair = (i - 1) % 100
-                product, warehouse = pair + 1, pair % 50 + 1
-                direction = 'IN' if i <= 100 or i > 200 else 'OUT'
-                units = rng.randrange(24, 97) if direction == 'IN' else rng.randrange(5, 41)
-                event(i, warehouse, 'A' if i <= 100 else 'B' if i <= 200 else 'C', money(units * rows['Products'][product - 1]['UnitCost']), units, 'Supplier replenishment' if i <= 100 else 'Store allocation dispatch' if i <= 200 else 'Resalable customer returns', ProductID=product, SupplierID=(product - 1) % 50 + 1, Direction=direction)
-            for p in range(1, 101):
-                opening = rng.randrange(50, 180)
-                movement = sum((r['MovedUnits'] if r['Direction'] == 'IN' else -r['MovedUnits']) for r in rows['StockMovements'] if r['ProductID'] == p and r['Status'] == 'Closed')
-                add('StockBalances', WarehouseID=(p - 1) % 50 + 1, ProductID=p, OpeningQuantity=opening, QuantityOnHand=opening + movement, ReorderLevel=rng.choice([60, 100, 150]))
 
     elif slug in ('pharma', 'healthcare'):
         table = 'Products' if slug == 'pharma' else 'Medications'
@@ -171,30 +162,6 @@ def build(original):
                 total += qty * price
                 units += qty
             event(i, rng.randrange(1, 51), rng.choice('AABC'), money(total), units, 'Packaged lubricant consignment; sealed containers', CarrierID=rng.randrange(1, 48))
-
-    elif slug == 'retail_manufacturing':
-        # 50 textile SKUs, each with a matched fabric, thread and zipper recipe.
-        textiles = ['Canvas Tote', 'Travel Pouch', 'Cushion Cover', 'Laptop Sleeve', 'Laundry Bag', 'Tool Roll', 'Lunch Bag', 'Garment Bag', 'Toiletry Bag', 'Storage Cube']
-        master('Products', 50, lambda i: dict(ProductName=f'{textiles[(i - 1) // 5]} - {COLORS[(i - 1) % 5]}', ProductCode=f'TEXT-{i:05}', Region=location(i)[1]))
-        for kind, cost in [('Cotton Canvas', 7.4), ('Lining Fabric', 3.2), ('Polyester Thread', .08), ('Coil Zipper 30cm', .85)]:
-            for color in COLORS:
-                for grade in ['Standard', 'Heavy Duty', 'Recycled']:
-                    add('Materials', MaterialName=f'{color} {kind} - {grade}', MaterialCode=f'MAT-{len(rows["Materials"]) + 1:05}', UnitCost=money(cost * {'Standard': 1, 'Heavy Duty': 1.25, 'Recycled': 1.12}[grade]))
-        for p in range(1, 51):
-            color = (p - 1) % 5
-            grade = (p - 1) // 5 % 3
-            for material, qty in [(color * 3 + grade + 1, money(.35 + ((p - 1) // 5) * .12)), (15 + color * 3 + grade + 1, .30), (30 + color * 3 + grade + 1, 3.50), (45 + color * 3 + grade + 1, 1)]:
-                add('BillOfMaterials', ProductID=p, MaterialID=material, QuantityPerUnit=qty)
-        for i in range(1, 241):
-            product = (i - 1) % 50 + 1
-            units = rng.choice([40, 60, 80, 120, 180, 240])
-            recipe = [r for r in rows['BillOfMaterials'] if r['ProductID'] == product]
-            cost = money(sum(r['QuantityPerUnit'] * rows['Materials'][r['MaterialID'] - 1]['UnitCost'] * units for r in recipe))
-            _, day = event(i, product, rng.choice('AABC'), cost, units, 'Cut-and-sew production; material-only cost')
-            if i <= 228:
-                for r in recipe:
-                    used = r['QuantityPerUnit'] * units * (1 if r['MaterialID'] > 45 else rng.choice([1, 1.01, 1.02, 1.04])) * (1 if i <= 204 else .5)
-                    add('MaterialUsage', ProductionOrderID=i, MaterialID=r['MaterialID'], QuantityUsed=money(used), UsageDate=(day + timedelta(days=1)).strftime('%Y%m%d'))
 
     elif slug == 'retail_logistics':
         master('Customers', 100, lambda i: dict(CustomerName=person(i), CustomerCode=f'LC-{i:06}', Region=location(i)[1]))
@@ -266,7 +233,7 @@ def validate_business(slug, rows):
             assert sum(r['QuantityOnHand'] for r in stock) <= batch['PackCount']
             assert all(r['LastCountDate'] >= batch['ManufactureDate'] for r in stock)
         assert all(sum(r['QuantityOnHand'] for r in rows['Inventory'] if r['WarehouseID'] == w['WarehouseID']) <= w['Capacity'] for w in rows['Warehouses'])
-    if slug == 'retail_inventory':
+    if slug == 'retail_supply_chain':
         for balance in rows['StockBalances']:
             movement = [r for r in rows['StockMovements'] if r['WarehouseID'] == balance['WarehouseID'] and r['ProductID'] == balance['ProductID']]
             onhand = balance['OpeningQuantity']
@@ -276,12 +243,30 @@ def validate_business(slug, rows):
                     onhand += r['MovedUnits'] * (1 if r['Direction'] == 'IN' else -1)
                     assert onhand >= 0
             assert onhand == balance['QuantityOnHand']
-    if slug == 'retail_manufacturing':
         for order in rows['ProductionOrders']:
             recipe = {r['MaterialID']: r['QuantityPerUnit'] for r in rows['BillOfMaterials'] if r['ProductID'] == order['ProductID']}
+            assert rows['Products'][order['ProductID'] - 1]['Sourcing'] == 'Made'
             close(order['PlannedCost'], sum(q * rows['Materials'][m - 1]['UnitCost'] * order['PlannedUnits'] for m, q in recipe.items()))
             for usage in (r for r in rows['MaterialUsage'] if r['ProductionOrderID'] == order['ProductionOrderID']):
-                assert usage['MaterialID'] in recipe and usage['UsageDate'] >= order['ProductionDate']
+                assert usage['MaterialID'] in recipe and usage['UsageDate'] >= order['StartDate']
+        for r in rows['StockMovements']:
+            if r['ProductionOrderID']:
+                order = rows['ProductionOrders'][r['ProductionOrderID'] - 1]
+                assert order['ProductionStatus'] == 'Completed' and order['CompletedDate'] <= r['MovementDate'] and order['ProductID'] == r['ProductID']
+    if slug == 'ecommerce':
+        lines, paid, units = {}, {}, {}
+        for x in rows['OrderItems']:
+            lines[x['OrderID']] = lines.get(x['OrderID'], 0) + x['Quantity'] * x['UnitPrice']
+            units[x['OrderID']] = units.get(x['OrderID'], 0) + x['Quantity']
+        for x in rows['Payments']:
+            paid[x['OrderID']] = paid.get(x['OrderID'], 0) + x['PaidAmount']
+        for r in rows['Orders']:
+            close(r['OrderTotal'], lines[r['OrderID']])
+            assert r['ItemCount'] == units[r['OrderID']]
+            if r['OrderStatus'] == 'Closed':
+                close(paid.get(r['OrderID'], 0), r['OrderTotal'])
+            if r['OrderStatus'] == 'Pending':
+                assert r['OrderID'] not in paid
     if slug == 'retail_logistics':
         for shipment in rows['Shipments']:
             packages = [r for r in rows['ShipmentPackages'] if r['ShipmentID'] == shipment['ShipmentID']]

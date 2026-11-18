@@ -11,7 +11,23 @@ This is the canonical SQL interview-practice entry point. Each of the nine domai
 | Pharma |132|1980|1980|1980|[Open assignments](pharma/questions/README.md)|
 | Healthcare |132|1980|1980|1980|[Open assignments](healthcare/questions/README.md)|
 | Oil |132|1980|1980|1980|[Open assignments](oil/questions/README.md)|
-| Retail Manufacturing |132|1980|1980|1980|[Open assignments](retail_manufacturing/questions/README.md)|
+| Retail Supply Chain |132|1980|1980|1980|[Open assignments](retail_supply_chain/questions/README.md)|
 | Retail Logistics |132|1980|1980|1980|[Open assignments](retail_logistics/questions/README.md)|
-| Retail Inventory |132|1980|1980|1980|[Open assignments](retail_inventory/questions/README.md)|
+| E-commerce |132|1980|1980|1980|[Open assignments](ecommerce/questions/README.md)|
 | Brokerage |132|1980|1980|1980|[Open assignments](brokerage/questions/README.md)|
+
+## Online student workbooks
+
+Each company also has an interactive 490-question workbook page: 16 topics plus 10 interview challenges, with expected results to check your work. [All workbooks (hub)](https://claude.ai/artifact/TThNAbyikVuhdmT9KgZDMU) opens the list of all companies.
+
+| Domain | Company | Student workbook |
+|---|---|---|
+| Retail | Maple & Main Stores | [Open workbook](https://claude.ai/artifact/WnQYTiNXBhEtzEWhLrFUSe) |
+| Banking / Finance | Harborstone Bank | [Open workbook](https://claude.ai/artifact/V3aRGRAaw6dZPsoT4RiXJf) |
+| Pharma | Novacrest Pharmaceuticals | [Open workbook](https://claude.ai/artifact/M9fGeCrvKo739tG6oLcpuN) |
+| Healthcare | AmeriMed Healthcare | [Open workbook](https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ) |
+| Oil | Permian Ridge Energy | [Open workbook](https://claude.ai/artifact/LWKJBtBDDJUdvUzjxmYEhs) |
+| Retail Supply Chain | Maple & Main Supply Chain | [Open workbook](https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG) |
+| Retail Logistics | Maple & Main Distribution | [Open workbook](https://claude.ai/artifact/JKUzw82CbPnQmzD8VoAXjQ) |
+| E-commerce | Everyday Bazaar | [Open workbook](https://claude.ai/artifact/6CFXh4beobRHibannRFYqu) |
+| Brokerage | Ridgeline Securities | [Open workbook](https://claude.ai/artifact/3uNmMizam1Vx6vNQ1sQUT2) |

@@ -8,18 +8,37 @@ Build a complete small database, then use the same tables throughout the assignm
 
 **New to SQL? Read [Start here: simple SQL practice instructions](BEGINNER_GUIDE.md).** It explains sample rows, table names, NULL and constraints.
 
+## Online workbooks (claude.ai pages)
+
+Each company also has an interactive 490-question workbook page (16 topics plus 10 interview challenges) and a matching instructor answer key. Share the hub or the student workbook links with students. **The instructor answer keys are private:** do not share them with students or link them from student pages. All pages are private until you share them from the page's Share menu. Pipeline and details: [domain_workbooks/README.md](domain_workbooks/README.md).
+
+| Domain | Company | Student workbook (share with students) | Instructor answer key (PRIVATE) |
+|---|---|---|---|
+| hub | SQL Assignments by Domain | https://claude.ai/artifact/TThNAbyikVuhdmT9KgZDMU | (none: the hub never links answer keys) |
+| healthcare | AmeriMed Healthcare | https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ | https://claude.ai/artifact/5SZGPX2UFKzjskMMEupYSG |
+| banking | Harborstone Bank | https://claude.ai/artifact/V3aRGRAaw6dZPsoT4RiXJf | https://claude.ai/artifact/QJPfAnuK6yL18xrP6He9u1 |
+| brokerage | Ridgeline Securities | https://claude.ai/artifact/3uNmMizam1Vx6vNQ1sQUT2 | https://claude.ai/artifact/DRGrRnFqoEiiq5fePDiFz1 |
+| pharma | Novacrest Pharmaceuticals | https://claude.ai/artifact/M9fGeCrvKo739tG6oLcpuN | https://claude.ai/artifact/5rTwciovgjoapuTmk7Dg18 |
+| oil | Permian Ridge Energy | https://claude.ai/artifact/LWKJBtBDDJUdvUzjxmYEhs | https://claude.ai/artifact/ERyMjdnq8oKyh8Y1hYzzNY |
+| ecommerce | Everyday Bazaar | https://claude.ai/artifact/6CFXh4beobRHibannRFYqu | https://claude.ai/artifact/NrsQtWJFeQmdQZ5GShEaaN |
+| retail | Maple & Main Stores | https://claude.ai/artifact/WnQYTiNXBhEtzEWhLrFUSe | https://claude.ai/artifact/Wn92vMFWQHH9fmWJBrRVPt |
+| retail_supply_chain | Maple & Main Supply Chain | https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG | https://claude.ai/artifact/Eim1cYkgTm7qsYqV7tXXQF |
+| retail_logistics | Maple & Main Distribution | https://claude.ai/artifact/JKUzw82CbPnQmzD8VoAXjQ | https://claude.ai/artifact/MftThQnGGDgvZGLg3b1iBd |
+
 ## Choose a domain
 
-| Domain | Five related tables | Start here |
+On 2026-11-18 the former Retail Inventory and Retail Manufacturing domains were merged into **Retail Supply Chain**, and **E-commerce** (a high-volume online marketplace) was added; there are still nine domains. Most domains have five tables; E-commerce has six and Retail Supply Chain has nine. Every subtopic still has five questions per domain.
+
+| Domain | Related tables | Start here |
 |---|---|---|
 | Retail | Customers, Products, Orders, OrderItems, Payments | [Retail project](domains/retail/README.md) |
 | Banking / Finance | Branches, Customers, Accounts, Transactions, Loans | [Banking project](domains/banking/README.md) |
 | Pharma | Suppliers, Products, Warehouses, Batches, Inventory | [Pharma project](domains/pharma/README.md) |
 | Healthcare | Patients, Doctors, Medications, Encounters, Prescriptions | [Healthcare project](domains/healthcare/README.md) |
 | Oil | Sites, Carriers, Products, Shipments, ShipmentItems | [Oil project](domains/oil/README.md) |
-| Retail Manufacturing | Products, Materials, ProductionOrders, BillOfMaterials, MaterialUsage | [Project brief](domains/retail_manufacturing/README.md) |
+| Retail Supply Chain (Maple & Main Supply Chain) | Warehouses, Suppliers, Products, Materials, BillOfMaterials, ProductionOrders, MaterialUsage, StockMovements, StockBalances (nine) | [Project brief](domains/retail_supply_chain/README.md) |
 | Retail Logistics | Customers, Carriers, Shipments, ShipmentPackages, TrackingEvents | [Project brief](domains/retail_logistics/README.md) |
-| Retail Inventory | Warehouses, Products, Suppliers, StockMovements, StockBalances | [Project brief](domains/retail_inventory/README.md) |
+| E-commerce (Everyday Bazaar) | Customers, Sellers, Products, Orders, OrderItems, Payments (six) | [Project brief](domains/ecommerce/README.md) |
 | Brokerage | Clients, Securities, BrokerageAccounts, TradeOrders, Executions | [Brokerage project](domains/brokerage/README.md) |
 
 Each project includes a relationship diagram, column requirements, real PK/FK dependencies, UNIQUE/CHECK/NOT NULL/default rules, sample rows, assignment navigation, six business reports and a confidence checkpoint. Business identifiers are unique; people or company display names need not be.
@@ -31,7 +50,7 @@ Each domain has a `questions` folder with all 16 topics, reporting questions, ta
 ## Learning sequence
 
 1. **Understand:** identify entities, primary keys, foreign keys and one-to-many relationships from the project brief.
-2. **Build:** complete the five DDL CREATE assignments in the stated dependency order. These create permanent training tables, not disconnected #Work tables.
+2. **Build:** complete the five DDL CREATE steps in the stated dependency order (one table per step; the six- and nine-table domains create one or two tables per step). These create permanent training tables, not disconnected #Work tables.
 3. **Load:** insert the supplied sample data, parents before children. Keep the same tables and data for later topics.
 4. **Protect:** demonstrate rejected duplicates, missing required values, broken CHECK rules and nonexistent parent references.
 5. **Change:** practice INSERT, UPDATE, DELETE, ALTER and DROP in a practice database. Ask the instructor to reset the tables between exercises.
@@ -70,10 +89,10 @@ Use [COVERAGE.md](COVERAGE.md) for subtopic IDs, [DATA_DICTIONARY.md](DATA_DICTI
 
 Use SQL Server 2017+ in a **new disposable training database**. Do not run the revised setup over the old two-table-per-domain fixture.
 
-- **Build-it-yourself path:** use the project brief and DDL Create questions; after all five tables exist, run that domain's `seed.sql` once or complete its Data Setup inserts. Do not do both.
-- **Query-practice path:** an instructor runs [01_create_and_seed.sql](setup/01_create_and_seed.sql), which creates and seeds all 45 tables. Skip CREATE and seed exercises on this already-populated database.
+- **Build-it-yourself path:** use the project brief and DDL Create questions; after all of the domain's tables exist, run that domain's `seed.sql` once or complete its Data Setup inserts. Do not do both.
+- **Query-practice path:** an instructor runs [01_create_and_seed.sql](setup/01_create_and_seed.sql), which creates and seeds all 50 tables. Skip CREATE and seed exercises on this already-populated database.
 - **Baseline check:** run [03_verify_fixture.sql](setup/03_verify_fixture.sql) before grading.
-- **Deliberate reset:** [02_reset_fixture.sql](setup/02_reset_fixture.sql) drops the 45 project tables in reverse dependency order. Use only in the dedicated project database, then recreate and reseed.
+- **Deliberate reset:** [02_reset_fixture.sql](setup/02_reset_fixture.sql) drops the 50 project tables in reverse dependency order. Use only in the dedicated project database, then recreate and reseed.
 
 **Adding only the four new domains to an existing five-table-project database:** run each new domain's `schema_solution.sql` and `seed.sql` once (or complete its CREATE/INSERT assignments). These use new schemas and preserve existing projects. Do not run the global reset to add a domain. The complete setup is for an empty project database.
 

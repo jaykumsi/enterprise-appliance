@@ -1,7 +1,7 @@
 {
   "passed": true,
   "duplicate_published_files": 0,
-  "removed_redundant_files": 175,
+  "removed_redundant_files": 189,
   "healthcare_source_ids_preserved": 480,
   "retained_healthcare_supplement_ids": 55,
   "retired_healthcare_supplement_ids": 425,

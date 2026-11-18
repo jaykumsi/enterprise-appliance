@@ -1,0 +1,14 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "ECOMMERCE-OPERATORS-01-B15",
+    "ECOMMERCE-ANALYTICAL_FUNCTIONS-06-I07",
+    "ECOMMERCE-AGGREGATES-02-A09"
+  ],
+  "canonical_prompt_sha256": {
+    "ECOMMERCE-OPERATORS-01-B15": "4e08c18734cbe0d9b3495f2b290746fa6344e6005a8afad39e75586bf5a9c387",
+    "ECOMMERCE-ANALYTICAL_FUNCTIONS-06-I07": "344b9614e42ef672b3c1f4589a49f5cf9f919725e4d5db3eb75be02b0a10eaf8",
+    "ECOMMERCE-AGGREGATES-02-A09": "e9eb436cb038717b52a069dfcd1f23c199b3a3cb0824c11f7ada005bb61c24df"
+  },
+  "coding_minutes": 105
+}

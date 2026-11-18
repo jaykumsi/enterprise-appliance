@@ -86,7 +86,7 @@ The user has not taught BEGIN TRANSACTION or ROLLBACK TRANSACTION.
 
 ## Curriculum and domains
 
-Each domain uses five connected business tables with appropriate primary keys, foreign keys, UNIQUE, CHECK, NOT NULL and default rules. CREATE questions build those actual tables cumulatively. Subsequent data setup, constraints, DML, queries, joins, functions and reports use the same domain model and sample data.
+Each domain uses connected business tables (five per domain; E-commerce has six and Retail Supply Chain nine, as the user requested on 2026-11-18) with appropriate primary keys, foreign keys, UNIQUE, CHECK, NOT NULL and default rules. CREATE questions build those actual tables cumulatively. Subsequent data setup, constraints, DML, queries, joins, functions and reports use the same domain model and sample data.
 
 Current domains:
 
@@ -95,10 +95,12 @@ Current domains:
 - Pharma: `pharma`
 - Healthcare: `healthcare`
 - Oil: `oil`
-- Retail Manufacturing: `retail_manufacturing`
+- Retail Supply Chain: `retail_supply_chain` (Maple & Main Supply Chain; replaced Retail Inventory and Retail Manufacturing on 2026-11-18)
 - Retail Logistics: `retail_logistics`
-- Retail Inventory: `retail_inventory`
+- E-commerce: `ecommerce` (Everyday Bazaar, a fictional high-volume marketplace; never use a real company name such as Amazon)
 - Brokerage: `brokerage`
+
+Domains with more than five tables keep five questions per subtopic: DDL Create and Data Setup split all tables into five dependency-ordered steps (`build_steps` in `domain_projects.py`), and per-table drills (Alter, Drop, DML, Constraints) use the model's five `focus` tables. Their large practice data comes from `large_data_extra.py` (E-commerce has about 32,000 orders).
 
 Use neutral Brokerage naming and synthetic data without company branding. Brokerage orders are all Buy; RoutingCategory A=market, B=limit, C=scheduled.
 

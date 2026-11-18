@@ -1,0 +1,102 @@
+[
+ {
+  "id": "CHALLENGE-X01",
+  "topic": "CHALLENGES",
+  "title": "Median vs average batch cost",
+  "q": "Averages hide outliers. For each BatchType, show BatchType, Batches (how many batches), AverageValue, MedianValue and AboveMedian (AverageValue minus MedianValue), all money values rounded to 2 decimals. Use the BatchCost column. Sort by BatchType.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT BatchType,\n           COUNT(*) OVER (PARTITION BY BatchType) AS Batches,\n           AVG(BatchCost) OVER (PARTITION BY BatchType) AS AvgV,\n           PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY BatchCost) OVER (PARTITION BY BatchType) AS MedV\n    FROM pharma.Batches\n)\nSELECT BatchType, Batches,\n       CAST(AvgV AS decimal(12,2)) AS AverageValue,\n       CAST(MedV AS decimal(12,2)) AS MedianValue,\n       CAST(AvgV - MedV AS decimal(12,2)) AS AboveMedian\nFROM m\nORDER BY BatchType;",
+  "how": "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.",
+  "a": "**Approach hint:** PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.\n\n**Expected result:** 2 rows\n\n| BatchType | Batches | AverageValue | MedianValue | AboveMedian |\n|---|---|---|---|---|\n| A | 169 | 4068.21 | 3600 | 468.21 |\n| B | 71 | 3790.65 | 3024 | 766.65 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 2
+ },
+ {
+  "id": "CHALLENGE-X02",
+  "topic": "CHALLENGES",
+  "title": "Month-to-date running total",
+  "q": "For Closed batches only, show each ManufactureDate with DayTotal (the sum of BatchCost that day) and MonthToDate: the running total that starts again on the first day of each month. Sort by ManufactureDate.",
+  "sql": "WITH d AS (\n    SELECT ManufactureDate, SUM(BatchCost) AS DayTotal\n    FROM pharma.Batches\n    WHERE Status = 'Closed'\n    GROUP BY ManufactureDate\n)\nSELECT ManufactureDate, DayTotal,\n       SUM(DayTotal) OVER (PARTITION BY YEAR(ManufactureDate), MONTH(ManufactureDate)\n                           ORDER BY ManufactureDate ROWS UNBOUNDED PRECEDING) AS MonthToDate\nFROM d\nORDER BY ManufactureDate;",
+  "how": "Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.",
+  "a": "**Approach hint:** Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.\n\n**Expected result:** 204 rows, first 6 shown\n\n| ManufactureDate | DayTotal | MonthToDate |\n|---|---|---|\n| 2024-01-01 | 1728 | 1728 |\n| 2024-01-02 | 2880 | 4608 |\n| 2024-01-04 | 720 | 5328 |\n| 2024-01-05 | 3744 | 9072 |\n| 2024-01-07 | 1296 | 10368 |\n| 2024-01-08 | 1656 | 12024 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 204
+ },
+ {
+  "id": "CHALLENGE-X03",
+  "topic": "CHALLENGES",
+  "title": "The suppliers behind half of all value",
+  "q": "Rank suppliers by their total batch cost (all batches). Show the smallest group of top suppliers that together make up at least 50% of the grand total: SupplierID, SupplierName, Total and CumulativePct (their running share of the grand total, 2 decimals). Break ties in Total by SupplierID. Sort by Total descending, then SupplierID.",
+  "sql": "WITH t AS (\n    SELECT SupplierID, SUM(BatchCost) AS Total\n    FROM pharma.Batches\n    GROUP BY SupplierID\n), r AS (\n    SELECT SupplierID, Total,\n           SUM(Total) OVER (ORDER BY Total DESC, SupplierID ROWS UNBOUNDED PRECEDING) AS Running,\n           SUM(Total) OVER () AS Grand\n    FROM t\n)\nSELECT r.SupplierID, p.SupplierName, r.Total, CAST(100.0 * r.Running / r.Grand AS decimal(5,2)) AS CumulativePct\nFROM r\nJOIN pharma.Suppliers AS p ON p.SupplierID = r.SupplierID\nWHERE r.Running - r.Total < 0.5 * r.Grand\nORDER BY r.Total DESC, r.SupplierID;",
+  "how": "Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.",
+  "a": "**Approach hint:** Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.\n\n**Expected result:** 17 rows, first 6 shown\n\n| SupplierID | SupplierName | Total | CumulativePct |\n|---|---|---|---|\n| 34 | Granite Peak Health Distribution | 41400 | 4.33 |\n| 40 | Stonebridge Health Distribution | 41184 | 8.63 |\n| 38 | Maple Ridge Health Distribution | 39312 | 12.74 |\n| 10 | Meadow Glen Pharmaceuticals | 31248 | 16.01 |\n| 11 | Silver Birch Pharmaceuticals | 30240 | 19.17 |\n| 30 | Oak Harbor Health Distribution | 30240 | 22.33 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 17
+ },
+ {
+  "id": "CHALLENGE-X04",
+  "topic": "CHALLENGES",
+  "title": "What comes next? BatchType transitions",
+  "q": "Put each supplier's batches in date order (ties by BatchID). For every pair of consecutive batches, the first one's BatchType is the From value and the next one's is the To value. Show FromBatchType, ToBatchType, Transitions (how many times) and PctOfFrom (share of all transitions that start from that From value, 2 decimals). Sort by FromBatchType, then ToBatchType.",
+  "sql": "WITH e AS (\n    SELECT BatchType AS FromV,\n           LEAD(BatchType) OVER (PARTITION BY SupplierID ORDER BY ManufactureDate, BatchID) AS ToV\n    FROM pharma.Batches\n)\nSELECT FromV AS FromBatchType, ToV AS ToBatchType, COUNT(*) AS Transitions,\n       CAST(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (PARTITION BY FromV) AS decimal(5,2)) AS PctOfFrom\nFROM e\nWHERE ToV IS NOT NULL\nGROUP BY FromV, ToV\nORDER BY FromBatchType, ToBatchType;",
+  "how": "LEAD() looks at the next row in the same partition. The last row per partition has no next value, so filter out the NULLs. SUM(COUNT(*)) OVER (PARTITION BY ...) is a window over the grouped result: it gives the group total for the percentage.",
+  "a": "**Approach hint:** LEAD() looks at the next row in the same partition. The last row per partition has no next value, so filter out the NULLs. SUM(COUNT(*)) OVER (PARTITION BY ...) is a window over the grouped result: it gives the group total for the percentage.\n\n**Expected result:** 4 rows\n\n| FromBatchType | ToBatchType | Transitions | PctOfFrom |\n|---|---|---|---|\n| A | A | 94 | 68.61 |\n| A | B | 43 | 31.39 |\n| B | A | 36 | 67.92 |\n| B | B | 17 | 32.08 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ },
+ {
+  "id": "CHALLENGE-X05",
+  "topic": "CHALLENGES",
+  "title": "Longest quiet period per region",
+  "q": "For each Region (from Suppliers), find the longest stretch with no batches at all between two consecutive batch dates in that region. Show Region, GapStart (the last date before the gap), GapEnd (the next date) and DaysWithout. If two gaps tie for longest in a region, show both. Sort by DaysWithout descending, then Region, then GapStart.",
+  "sql": "WITH d AS (\n    SELECT p.Region, e.ManufactureDate AS GapEnd,\n           LAG(e.ManufactureDate) OVER (PARTITION BY p.Region ORDER BY e.ManufactureDate, e.BatchID) AS GapStart\n    FROM pharma.Batches AS e\n    JOIN pharma.Suppliers AS p ON p.SupplierID = e.SupplierID\n), r AS (\n    SELECT Region, GapStart, GapEnd, DATEDIFF(day, GapStart, GapEnd) AS DaysWithout,\n           RANK() OVER (PARTITION BY Region ORDER BY DATEDIFF(day, GapStart, GapEnd) DESC) AS rk\n    FROM d\n    WHERE GapStart IS NOT NULL\n)\nSELECT Region, GapStart, GapEnd, DaysWithout\nFROM r\nWHERE rk = 1\nORDER BY DaysWithout DESC, Region, GapStart;",
+  "how": "LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.",
+  "a": "**Approach hint:** LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.\n\n**Expected result:** 14 rows, first 6 shown\n\n| Region | GapStart | GapEnd | DaysWithout |\n|---|---|---|---|\n| East | 2024-01-05 | 2024-02-02 | 28 |\n| East | 2024-02-12 | 2024-03-11 | 28 |\n| East | 2024-03-21 | 2024-04-18 | 28 |\n| East | 2024-08-21 | 2024-09-18 | 28 |\n| East | 2024-09-28 | 2024-10-26 | 28 |\n| North | 2024-07-09 | 2024-07-25 | 16 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 14
+ },
+ {
+  "id": "CHALLENGE-X06",
+  "topic": "CHALLENGES",
+  "title": "Warehouse utilisation",
+  "q": "Each warehouse has a Capacity. Using Inventory.QuantityOnHand, show WarehouseName, Capacity, OnHand, UtilisationPct (OnHand ÷ Capacity × 100, 2 decimals) and Band: 'Over capacity' (above 100%), 'Tight' (80–100%) or 'OK'. Include warehouses with no inventory (OnHand 0). Sort by UtilisationPct descending, then WarehouseName.",
+  "sql": "WITH i AS (\n    SELECT WarehouseID, SUM(QuantityOnHand) AS OnHand\n    FROM pharma.Inventory\n    GROUP BY WarehouseID\n)\nSELECT w.WarehouseName, w.Capacity, COALESCE(i.OnHand, 0) AS OnHand,\n       CAST(100.0 * COALESCE(i.OnHand, 0) / w.Capacity AS decimal(7,2)) AS UtilisationPct,\n       CASE WHEN 100.0 * COALESCE(i.OnHand, 0) / w.Capacity > 100 THEN 'Over capacity'\n            WHEN 100.0 * COALESCE(i.OnHand, 0) / w.Capacity >= 80 THEN 'Tight'\n            ELSE 'OK' END AS Band\nFROM pharma.Warehouses AS w\nLEFT JOIN i ON i.WarehouseID = w.WarehouseID\nORDER BY UtilisationPct DESC, w.WarehouseName;",
+  "how": "Multiply by 100.0, not 100: integer ÷ integer in SQL Server drops the decimals. LEFT JOIN keeps empty warehouses.",
+  "a": "**Approach hint:** Multiply by 100.0, not 100: integer ÷ integer in SQL Server drops the decimals. LEFT JOIN keeps empty warehouses.\n\n**Expected result:** 50 rows, first 6 shown\n\n| WarehouseName | Capacity | OnHand | UtilisationPct | Band |\n|---|---|---|---|---|\n| Charlotte Regional Medicine Depot | 25000 | 2726 | 10.90 | OK |\n| Wichita Pharma Distribution | 21000 | 2185 | 10.40 | OK |\n| Detroit Regional Medicine Depot | 21000 | 1927 | 9.18 | OK |\n| Madison Pharma Distribution | 20000 | 1799 | 9 | OK |\n| Madison Regional Medicine Depot | 24000 | 1996 | 8.32 | OK |\n| Raleigh Regional Medicine Depot | 30000 | 2372 | 7.91 | OK |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 50
+ },
+ {
+  "id": "CHALLENGE-X07",
+  "topic": "CHALLENGES",
+  "title": "Month-over-month jumps per region",
+  "q": "Total the BatchCost per Region (from Suppliers) and calendar month. Compare each month with the region's *previous calendar month* (if the region had nothing that month, there is nothing to compare). Show Region, Month (yyyy-MM), MonthTotal, PrevMonthTotal and GrowthPct (2 decimals) for every jump of 50% or more. Sort by GrowthPct descending, then Region, then Month.",
+  "sql": "WITH m AS (\n    SELECT p.Region, DATEFROMPARTS(YEAR(e.ManufactureDate), MONTH(e.ManufactureDate), 1) AS MonthStart, SUM(e.BatchCost) AS MonthTotal\n    FROM pharma.Batches AS e\n    JOIN pharma.Suppliers AS p ON p.SupplierID = e.SupplierID\n    GROUP BY p.Region, DATEFROMPARTS(YEAR(e.ManufactureDate), MONTH(e.ManufactureDate), 1)\n), l AS (\n    SELECT Region, MonthStart, MonthTotal,\n           LAG(MonthTotal) OVER (PARTITION BY Region ORDER BY MonthStart) AS PrevMonthTotal,\n           LAG(MonthStart) OVER (PARTITION BY Region ORDER BY MonthStart) AS PrevMonth\n    FROM m\n)\nSELECT Region, FORMAT(MonthStart, 'yyyy-MM') AS Month, MonthTotal, PrevMonthTotal,\n       CAST(100.0 * (MonthTotal - PrevMonthTotal) / PrevMonthTotal AS decimal(9,2)) AS GrowthPct\nFROM l\nWHERE PrevMonth = DATEADD(month, -1, MonthStart)\n  AND MonthTotal >= PrevMonthTotal * 1.5\nORDER BY GrowthPct DESC, Region, Month;",
+  "how": "LAG() returns the previous row, which is not always the previous calendar month. Bring back the previous month's date with a second LAG and check it equals DATEADD(month, -1, this month).",
+  "a": "**Approach hint:** LAG() returns the previous row, which is not always the previous calendar month. Bring back the previous month's date with a second LAG and check it equals DATEADD(month, -1, this month).\n\n**Expected result:** 12 rows, first 6 shown\n\n| Region | Month | MonthTotal | PrevMonthTotal | GrowthPct |\n|---|---|---|---|---|\n| East | 2024-12 | 12024 | 1872 | 542.31 |\n| East | 2024-02 | 14256 | 3744 | 280.77 |\n| West | 2024-10 | 25920 | 9792 | 164.71 |\n| South | 2024-05 | 45360 | 20664 | 119.51 |\n| East | 2024-07 | 12240 | 5616 | 117.95 |\n| South | 2024-12 | 40248 | 19440 | 107.04 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 12
+ },
+ {
+  "id": "CHALLENGE-X08",
+  "topic": "CHALLENGES",
+  "title": "Climbers and fallers: H1 vs H2 rank",
+  "q": "Rank suppliers by their total BatchCost in the first half of 2024 (January to June) and again in the second half (July to December), using RANK() with 1 = highest. Only include suppliers with batches in both halves. Show SupplierID, SupplierName, H1Rank, H2Rank and Moved (H1Rank minus H2Rank, so positive means it climbed) for those that moved 10 or more places either way. Sort by Moved descending, then SupplierID.",
+  "sql": "WITH h AS (\n    SELECT SupplierID,\n           SUM(CASE WHEN ManufactureDate < '2024-07-01' THEN BatchCost END) AS H1,\n           SUM(CASE WHEN ManufactureDate >= '2024-07-01' THEN BatchCost END) AS H2\n    FROM pharma.Batches\n    GROUP BY SupplierID\n), r AS (\n    SELECT SupplierID, RANK() OVER (ORDER BY H1 DESC) AS H1Rank, RANK() OVER (ORDER BY H2 DESC) AS H2Rank\n    FROM h\n    WHERE H1 IS NOT NULL AND H2 IS NOT NULL\n)\nSELECT r.SupplierID, p.SupplierName, r.H1Rank, r.H2Rank, r.H1Rank - r.H2Rank AS Moved\nFROM r\nJOIN pharma.Suppliers AS p ON p.SupplierID = r.SupplierID\nWHERE ABS(r.H1Rank - r.H2Rank) >= 10\nORDER BY Moved DESC, r.SupplierID;",
+  "how": "Pivot the two halves into columns with SUM(CASE ...) in one pass, filter to rows that have both, and only then rank. Ranking before the filter would give different rank numbers.",
+  "a": "**Approach hint:** Pivot the two halves into columns with SUM(CASE ...) in one pass, filter to rows that have both, and only then rank. Ranking before the filter would give different rank numbers.\n\n**Expected result:** 34 rows, first 6 shown\n\n| SupplierID | SupplierName | H1Rank | H2Rank | Moved |\n|---|---|---|---|---|\n| 36 | Silver Birch Health Distribution | 40 | 5 | 35 |\n| 31 | Prairie Creek Health Distribution | 40 | 12 | 28 |\n| 45 | Laurel Creek Health Distribution | 45 | 18 | 27 |\n| 28 | Riverbend Health Distribution | 31 | 8 | 23 |\n| 50 | Birch Hollow Health Distribution | 33 | 10 | 23 |\n| 24 | Sage Valley Pharmaceuticals | 43 | 22 | 21 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 34
+ },
+ {
+  "id": "CHALLENGE-X09",
+  "topic": "CHALLENGES",
+  "title": "Value tiers with NTILE",
+  "q": "Split the suppliers that have batches into 4 equal-sized tiers by total BatchCost with NTILE(4), tier 1 = highest (ties broken by SupplierID). For each tier show Tier, Suppliers (how many), MinTotal, MaxTotal, TierTotal and ShareOfAllPct (the tier's share of the grand total, 2 decimals). Sort by Tier.",
+  "sql": "WITH t AS (\n    SELECT SupplierID, SUM(BatchCost) AS Total\n    FROM pharma.Batches\n    GROUP BY SupplierID\n), n AS (\n    SELECT SupplierID, Total, NTILE(4) OVER (ORDER BY Total DESC, SupplierID) AS Tier\n    FROM t\n)\nSELECT Tier, COUNT(*) AS Suppliers, MIN(Total) AS MinTotal, MAX(Total) AS MaxTotal, SUM(Total) AS TierTotal,\n       CAST(100.0 * SUM(Total) / SUM(SUM(Total)) OVER () AS decimal(5,2)) AS ShareOfAllPct\nFROM n\nGROUP BY Tier\nORDER BY Tier;",
+  "how": "NTILE(4) OVER (ORDER BY ...) deals rows into 4 buckets. After GROUP BY Tier, SUM(SUM(Total)) OVER () is the grand total across all tiers, so the share needs no second query.",
+  "a": "**Approach hint:** NTILE(4) OVER (ORDER BY ...) deals rows into 4 buckets. After GROUP BY Tier, SUM(SUM(Total)) OVER () is the grand total across all tiers, so the share needs no second query.\n\n**Expected result:** 4 rows\n\n| Tier | Suppliers | MinTotal | MaxTotal | TierTotal | ShareOfAllPct |\n|---|---|---|---|---|---|\n| 1 | 13 | 24192 | 41400 | 396144 | 41.41 |\n| 2 | 13 | 17784 | 23328 | 259632 | 27.14 |\n| 3 | 12 | 13104 | 17136 | 183240 | 19.15 |\n| 4 | 12 | 6336 | 12960 | 117648 | 12.30 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ },
+ {
+  "id": "CHALLENGE-X10",
+  "topic": "CHALLENGES",
+  "title": "Batches with no stock anywhere",
+  "q": "Per batch Status, show Batches, NotStocked (batches with no Inventory row at all), NotStockedPct (2 decimals) and NotStockedCost (sum of BatchCost of those batches). Sort by Status.",
+  "sql": "WITH i AS (\n    SELECT DISTINCT BatchID FROM pharma.Inventory\n), f AS (\n    SELECT b.Status, b.BatchCost, CASE WHEN i.BatchID IS NULL THEN 1 ELSE 0 END AS NotStocked\n    FROM pharma.Batches AS b\n    LEFT JOIN i ON i.BatchID = b.BatchID\n)\nSELECT Status, COUNT(*) AS Batches, SUM(NotStocked) AS NotStocked,\n       CAST(100.0 * SUM(NotStocked) / COUNT(*) AS decimal(5,2)) AS NotStockedPct,\n       SUM(CASE WHEN NotStocked = 1 THEN BatchCost ELSE 0 END) AS NotStockedCost\nFROM f\nGROUP BY Status\nORDER BY Status;",
+  "how": "Reduce Inventory to one row per batch (DISTINCT), LEFT JOIN it and flag the NULLs. Joining raw Inventory rows would count stocked batches once per warehouse. SQL Server does not allow EXISTS inside SUM(), so build the flag first.",
+  "a": "**Approach hint:** Reduce Inventory to one row per batch (DISTINCT), LEFT JOIN it and flag the NULLs. Joining raw Inventory rows would count stocked batches once per warehouse. SQL Server does not allow EXISTS inside SUM(), so build the flag first.\n\n**Expected result:** 3 rows\n\n| Status | Batches | NotStocked | NotStockedPct | NotStockedCost |\n|---|---|---|---|---|\n| Closed | 204 | 0 | 0 | 0 |\n| Open | 24 | 24 | 100 | 71064 |\n| Pending | 12 | 12 | 100 | 65520 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ }
+]

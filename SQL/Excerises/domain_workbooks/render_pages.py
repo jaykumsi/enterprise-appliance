@@ -14,13 +14,19 @@ import sys
 from pathlib import Path
 
 import runner
+import site_chrome
 from build_items import samples
 from translate import MODELS, Translator
 from wb_domains import DOMAINS
+from written_answers import Q as WRITTEN_Q
 
 HERE = Path(__file__).resolve().parent
 TEMPLATE = (HERE / 'template' / 'amerimed_page.html').read_text(encoding='utf-8')
 LEVEL = {'B': 'Beginner', 'I': 'Intermediate', 'A': 'Advanced'}
+CHALLENGE_NOTES = ('Ten multi-step problems in the style of real data interviews. Each one combines several skills at once: '
+                   'window functions, CTEs, self-joins, anti-joins and aggregation that must not double-count. Expect these to '
+                   'take a while. Plan the steps first, build the query one CTE at a time and check the rows after each step. '
+                   'The approach hint is shown with the expected result, so try on your own before you open it.')
 
 ICONS = {  # 24x24 stroke paths, drawn white on the domain colour
     'bank': 'M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z',
@@ -31,10 +37,11 @@ ICONS = {  # 24x24 stroke paths, drawn white on the domain colour
     'box': 'M21 8l-9-5-9 5 9 5zM3 8v8l9 5 9-5V8M12 13v8',
     'truck': 'M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8M6.5 19.5h.01M17.5 19.5h.01',
     'factory': 'M3 21V11l6 3.5V11l6 3.5V6l6 3v12zM3 21h18',
+    'bag': 'M5 8h14l-1.2 12.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8zM9 8V6a3 3 0 0 1 6 0v2',
 }
 PLACE = {'banking': 'Bank', 'brokerage': 'Brokerage', 'oil': 'Energy Shipping', 'pharma': 'Drug Maker',
          'retail': 'Retail Store', 'retail_inventory': 'Warehouse Stock', 'retail_logistics': 'Delivery Network',
-         'retail_manufacturing': 'Factory'}
+         'retail_manufacturing': 'Factory', 'retail_supply_chain': 'Supply Chain', 'ecommerce': 'Online Marketplace'}
 
 
 def words(table):
@@ -99,10 +106,45 @@ def page_data(slug, tr):
         rows = []
         for it in by_topic[topic]:
             lvl = it['id'].rsplit('-', 1)[1][0]
-            rows.append(dict(id=it['id'], sub=LEVEL[lvl], lvl=lvl, title=it['title'], q=it['q'], a=it.get('a')))
+            q = WRITTEN_Q.get(slug, {}).get(it['id'], it['q'])
+            rows.append(dict(id=it['id'], sub=LEVEL[lvl], lvl=lvl, title=it['title'], q=q, a=it.get('a')))
         notes = join_notes(slug) if t['key'] == 'joins' else tr.prose(t['notes'])
         out.append(dict(key=t['key'], name=t['name'], track=t['track'], notes=notes, items=rows))
     return out
+
+
+def challenge_topic(slug):
+    items = json.loads((HERE / 'items' / f'{slug}_challenges.json').read_text(encoding='utf-8'))
+    rows = [dict(id=it['id'], sub='Interview challenges', lvl='X', title=it['title'], q=it['q'], a=it['a']) for it in items]
+    return dict(key='interview-challenges', name='Interview Challenges', track='advanced', notes=CHALLENGE_NOTES, items=rows)
+
+
+def add_challenges(s, slug):
+    """Append the Interview Challenges topic to a rendered page and teach its script the extra 'Challenge' level."""
+    m = re.search(r'^const DATA = (\[.*\]);$', s, re.M)
+    data = json.loads(m.group(1))                     # JSON reads the page's "<\/" escapes natively
+    data = [d for d in data if d['key'] != 'interview-challenges'] + [challenge_topic(slug)]
+    total = sum(len(d['items']) for d in data)
+    js = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
+    s = s[:m.start()] + 'const DATA = ' + js + ';' + s[m.end():]
+
+    def rep(old, new):
+        nonlocal s
+        assert old in s, old[:80]
+        s = s.replace(old, new)
+    rep('A: { name: "Advanced", color: "var(--rose)" } };',
+        'A: { name: "Advanced", color: "var(--rose)" }, X: { name: "Challenge", color: "var(--violet)" } };')
+    rep('const lv = Object.entries(LEVELS).map(([k, L]) =>',
+        'const lv = Object.entries(LEVELS).filter(([k]) => d.items.some(i => i.lvl === k)).map(([k, L]) =>')
+    rep('<span class="sw"></span>Advanced</button>',
+        '<span class="sw"></span>Advanced</button>\n          <button class="seg-btn" type="button" role="tab" data-level="X" '
+        'aria-selected="false" style="--tc:var(--violet)"><span class="sw"></span>Challenge</button>')
+    rep('Questions: <strong>480</strong>', f'Questions: <strong>{total}</strong>')
+    rep('Topics: <strong>16</strong>', f'Topics: <strong>{len(data)}</strong>')
+    rep('Browse all 16 topics', f'Browse all {len(data)} topics')
+    rep('Curriculum &bull; 16 Topics', f'Curriculum &bull; {len(data)} Topics')
+    rep('Search all 480 questions', f'Search all {total} questions')
+    return s
 
 
 def join_notes(slug):
@@ -218,12 +260,24 @@ def render(slug, hub=None):
     rep('"amerimed-done-"', f'"{slug.replace("_", "-")}-done-"')
     rep('Try a table name such as Encounters', f'Try a table name such as {E}')
 
+    s = add_challenges(s, slug)
     leftovers = re.findall(r'[^\n]{0,40}(?:Amerimed|healthcare|Healthcare|Patient|patient|Encounter|encounter|BEGIN TRAN)[^\n]{0,40}',
                            s[:s.index('const DATA')] + s[s.index('const MODE'):])
     if leftovers:
         print(slug, 'LEFTOVER IN PAGE CHROME:', leftovers[:8])
+    s = site_chrome.apply(s, slug)
     out = HERE / 'pages' / f'{slug}.html'
     out.parent.mkdir(exist_ok=True)
+    out.write_text(s, encoding='utf-8')
+    return out
+
+
+def render_healthcare():
+    """The AmeriMed page is the template itself: keep it as is and only add the Interview Challenges topic."""
+    s = TEMPLATE[TEMPLATE.index('<title>'):TEMPLATE.rindex('</body>')]
+    s = add_challenges(s, 'healthcare')
+    s = site_chrome.apply(s, 'healthcare')
+    out = HERE / 'pages' / 'healthcare.html'
     out.write_text(s, encoding='utf-8')
     return out
 
@@ -234,5 +288,5 @@ if __name__ == '__main__':
     if args[:1] == ['--hub']:
         hub, args = args[1], args[2:]
     for d in args:
-        p = render(d, hub)
+        p = render_healthcare() if d == 'healthcare' else render(d, hub)
         print(d, p.stat().st_size // 1024, 'KB')

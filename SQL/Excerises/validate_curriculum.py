@@ -52,7 +52,7 @@ def structural():
     assert named_types==covered_types,(named_types-covered_types,covered_types-named_types)
     assert len(MODELS)==9
     for model in MODELS:
-        assert len(model['tables'])==5
+        assert len(model['tables'])>=5
         names={t['name'] for t in model['tables']}
         edges=set()
         for table in model['tables']:
@@ -82,7 +82,7 @@ def load_fixture():
     for schema in [m['slug'] for m in MODELS]:
         con.execute(f"ATTACH DATABASE ':memory:' AS [{schema}]")
     inserts=re.findall(r'INSERT INTO (\[[^\]]+\]\.\[[^\]]+\]) \(([^)]+)\) VALUES\n(.*?);',setup,re.S)
-    assert len(inserts)==5*len(MODELS)
+    assert len(inserts)==sum(len(m['tables']) for m in MODELS)
     con.execute('PRAGMA foreign_keys=ON')
     for m in MODELS:
         for t in m['tables']:
@@ -160,15 +160,20 @@ def portable_queries():
     assert sum(r[-1] for r in domain_results['PHARMA-REPORT-04'])==150
     assert domain_results['HEALTHCARE-REPORT-05'][0][-2:]==(100,2)
     assert domain_results['OIL-REPORT-05'][0][-3:]==(100,100,0)
-    manufacturing=domain_results['RETAIL_MANUFACTURING-REPORT-05']
-    assert len(manufacturing)==18
-    assert next(r for r in manufacturing if r[:2]==(2,1))==(2,1,2,4,4.5,0.5)
+    supply=domain_results['RETAIL_SUPPLY_CHAIN-REPORT-05']
+    assert supply==[('PO-1','Canvas tote','Completed',10,30,30.5,3),('PO-2','Travel pouch','Completed',5,20,20,0),
+                    ('PO-3','Canvas tote','InProgress',8,24,8,0),('PO-4','Travel pouch','Planned',6,24,0,0)]
+    assert len(domain_results['RETAIL_SUPPLY_CHAIN-REPORT-04'])==12
+    assert sum(r[3]=='Made' for r in domain_results['RETAIL_SUPPLY_CHAIN-REPORT-04'])==6
     assert [r[0] for r in domain_results['RETAIL_LOGISTICS-REPORT-05']]==[3]
     assert domain_results['RETAIL_LOGISTICS-REPORT-04'][-1][-2:]==(None,None)
-    assert len(domain_results['RETAIL_INVENTORY-REPORT-05'])==11
-    assert all(r[-1]==0 for r in domain_results['RETAIL_INVENTORY-REPORT-05'])
-    assert sum(r[-2] for r in domain_results['RETAIL_INVENTORY-REPORT-05'])==120
-    assert len(domain_results['RETAIL_INVENTORY-REPORT-06'])==4
+    ledger=domain_results['RETAIL_SUPPLY_CHAIN-REPORT-06']
+    assert len(ledger)==12 and all(r[-1]==0 for r in ledger)
+    assert sum(r[2] for r in ledger)==120 and sum(r[-2] for r in ledger)==130
+    assert sum(r[-1] for r in domain_results['ECOMMERCE-REPORT-04'])==850
+    settle=domain_results['ECOMMERCE-REPORT-05']
+    assert settle[0]==(1,100,100,100,0) and settle[3]==(4,None,0,0,None) and settle[4]==(5,50,50,0,50)
+    assert domain_results['ECOMMERCE-REPORT-06'][-1]==(5,'Unused seller','Toys & Games',0,0,0)
     assert abs(sum(r[-1] for r in domain_results['BROKERAGE-REPORT-04'])-702.6)<0.000001
     assert abs(domain_results['BROKERAGE-REPORT-05'][0][-1]-100.6)<0.000001
     assert domain_results['BROKERAGE-REPORT-05'][1][2:4]==(1.5,0.5)
@@ -204,7 +209,7 @@ def portable_queries():
             con.execute('ROLLBACK TO answer_case');con.execute('RELEASE answer_case')
     report={'portableQueriesExecuted':len(outputs),'portableQueriesSkipped':len(skipped),
             'independentExactResultChecks':len(checks),'fixtureDomainsChecked':len(MODELS),
-            'connectedTablesChecked':5*len(MODELS),'domainReportsExecuted':len(domain_results),'rejectedInvalidWrites':integrity_checks,
+            'connectedTablesChecked':sum(len(m['tables']) for m in MODELS),'domainReportsExecuted':len(domain_results),'rejectedInvalidWrites':integrity_checks,
             'constraintAnswerMutationsRejected':constraint_answers_checked,
             'scope':'SQLite supplemental relational checks; not SQL Server runtime verification.',
             'translations':['map SQL Server schema types to SQLite affinities','remove Unicode literal N prefix','convert constant CONVERT(date,...,112) to fixture date text','convert logistics delivery date to comparable YYYYMMDD text','remove MAXRECURSION hint','register YEAR/MONTH and comparison collation'],
@@ -216,5 +221,5 @@ def portable_queries():
 if __name__=='__main__':
     structural()
     report=portable_queries()
-    print(f'PASS: {len(ROWS):,} question/answer pairs; 132 subtopics; {len(MODELS)*5} connected tables; no day labels; source datatype coverage and local links.')
+    print(f'PASS: {len(ROWS):,} question/answer pairs; 132 subtopics; {sum(len(m['tables']) for m in MODELS)} connected tables; no day labels; source datatype coverage and local links.')
     print(json.dumps(report,indent=2))

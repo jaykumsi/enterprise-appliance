@@ -12,9 +12,9 @@ DOMAINS = [
     ('Pharma', 'pharma', 'Batches', 'Suppliers', 'batch cost', 'supplier'),
     ('Healthcare', 'healthcare', 'Encounters', 'Patients', 'encounter charge', 'patient'),
     ('Oil', 'oil', 'Shipments', 'Sites', 'shipment value', 'site'),
-    ('Retail Manufacturing', 'retail_manufacturing', 'ProductionOrders', 'Products', 'planned production cost', 'product'),
+    ('Retail Supply Chain', 'retail_supply_chain', 'StockMovements', 'Warehouses', 'movement value', 'warehouse'),
     ('Retail Logistics', 'retail_logistics', 'Shipments', 'Customers', 'freight charge', 'customer'),
-    ('Retail Inventory', 'retail_inventory', 'StockMovements', 'Warehouses', 'movement value', 'warehouse'),
+    ('E-commerce', 'ecommerce', 'Orders', 'Customers', 'order value', 'customer'),
     ('Brokerage', 'brokerage', 'TradeOrders', 'BrokerageAccounts', 'estimated order value', 'account'),
 ]
 BOOKS = {}
@@ -475,7 +475,7 @@ SOURCE_NAMES = {
 
 def render():
     coverage=['# Coverage and assignment index','',
-              f'The source hierarchy is mapped to teachable leaves. Each subtopic has {len(DOMAINS)*5} assignments across {len(DOMAINS)} connected domain projects. IDs are reference labels, not dates. The original IDs 01–25 are preserved; additional domains use IDs 26–45. Start with a domain brief, build its five related tables and progress by demonstrated competency.',
+              f'The source hierarchy is mapped to teachable leaves. Each subtopic has {len(DOMAINS)*5} assignments across {len(DOMAINS)} connected domain projects. IDs are reference labels, not dates. The original IDs 01–25 are preserved; additional domains use IDs 26–45. Start with a domain brief, build its related tables and progress by demonstrated competency.',
               '', '| Topic | Subtopic | Count | Assignment range |', '|---|---|---:|---|']
     for topic,subs in BOOKS.items():
         source=f'https://github.com/tinitiateprime/sqlserver/blob/main/sqlserver-sql/sqlserver-{SOURCE_NAMES[topic]}.md'
@@ -486,7 +486,7 @@ def render():
            'Keep the tables and initial sample rows for later exercises. Start each change exercise with the original sample data in a practice database. Ask your instructor to reset the practice tables between exercises; changes are kept when you run them.','']
         if topic=='DDL':
             q=['# DDL — Student assignments', '',
-               'Choose one domain, such as Retail. Start with its five Create questions in order. Write the SQL for each question.', '',
+               'Choose one domain, such as Retail. Start with its five Create steps in order. Write the SQL for each question.', '',
                'Use an empty practice database in SQL Server 2017 or later. NOT NULL means a value is required; NULL means the value may be missing.', '',
                'For Alter and Drop, use a separate practice copy. Ask your instructor to reset it before each exercise. Changes are kept when you run them.', '',
                'After creating the tables, use the [domain guide](../README.md) to add sample rows before starting Alter and Drop.', '']
@@ -513,7 +513,7 @@ def render():
                  '- Datatypes: the five family headings map to all 26 named data types. Numeric: INT through FLOAT plus MONEY/SMALLMONEY/BIT; date/time: six types; strings: CHAR/VARCHAR/TEXT; binary: BINARY/VARBINARY; additional types: XML, GUID, spatial, hierarchy, rowversion and cursor.',
                  f'- DateTime and TimeZone → Date, Timezones, UTC, and Offsets → Date and Time / Timezones / UTC / Offsets / Applying an Offset: each leaf has {len(DOMAINS)*5} assignments, as do both casting/conversion leaves.',
                  '- UNION ALL is included because it appears in the linked set-operations lesson, even though omitted from the README contents list.',
-                 f'- Each industry uses five connected tables with enforced PK/FK relationships. DDL Create and Data Setup work cumulatively on those tables. {len(DOMAINS)*6} additional domain reports and {len(DOMAINS)} capstone checklists connect the topic drills into projects.',
+                 f'- Each industry uses connected tables (five per domain; six for E-commerce and nine for Retail Supply Chain) with enforced PK/FK relationships. DDL Create and Data Setup work cumulatively on those tables. {len(DOMAINS)*6} additional domain reports and {len(DOMAINS)} capstone checklists connect the topic drills into projects.',
                  '', f'**Total: {len(BOOKS)} topics, {sum(len(x) for x in BOOKS.values())} subtopics, {len(RECORDS):,} assignments and matching answers.**','']
     (ROOT/'COVERAGE.md').write_text('\n'.join(coverage),encoding='utf-8')
     (ROOT/'curriculum.json').write_text(json.dumps(RECORDS,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

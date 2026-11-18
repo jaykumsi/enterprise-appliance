@@ -1,6 +1,6 @@
 # Connected project data dictionary
 
-Each domain has exactly five physical tables, each with a primary key. Foreign keys are enforced: there are no deliberately orphaned event records. Full column definitions, business rules, relationships and exact seed rows are in the domain briefs.
+Each domain has five physical tables (E-commerce has six and Retail Supply Chain has nine), each with a primary key. Foreign keys are enforced: there are no deliberately orphaned event records. Full column definitions, business rules, relationships and exact seed rows are in the domain briefs.
 
 | Domain | Schema brief and seed values |
 |---|---|
@@ -9,9 +9,9 @@ Each domain has exactly five physical tables, each with a primary key. Foreign k
 | Pharma | [Suppliers, Products, Warehouses, Batches, Inventory](domains/pharma/README.md) |
 | Healthcare | [Patients, Doctors, Medications, Encounters, Prescriptions](domains/healthcare/README.md) |
 | Oil | [Sites, Carriers, Products, Shipments, ShipmentItems](domains/oil/README.md) |
-| Retail Manufacturing | [Products, Materials, ProductionOrders, BillOfMaterials, MaterialUsage](domains/retail_manufacturing/README.md) |
+| Retail Supply Chain | [Warehouses, Suppliers, Products, Materials, BillOfMaterials, ProductionOrders, MaterialUsage, StockMovements, StockBalances](domains/retail_supply_chain/README.md) |
 | Retail Logistics | [Customers, Carriers, Shipments, ShipmentPackages, TrackingEvents](domains/retail_logistics/README.md) |
-| Retail Inventory | [Warehouses, Products, Suppliers, StockMovements, StockBalances](domains/retail_inventory/README.md) |
+| E-commerce | [Customers, Sellers, Products, Orders, OrderItems, Payments](domains/ecommerce/README.md) |
 | Brokerage | [Clients, Securities, BrokerageAccounts, TradeOrders, Executions](domains/brokerage/README.md) |
 
 ## Main event tables
@@ -23,9 +23,9 @@ Each domain has exactly five physical tables, each with a primary key. Foreign k
 | Pharma | Batches | SupplierID → Suppliers; ProductID → Products | BatchCost | ManufactureDate | PackCount |
 | Healthcare | Encounters | PatientID → Patients; DoctorID → Doctors | Charge | EncounterDate | ServiceUnits |
 | Oil | Shipments | SiteID → Sites; CarrierID → Carriers | ShipmentValue | ShipDate | UnitCount (shipping units) |
-| Retail Manufacturing | ProductionOrders | ProductID → Products | PlannedCost | ProductionDate | PlannedUnits |
-| Retail Logistics | Shipments | CustomerID → Customers; CarrierID → Carriers | FrnineCharge | ShipDate | DeclaredPackages |
-| Retail Inventory | StockMovements | WarehouseID → Warehouses; ProductID → Products; SupplierID → Suppliers | MovementValue | MovementDate | MovedUnits |
+| Retail Supply Chain | StockMovements | WarehouseID → Warehouses; ProductID → Products; SupplierID → Suppliers; ProductionOrderID → ProductionOrders (optional) | MovementValue | MovementDate | MovedUnits |
+| Retail Logistics | Shipments | CustomerID → Customers; CarrierID → Carriers | FreightCharge | ShipDate | DeclaredPackages |
+| E-commerce | Orders | CustomerID → Customers; SellerID → Sellers | OrderTotal | OrderDate | ItemCount |
 | Brokerage | TradeOrders | AccountID → BrokerageAccounts; SecurityID → Securities | EstimatedValue | OrderDate | RequestedQuantity |
 
 Event IDs run from 1 through 12. They reference existing master IDs 1–4; master 5 has no related events. Each event table also has a nullable parent-event FK, with event 1 as the root of an acyclic teaching hierarchy. The self-FK and self-parent CHECK do not independently prevent longer cycles; the seed data is deliberately acyclic.

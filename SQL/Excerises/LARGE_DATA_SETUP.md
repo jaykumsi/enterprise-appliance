@@ -13,7 +13,7 @@ Each master has at least 50 rows and each transaction/detail table has at least 
 | Pharma | [pharma](domains/pharma/questions/PRACTICE_DATA.md) | 798 |
 | Healthcare | [healthcare](domains/healthcare/questions/PRACTICE_DATA.md) | 604 |
 | Oil | [oil](domains/oil/questions/PRACTICE_DATA.md) | 882 |
-| Retail Manufacturing | [retail_manufacturing](domains/retail_manufacturing/questions/PRACTICE_DATA.md) | 1462 |
+| Retail Supply Chain | [retail_supply_chain](domains/retail_supply_chain/questions/PRACTICE_DATA.md) | 1360 |
 | Retail Logistics | [retail_logistics](domains/retail_logistics/questions/PRACTICE_DATA.md) | 2011 |
-| Retail Inventory | [retail_inventory](domains/retail_inventory/questions/PRACTICE_DATA.md) | 540 |
+| E-commerce | [ecommerce](domains/ecommerce/questions/PRACTICE_DATA.md) | 124649 |
 | Brokerage | [brokerage](domains/brokerage/questions/PRACTICE_DATA.md) | 794 |

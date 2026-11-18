@@ -1,0 +1,102 @@
+[
+ {
+  "id": "CHALLENGE-X01",
+  "topic": "CHALLENGES",
+  "title": "Quick repeat transactions",
+  "q": "A *quick repeat* is a transaction that comes 7 days or less after the same account's previous transaction. For every account with at least one quick repeat, show AccountID, AccountName, QuickRepeats (how many) and ShortestGapDays (the smallest gap in days between two of their consecutive transactions). Sort by QuickRepeats descending, then ShortestGapDays, then AccountID.",
+  "sql": "WITH e AS (\n    SELECT AccountID,\n           DATEDIFF(day, LAG(TransactionDate) OVER (PARTITION BY AccountID ORDER BY TransactionDate, TransactionID), TransactionDate) AS GapDays\n    FROM banking.Transactions\n)\nSELECT p.AccountID, p.AccountName, COUNT(*) AS QuickRepeats, MIN(e.GapDays) AS ShortestGapDays\nFROM e\nJOIN banking.Accounts AS p ON p.AccountID = e.AccountID\nWHERE e.GapDays <= 7\nGROUP BY p.AccountID, p.AccountName\nORDER BY QuickRepeats DESC, ShortestGapDays, p.AccountID;",
+  "how": "LAG(TransactionDate) OVER (PARTITION BY AccountID ORDER BY TransactionDate) gives each row the previous date for the same account. Compute the gap in a CTE first: a window function cannot go in WHERE.",
+  "a": "**Approach hint:** LAG(TransactionDate) OVER (PARTITION BY AccountID ORDER BY TransactionDate) gives each row the previous date for the same account. Compute the gap in a CTE first: a window function cannot go in WHERE.\n\n**Expected result:** 10 rows, first 6 shown\n\n| AccountID | AccountName | QuickRepeats | ShortestGapDays |\n|---|---|---|---|\n| 78 | Benjamin Ahmed - Savings | 2 | 3 |\n| 12 | Mason Rivera - Savings | 1 | 1 |\n| 84 | Samuel Reed - Savings | 1 | 1 |\n| 27 | Grace Shah - Savings | 1 | 2 |\n| 22 | Daniel Martinez - Checking | 1 | 3 |\n| 58 | David Bennett - Checking | 1 | 3 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 10
+ },
+ {
+  "id": "CHALLENGE-X02",
+  "topic": "CHALLENGES",
+  "title": "Median vs average amount",
+  "q": "Averages hide outliers. For each TransactionType, show TransactionType, Transactions (how many transactions), AverageValue, MedianValue and AboveMedian (AverageValue minus MedianValue), all money values rounded to 2 decimals. Use the Amount column. Sort by TransactionType.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT TransactionType,\n           COUNT(*) OVER (PARTITION BY TransactionType) AS Transactions,\n           AVG(Amount) OVER (PARTITION BY TransactionType) AS AvgV,\n           PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY Amount) OVER (PARTITION BY TransactionType) AS MedV\n    FROM banking.Transactions\n)\nSELECT TransactionType, Transactions,\n       CAST(AvgV AS decimal(12,2)) AS AverageValue,\n       CAST(MedV AS decimal(12,2)) AS MedianValue,\n       CAST(AvgV - MedV AS decimal(12,2)) AS AboveMedian\nFROM m\nORDER BY TransactionType;",
+  "how": "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.",
+  "a": "**Approach hint:** PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.\n\n**Expected result:** 3 rows\n\n| TransactionType | Transactions | AverageValue | MedianValue | AboveMedian |\n|---|---|---|---|---|\n| A | 95 | 3818.72 | 3769.45 | 49.27 |\n| B | 133 | 335.10 | 349.74 | -14.64 |\n| C | 12 | 8.04 | 5 | 3.04 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X03",
+  "topic": "CHALLENGES",
+  "title": "Month-to-date running total",
+  "q": "For Closed transactions only, show each TransactionDate with DayTotal (the sum of Amount that day) and MonthToDate: the running total that starts again on the first day of each month. Sort by TransactionDate.",
+  "sql": "WITH d AS (\n    SELECT TransactionDate, SUM(Amount) AS DayTotal\n    FROM banking.Transactions\n    WHERE Status = 'Closed'\n    GROUP BY TransactionDate\n)\nSELECT TransactionDate, DayTotal,\n       SUM(DayTotal) OVER (PARTITION BY YEAR(TransactionDate), MONTH(TransactionDate)\n                           ORDER BY TransactionDate ROWS UNBOUNDED PRECEDING) AS MonthToDate\nFROM d\nORDER BY TransactionDate;",
+  "how": "Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.",
+  "a": "**Approach hint:** Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.\n\n**Expected result:** 204 rows, first 6 shown\n\n| TransactionDate | DayTotal | MonthToDate |\n|---|---|---|\n| 2024-01-01 | 600.83 | 600.83 |\n| 2024-01-02 | 617.33 | 1218.16 |\n| 2024-01-04 | 494.11 | 1712.27 |\n| 2024-01-05 | 2791.78 | 4504.05 |\n| 2024-01-07 | 136.62 | 4640.67 |\n| 2024-01-08 | 323.62 | 4964.29 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 204
+ },
+ {
+  "id": "CHALLENGE-X04",
+  "topic": "CHALLENGES",
+  "title": "The accounts behind half of all value",
+  "q": "Rank accounts by their total amount (all transactions). Show the smallest group of top accounts that together make up at least 50% of the grand total: AccountID, AccountName, Total and CumulativePct (their running share of the grand total, 2 decimals). Break ties in Total by AccountID. Sort by Total descending, then AccountID.",
+  "sql": "WITH t AS (\n    SELECT AccountID, SUM(Amount) AS Total\n    FROM banking.Transactions\n    GROUP BY AccountID\n), r AS (\n    SELECT AccountID, Total,\n           SUM(Total) OVER (ORDER BY Total DESC, AccountID ROWS UNBOUNDED PRECEDING) AS Running,\n           SUM(Total) OVER () AS Grand\n    FROM t\n)\nSELECT r.AccountID, p.AccountName, r.Total, CAST(100.0 * r.Running / r.Grand AS decimal(5,2)) AS CumulativePct\nFROM r\nJOIN banking.Accounts AS p ON p.AccountID = r.AccountID\nWHERE r.Running - r.Total < 0.5 * r.Grand\nORDER BY r.Total DESC, r.AccountID;",
+  "how": "Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.",
+  "a": "**Approach hint:** Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.\n\n**Expected result:** 21 rows, first 6 shown\n\n| AccountID | AccountName | Total | CumulativePct |\n|---|---|---|---|\n| 43 | Mia Robinson - Checking | 14517.66 | 3.56 |\n| 76 | Henry Rivera - Checking | 13274.15 | 6.82 |\n| 80 | Alexander Chen - Checking | 13157.21 | 10.05 |\n| 2 | Liam Shah - Checking | 12444.14 | 13.10 |\n| 73 | Mia Brooks - Checking | 12392.31 | 16.15 |\n| 71 | Isabella Parker - Checking | 12140.32 | 19.13 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 21
+ },
+ {
+  "id": "CHALLENGE-X05",
+  "topic": "CHALLENGES",
+  "title": "What comes next? TransactionType transitions",
+  "q": "Put each account's transactions in date order (ties by TransactionID). For every pair of consecutive transactions, the first one's TransactionType is the From value and the next one's is the To value. Show FromTransactionType, ToTransactionType, Transitions (how many times) and PctOfFrom (share of all transitions that start from that From value, 2 decimals). Sort by FromTransactionType, then ToTransactionType.",
+  "sql": "WITH e AS (\n    SELECT TransactionType AS FromV,\n           LEAD(TransactionType) OVER (PARTITION BY AccountID ORDER BY TransactionDate, TransactionID) AS ToV\n    FROM banking.Transactions\n)\nSELECT FromV AS FromTransactionType, ToV AS ToTransactionType, COUNT(*) AS Transitions,\n       CAST(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (PARTITION BY FromV) AS decimal(5,2)) AS PctOfFrom\nFROM e\nWHERE ToV IS NOT NULL\nGROUP BY FromV, ToV\nORDER BY FromTransactionType, ToTransactionType;",
+  "how": "LEAD() looks at the next row in the same partition. The last row per partition has no next value, so filter out the NULLs. SUM(COUNT(*)) OVER (PARTITION BY ...) is a window over the grouped result: it gives the group total for the percentage.",
+  "a": "**Approach hint:** LEAD() looks at the next row in the same partition. The last row per partition has no next value, so filter out the NULLs. SUM(COUNT(*)) OVER (PARTITION BY ...) is a window over the grouped result: it gives the group total for the percentage.\n\n**Expected result:** 7 rows, first 6 shown\n\n| FromTransactionType | ToTransactionType | Transitions | PctOfFrom |\n|---|---|---|---|\n| A | A | 24 | 41.38 |\n| A | B | 34 | 58.62 |\n| B | A | 34 | 39.53 |\n| B | B | 45 | 52.33 |\n| B | C | 7 | 8.14 |\n| C | A | 2 | 22.22 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 7
+ },
+ {
+  "id": "CHALLENGE-X06",
+  "topic": "CHALLENGES",
+  "title": "Loans vs activity: the double-count trap",
+  "q": "For each customer who has at least one loan, show CustomerID, CustomerName, Loans (count), TotalPrincipal, Transactions (count, across all their accounts) and TotalTransacted (sum of Amount). Sort by TotalPrincipal descending, then CustomerID.",
+  "sql": "WITH l AS (\n    SELECT CustomerID, COUNT(*) AS Loans, SUM(Principal) AS TotalPrincipal\n    FROM banking.Loans\n    GROUP BY CustomerID\n), t AS (\n    SELECT a.CustomerID, COUNT(*) AS Transactions, SUM(x.Amount) AS TotalTransacted\n    FROM banking.Transactions AS x\n    JOIN banking.Accounts AS a ON a.AccountID = x.AccountID\n    GROUP BY a.CustomerID\n)\nSELECT c.CustomerID, c.CustomerName, l.Loans, l.TotalPrincipal,\n       COALESCE(t.Transactions, 0) AS Transactions, COALESCE(t.TotalTransacted, 0) AS TotalTransacted\nFROM l\nJOIN banking.Customers AS c ON c.CustomerID = l.CustomerID\nLEFT JOIN t ON t.CustomerID = l.CustomerID\nORDER BY l.TotalPrincipal DESC, c.CustomerID;",
+  "how": "Loans and transactions are two separate one-to-many branches under the customer. Joining both at once multiplies rows; aggregate each branch to one row per customer first.",
+  "a": "**Approach hint:** Loans and transactions are two separate one-to-many branches under the customer. Joining both at once multiplies rows; aggregate each branch to one row per customer first.\n\n**Expected result:** 85 rows, first 6 shown\n\n| CustomerID | CustomerName | Loans | TotalPrincipal | Transactions | TotalTransacted |\n|---|---|---|---|---|---|\n| 11 | Isabella Robinson | 2 | 526500 | 3 | 7136.56 |\n| 10 | Lucas Garcia | 2 | 496500 | 5 | 3205.61 |\n| 14 | Ethan Ahmed | 2 | 436000 | 0 | 0 |\n| 8 | James Walker | 2 | 417500 | 3 | 6821.73 |\n| 5 | Amelia Kim | 2 | 366500 | 0 | 0 |\n| 9 | Charlotte Brooks | 2 | 363000 | 3 | 5082.27 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 85
+ },
+ {
+  "id": "CHALLENGE-X07",
+  "topic": "CHALLENGES",
+  "title": "Dormant accounts",
+  "q": "Take the latest TransactionDate in the whole table as 'today'. List accounts that had at least one transaction but none in the 90 days up to and including today. Show AccountID, AccountName, Region, LastTransaction and DaysSilent (days from LastTransaction to today). Sort by DaysSilent descending, then AccountID.",
+  "sql": "WITH today AS (\n    SELECT MAX(TransactionDate) AS D FROM banking.Transactions\n), last AS (\n    SELECT AccountID, MAX(TransactionDate) AS LastTransaction\n    FROM banking.Transactions\n    GROUP BY AccountID\n)\nSELECT a.AccountID, a.AccountName, a.Region, l.LastTransaction,\n       DATEDIFF(day, l.LastTransaction, t.D) AS DaysSilent\nFROM last AS l\nCROSS JOIN today AS t\nJOIN banking.Accounts AS a ON a.AccountID = l.AccountID\nWHERE l.LastTransaction < DATEADD(day, -90, t.D)\nORDER BY DaysSilent DESC, a.AccountID;",
+  "how": "Find 'today' from the data, not GETDATE(), so the answer never changes. One row per account with its last date, then compare with a CROSS JOIN to the single 'today' row.",
+  "a": "**Approach hint:** Find 'today' from the data, not GETDATE(), so the answer never changes. One row per account with its last date, then compare with a CROSS JOIN to the single 'today' row.\n\n**Expected result:** 42 rows, first 6 shown\n\n| AccountID | AccountName | Region | LastTransaction | DaysSilent |\n|---|---|---|---|---|\n| 66 | Elijah Shah - Savings | South | 2024-01-07 | 359 |\n| 24 | Samuel Singh - Savings | East | 2024-01-26 | 340 |\n| 81 | Avery Foster - Savings | West | 2024-02-20 | 315 |\n| 15 | Evelyn Clark - Savings | South | 2024-03-20 | 286 |\n| 57 | Grace Wilson - Savings | West | 2024-03-21 | 285 |\n| 7 | Sophia Parker - Checking | West | 2024-04-01 | 274 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 42
+ },
+ {
+  "id": "CHALLENGE-X08",
+  "topic": "CHALLENGES",
+  "title": "Highest-rate loan in each city, ties included",
+  "q": "Loans link to an account, and the account to a branch. For each branch City, show the loan(s) with the highest AnnualRate: City, LoanReference, BranchName, AnnualRate and Principal. Keep ties. Sort by City, then LoanReference.",
+  "sql": "WITH r AS (\n    SELECT b.City, l.LoanReference, b.BranchName, l.AnnualRate, l.Principal,\n           RANK() OVER (PARTITION BY b.City ORDER BY l.AnnualRate DESC) AS rk\n    FROM banking.Loans AS l\n    JOIN banking.Accounts AS a ON a.AccountID = l.AccountID\n    JOIN banking.Branches AS b ON b.BranchID = a.BranchID\n)\nSELECT City, LoanReference, BranchName, AnnualRate, Principal\nFROM r\nWHERE rk = 1\nORDER BY City, LoanReference;",
+  "how": "Top-1 per group with ties is RANK() = 1 (or DENSE_RANK). The path Loans → Accounts → Branches gets you from loan to city.",
+  "a": "**Approach hint:** Top-1 per group with ties is RANK() = 1 (or DENSE_RANK). The path Loans → Accounts → Branches gets you from loan to city.\n\n**Expected result:** 25 rows, first 6 shown\n\n| City | LoanReference | BranchName | AnnualRate | Principal |\n|---|---|---|---|---|\n| Atlanta | LN-2024-000090 | Atlanta Downtown | 11.38 | 187000 |\n| Austin | LN-2024-000059 | Austin Downtown | 11.75 | 18000 |\n| Baltimore | LN-2024-000074 | Baltimore Downtown | 8.66 | 199000 |\n| Boise | LN-2024-000068 | Boise Downtown | 12 | 47000 |\n| Boston | LN-2024-000029 | Boston Westside | 12.42 | 13000 |\n| Charlotte | LN-2024-000064 | Charlotte Downtown | 11.25 | 160000 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 25
+ },
+ {
+  "id": "CHALLENGE-X09",
+  "topic": "CHALLENGES",
+  "title": "Longest monthly streak (gaps and islands)",
+  "q": "For each account, find runs of consecutive calendar months that each have at least one transaction. Show every run of 3 or more months: AccountID, AccountName, StreakStart and StreakEnd (yyyy-MM) and Months. Sort by Months descending, then StreakStart, then AccountID.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT AccountID, DATEFROMPARTS(YEAR(TransactionDate), MONTH(TransactionDate), 1) AS MonthStart\n    FROM banking.Transactions\n), g AS (\n    SELECT AccountID, MonthStart,\n           DATEADD(month, -ROW_NUMBER() OVER (PARTITION BY AccountID ORDER BY MonthStart), MonthStart) AS Island\n    FROM m\n), r AS (\n    SELECT AccountID, MIN(MonthStart) AS StreakStart, MAX(MonthStart) AS StreakEnd, COUNT(*) AS Months\n    FROM g\n    GROUP BY AccountID, Island\n)\nSELECT r.AccountID, p.AccountName, FORMAT(r.StreakStart, 'yyyy-MM') AS StreakStart,\n       FORMAT(r.StreakEnd, 'yyyy-MM') AS StreakEnd, r.Months\nFROM r\nJOIN banking.Accounts AS p ON p.AccountID = r.AccountID\nWHERE r.Months >= 3\nORDER BY r.Months DESC, r.StreakStart, r.AccountID;",
+  "how": "The classic gaps-and-islands trick: reduce dates to distinct months, then subtract ROW_NUMBER() months from each month. Consecutive months get the same result, so GROUP BY that value gives one row per streak.",
+  "a": "**Approach hint:** The classic gaps-and-islands trick: reduce dates to distinct months, then subtract ROW_NUMBER() months from each month. Consecutive months get the same result, so GROUP BY that value gives one row per streak.\n\n**Expected result:** 5 rows\n\n| AccountID | AccountName | StreakStart | StreakEnd | Months |\n|---|---|---|---|---|\n| 57 | Grace Wilson - Savings | 2024-01 | 2024-03 | 3 |\n| 2 | Liam Shah - Checking | 2024-02 | 2024-04 | 3 |\n| 35 | Amelia Hughes - Checking | 2024-02 | 2024-04 | 3 |\n| 31 | Olivia Singh - Checking | 2024-07 | 2024-09 | 3 |\n| 59 | Chloe Shah - Checking | 2024-08 | 2024-10 | 3 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 5
+ },
+ {
+  "id": "CHALLENGE-X10",
+  "topic": "CHALLENGES",
+  "title": "Longest quiet period per region",
+  "q": "For each Region (from Accounts), find the longest stretch with no transactions at all between two consecutive transaction dates in that region. Show Region, GapStart (the last date before the gap), GapEnd (the next date) and DaysWithout. If two gaps tie for longest in a region, show both. Sort by DaysWithout descending, then Region, then GapStart.",
+  "sql": "WITH d AS (\n    SELECT p.Region, e.TransactionDate AS GapEnd,\n           LAG(e.TransactionDate) OVER (PARTITION BY p.Region ORDER BY e.TransactionDate, e.TransactionID) AS GapStart\n    FROM banking.Transactions AS e\n    JOIN banking.Accounts AS p ON p.AccountID = e.AccountID\n), r AS (\n    SELECT Region, GapStart, GapEnd, DATEDIFF(day, GapStart, GapEnd) AS DaysWithout,\n           RANK() OVER (PARTITION BY Region ORDER BY DATEDIFF(day, GapStart, GapEnd) DESC) AS rk\n    FROM d\n    WHERE GapStart IS NOT NULL\n)\nSELECT Region, GapStart, GapEnd, DaysWithout\nFROM r\nWHERE rk = 1\nORDER BY DaysWithout DESC, Region, GapStart;",
+  "how": "LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.",
+  "a": "**Approach hint:** LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.\n\n**Expected result:** 4 rows\n\n| Region | GapStart | GapEnd | DaysWithout |\n|---|---|---|---|\n| East | 2024-02-17 | 2024-04-04 | 47 |\n| North | 2024-01-30 | 2024-02-26 | 27 |\n| South | 2024-01-17 | 2024-02-09 | 23 |\n| West | 2024-04-12 | 2024-05-02 | 20 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ }
+]

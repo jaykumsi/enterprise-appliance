@@ -16,9 +16,9 @@ def clarify_question(row, model):
     nouns = {
         'retail': ('order', 'customer'), 'banking': ('transaction', 'account'),
         'pharma': ('batch', 'supplier'), 'healthcare': ('encounter', 'patient'),
-        'oil': ('shipment', 'site'), 'retail_manufacturing': ('production order', 'product'),
+        'oil': ('shipment', 'site'), 'retail_supply_chain': ('stock movement', 'warehouse'),
         'retail_logistics': ('shipment', 'customer'),
-        'retail_inventory': ('stock movement', 'warehouse'),
+        'ecommerce': ('order', 'customer'),
         'brokerage': ('trade order', 'brokerage account'),
     }
     event, owner = nouns[model['slug']]

@@ -2,7 +2,7 @@
 
 Unique notes from the consolidated domain copies. File names refer to the selected domain.
 
-**Domains:** banking, brokerage, healthcare, oil, pharma, retail, retail_inventory, retail_logistics, retail_manufacturing
+**Domains:** banking, brokerage, ecommerce, healthcare, oil, pharma, retail, retail_logistics, retail_supply_chain
 
 Use schema_solution.sql as the structural reference and seed.sql as the data reference. Inspect sys.key_constraints, sys.foreign_keys and sys.check_constraints; foreign keys/checks must be enabled and trusted. A correct PK/FK design should reject each invalid case with the expected SQL Server error (515 for NOT NULL, 2627 for PK/UNIQUE, 547 for CHECK/FK).
 

@@ -1,4 +1,4 @@
--- Drops only the 45 named project tables. Deliberate reset in your training database only.
+-- Drops only the 50 named project tables. Deliberate reset in your training database only.
 SET XACT_ABORT ON;
 BEGIN TRANSACTION;
 BEGIN TRY
@@ -27,21 +27,26 @@ DROP TABLE IF EXISTS [oil].[Shipments];
 DROP TABLE IF EXISTS [oil].[Products];
 DROP TABLE IF EXISTS [oil].[Carriers];
 DROP TABLE IF EXISTS [oil].[Sites];
-DROP TABLE IF EXISTS [retail_manufacturing].[MaterialUsage];
-DROP TABLE IF EXISTS [retail_manufacturing].[BillOfMaterials];
-DROP TABLE IF EXISTS [retail_manufacturing].[ProductionOrders];
-DROP TABLE IF EXISTS [retail_manufacturing].[Materials];
-DROP TABLE IF EXISTS [retail_manufacturing].[Products];
+DROP TABLE IF EXISTS [retail_supply_chain].[StockBalances];
+DROP TABLE IF EXISTS [retail_supply_chain].[StockMovements];
+DROP TABLE IF EXISTS [retail_supply_chain].[MaterialUsage];
+DROP TABLE IF EXISTS [retail_supply_chain].[ProductionOrders];
+DROP TABLE IF EXISTS [retail_supply_chain].[BillOfMaterials];
+DROP TABLE IF EXISTS [retail_supply_chain].[Materials];
+DROP TABLE IF EXISTS [retail_supply_chain].[Products];
+DROP TABLE IF EXISTS [retail_supply_chain].[Suppliers];
+DROP TABLE IF EXISTS [retail_supply_chain].[Warehouses];
 DROP TABLE IF EXISTS [retail_logistics].[TrackingEvents];
 DROP TABLE IF EXISTS [retail_logistics].[ShipmentPackages];
 DROP TABLE IF EXISTS [retail_logistics].[Shipments];
 DROP TABLE IF EXISTS [retail_logistics].[Carriers];
 DROP TABLE IF EXISTS [retail_logistics].[Customers];
-DROP TABLE IF EXISTS [retail_inventory].[StockBalances];
-DROP TABLE IF EXISTS [retail_inventory].[StockMovements];
-DROP TABLE IF EXISTS [retail_inventory].[Suppliers];
-DROP TABLE IF EXISTS [retail_inventory].[Products];
-DROP TABLE IF EXISTS [retail_inventory].[Warehouses];
+DROP TABLE IF EXISTS [ecommerce].[Payments];
+DROP TABLE IF EXISTS [ecommerce].[OrderItems];
+DROP TABLE IF EXISTS [ecommerce].[Orders];
+DROP TABLE IF EXISTS [ecommerce].[Products];
+DROP TABLE IF EXISTS [ecommerce].[Sellers];
+DROP TABLE IF EXISTS [ecommerce].[Customers];
 DROP TABLE IF EXISTS [brokerage].[Executions];
 DROP TABLE IF EXISTS [brokerage].[TradeOrders];
 DROP TABLE IF EXISTS [brokerage].[BrokerageAccounts];

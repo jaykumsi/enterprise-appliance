@@ -565,22 +565,48 @@ INSERT INTO [oil].[ShipmentItems] (ShipmentItemID, ShipmentID, ProductID, Quanti
 (3,2,2,5,40),
 (4,3,1,10,20),
 (5,6,3,5,60);
-IF SCHEMA_ID(N'retail_manufacturing') IS NULL EXEC(N'CREATE SCHEMA [retail_manufacturing] AUTHORIZATION dbo;');
-IF OBJECT_ID(N'retail_manufacturing.Products') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_manufacturing.Materials') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_manufacturing.ProductionOrders') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_manufacturing.BillOfMaterials') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_manufacturing.MaterialUsage') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-CREATE TABLE [retail_manufacturing].[Products] (
+IF SCHEMA_ID(N'retail_supply_chain') IS NULL EXEC(N'CREATE SCHEMA [retail_supply_chain] AUTHORIZATION dbo;');
+IF OBJECT_ID(N'retail_supply_chain.Warehouses') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.Suppliers') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.Products') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.Materials') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.BillOfMaterials') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.ProductionOrders') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.MaterialUsage') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.StockMovements') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'retail_supply_chain.StockBalances') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+CREATE TABLE [retail_supply_chain].[Warehouses] (
+    [WarehouseID] int NOT NULL,
+    [WarehouseName] nvarchar(80) NOT NULL,
+    [WarehouseCode] varchar(20) NOT NULL,
+    [Region] varchar(10) NOT NULL,
+    CONSTRAINT [PK_Warehouses] PRIMARY KEY ([WarehouseID]),
+    CONSTRAINT [UQ_Warehouses_1] UNIQUE (WarehouseCode),
+    CONSTRAINT [CK_Warehouses_1] CHECK (LEN(LTRIM(RTRIM(WarehouseName))) > 0)
+);
+CREATE TABLE [retail_supply_chain].[Suppliers] (
+    [SupplierID] int NOT NULL,
+    [SupplierName] nvarchar(80) NOT NULL,
+    [SupplierCode] varchar(20) NOT NULL,
+    [LeadTimeDays] int NOT NULL,
+    CONSTRAINT [PK_Suppliers] PRIMARY KEY ([SupplierID]),
+    CONSTRAINT [UQ_Suppliers_1] UNIQUE (SupplierCode),
+    CONSTRAINT [CK_Suppliers_1] CHECK (LeadTimeDays >= 0),
+    CONSTRAINT [CK_Suppliers_2] CHECK (LEN(LTRIM(RTRIM(SupplierName))) > 0)
+);
+CREATE TABLE [retail_supply_chain].[Products] (
     [ProductID] int NOT NULL,
     [ProductName] nvarchar(80) NOT NULL,
-    [ProductCode] varchar(20) NOT NULL,
-    [Region] varchar(10) NOT NULL,
+    [SKU] varchar(20) NOT NULL,
+    [UnitCost] decimal(12,2) NOT NULL,
+    [Sourcing] varchar(10) NOT NULL DEFAULT ('Bought'),
     CONSTRAINT [PK_Products] PRIMARY KEY ([ProductID]),
-    CONSTRAINT [UQ_Products_1] UNIQUE (ProductCode),
-    CONSTRAINT [CK_Products_1] CHECK (LEN(LTRIM(RTRIM(ProductName))) > 0)
+    CONSTRAINT [UQ_Products_1] UNIQUE (SKU),
+    CONSTRAINT [CK_Products_1] CHECK (UnitCost > 0),
+    CONSTRAINT [CK_Products_2] CHECK (Sourcing IN ('Bought','Made')),
+    CONSTRAINT [CK_Products_3] CHECK (LEN(LTRIM(RTRIM(ProductName))) > 0)
 );
-CREATE TABLE [retail_manufacturing].[Materials] (
+CREATE TABLE [retail_supply_chain].[Materials] (
     [MaterialID] int NOT NULL,
     [MaterialName] nvarchar(80) NOT NULL,
     [MaterialCode] varchar(20) NOT NULL,
@@ -590,32 +616,7 @@ CREATE TABLE [retail_manufacturing].[Materials] (
     CONSTRAINT [CK_Materials_1] CHECK (UnitCost > 0),
     CONSTRAINT [CK_Materials_2] CHECK (LEN(LTRIM(RTRIM(MaterialName))) > 0)
 );
-CREATE TABLE [retail_manufacturing].[ProductionOrders] (
-    [ProductionOrderID] int NOT NULL,
-    [ProductID] int NOT NULL,
-    [ProductionReference] nvarchar(80) NOT NULL,
-    [ProductionCategory] varchar(10) NOT NULL,
-    [Status] varchar(10) NOT NULL DEFAULT ('Open'),
-    [PlannedCost] decimal(12,2) NULL,
-    [PlannedUnits] int NOT NULL,
-    [ProductionDate] date NOT NULL,
-    [StartedAt] datetime2(3) NOT NULL,
-    [RecordedAt] datetimeoffset(3) NOT NULL,
-    [Note] nvarchar(100) NULL,
-    [BackupNote] nvarchar(100) NULL,
-    [ParentProductionOrderID] int NULL,
-    CONSTRAINT [PK_ProductionOrders] PRIMARY KEY ([ProductionOrderID]),
-    CONSTRAINT [UQ_ProductionOrders_1] UNIQUE (ProductionReference),
-    CONSTRAINT [CK_ProductionOrders_1] CHECK (ProductionCategory IN ('A','B','C')),
-    CONSTRAINT [CK_ProductionOrders_2] CHECK (Status IN ('Open','Closed','Pending')),
-    CONSTRAINT [CK_ProductionOrders_3] CHECK (PlannedCost >= 0),
-    CONSTRAINT [CK_ProductionOrders_4] CHECK (PlannedUnits > 0),
-    CONSTRAINT [CK_ProductionOrders_5] CHECK (ParentProductionOrderID IS NULL OR ParentProductionOrderID <> ProductionOrderID),
-    CONSTRAINT [CK_ProductionOrders_6] CHECK (LEN(LTRIM(RTRIM(ProductionReference))) > 0),
-    CONSTRAINT [FK_ProductionOrders_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_manufacturing].[Products] ([ProductID]),
-    CONSTRAINT [FK_ProductionOrders_ParentProductionOrderID] FOREIGN KEY ([ParentProductionOrderID]) REFERENCES [retail_manufacturing].[ProductionOrders] ([ProductionOrderID])
-);
-CREATE TABLE [retail_manufacturing].[BillOfMaterials] (
+CREATE TABLE [retail_supply_chain].[BillOfMaterials] (
     [BOMID] int NOT NULL,
     [ProductID] int NOT NULL,
     [MaterialID] int NOT NULL,
@@ -623,10 +624,30 @@ CREATE TABLE [retail_manufacturing].[BillOfMaterials] (
     CONSTRAINT [PK_BillOfMaterials] PRIMARY KEY ([BOMID]),
     CONSTRAINT [UQ_BillOfMaterials_1] UNIQUE (ProductID, MaterialID),
     CONSTRAINT [CK_BillOfMaterials_1] CHECK (QuantityPerUnit > 0),
-    CONSTRAINT [FK_BillOfMaterials_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_manufacturing].[Products] ([ProductID]),
-    CONSTRAINT [FK_BillOfMaterials_MaterialID] FOREIGN KEY ([MaterialID]) REFERENCES [retail_manufacturing].[Materials] ([MaterialID])
+    CONSTRAINT [FK_BillOfMaterials_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_supply_chain].[Products] ([ProductID]),
+    CONSTRAINT [FK_BillOfMaterials_MaterialID] FOREIGN KEY ([MaterialID]) REFERENCES [retail_supply_chain].[Materials] ([MaterialID])
 );
-CREATE TABLE [retail_manufacturing].[MaterialUsage] (
+CREATE TABLE [retail_supply_chain].[ProductionOrders] (
+    [ProductionOrderID] int NOT NULL,
+    [ProductID] int NOT NULL,
+    [WarehouseID] int NOT NULL,
+    [ProductionReference] varchar(20) NOT NULL,
+    [ProductionStatus] varchar(12) NOT NULL,
+    [PlannedUnits] int NOT NULL,
+    [PlannedCost] decimal(12,2) NOT NULL,
+    [StartDate] date NOT NULL,
+    [CompletedDate] date NULL,
+    CONSTRAINT [PK_ProductionOrders] PRIMARY KEY ([ProductionOrderID]),
+    CONSTRAINT [UQ_ProductionOrders_1] UNIQUE (ProductionReference),
+    CONSTRAINT [CK_ProductionOrders_1] CHECK (ProductionStatus IN ('Planned','InProgress','Completed')),
+    CONSTRAINT [CK_ProductionOrders_2] CHECK (PlannedUnits > 0),
+    CONSTRAINT [CK_ProductionOrders_3] CHECK (PlannedCost >= 0),
+    CONSTRAINT [CK_ProductionOrders_4] CHECK (CompletedDate IS NULL OR CompletedDate >= StartDate),
+    CONSTRAINT [CK_ProductionOrders_5] CHECK (LEN(LTRIM(RTRIM(ProductionReference))) > 0),
+    CONSTRAINT [FK_ProductionOrders_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_supply_chain].[Products] ([ProductID]),
+    CONSTRAINT [FK_ProductionOrders_WarehouseID] FOREIGN KEY ([WarehouseID]) REFERENCES [retail_supply_chain].[Warehouses] ([WarehouseID])
+);
+CREATE TABLE [retail_supply_chain].[MaterialUsage] (
     [UsageID] int NOT NULL,
     [ProductionOrderID] int NOT NULL,
     [MaterialID] int NOT NULL,
@@ -635,48 +656,125 @@ CREATE TABLE [retail_manufacturing].[MaterialUsage] (
     CONSTRAINT [PK_MaterialUsage] PRIMARY KEY ([UsageID]),
     CONSTRAINT [UQ_MaterialUsage_1] UNIQUE (ProductionOrderID, MaterialID),
     CONSTRAINT [CK_MaterialUsage_1] CHECK (QuantityUsed > 0),
-    CONSTRAINT [FK_MaterialUsage_ProductionOrderID] FOREIGN KEY ([ProductionOrderID]) REFERENCES [retail_manufacturing].[ProductionOrders] ([ProductionOrderID]),
-    CONSTRAINT [FK_MaterialUsage_MaterialID] FOREIGN KEY ([MaterialID]) REFERENCES [retail_manufacturing].[Materials] ([MaterialID])
+    CONSTRAINT [FK_MaterialUsage_ProductionOrderID] FOREIGN KEY ([ProductionOrderID]) REFERENCES [retail_supply_chain].[ProductionOrders] ([ProductionOrderID]),
+    CONSTRAINT [FK_MaterialUsage_MaterialID] FOREIGN KEY ([MaterialID]) REFERENCES [retail_supply_chain].[Materials] ([MaterialID])
 );
-INSERT INTO [retail_manufacturing].[Products] (ProductID, ProductName, ProductCode, Region) VALUES
-(1,N'Products Alpha',N'PRO-1',N'North'),
-(2,N'Products Beta',N'PRO-2',N'South'),
-(3,N'Products Gamma',N'PRO-3',N'North'),
-(4,N'Products Delta',N'PRO-4',N'West'),
-(5,N'Products Unused',N'PRO-5',N'East');
-INSERT INTO [retail_manufacturing].[Materials] (MaterialID, MaterialName, MaterialCode, UnitCost) VALUES
-(1,N'Fabric',N'MAT-1',5),
-(2,N'Thread',N'MAT-2',1),
-(3,N'Zipper',N'MAT-3',2),
-(4,N'Packaging',N'MAT-4',3),
-(5,N'Unused trim',N'MAT-5',4);
-INSERT INTO [retail_manufacturing].[ProductionOrders] (ProductionOrderID, ProductID, ProductionReference, ProductionCategory, Status, PlannedCost, PlannedUnits, ProductionDate, StartedAt, RecordedAt, Note, BackupNote, ParentProductionOrderID) VALUES
-(1,1,N'  Alpha-One  ',N'A',N'Open',100,1,N'20240101',N'2024-01-01T12:30:45.123',N'2024-01-01T12:30:45.123+00:00',NULL,N'backup',NULL),
-(2,1,N'beta-Two',N'B',N'Closed',200,2,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',NULL,1),
-(3,2,N'Gamma-Three ',N'C',N'Pending',200,3,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',N'backup',1),
-(4,2,N' Delta-Four',N'A',N'Open',NULL,4,N'20240103',N'2024-01-03T12:30:45.123',N'2024-01-03T12:30:45.123+00:00',NULL,NULL,2),
-(5,3,N'Echo-Five',N'B',N'Closed',50,1,N'20240201',N'2024-02-01T12:30:45.123',N'2024-02-01T12:30:45.123+00:00',N'confirmed',N'backup',2),
-(6,3,N'ALPHA-Six',N'C',N'Pending',300,2,N'20240210',N'2024-02-10T12:30:45.123',N'2024-02-10T12:30:45.123+00:00',N'confirmed',NULL,3),
-(7,4,N'Zero-Seven',N'A',N'Open',0,3,N'20240229',N'2024-02-29T12:30:45.123',N'2024-02-29T12:30:45.123+00:00',NULL,N'backup',3),
-(8,4,N'Review-Eight',N'B',N'Closed',150,4,N'20240301',N'2024-03-01T12:30:45.123',N'2024-03-01T12:30:45.123+00:00',N'confirmed',NULL,4),
-(9,4,N'Zulu-Nine',N'C',N'Pending',300,1,N'20240310',N'2024-03-10T12:30:45.123',N'2024-03-10T12:30:45.123+00:00',N'confirmed',N'backup',4),
-(10,4,N'Iota-Ten',N'A',N'Open',80,2,N'20241103',N'2024-11-03T12:30:45.123',N'2024-11-03T12:30:45.123+00:00',NULL,NULL,5),
-(11,1,N'Kappa-Eleven',N'B',N'Closed',120,3,N'20241231',N'2024-12-31T12:30:45.123',N'2024-12-31T12:30:45.123+00:00',N'confirmed',N'backup',5),
-(12,2,N'Last-Twelve',N'C',N'Pending',200,4,N'20250101',N'2025-01-01T12:30:45.123',N'2025-01-01T12:30:45.123+00:00',N'confirmed',NULL,6);
-INSERT INTO [retail_manufacturing].[BillOfMaterials] (BOMID, ProductID, MaterialID, QuantityPerUnit) VALUES
-(1,1,1,2),
-(2,1,2,1),
-(3,2,1,1),
-(4,2,3,2),
-(5,3,4,1),
-(6,4,2,3);
-INSERT INTO [retail_manufacturing].[MaterialUsage] (UsageID, ProductionOrderID, MaterialID, QuantityUsed, UsageDate) VALUES
-(1,1,1,2,N'20240101'),
-(2,1,2,1,N'20240101'),
-(3,2,1,4.5,N'20240102'),
-(4,2,2,2,N'20240102'),
-(5,3,1,3,N'20240102'),
-(6,3,3,7,N'20240102');
+CREATE TABLE [retail_supply_chain].[StockMovements] (
+    [MovementID] int NOT NULL,
+    [WarehouseID] int NOT NULL,
+    [MovementReference] nvarchar(80) NOT NULL,
+    [MovementCategory] varchar(10) NOT NULL,
+    [Status] varchar(10) NOT NULL DEFAULT ('Open'),
+    [MovementValue] decimal(12,2) NULL,
+    [MovedUnits] int NOT NULL,
+    [MovementDate] date NOT NULL,
+    [MovedAt] datetime2(3) NOT NULL,
+    [RecordedAt] datetimeoffset(3) NOT NULL,
+    [Note] nvarchar(100) NULL,
+    [BackupNote] nvarchar(100) NULL,
+    [ParentMovementID] int NULL,
+    [ProductID] int NOT NULL,
+    [SupplierID] int NOT NULL,
+    [Direction] varchar(3) NOT NULL,
+    [ProductionOrderID] int NULL,
+    CONSTRAINT [PK_StockMovements] PRIMARY KEY ([MovementID]),
+    CONSTRAINT [UQ_StockMovements_1] UNIQUE (MovementReference),
+    CONSTRAINT [CK_StockMovements_1] CHECK (MovementCategory IN ('A','B','C')),
+    CONSTRAINT [CK_StockMovements_2] CHECK (Status IN ('Open','Closed','Pending')),
+    CONSTRAINT [CK_StockMovements_3] CHECK (MovementValue >= 0),
+    CONSTRAINT [CK_StockMovements_4] CHECK (MovedUnits > 0),
+    CONSTRAINT [CK_StockMovements_5] CHECK (ParentMovementID IS NULL OR ParentMovementID <> MovementID),
+    CONSTRAINT [CK_StockMovements_6] CHECK (Direction IN ('IN','OUT')),
+    CONSTRAINT [CK_StockMovements_7] CHECK (LEN(LTRIM(RTRIM(MovementReference))) > 0),
+    CONSTRAINT [FK_StockMovements_WarehouseID] FOREIGN KEY ([WarehouseID]) REFERENCES [retail_supply_chain].[Warehouses] ([WarehouseID]),
+    CONSTRAINT [FK_StockMovements_ParentMovementID] FOREIGN KEY ([ParentMovementID]) REFERENCES [retail_supply_chain].[StockMovements] ([MovementID]),
+    CONSTRAINT [FK_StockMovements_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_supply_chain].[Products] ([ProductID]),
+    CONSTRAINT [FK_StockMovements_SupplierID] FOREIGN KEY ([SupplierID]) REFERENCES [retail_supply_chain].[Suppliers] ([SupplierID]),
+    CONSTRAINT [FK_StockMovements_ProductionOrderID] FOREIGN KEY ([ProductionOrderID]) REFERENCES [retail_supply_chain].[ProductionOrders] ([ProductionOrderID])
+);
+CREATE TABLE [retail_supply_chain].[StockBalances] (
+    [BalanceID] int NOT NULL,
+    [WarehouseID] int NOT NULL,
+    [ProductID] int NOT NULL,
+    [OpeningQuantity] int NOT NULL,
+    [QuantityOnHand] int NOT NULL,
+    [ReorderLevel] int NOT NULL,
+    CONSTRAINT [PK_StockBalances] PRIMARY KEY ([BalanceID]),
+    CONSTRAINT [UQ_StockBalances_1] UNIQUE (WarehouseID, ProductID),
+    CONSTRAINT [CK_StockBalances_1] CHECK (OpeningQuantity >= 0),
+    CONSTRAINT [CK_StockBalances_2] CHECK (QuantityOnHand >= 0),
+    CONSTRAINT [CK_StockBalances_3] CHECK (ReorderLevel >= 0),
+    CONSTRAINT [FK_StockBalances_WarehouseID] FOREIGN KEY ([WarehouseID]) REFERENCES [retail_supply_chain].[Warehouses] ([WarehouseID]),
+    CONSTRAINT [FK_StockBalances_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_supply_chain].[Products] ([ProductID])
+);
+INSERT INTO [retail_supply_chain].[Warehouses] (WarehouseID, WarehouseName, WarehouseCode, Region) VALUES
+(1,N'Warehouses Alpha',N'WAR-1',N'North'),
+(2,N'Warehouses Beta',N'WAR-2',N'South'),
+(3,N'Warehouses Gamma',N'WAR-3',N'North'),
+(4,N'Warehouses Delta',N'WAR-4',N'West'),
+(5,N'Warehouses Unused',N'WAR-5',N'East');
+INSERT INTO [retail_supply_chain].[Suppliers] (SupplierID, SupplierName, SupplierCode, LeadTimeDays) VALUES
+(1,N'Supply chain supplier 1',N'SC-SUP-1',2),
+(2,N'Supply chain supplier 2',N'SC-SUP-2',3),
+(3,N'Supply chain supplier 3',N'SC-SUP-3',4),
+(4,N'Private Label Plant',N'SC-SUP-4',1),
+(5,N'Unused supplier',N'SC-SUP-5',6);
+INSERT INTO [retail_supply_chain].[Products] (ProductID, ProductName, SKU, UnitCost, Sourcing) VALUES
+(1,N'Notebook',N'SC-SKU-1',10,N'Bought'),
+(2,N'Pen set',N'SC-SKU-2',4,N'Bought'),
+(3,N'Canvas tote',N'SC-SKU-3',15,N'Made'),
+(4,N'Travel pouch',N'SC-SKU-4',16,N'Made'),
+(5,N'Unused product',N'SC-SKU-5',8,N'Bought');
+INSERT INTO [retail_supply_chain].[Materials] (MaterialID, MaterialName, MaterialCode, UnitCost) VALUES
+(1,N'Fabric',N'SC-MAT-1',5),
+(2,N'Thread',N'SC-MAT-2',1),
+(3,N'Zipper',N'SC-MAT-3',2),
+(4,N'Packaging',N'SC-MAT-4',3),
+(5,N'Unused trim',N'SC-MAT-5',4);
+INSERT INTO [retail_supply_chain].[BillOfMaterials] (BOMID, ProductID, MaterialID, QuantityPerUnit) VALUES
+(1,3,1,2),
+(2,3,2,1),
+(3,4,1,1),
+(4,4,3,2),
+(5,4,4,1);
+INSERT INTO [retail_supply_chain].[ProductionOrders] (ProductionOrderID, ProductID, WarehouseID, ProductionReference, ProductionStatus, PlannedUnits, PlannedCost, StartDate, CompletedDate) VALUES
+(1,3,2,N'PO-1',N'Completed',10,110,N'20231220',N'20231230'),
+(2,4,1,N'PO-2',N'Completed',5,60,N'20231222',N'20231229'),
+(3,3,3,N'PO-3',N'InProgress',8,88,N'20240201',NULL),
+(4,4,4,N'PO-4',N'Planned',6,72,N'20240301',NULL);
+INSERT INTO [retail_supply_chain].[MaterialUsage] (UsageID, ProductionOrderID, MaterialID, QuantityUsed, UsageDate) VALUES
+(1,1,1,20,N'20231221'),
+(2,1,2,10.5,N'20231221'),
+(3,2,1,5,N'20231223'),
+(4,2,3,10,N'20231223'),
+(5,2,4,5,N'20231223'),
+(6,3,1,8,N'20240202');
+INSERT INTO [retail_supply_chain].[StockMovements] (MovementID, WarehouseID, MovementReference, MovementCategory, Status, MovementValue, MovedUnits, MovementDate, MovedAt, RecordedAt, Note, BackupNote, ParentMovementID, ProductID, SupplierID, Direction, ProductionOrderID) VALUES
+(1,1,N'  Alpha-One  ',N'A',N'Open',100,1,N'20240101',N'2024-01-01T12:30:45.123',N'2024-01-01T12:30:45.123+00:00',NULL,N'backup',NULL,1,1,N'IN',NULL),
+(2,1,N'beta-Two',N'B',N'Closed',200,2,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',NULL,1,2,2,N'OUT',NULL),
+(3,2,N'Gamma-Three ',N'C',N'Pending',200,3,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',N'backup',1,3,4,N'IN',1),
+(4,2,N' Delta-Four',N'A',N'Open',NULL,4,N'20240103',N'2024-01-03T12:30:45.123',N'2024-01-03T12:30:45.123+00:00',NULL,NULL,2,4,4,N'IN',NULL),
+(5,3,N'Echo-Five',N'B',N'Closed',50,1,N'20240201',N'2024-02-01T12:30:45.123',N'2024-02-01T12:30:45.123+00:00',N'confirmed',N'backup',2,1,1,N'OUT',NULL),
+(6,3,N'ALPHA-Six',N'C',N'Pending',300,2,N'20240210',N'2024-02-10T12:30:45.123',N'2024-02-10T12:30:45.123+00:00',N'confirmed',NULL,3,2,2,N'IN',NULL),
+(7,4,N'Zero-Seven',N'A',N'Open',0,3,N'20240229',N'2024-02-29T12:30:45.123',N'2024-02-29T12:30:45.123+00:00',NULL,N'backup',3,3,4,N'IN',NULL),
+(8,4,N'Review-Eight',N'B',N'Closed',150,4,N'20240301',N'2024-03-01T12:30:45.123',N'2024-03-01T12:30:45.123+00:00',N'confirmed',NULL,4,4,4,N'OUT',NULL),
+(9,4,N'Zulu-Nine',N'C',N'Pending',300,1,N'20240310',N'2024-03-10T12:30:45.123',N'2024-03-10T12:30:45.123+00:00',N'confirmed',N'backup',4,1,1,N'IN',NULL),
+(10,4,N'Iota-Ten',N'A',N'Open',80,2,N'20241103',N'2024-11-03T12:30:45.123',N'2024-11-03T12:30:45.123+00:00',NULL,NULL,5,2,2,N'IN',NULL),
+(11,1,N'Kappa-Eleven',N'B',N'Closed',120,3,N'20241231',N'2024-12-31T12:30:45.123',N'2024-12-31T12:30:45.123+00:00',N'confirmed',N'backup',5,3,4,N'OUT',NULL),
+(12,2,N'Last-Twelve',N'C',N'Pending',200,4,N'20250101',N'2025-01-01T12:30:45.123',N'2025-01-01T12:30:45.123+00:00',N'confirmed',NULL,6,4,4,N'IN',NULL);
+INSERT INTO [retail_supply_chain].[StockBalances] (BalanceID, WarehouseID, ProductID, OpeningQuantity, QuantityOnHand, ReorderLevel) VALUES
+(1,1,1,10,11,10),
+(2,1,2,10,8,10),
+(3,1,3,10,7,10),
+(4,2,3,10,13,10),
+(5,2,4,10,18,10),
+(6,3,1,10,9,10),
+(7,3,2,10,12,10),
+(8,4,1,10,11,10),
+(9,4,2,10,12,10),
+(10,4,3,10,13,10),
+(11,4,4,10,6,10),
+(12,1,5,10,10,10);
 IF SCHEMA_ID(N'retail_logistics') IS NULL EXEC(N'CREATE SCHEMA [retail_logistics] AUTHORIZATION dbo;');
 IF OBJECT_ID(N'retail_logistics.Customers') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
 IF OBJECT_ID(N'retail_logistics.Carriers') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
@@ -790,130 +888,138 @@ INSERT INTO [retail_logistics].[TrackingEvents] (TrackingEventID, PackageID, Sca
 (3,2,N'SCAN-3',N'InTransit',N'2024-01-02T09:00:00',N'Regional hub'),
 (4,3,N'SCAN-4',N'Delivered',N'2024-01-05T11:00:00',N'Customer address'),
 (5,4,N'SCAN-5',N'PickedUp',N'2024-01-03T08:00:00',N'Origin hub');
-IF SCHEMA_ID(N'retail_inventory') IS NULL EXEC(N'CREATE SCHEMA [retail_inventory] AUTHORIZATION dbo;');
-IF OBJECT_ID(N'retail_inventory.Warehouses') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_inventory.Products') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_inventory.Suppliers') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_inventory.StockMovements') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-IF OBJECT_ID(N'retail_inventory.StockBalances') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
-CREATE TABLE [retail_inventory].[Warehouses] (
-    [WarehouseID] int NOT NULL,
-    [WarehouseName] nvarchar(80) NOT NULL,
-    [WarehouseCode] varchar(20) NOT NULL,
+IF SCHEMA_ID(N'ecommerce') IS NULL EXEC(N'CREATE SCHEMA [ecommerce] AUTHORIZATION dbo;');
+IF OBJECT_ID(N'ecommerce.Customers') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'ecommerce.Sellers') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'ecommerce.Products') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'ecommerce.Orders') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'ecommerce.OrderItems') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+IF OBJECT_ID(N'ecommerce.Payments') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
+CREATE TABLE [ecommerce].[Customers] (
+    [CustomerID] int NOT NULL,
+    [CustomerName] nvarchar(80) NOT NULL,
+    [CustomerCode] varchar(20) NOT NULL,
     [Region] varchar(10) NOT NULL,
-    CONSTRAINT [PK_Warehouses] PRIMARY KEY ([WarehouseID]),
-    CONSTRAINT [UQ_Warehouses_1] UNIQUE (WarehouseCode),
-    CONSTRAINT [CK_Warehouses_1] CHECK (LEN(LTRIM(RTRIM(WarehouseName))) > 0)
+    CONSTRAINT [PK_Customers] PRIMARY KEY ([CustomerID]),
+    CONSTRAINT [UQ_Customers_1] UNIQUE (CustomerCode),
+    CONSTRAINT [CK_Customers_1] CHECK (LEN(LTRIM(RTRIM(CustomerName))) > 0)
 );
-CREATE TABLE [retail_inventory].[Products] (
+CREATE TABLE [ecommerce].[Sellers] (
+    [SellerID] int NOT NULL,
+    [SellerName] nvarchar(80) NOT NULL,
+    [SellerCode] varchar(20) NOT NULL,
+    [Department] varchar(20) NOT NULL,
+    CONSTRAINT [PK_Sellers] PRIMARY KEY ([SellerID]),
+    CONSTRAINT [UQ_Sellers_1] UNIQUE (SellerCode),
+    CONSTRAINT [CK_Sellers_1] CHECK (LEN(LTRIM(RTRIM(SellerName))) > 0)
+);
+CREATE TABLE [ecommerce].[Products] (
     [ProductID] int NOT NULL,
     [ProductName] nvarchar(80) NOT NULL,
     [SKU] varchar(20) NOT NULL,
-    [UnitCost] decimal(12,2) NOT NULL,
+    [UnitPrice] decimal(12,2) NOT NULL,
+    [Department] varchar(20) NOT NULL DEFAULT ('General'),
     CONSTRAINT [PK_Products] PRIMARY KEY ([ProductID]),
     CONSTRAINT [UQ_Products_1] UNIQUE (SKU),
-    CONSTRAINT [CK_Products_1] CHECK (UnitCost > 0),
+    CONSTRAINT [CK_Products_1] CHECK (UnitPrice > 0),
     CONSTRAINT [CK_Products_2] CHECK (LEN(LTRIM(RTRIM(ProductName))) > 0)
 );
-CREATE TABLE [retail_inventory].[Suppliers] (
-    [SupplierID] int NOT NULL,
-    [SupplierName] nvarchar(80) NOT NULL,
-    [SupplierCode] varchar(20) NOT NULL,
-    [LeadTimeDays] int NOT NULL,
-    CONSTRAINT [PK_Suppliers] PRIMARY KEY ([SupplierID]),
-    CONSTRAINT [UQ_Suppliers_1] UNIQUE (SupplierCode),
-    CONSTRAINT [CK_Suppliers_1] CHECK (LeadTimeDays >= 0),
-    CONSTRAINT [CK_Suppliers_2] CHECK (LEN(LTRIM(RTRIM(SupplierName))) > 0)
-);
-CREATE TABLE [retail_inventory].[StockMovements] (
-    [MovementID] int NOT NULL,
-    [WarehouseID] int NOT NULL,
-    [MovementReference] nvarchar(80) NOT NULL,
-    [MovementCategory] varchar(10) NOT NULL,
-    [Status] varchar(10) NOT NULL DEFAULT ('Open'),
-    [MovementValue] decimal(12,2) NULL,
-    [MovedUnits] int NOT NULL,
-    [MovementDate] date NOT NULL,
-    [MovedAt] datetime2(3) NOT NULL,
+CREATE TABLE [ecommerce].[Orders] (
+    [OrderID] int NOT NULL,
+    [CustomerID] int NOT NULL,
+    [OrderReference] nvarchar(80) NOT NULL,
+    [SalesChannel] varchar(10) NOT NULL,
+    [OrderStatus] varchar(10) NOT NULL DEFAULT ('Open'),
+    [OrderTotal] decimal(12,2) NULL,
+    [ItemCount] int NOT NULL,
+    [OrderDate] date NOT NULL,
+    [PlacedAt] datetime2(3) NOT NULL,
     [RecordedAt] datetimeoffset(3) NOT NULL,
     [Note] nvarchar(100) NULL,
     [BackupNote] nvarchar(100) NULL,
-    [ParentMovementID] int NULL,
-    [ProductID] int NOT NULL,
-    [SupplierID] int NOT NULL,
-    [Direction] varchar(3) NOT NULL,
-    CONSTRAINT [PK_StockMovements] PRIMARY KEY ([MovementID]),
-    CONSTRAINT [UQ_StockMovements_1] UNIQUE (MovementReference),
-    CONSTRAINT [CK_StockMovements_1] CHECK (MovementCategory IN ('A','B','C')),
-    CONSTRAINT [CK_StockMovements_2] CHECK (Status IN ('Open','Closed','Pending')),
-    CONSTRAINT [CK_StockMovements_3] CHECK (MovementValue >= 0),
-    CONSTRAINT [CK_StockMovements_4] CHECK (MovedUnits > 0),
-    CONSTRAINT [CK_StockMovements_5] CHECK (ParentMovementID IS NULL OR ParentMovementID <> MovementID),
-    CONSTRAINT [CK_StockMovements_6] CHECK (Direction IN ('IN','OUT')),
-    CONSTRAINT [CK_StockMovements_7] CHECK (LEN(LTRIM(RTRIM(MovementReference))) > 0),
-    CONSTRAINT [FK_StockMovements_WarehouseID] FOREIGN KEY ([WarehouseID]) REFERENCES [retail_inventory].[Warehouses] ([WarehouseID]),
-    CONSTRAINT [FK_StockMovements_ParentMovementID] FOREIGN KEY ([ParentMovementID]) REFERENCES [retail_inventory].[StockMovements] ([MovementID]),
-    CONSTRAINT [FK_StockMovements_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_inventory].[Products] ([ProductID]),
-    CONSTRAINT [FK_StockMovements_SupplierID] FOREIGN KEY ([SupplierID]) REFERENCES [retail_inventory].[Suppliers] ([SupplierID])
+    [ParentOrderID] int NULL,
+    [SellerID] int NOT NULL,
+    CONSTRAINT [PK_Orders] PRIMARY KEY ([OrderID]),
+    CONSTRAINT [UQ_Orders_1] UNIQUE (OrderReference),
+    CONSTRAINT [CK_Orders_1] CHECK (SalesChannel IN ('A','B','C')),
+    CONSTRAINT [CK_Orders_2] CHECK (OrderStatus IN ('Open','Closed','Pending')),
+    CONSTRAINT [CK_Orders_3] CHECK (OrderTotal >= 0),
+    CONSTRAINT [CK_Orders_4] CHECK (ItemCount > 0),
+    CONSTRAINT [CK_Orders_5] CHECK (ParentOrderID IS NULL OR ParentOrderID <> OrderID),
+    CONSTRAINT [CK_Orders_6] CHECK (LEN(LTRIM(RTRIM(OrderReference))) > 0),
+    CONSTRAINT [FK_Orders_CustomerID] FOREIGN KEY ([CustomerID]) REFERENCES [ecommerce].[Customers] ([CustomerID]),
+    CONSTRAINT [FK_Orders_ParentOrderID] FOREIGN KEY ([ParentOrderID]) REFERENCES [ecommerce].[Orders] ([OrderID]),
+    CONSTRAINT [FK_Orders_SellerID] FOREIGN KEY ([SellerID]) REFERENCES [ecommerce].[Sellers] ([SellerID])
 );
-CREATE TABLE [retail_inventory].[StockBalances] (
-    [BalanceID] int NOT NULL,
-    [WarehouseID] int NOT NULL,
+CREATE TABLE [ecommerce].[OrderItems] (
+    [OrderItemID] int NOT NULL,
+    [OrderID] int NOT NULL,
     [ProductID] int NOT NULL,
-    [OpeningQuantity] int NOT NULL,
-    [QuantityOnHand] int NOT NULL,
-    [ReorderLevel] int NOT NULL,
-    CONSTRAINT [PK_StockBalances] PRIMARY KEY ([BalanceID]),
-    CONSTRAINT [UQ_StockBalances_1] UNIQUE (WarehouseID, ProductID),
-    CONSTRAINT [CK_StockBalances_1] CHECK (OpeningQuantity >= 0),
-    CONSTRAINT [CK_StockBalances_2] CHECK (QuantityOnHand >= 0),
-    CONSTRAINT [CK_StockBalances_3] CHECK (ReorderLevel >= 0),
-    CONSTRAINT [FK_StockBalances_WarehouseID] FOREIGN KEY ([WarehouseID]) REFERENCES [retail_inventory].[Warehouses] ([WarehouseID]),
-    CONSTRAINT [FK_StockBalances_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [retail_inventory].[Products] ([ProductID])
+    [Quantity] int NOT NULL,
+    [UnitPrice] decimal(12,2) NOT NULL,
+    CONSTRAINT [PK_OrderItems] PRIMARY KEY ([OrderItemID]),
+    CONSTRAINT [UQ_OrderItems_1] UNIQUE (OrderID, ProductID),
+    CONSTRAINT [CK_OrderItems_1] CHECK (Quantity > 0),
+    CONSTRAINT [CK_OrderItems_2] CHECK (UnitPrice >= 0),
+    CONSTRAINT [FK_OrderItems_OrderID] FOREIGN KEY ([OrderID]) REFERENCES [ecommerce].[Orders] ([OrderID]),
+    CONSTRAINT [FK_OrderItems_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [ecommerce].[Products] ([ProductID])
 );
-INSERT INTO [retail_inventory].[Warehouses] (WarehouseID, WarehouseName, WarehouseCode, Region) VALUES
-(1,N'Warehouses Alpha',N'WAR-1',N'North'),
-(2,N'Warehouses Beta',N'WAR-2',N'South'),
-(3,N'Warehouses Gamma',N'WAR-3',N'North'),
-(4,N'Warehouses Delta',N'WAR-4',N'West'),
-(5,N'Warehouses Unused',N'WAR-5',N'East');
-INSERT INTO [retail_inventory].[Products] (ProductID, ProductName, SKU, UnitCost) VALUES
-(1,N'Inventory product 1',N'INV-SKU-1',10),
-(2,N'Inventory product 2',N'INV-SKU-2',20),
-(3,N'Inventory product 3',N'INV-SKU-3',30),
-(4,N'Inventory product 4',N'INV-SKU-4',40),
-(5,N'Inventory product 5',N'INV-SKU-5',50);
-INSERT INTO [retail_inventory].[Suppliers] (SupplierID, SupplierName, SupplierCode, LeadTimeDays) VALUES
-(1,N'Inventory supplier 1',N'INV-SUP-1',2),
-(2,N'Inventory supplier 2',N'INV-SUP-2',3),
-(3,N'Inventory supplier 3',N'INV-SUP-3',4),
-(4,N'Inventory supplier 4',N'INV-SUP-4',5),
-(5,N'Inventory supplier 5',N'INV-SUP-5',6);
-INSERT INTO [retail_inventory].[StockMovements] (MovementID, WarehouseID, MovementReference, MovementCategory, Status, MovementValue, MovedUnits, MovementDate, MovedAt, RecordedAt, Note, BackupNote, ParentMovementID, ProductID, SupplierID, Direction) VALUES
-(1,1,N'  Alpha-One  ',N'A',N'Open',100,1,N'20240101',N'2024-01-01T12:30:45.123',N'2024-01-01T12:30:45.123+00:00',NULL,N'backup',NULL,1,1,N'IN'),
-(2,1,N'beta-Two',N'B',N'Closed',200,2,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',NULL,1,2,2,N'OUT'),
-(3,2,N'Gamma-Three ',N'C',N'Pending',200,3,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',N'backup',1,3,3,N'IN'),
-(4,2,N' Delta-Four',N'A',N'Open',NULL,4,N'20240103',N'2024-01-03T12:30:45.123',N'2024-01-03T12:30:45.123+00:00',NULL,NULL,2,4,4,N'IN'),
-(5,3,N'Echo-Five',N'B',N'Closed',50,1,N'20240201',N'2024-02-01T12:30:45.123',N'2024-02-01T12:30:45.123+00:00',N'confirmed',N'backup',2,1,1,N'OUT'),
-(6,3,N'ALPHA-Six',N'C',N'Pending',300,2,N'20240210',N'2024-02-10T12:30:45.123',N'2024-02-10T12:30:45.123+00:00',N'confirmed',NULL,3,2,2,N'IN'),
-(7,4,N'Zero-Seven',N'A',N'Open',0,3,N'20240229',N'2024-02-29T12:30:45.123',N'2024-02-29T12:30:45.123+00:00',NULL,N'backup',3,3,3,N'IN'),
-(8,4,N'Review-Eight',N'B',N'Closed',150,4,N'20240301',N'2024-03-01T12:30:45.123',N'2024-03-01T12:30:45.123+00:00',N'confirmed',NULL,4,4,4,N'OUT'),
-(9,4,N'Zulu-Nine',N'C',N'Pending',300,1,N'20240310',N'2024-03-10T12:30:45.123',N'2024-03-10T12:30:45.123+00:00',N'confirmed',N'backup',4,1,1,N'IN'),
-(10,4,N'Iota-Ten',N'A',N'Open',80,2,N'20241103',N'2024-11-03T12:30:45.123',N'2024-11-03T12:30:45.123+00:00',NULL,NULL,5,2,2,N'IN'),
-(11,1,N'Kappa-Eleven',N'B',N'Closed',120,3,N'20241231',N'2024-12-31T12:30:45.123',N'2024-12-31T12:30:45.123+00:00',N'confirmed',N'backup',5,3,3,N'OUT'),
-(12,2,N'Last-Twelve',N'C',N'Pending',200,4,N'20250101',N'2025-01-01T12:30:45.123',N'2025-01-01T12:30:45.123+00:00',N'confirmed',NULL,6,4,4,N'IN');
-INSERT INTO [retail_inventory].[StockBalances] (BalanceID, WarehouseID, ProductID, OpeningQuantity, QuantityOnHand, ReorderLevel) VALUES
-(1,1,1,10,11,10),
-(2,1,2,10,8,10),
-(3,1,3,10,7,10),
-(4,2,3,10,13,10),
-(5,2,4,10,18,10),
-(6,3,1,10,9,10),
-(7,3,2,10,12,10),
-(8,4,3,10,13,10),
-(9,4,4,10,6,10),
-(10,4,1,10,11,10),
-(11,4,2,10,12,10);
+CREATE TABLE [ecommerce].[Payments] (
+    [PaymentID] int NOT NULL,
+    [OrderID] int NOT NULL,
+    [PaymentMethod] varchar(10) NOT NULL,
+    [PaidAmount] decimal(12,2) NOT NULL,
+    [PaidAt] datetime2(3) NOT NULL,
+    CONSTRAINT [PK_Payments] PRIMARY KEY ([PaymentID]),
+    CONSTRAINT [CK_Payments_1] CHECK (PaymentMethod IN ('Card','Wallet','GiftCard','COD')),
+    CONSTRAINT [CK_Payments_2] CHECK (PaidAmount > 0),
+    CONSTRAINT [CK_Payments_3] CHECK (LEN(LTRIM(RTRIM(PaymentMethod))) > 0),
+    CONSTRAINT [FK_Payments_OrderID] FOREIGN KEY ([OrderID]) REFERENCES [ecommerce].[Orders] ([OrderID])
+);
+INSERT INTO [ecommerce].[Customers] (CustomerID, CustomerName, CustomerCode, Region) VALUES
+(1,N'Customers Alpha',N'CUS-1',N'North'),
+(2,N'Customers Beta',N'CUS-2',N'South'),
+(3,N'Customers Gamma',N'CUS-3',N'North'),
+(4,N'Customers Delta',N'CUS-4',N'West'),
+(5,N'Customers Unused',N'CUS-5',N'East');
+INSERT INTO [ecommerce].[Sellers] (SellerID, SellerName, SellerCode, Department) VALUES
+(1,N'Seller 1',N'SEL-1',N'Electronics'),
+(2,N'Seller 2',N'SEL-2',N'Home & Kitchen'),
+(3,N'Seller 3',N'SEL-3',N'Fashion'),
+(4,N'Seller 4',N'SEL-4',N'Books'),
+(5,N'Unused seller',N'SEL-5',N'Toys & Games');
+INSERT INTO [ecommerce].[Products] (ProductID, ProductName, SKU, UnitPrice, Department) VALUES
+(1,N'Wireless earbuds',N'EB-SKU-1',25,N'Electronics'),
+(2,N'USB-C charger',N'EB-SKU-2',10,N'Electronics'),
+(3,N'French press',N'EB-SKU-3',50,N'Home & Kitchen'),
+(4,N'Rain jacket',N'EB-SKU-4',40,N'Fashion'),
+(5,N'Unused product',N'EB-SKU-5',15,N'Books');
+INSERT INTO [ecommerce].[Orders] (OrderID, CustomerID, OrderReference, SalesChannel, OrderStatus, OrderTotal, ItemCount, OrderDate, PlacedAt, RecordedAt, Note, BackupNote, ParentOrderID, SellerID) VALUES
+(1,1,N'  Alpha-One  ',N'A',N'Open',100,1,N'20240101',N'2024-01-01T12:30:45.123',N'2024-01-01T12:30:45.123+00:00',NULL,N'backup',NULL,1),
+(2,1,N'beta-Two',N'B',N'Closed',200,2,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',NULL,1,2),
+(3,2,N'Gamma-Three ',N'C',N'Pending',200,3,N'20240102',N'2024-01-02T12:30:45.123',N'2024-01-02T12:30:45.123+00:00',N'confirmed',N'backup',1,3),
+(4,2,N' Delta-Four',N'A',N'Open',NULL,4,N'20240103',N'2024-01-03T12:30:45.123',N'2024-01-03T12:30:45.123+00:00',NULL,NULL,2,4),
+(5,3,N'Echo-Five',N'B',N'Closed',50,1,N'20240201',N'2024-02-01T12:30:45.123',N'2024-02-01T12:30:45.123+00:00',N'confirmed',N'backup',2,1),
+(6,3,N'ALPHA-Six',N'C',N'Pending',300,2,N'20240210',N'2024-02-10T12:30:45.123',N'2024-02-10T12:30:45.123+00:00',N'confirmed',NULL,3,2),
+(7,4,N'Zero-Seven',N'A',N'Open',0,3,N'20240229',N'2024-02-29T12:30:45.123',N'2024-02-29T12:30:45.123+00:00',NULL,N'backup',3,3),
+(8,4,N'Review-Eight',N'B',N'Closed',150,4,N'20240301',N'2024-03-01T12:30:45.123',N'2024-03-01T12:30:45.123+00:00',N'confirmed',NULL,4,4),
+(9,4,N'Zulu-Nine',N'C',N'Pending',300,1,N'20240310',N'2024-03-10T12:30:45.123',N'2024-03-10T12:30:45.123+00:00',N'confirmed',N'backup',4,1),
+(10,4,N'Iota-Ten',N'A',N'Open',80,2,N'20241103',N'2024-11-03T12:30:45.123',N'2024-11-03T12:30:45.123+00:00',NULL,NULL,5,2),
+(11,1,N'Kappa-Eleven',N'B',N'Closed',120,3,N'20241231',N'2024-12-31T12:30:45.123',N'2024-12-31T12:30:45.123+00:00',N'confirmed',N'backup',5,3),
+(12,2,N'Last-Twelve',N'C',N'Pending',200,4,N'20250101',N'2025-01-01T12:30:45.123',N'2025-01-01T12:30:45.123+00:00',N'confirmed',NULL,6,4);
+INSERT INTO [ecommerce].[OrderItems] (OrderItemID, OrderID, ProductID, Quantity, UnitPrice) VALUES
+(1,1,1,2,25),
+(2,1,2,5,10),
+(3,2,3,4,50),
+(4,3,4,5,40),
+(5,5,1,2,25),
+(6,6,3,6,50);
+INSERT INTO [ecommerce].[Payments] (PaymentID, OrderID, PaymentMethod, PaidAmount, PaidAt) VALUES
+(1,1,N'GiftCard',40,N'2024-01-01T12:31:00'),
+(2,1,N'Card',60,N'2024-01-01T12:31:04'),
+(3,2,N'Wallet',200,N'2024-01-02T12:31:00'),
+(4,3,N'Card',100,N'2024-01-02T12:32:00'),
+(5,6,N'COD',300,N'2024-02-13T10:00:00');
 IF SCHEMA_ID(N'brokerage') IS NULL EXEC(N'CREATE SCHEMA [brokerage] AUTHORIZATION dbo;');
 IF OBJECT_ID(N'brokerage.Clients') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;
 IF OBJECT_ID(N'brokerage.Securities') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;

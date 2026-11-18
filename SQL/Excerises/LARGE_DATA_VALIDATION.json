@@ -153,12 +153,22 @@
       ]
     },
     {
-      "domain": "retail_manufacturing",
+      "domain": "retail_supply_chain",
       "tables": [
+        {
+          "name": "Warehouses",
+          "role": "Master",
+          "rows": 50
+        },
+        {
+          "name": "Suppliers",
+          "role": "Master",
+          "rows": 50
+        },
         {
           "name": "Products",
           "role": "Master",
-          "rows": 50
+          "rows": 100
         },
         {
           "name": "Materials",
@@ -166,19 +176,29 @@
           "rows": 60
         },
         {
-          "name": "ProductionOrders",
-          "role": "Transaction / detail",
-          "rows": 240
-        },
-        {
           "name": "BillOfMaterials",
           "role": "Transaction / detail",
           "rows": 200
         },
         {
+          "name": "ProductionOrders",
+          "role": "Transaction / detail",
+          "rows": 120
+        },
+        {
           "name": "MaterialUsage",
           "role": "Transaction / detail",
-          "rows": 912
+          "rows": 440
+        },
+        {
+          "name": "StockMovements",
+          "role": "Transaction / detail",
+          "rows": 240
+        },
+        {
+          "name": "StockBalances",
+          "role": "Transaction / detail",
+          "rows": 100
         }
       ]
     },
@@ -213,32 +233,37 @@
       ]
     },
     {
-      "domain": "retail_inventory",
+      "domain": "ecommerce",
       "tables": [
         {
-          "name": "Warehouses",
+          "name": "Customers",
           "role": "Master",
-          "rows": 50
+          "rows": 2000
+        },
+        {
+          "name": "Sellers",
+          "role": "Master",
+          "rows": 80
         },
         {
           "name": "Products",
           "role": "Master",
-          "rows": 100
+          "rows": 400
         },
         {
-          "name": "Suppliers",
-          "role": "Master",
-          "rows": 50
-        },
-        {
-          "name": "StockMovements",
+          "name": "Orders",
           "role": "Transaction / detail",
-          "rows": 240
+          "rows": 31973
         },
         {
-          "name": "StockBalances",
+          "name": "OrderItems",
           "role": "Transaction / detail",
-          "rows": 100
+          "rows": 58025
+        },
+        {
+          "name": "Payments",
+          "role": "Transaction / detail",
+          "rows": 32171
         }
       ]
     },

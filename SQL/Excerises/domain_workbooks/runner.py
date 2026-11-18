@@ -58,7 +58,8 @@ def reload(domain):
     subprocess.run(['sqlcmd', '-S', SERVER, '-b', '-Q',
                     f"IF DB_ID('{db}') IS NOT NULL BEGIN ALTER DATABASE [{db}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [{db}]; END; CREATE DATABASE [{db}];"],
                    check=True, capture_output=True)
-    subprocess.run(['sqlcmd', '-S', SERVER, '-d', db, '-b', '-i', str(ROOT / 'domains' / domain / 'data_setup.sql')],
+    setup = ROOT / 'domains' / domain / 'data_setup.sql'
+    subprocess.run(['sqlcmd', '-S', SERVER, '-d', db, '-b', '-i', str(setup)],
                    check=True, capture_output=True)
 
 

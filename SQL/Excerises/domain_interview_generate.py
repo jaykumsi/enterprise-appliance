@@ -73,6 +73,28 @@ def prompt_lab(model,row,level,n,lab):
     ])
 
 
+def student_workbook_links(models):
+    """Online student workbook pages (claude.ai) for this student entry page. Instructor answer keys are never listed here."""
+    wb=ROOT/'domain_workbooks'
+    links_path=wb/'pages'/'links.json'
+    if not links_path.exists():
+        return []
+    import importlib.util
+    links=json.loads(links_path.read_text(encoding='utf-8'))
+    spec=importlib.util.spec_from_file_location('wb_domains',wb/'wb_domains.py');cfg=importlib.util.module_from_spec(spec);spec.loader.exec_module(cfg)
+    company={'healthcare':'AmeriMed Healthcare',**{k:v['company'] for k,v in cfg.DOMAINS.items()}}
+    lines=['','## Online student workbooks','',
+           'Each company also has an interactive 490-question workbook page: 16 topics plus 10 interview challenges, with expected results to check your work. '
+           f'[All workbooks (hub)]({links["hub"]}) opens the list of all companies.','',
+           '| Domain | Company | Student workbook |','|---|---|---|']
+    lines+=[f'| {m["title"]} | {company[m["slug"]]} | [Open workbook]({links[m["slug"]]}) |' for m in models if m['slug'] in links]
+    keys_path=wb/'pages'/'instructor_links.json'
+    if keys_path.exists():
+        keys=set(json.loads(keys_path.read_text(encoding='utf-8')).values())
+        assert not keys & set(links.values()) and not any(k in ' '.join(lines) for k in keys),'Instructor answer keys must not appear on the student entry page'
+    return lines
+
+
 def generate(models,records):
     all_recipes=recipes();assert Counter(r['level'] for r in all_recipes)==dict(Beginner=15,Intermediate=15,Advanced=15)
     expected_path=ROOT/'DOMAIN_INTERVIEW_EXPECTED.json'
@@ -176,6 +198,7 @@ def generate(models,records):
     assert question_count==53460 and query_count==32400
     with (ROOT/'DOMAIN_INTERVIEW_COVERAGE.csv').open('w',encoding='utf-8',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=list(coverage[0]));writer.writeheader();writer.writerows(coverage)
+    domain_index += student_workbook_links(models)
     write(ROOT/'domains/README.md','\n'.join(domain_index)+'\n')
     shared=ROOT/'COVERAGE.md'
     previous=shared.read_text(encoding='utf-8').split(MARKER)[0].rstrip()

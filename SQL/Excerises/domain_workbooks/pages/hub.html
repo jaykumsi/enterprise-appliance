@@ -1,655 +1,548 @@
 <title>SQL Assignments by Domain</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='1' y='1' width='46' height='46' rx='12' fill='%238b5cf6'/%3E%3Cpath d='M12 14h24M12 24h24M12 34h14' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238b7bff'/%3E%3Cstop offset='1' stop-color='%23ff6fb5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='46' height='46' rx='13' fill='url(%23g)'/%3E%3Cpath d='M13 15h22M13 24h22M13 33h13' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&family=JetBrains+Mono:wght@500;700&family=Krona+One&display=swap">
 <script>
   (function () {
     try { var t = localStorage.getItem("tinitiate-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
   })();
 </script>
 <style>
-/* Layout: Tinitiate portal family, dark-first. Sticky glass top bar, centered hero with stat pills,
-   track-tabbed topic cards, then a sidebar + question workbench, and a three-column footer. */
+/* Layout: Ionic-style app shell. Translucent toolbar, iOS large title, searchbar + sliding segment,
+   app-icon cards per company, inset grouped lists for "How it works" and the instructor. Dark-first. */
 :root {
-  --bg: #07090e;
-  --surface: #0d121f;
-  --card: rgba(15, 23, 42, 0.78);
-  --card-hover: rgba(22, 34, 61, 0.92);
-  --line: rgba(148, 163, 184, 0.14);
-  --line-hover: rgba(148, 163, 184, 0.32);
-  --ink: #f8fafc;
-  --muted: #94a3b8;
-  --dim: #64748b;
-  --nav-bg: rgba(7, 9, 14, 0.82);
-  --code-bg: #060a14;
-  --answer-bg: rgba(8, 13, 26, 0.7);
-  --mark: rgba(250, 204, 21, 0.3);
-  --title-from: #ffffff;
-  --glow-a: rgba(20, 184, 166, 0.16);
-  --glow-b: rgba(139, 92, 246, 0.14);
-  --shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-
-  --teal: #2dd4bf;   /* healthcare primary */
-  --violet: #a78bfa; /* foundations */
-  --cyan: #38bdf8;   /* querying */
-  --amber: #fbbf24;  /* functions */
-  --emerald: #34d399;/* advanced */
-  --rose: #fb7185;   /* clinical highlight */
-
-  --hl-kw: #7dd3fc; --hl-str: #fcd34d; --hl-num: #c4b5fd; --hl-cm: #64748b;
-
+  --bg: #0a0b1a;
+  --bg-2: #11132b;
+  --glass: rgba(24, 27, 56, 0.62);
+  --glass-strong: rgba(30, 33, 68, 0.82);
+  --line: rgba(160, 170, 255, 0.14);
+  --line-strong: rgba(160, 170, 255, 0.28);
+  --ink: #f3f4ff;
+  --muted: #a5abd0;
+  --dim: #7a80a8;
+  --primary: #8b7bff;
+  --primary-2: #4fd1ff;
+  --pink: #ff6fb5;
+  --on-primary: #ffffff;
+  --aurora-1: rgba(124, 92, 255, 0.42);
+  --aurora-2: rgba(34, 211, 238, 0.28);
+  --aurora-3: rgba(255, 111, 181, 0.24);
+  --shadow: 0 18px 40px rgba(3, 4, 20, 0.55);
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
-  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --display: "Plus Jakarta Sans", "Inter", -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+  --r: 22px;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --bg: #f8fafc; --surface: #ffffff; --card: rgba(255, 255, 255, 0.94); --card-hover: #ffffff;
-    --line: rgba(203, 213, 225, 0.9); --line-hover: rgba(148, 163, 184, 0.95);
-    --ink: #0f172a; --muted: #334155; --dim: #64748b; --nav-bg: rgba(255, 255, 255, 0.86);
-    --code-bg: #f1f5f9; --answer-bg: #f8fafc; --mark: rgba(250, 204, 21, 0.45); --title-from: #0f172a;
-    --glow-a: rgba(20, 184, 166, 0.10); --glow-b: rgba(124, 58, 237, 0.08); --shadow: 0 14px 34px rgba(15, 23, 42, 0.10);
-    --teal: #0d9488; --violet: #7c3aed; --cyan: #0284c7; --amber: #b45309; --emerald: #059669; --rose: #e11d48;
-    --hl-kw: #0369a1; --hl-str: #92400e; --hl-num: #6d28d9; --hl-cm: #64748b;
-    color-scheme: light;
+    --bg: #f3f2fb; --bg-2: #e9e7fb; --glass: rgba(255, 255, 255, 0.72); --glass-strong: rgba(255, 255, 255, 0.9);
+    --line: rgba(70, 60, 160, 0.12); --line-strong: rgba(70, 60, 160, 0.26); --ink: #16152e; --muted: #555878; --dim: #7c7f9e;
+    --primary: #5b46f5; --primary-2: #0891b2; --pink: #db2777;
+    --aurora-1: rgba(124, 92, 255, 0.22); --aurora-2: rgba(34, 211, 238, 0.18); --aurora-3: rgba(255, 111, 181, 0.16);
+    --shadow: 0 16px 36px rgba(40, 30, 120, 0.12); color-scheme: light;
   }
 }
 :root[data-theme="light"] {
-  --bg: #f8fafc; --surface: #ffffff; --card: rgba(255, 255, 255, 0.94); --card-hover: #ffffff;
-  --line: rgba(203, 213, 225, 0.9); --line-hover: rgba(148, 163, 184, 0.95);
-  --ink: #0f172a; --muted: #334155; --dim: #64748b; --nav-bg: rgba(255, 255, 255, 0.86);
-  --code-bg: #f1f5f9; --answer-bg: #f8fafc; --mark: rgba(250, 204, 21, 0.45); --title-from: #0f172a;
-  --glow-a: rgba(20, 184, 166, 0.10); --glow-b: rgba(124, 58, 237, 0.08); --shadow: 0 14px 34px rgba(15, 23, 42, 0.10);
-  --teal: #0d9488; --violet: #7c3aed; --cyan: #0284c7; --amber: #b45309; --emerald: #059669; --rose: #e11d48;
-  --hl-kw: #0369a1; --hl-str: #92400e; --hl-num: #6d28d9; --hl-cm: #64748b;
-  color-scheme: light;
+  --bg: #f3f2fb; --bg-2: #e9e7fb; --glass: rgba(255, 255, 255, 0.72); --glass-strong: rgba(255, 255, 255, 0.9);
+  --line: rgba(70, 60, 160, 0.12); --line-strong: rgba(70, 60, 160, 0.26); --ink: #16152e; --muted: #555878; --dim: #7c7f9e;
+  --primary: #5b46f5; --primary-2: #0891b2; --pink: #db2777;
+  --aurora-1: rgba(124, 92, 255, 0.22); --aurora-2: rgba(34, 211, 238, 0.18); --aurora-3: rgba(255, 111, 181, 0.16);
+  --shadow: 0 16px 36px rgba(40, 30, 120, 0.12); color-scheme: light;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
-a { color: var(--teal); }
-:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
-svg.i { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+a { color: var(--primary); }
+:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 3px; border-radius: 8px; }
+svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+code { font: 600 .82em var(--mono); }
 
-.glow { position: fixed; z-index: 0; pointer-events: none; border-radius: 50%; filter: blur(90px); }
-.glow.a { width: 520px; height: 520px; top: -160px; left: -120px; background: var(--glow-a); }
-.glow.b { width: 480px; height: 480px; top: 30%; right: -160px; background: var(--glow-b); }
-.shell { position: relative; z-index: 1; }
+.aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.aurora span { position: absolute; border-radius: 50%; filter: blur(80px); animation: drift 22s ease-in-out infinite alternate; }
+.aurora span:nth-child(1) { width: 560px; height: 560px; top: -180px; left: -140px; background: var(--aurora-1); }
+.aurora span:nth-child(2) { width: 480px; height: 480px; top: 18%; right: -160px; background: var(--aurora-2); animation-delay: -7s; }
+.aurora span:nth-child(3) { width: 420px; height: 420px; bottom: -160px; left: 30%; background: var(--aurora-3); animation-delay: -14s; }
+@keyframes drift { to { transform: translate(40px, 30px) scale(1.08); } }
 
+.app { position: relative; z-index: 1; }
 .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.inner { max-width: 1320px; margin: 0 auto; }
+.wrap { max-width: 1180px; margin: 0 auto; }
 
-/* ---------- top nav ---------- */
-.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--nav-bg); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); padding-block: 10px; }
-.nav .inner { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
-.logo { width: 34px; height: 34px; flex: none; }
-.brand-name { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; }
-.badge { font: 700 .66rem var(--mono); text-transform: uppercase; letter-spacing: .05em; padding: 2px 7px; border-radius: 4px; color: var(--teal); background: color-mix(in srgb, var(--teal) 14%, transparent); border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent); }
-.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.nav-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--r-sm); font-size: .78rem; font-weight: 600; text-decoration: none; color: var(--muted); border: 1px solid var(--line); background: color-mix(in srgb, var(--ink) 3%, transparent); white-space: nowrap; transition: all .2s ease; cursor: pointer; font-family: inherit; }
-.nav-btn:hover { color: var(--ink); border-color: var(--line-hover); transform: translateY(-1px); }
-.nav-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
-.kbd { font: .66rem var(--mono); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); }
-.chip { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--muted); padding: 4px 10px; border-radius: 30px; border: 1px solid var(--line); }
-.chip strong { color: var(--ink); font-weight: 600; }
-.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 8px var(--emerald); animation: dotPulse 2s ease-in-out infinite; }
-
-/* Instructor chip: glass pill with a light sweep and flashes along its sides */
-.chip {
-  position: relative; overflow: hidden; isolation: isolate;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, transparent), color-mix(in srgb, var(--ink) 2%, transparent));
-  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 16%, transparent);
-  animation: chipGlow 3.2s ease-in-out infinite;
+/* ion-toolbar */
+/* Site header: always dark charcoal, like tinitiateai.com */
+.toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; padding-block: 12px; background: #1f2023;
+  border-bottom: 1px solid #000; box-shadow: 0 6px 24px rgba(0,0,0,.35); color-scheme: dark; }
+.toolbar .wrap { display: flex; align-items: center; gap: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; min-width: 0; flex: none; }
+.brand .chev { width: 30px; height: 24px; flex: none; }
+.wordmark { display: inline-flex; align-items: center; gap: .04em; font: 400 1.55rem/1 "Krona One", var(--display); letter-spacing: .02em; white-space: nowrap; }
+.wordmark .lam { width: .82em; height: .78em; margin: 0 .02em; }
+.wordmark .gap { width: .45em; }
+.sub-brand { position: relative; display: flex; align-items: center; padding-left: 22px; border-left: 1px solid #3a3b40; flex: none;
+  font: 800 1.45rem/1 var(--display); color: #fff; text-decoration: none; letter-spacing: -0.01em; }
+.sub-brand sup { position: absolute; top: -9px; right: -6px; font: 500 .7rem var(--mono); color: #f5d90a; letter-spacing: 0; }
+.tb-actions { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.tb-btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 8px; cursor: pointer;
+  color: #f1f1f3; background: transparent; border: 1px solid #44464c; font: 700 .9rem var(--font); text-decoration: none; white-space: nowrap;
+  transition: background .2s ease, border-color .2s ease; list-style: none; }
+.tb-btn::-webkit-details-marker { display: none; }
+.tb-btn.plain { border-color: transparent; }
+.tb-btn:hover { background: #2b2c31; border-color: #5a5c63; }
+.tb-btn svg.i { width: 16px; height: 16px; }
+.tb-btn .caret { width: 14px; height: 14px; transition: transform .2s ease; }
+.tb-btn.icon { width: 38px; padding: 0; justify-content: center; margin-left: auto; }
+.menu { position: relative; }
+.menu[open] .caret { transform: rotate(180deg); }
+.menu-panel { position: absolute; top: calc(100% + 8px); left: 0; min-width: 290px; padding: 6px; border-radius: 12px;
+  background: #1f2023; border: 1px solid #3a3b40; box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+.menu-panel a { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; color: #f1f1f3; text-decoration: none; font-size: .9rem; }
+.menu-panel a:hover { background: #2b2c31; }
+.menu-panel a i { width: 10px; height: 10px; border-radius: 3px; background: var(--dc); flex: none; }
+.menu-panel a small { margin-left: auto; color: #9a9aa8; font-size: .76rem; }
+@media (max-width: 1020px) { .sub-brand, .tb-btn.wide { display: none; } }
+@media (max-width: 560px) {
+  .wordmark { font-size: 1.1rem; } .brand .chev { width: 22px; height: 18px; }
+  .toolbar .wrap { gap: 10px; } .tb-btn.plain .label, .menu .label { display: none; }
+  .menu-panel { position: fixed; left: 16px; right: 16px; top: 64px; min-width: 0; }
 }
-.chip::before { /* two shimmer streaks: one enters from each side and they meet in the middle */
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image:
-    linear-gradient(105deg, transparent 0%, color-mix(in srgb, var(--teal) 35%, transparent) 40%, rgba(255, 255, 255, .6) 50%, transparent 100%),
-    linear-gradient(75deg, transparent 0%, rgba(255, 255, 255, .6) 50%, color-mix(in srgb, var(--violet) 35%, transparent) 60%, transparent 100%);
-  background-size: 38% 100%, 38% 100%;
-  background-repeat: no-repeat;
-  animation: chipSweep 3.2s cubic-bezier(.4, 0, .2, 1) infinite;
-}
-.chip::after { /* side flashes */
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; padding: 1px;
-  background: linear-gradient(90deg, var(--teal), transparent 22%, transparent 78%, var(--violet));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  animation: chipFlash 3.2s ease-in-out infinite;
-}
-@keyframes chipSweep {
-  0% { background-position: -70% 0, 170% 0; opacity: 1; }
-  50% { background-position: 50% 0, 50% 0; opacity: 1; }
-  62%, 100% { background-position: 50% 0, 50% 0; opacity: 0; }
-}
-@keyframes chipFlash { 0%, 100% { opacity: .3; } 8% { opacity: 1; } 30% { opacity: .35; } 50% { opacity: 1; } 66% { opacity: .3; } }
-@keyframes chipGlow {
-  0%, 100% { box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 16%, transparent), -6px 0 14px -6px transparent, 6px 0 14px -6px transparent; }
-  8%, 50% { box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 16%, transparent), -7px 0 16px -5px color-mix(in srgb, var(--teal) 70%, transparent), 7px 0 16px -5px color-mix(in srgb, var(--violet) 70%, transparent); }
-  30% { box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 16%, transparent), -6px 0 14px -6px color-mix(in srgb, var(--teal) 30%, transparent), 6px 0 14px -6px color-mix(in srgb, var(--violet) 30%, transparent); }
-}
-@keyframes dotPulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--emerald) 60%, transparent); } 50% { box-shadow: 0 0 0 5px transparent, 0 0 10px var(--emerald); } }
-@media (prefers-reduced-motion: reduce) { .chip, .chip::before, .chip::after, .chip .dot { animation: none; } .chip::before { display: none; } }
 
-/* ---------- hero ---------- */
-.hero { padding-block: 56px 32px; text-align: center; }
-.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 30px; font-size: .76rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--teal); border: 1px solid color-mix(in srgb, var(--teal) 40%, transparent); background: linear-gradient(135deg, color-mix(in srgb, var(--teal) 14%, transparent), color-mix(in srgb, var(--violet) 12%, transparent)); }
-.hero h1 { font-size: clamp(2rem, 4.4vw, 3.6rem); font-weight: 900; line-height: 1.12; letter-spacing: -0.03em; margin: 18px auto 16px; max-width: 980px; text-wrap: balance; }
-.grad { background: linear-gradient(135deg, var(--title-from) 10%, var(--teal) 50%, var(--violet) 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.hero p.sub { font-size: clamp(1rem, 1.2vw, 1.12rem); color: var(--muted); max-width: 800px; margin: 0 auto 26px; }
-.stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 26px; }
-.stat { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 30px; border: 1px solid var(--line); background: var(--card); font-size: .88rem; color: var(--muted); }
-.stat strong { font: 800 1rem var(--mono); color: var(--ink); }
-.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-.btn-p, .btn-s { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: var(--r-md); font-weight: 700; font-size: .9rem; text-decoration: none; transition: all .2s ease; }
-.btn-p { background: var(--teal); color: #04201d; box-shadow: 0 6px 22px color-mix(in srgb, var(--teal) 35%, transparent); }
-.btn-p:hover { transform: translateY(-2px); }
-.btn-s { color: var(--ink); border: 1px solid var(--line); background: var(--card); }
-.btn-s:hover { border-color: var(--line-hover); transform: translateY(-2px); }
+/* large title */
+.hero { padding-block: 44px 18px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 700 .74rem var(--font); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); }
+.eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  box-shadow: 0 0 12px var(--primary); }
+.hero h1 { margin: 10px 0 10px; font: 800 clamp(2.3rem, 5.6vw, 4rem)/1.04 var(--display); letter-spacing: -0.035em; text-wrap: balance; }
+.hero h1 em { font-style: normal; background: linear-gradient(100deg, var(--primary) 0%, var(--pink) 50%, var(--primary-2) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { margin: 0; max-width: 62ch; color: var(--muted); font-size: 1.05rem; }
 
-/* ---------- section titles ---------- */
-.sec { padding-block: 28px; }
-.sec-title { display: flex; align-items: center; gap: 10px; font-size: clamp(1.3rem, 2vw, 1.7rem); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 4px; }
-.sec-title svg.i { width: 22px; height: 22px; color: var(--teal); }
-.sec-sub { color: var(--muted); margin: 0 0 18px; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-top: 26px; border-radius: var(--r); overflow: hidden;
+  background: var(--line); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.stat { padding: 16px 18px; background: var(--glass-strong); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); min-width: 0; }
+.stat strong { display: block; font: 800 1.6rem/1.1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat span { font-size: .82rem; color: var(--muted); }
 
-/* ---------- track tabs + topic cards ---------- */
-.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-.tab { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--card); color: var(--muted); font: 600 .84rem var(--font); cursor: pointer; transition: all .2s ease; }
-.tab:hover { color: var(--ink); border-color: var(--line-hover); }
-.tab[aria-selected="true"] { color: var(--ink); border-color: var(--tc, var(--teal)); background: color-mix(in srgb, var(--tc, var(--teal)) 14%, var(--card)); }
-.tab .cnt { font: 700 .7rem var(--mono); padding: 1px 7px; border-radius: 20px; background: color-mix(in srgb, var(--ink) 8%, transparent); }
-.tab .sw { width: 8px; height: 8px; border-radius: 50%; background: var(--tc, var(--teal)); }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 16px; }
-.tcard { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-lg); border: 1.5px solid var(--line); background: var(--card); color: inherit; text-decoration: none; transition: all .25s cubic-bezier(.16, 1, .3, 1); }
-.tcard::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--tc); opacity: .75; }
-.tcard:hover { transform: translateY(-4px); background: var(--card-hover); border-color: color-mix(in srgb, var(--tc) 45%, transparent); box-shadow: var(--shadow), 0 0 24px color-mix(in srgb, var(--tc) 18%, transparent); }
-.tcard-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.track-label { font: 700 .68rem var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--tc); }
-.qcount { font: 700 .74rem var(--mono); color: var(--muted); }
-.tcard h3 { margin: 0; font-size: 1.12rem; font-weight: 800; letter-spacing: -0.01em; }
-.subs { display: flex; flex-wrap: wrap; gap: 5px; }
-.subs span { font-size: .72rem; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--line); color: var(--muted); }
-.open-link { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .82rem; color: var(--tc); }
-
-/* ---------- workbench ---------- */
-.toolbar { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 58px); z-index: 20; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px; margin-bottom: 18px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--nav-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-.search-box { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
-.search-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; }
-.tbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 600 .84rem var(--font); cursor: pointer; }
-.tbtn:hover { border-color: var(--line-hover); }
-.tbtn[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #04201d; }
-.topic-select { display: none; flex: 1 1 100%; padding: 8px 10px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; }
-
-.bench { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px; }
-.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 140px); align-self: start; max-height: calc(100vh - 160px); overflow-y: auto; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card); }
-.side-label { font: 700 .66rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin: 4px 8px 8px; }
-.side ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-.side a { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--r-sm); text-decoration: none; color: var(--muted); font-size: .86rem; font-weight: 500; }
-.side a .sw { width: 6px; height: 6px; border-radius: 50%; background: var(--tc); flex: none; }
-.side a .n { margin-left: auto; font: .72rem var(--mono); color: var(--dim); }
-.side a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
-.side a.on { color: var(--ink); background: color-mix(in srgb, var(--tc) 16%, transparent); font-weight: 700; }
-
-main.view { min-width: 0; }
-.vhead { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
-.vhead .track-label { font-size: .72rem; }
-.vhead h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 900; letter-spacing: -0.02em; }
-.vhead .meta { color: var(--muted); font-size: .9rem; }
-details.notes { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--card); padding: 10px 16px; margin-bottom: 20px; }
-details.notes summary { cursor: pointer; font-weight: 700; color: var(--teal); font-size: .9rem; }
-details.notes p { color: var(--muted); margin: 10px 0 4px; max-width: 80ch; }
-
-.subhead { display: flex; align-items: center; gap: 10px; font: 700 .72rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 26px 0 10px; }
-.subhead::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-.subhead:first-of-type { margin-top: 4px; }
-.cards { display: flex; flex-direction: column; gap: 12px; }
-.card { position: relative; border: 1.5px solid var(--line); border-radius: var(--r-lg); background: var(--card); overflow: hidden; transition: border-color .2s ease; }
-.card:hover { border-color: var(--line-hover); }
-.card.open { border-color: color-mix(in srgb, var(--tc, var(--teal)) 45%, transparent); }
-.card-body { display: flex; flex-direction: column; gap: 8px; padding: 16px 20px 12px; min-width: 0; }
-.qid { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.qid .id { font: 700 .74rem var(--mono); color: var(--tc, var(--teal)); padding: 2px 8px; border-radius: 4px; background: color-mix(in srgb, var(--tc, var(--teal)) 12%, transparent); }
-.qid .where { font-size: .76rem; color: var(--dim); }
-.q { max-width: 82ch; }
-.q p, .a p { margin: 0 0 8px; }
-.q p:last-child { margin-bottom: 0; }
-.toggle { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; padding: 6px 12px; border-radius: var(--r-sm); border: 1px solid var(--line); background: transparent; color: var(--ink); font: 600 .8rem var(--font); cursor: pointer; }
-.toggle:hover { border-color: var(--tc, var(--teal)); color: var(--tc, var(--teal)); }
-.toggle svg.i { width: 14px; height: 14px; transition: transform .2s ease; }
-.card.open .toggle svg.i { transform: rotate(90deg); }
-.a { border-top: 1px dashed var(--line); background: var(--answer-bg); padding: 16px 20px; min-width: 0; }
-.a > *:last-child { margin-bottom: 0; }
-.a strong { color: var(--ink); }
-
-code { font: .86em var(--mono); background: var(--code-bg); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); }
-pre { position: relative; margin: 0 0 10px; padding: 14px 16px; overflow-x: auto; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--code-bg); }
-pre code { border: 0; padding: 0; background: none; font-size: .84rem; line-height: 1.6; }
-.copy { position: absolute; top: 8px; right: 8px; font: 600 .7rem var(--font); padding: 3px 9px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
-.copy:hover { color: var(--teal); border-color: var(--teal); }
-.tbl { overflow-x: auto; margin-bottom: 10px; }
-table { border-collapse: collapse; font-size: .86rem; }
-th, td { border: 1px solid var(--line); padding: 5px 10px; text-align: left; }
-th { background: var(--code-bg); }
-mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
-.hljs-keyword, .hljs-built_in, .hljs-type { color: var(--hl-kw); font-weight: 600; }
-.hljs-string, .hljs-attr { color: var(--hl-str); }
-.hljs-number, .hljs-literal { color: var(--hl-num); }
-.hljs-comment { color: var(--hl-cm); font-style: italic; }
-.empty { color: var(--muted); padding: 20px 0; }
-
-/* ---------- Ionic-style glass segment slider ---------- */
-.seg-wrap { max-width: 100%; overflow-x: auto; scrollbar-width: none; margin-bottom: 18px; }
+/* searchbar + segment */
+.controls { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 57px); z-index: 40; padding-block: 12px; }
+.controls .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 14px;
+  background: var(--glass-strong); border: 1px solid var(--line); color: var(--dim);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.search input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: 500 .95rem var(--font); }
+.search input::placeholder { color: var(--dim); }
+.seg-wrap { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .seg-wrap::-webkit-scrollbar { display: none; }
-.seg {
-  position: relative; display: inline-flex; gap: 2px; padding: 5px; border-radius: 14px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 7%, transparent), color-mix(in srgb, var(--ink) 3%, transparent));
-  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 12%, transparent), 0 10px 30px rgba(0, 0, 0, .18);
+.segment { position: relative; display: inline-flex; padding: 4px; gap: 2px; border-radius: 14px; background: var(--glass-strong);
+  border: 1px solid var(--line); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.seg-thumb { position: absolute; top: 4px; bottom: 4px; left: 0; width: 0; border-radius: 10px; z-index: 0;
+  background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 55%, var(--pink)));
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--primary) 40%, transparent);
+  transition: transform .42s cubic-bezier(.32, .72, 0, 1), width .42s cubic-bezier(.32, .72, 0, 1); }
+.seg-btn { position: relative; z-index: 1; height: 36px; padding: 0 14px; border: 0; border-radius: 10px; background: transparent; cursor: pointer;
+  color: var(--muted); font: 600 .86rem var(--font); white-space: nowrap; transition: color .25s ease; }
+.seg-btn[aria-selected="true"] { color: var(--on-primary); }
+.seg-btn .n { margin-left: 6px; font: 700 .72rem var(--mono); opacity: .75; }
+
+/* ion-card grid */
+.section { padding-block: 12px 28px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 18px; }
+.card { --dc-use: var(--dc); position: relative; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: var(--r);
+  background: var(--glass); border: 1px solid var(--line); box-shadow: var(--shadow); min-width: 0; overflow: hidden;
   backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
-}
-.seg-thumb {
-  position: absolute; top: 5px; bottom: 5px; left: 0; width: 0; border-radius: 10px; z-index: 0; pointer-events: none;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--tc, var(--teal)) 34%, transparent), color-mix(in srgb, var(--tc, var(--teal)) 16%, transparent));
-  border: 1px solid color-mix(in srgb, var(--tc, var(--teal)) 55%, transparent);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -1px 0 rgba(0, 0, 0, .08), 0 4px 16px color-mix(in srgb, var(--tc, var(--teal)) 30%, transparent);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  transition: transform .42s cubic-bezier(.32, .72, 0, 1), width .42s cubic-bezier(.32, .72, 0, 1), background .3s ease, border-color .3s ease;
-}
-.seg-thumb::after { content: ""; position: absolute; inset: 1px 8% auto; height: 45%; border-radius: 9px 9px 14px 14px; background: linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, 0)); }
-.seg-btn {
-  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
-  padding: 9px 16px; border: 0; border-radius: 10px; background: transparent; color: var(--muted);
-  font: 600 .86rem var(--font); cursor: pointer; transition: color .25s ease;
-}
-.seg-btn:hover { color: var(--ink); }
-.seg-btn[aria-selected="true"], .seg-btn[aria-pressed="true"] { color: var(--ink); }
-.seg-btn .cnt { font: 700 .7rem var(--mono); padding: 1px 7px; border-radius: 20px; background: color-mix(in srgb, var(--ink) 9%, transparent); }
-.seg-btn .sw { width: 8px; height: 8px; border-radius: 50%; background: var(--tc, var(--teal)); box-shadow: 0 0 8px var(--tc, var(--teal)); }
-.seg.small { padding: 4px; border-radius: 12px; }
-.seg.small .seg-thumb { top: 4px; bottom: 4px; border-radius: 9px; }
-.seg.small .seg-btn { padding: 7px 14px; font-size: .82rem; }
-.toolbar .seg-wrap { margin: 0; }
+  transition: transform .35s cubic-bezier(.32, .72, 0, 1), border-color .25s ease, box-shadow .35s ease; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .card { --dc-use: var(--dl); } }
+:root[data-theme="light"] .card { --dc-use: var(--dl); }
+.card::before { content: ""; position: absolute; inset: 0 0 auto; height: 120px; pointer-events: none;
+  background: radial-gradient(120% 100% at 0% 0%, color-mix(in srgb, var(--dc-use) 26%, transparent), transparent 70%); }
+.card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--dc-use) 45%, transparent);
+  box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--dc-use) 20%, transparent), 0 20px 50px color-mix(in srgb, var(--dc-use) 18%, transparent); }
+.card[hidden] { display: none; }
+.card-head { position: relative; display: flex; align-items: center; gap: 14px; }
+.app-icon { width: 54px; height: 54px; flex: none; filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--dc-use) 40%, transparent)); }
+.card-title { min-width: 0; }
+.kicker { font: 700 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dc-use); }
+.card h3 { margin: 2px 0 0; font: 800 1.22rem/1.2 var(--display); letter-spacing: -0.015em; text-wrap: balance; }
+.tagline { position: relative; margin: 0; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .82rem; color: var(--dim); }
+.meta span { display: inline-flex; align-items: center; gap: 6px; }
+.meta svg.i { width: 15px; height: 15px; color: var(--dc-use); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 600 .74rem var(--font); padding: 4px 10px; border-radius: 99px; color: var(--ink);
+  background: color-mix(in srgb, var(--dc-use) 12%, transparent); border: 1px solid color-mix(in srgb, var(--dc-use) 24%, transparent); }
+.card-foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.count { font-size: .84rem; color: var(--muted); line-height: 1.3; }
+.count strong { font: 800 1.15rem var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.count small { color: var(--dim); }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; border-radius: 99px; text-decoration: none;
+  font: 700 .88rem var(--font); color: #fff; white-space: nowrap;
+  background: linear-gradient(135deg, var(--dc), var(--dl)); box-shadow: 0 8px 20px color-mix(in srgb, var(--dc-use) 35%, transparent);
+  transition: transform .2s ease, box-shadow .2s ease; }
+.btn:hover { transform: translateY(-1px) scale(1.02); }
+.btn:active { transform: scale(.97); }
+.btn svg.i { width: 16px; height: 16px; }
+.btn.ghost { background: transparent; color: var(--dim); border: 1px dashed var(--line-strong); box-shadow: none; }
+.empty { display: none; padding: 40px 20px; text-align: center; color: var(--muted); border-radius: var(--r); border: 1px dashed var(--line-strong); }
+.empty.show { display: block; }
+.note { margin: 18px 4px 0; color: var(--muted); font-size: .92rem; max-width: 80ch; }
 
-/* ---------- levels ---------- */
-.lvchip { display: inline-flex; align-items: center; gap: 5px; font: 700 .68rem var(--font); letter-spacing: .04em; text-transform: uppercase; padding: 2px 9px; border-radius: 20px; color: var(--lc); background: color-mix(in srgb, var(--lc) 13%, transparent); border: 1px solid color-mix(in srgb, var(--lc) 35%, transparent); }
-.subs .lvchip { text-transform: none; letter-spacing: 0; font-size: .72rem; }
-.qtitle { margin: 2px 0 0; font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
-.subhead { color: var(--lc, var(--muted)); }
-.subhead::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lc, var(--muted)); box-shadow: 0 0 8px var(--lc, transparent); }
-.topic-intro { color: var(--muted); max-width: 80ch; margin: -6px 0 18px; }
-.a h4, .a p strong:first-child { color: var(--ink); }
+/* ion-list inset grouped */
+.h2 { margin: 0 4px 4px; font: 800 1.5rem var(--display); letter-spacing: -0.02em; }
+.sub { margin: 0 4px 14px; color: var(--muted); }
+.list { margin: 0; padding: 0; list-style: none; border-radius: var(--r); overflow: hidden; background: var(--glass); border: 1px solid var(--line);
+  backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); box-shadow: var(--shadow); }
+.item { display: flex; align-items: center; gap: 14px; padding: 14px 18px; min-width: 0; color: inherit; text-decoration: none; }
+.item + .item { border-top: 1px solid var(--line); }
+a.item:hover { background: color-mix(in srgb, var(--primary) 7%, transparent); }
+.ico { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 10px; color: #fff; background: var(--c); }
+.ico svg.i { width: 18px; height: 18px; }
+.item-body { min-width: 0; flex: 1; }
+.item-body b { display: block; font-weight: 700; }
+.item-body span { color: var(--muted); font-size: .9rem; }
+.item .end { margin-left: auto; color: var(--dim); display: inline-flex; align-items: center; gap: 6px; font-size: .86rem; }
+.copy { height: 30px; padding: 0 12px; border-radius: 99px; border: 1px solid var(--line-strong); background: transparent; color: var(--primary);
+  font: 600 .78rem var(--font); cursor: pointer; }
+.two { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+/* site footer */
+.site-foot { margin-top: 24px; padding-block: 48px 28px; border-top: 1px solid var(--line);
+  background: #000; color-scheme: dark;
+  --ink: #f4f4f7; --muted: #c9c9d3; --dim: #9a9aa8; --line: rgba(255,255,255,.12); --line-strong: rgba(255,255,255,.16); --glass: #141418; }
+:root[data-theme="light"] .site-foot .contact-row a, :root[data-theme="light"] .site-foot .contact-ico { color: #4fd1ff; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: 48px; }
+.foot-h { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
+  font: 800 1.2rem var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.foot-h svg.i { width: 22px; height: 22px; color: var(--accent, #4fd1ff); }
+.foot-h.contact svg.i { color: #34d399; }
+.foot-desc { margin: 0 0 18px; max-width: 62ch; color: var(--muted); line-height: 1.6; }
+.foot-label { display: block; margin-bottom: 10px; font: 700 .74rem var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.socials { display: flex; flex-wrap: wrap; gap: 10px; }
+.social { display: inline-flex; align-items: center; gap: 9px; height: 42px; padding: 0 16px; border-radius: 10px; text-decoration: none;
+  font: 700 .88rem var(--font); color: var(--ink); background: var(--glass); border: 1px solid var(--line-strong);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+.social:hover { transform: translateY(-2px); border-color: var(--sc); background: color-mix(in srgb, var(--sc) 10%, var(--glass)); }
+.social svg.i { width: 17px; height: 17px; color: var(--sc); }
+.contact-row { display: flex; gap: 14px; align-items: flex-start; }
+.contact-row + .contact-row { margin-top: 18px; }
+.contact-ico { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 10px;
+  background: var(--glass); border: 1px solid var(--line-strong); color: #4fd1ff; }
+.contact-ico svg.i { width: 18px; height: 18px; }
+.contact-row a { color: #4fd1ff; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.contact-row a:hover { text-decoration: underline; }
+:root[data-theme="light"] .contact-row a, :root[data-theme="light"] .contact-ico { color: #0369a1; }
+.foot-base { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--dim); font-size: .82rem;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 
-/* ---------- beginner guide (pure HTML content) ---------- */
-.nav-start { color: var(--teal); border-color: color-mix(in srgb, var(--teal) 45%, transparent); background: color-mix(in srgb, var(--teal) 10%, transparent); }
-.guide .steps { list-style: none; margin: 0 0 32px; padding: 0; display: flex; flex-direction: column; gap: 14px; }
-.step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding: 20px 22px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 5%, var(--card)), var(--card)); box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 12%, transparent); }
-.step::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; border-radius: 3px; background: var(--sc); }
-.step-no { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; font: 800 1.1rem var(--mono); color: var(--sc); background: color-mix(in srgb, var(--sc) 14%, transparent); border: 1px solid color-mix(in srgb, var(--sc) 35%, transparent); }
-.step h3 { margin: 2px 0 8px; font-size: 1.1rem; font-weight: 800; }
-.step p, .step li { color: var(--muted); }
-.step p { margin: 0 0 8px; }
-.step ul, .step ol { margin: 0 0 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
-.step pre { margin: 6px 0 10px; }
-.step .tip { font-size: .88rem; padding: 8px 12px; border-radius: 10px; background: color-mix(in srgb, var(--sc) 9%, transparent); border: 1px dashed color-mix(in srgb, var(--sc) 35%, transparent); }
-.step .tip::before { content: "Tip: "; font-weight: 700; color: var(--sc); }
-kbd { font: 600 .78rem var(--mono); padding: 1px 6px; border-radius: 5px; border: 1px solid var(--line); border-bottom-width: 2px; background: var(--surface); color: var(--ink); }
-.guide-h { font-size: 1.2rem; font-weight: 800; margin: 8px 0 4px; }
-.path { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; counter-reset: none; }
-.stage { position: relative; overflow: hidden; padding: 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); }
-.stage::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--sc); }
-.stage-no { font: 700 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--sc); }
-.stage h4 { margin: 4px 0 4px; font-size: 1rem; font-weight: 800; }
-.stage p { margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
-.stage-links { display: flex; flex-wrap: wrap; gap: 6px; }
-.stage-links a { font-size: .78rem; font-weight: 600; text-decoration: none; padding: 3px 10px; border-radius: 20px; color: var(--sc); border: 1px solid color-mix(in srgb, var(--sc) 35%, transparent); background: color-mix(in srgb, var(--sc) 9%, transparent); }
-.stage-links a:hover { background: color-mix(in srgb, var(--sc) 18%, transparent); }
-.faq { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
-.faq details { border-radius: 14px; border: 1px solid var(--line); background: var(--card); padding: 12px 18px; }
-.faq details[open] { border-color: color-mix(in srgb, var(--teal) 40%, transparent); }
-.faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; align-items: center; gap: 10px; }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::before { content: "+"; display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 7px; font: 800 .9rem var(--mono); color: var(--teal); background: color-mix(in srgb, var(--teal) 12%, transparent); }
-.faq details[open] summary::before { content: "−"; }
-.faq details > *:not(summary) { margin-top: 12px; }
-.faq li, .faq p, .faq dd { color: var(--muted); }
-.faq ol, .faq ul { padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
-.err { font-size: .84rem; }
-.err td:first-child { font-family: var(--mono); font-size: .78rem; color: var(--ink); }
-.gloss { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; margin: 12px 0 0; }
-.gloss dt { font-weight: 700; color: var(--ink); }
-.gloss dd { margin: 0; }
-@media (max-width: 600px) {
-  .step { grid-template-columns: minmax(0, 1fr); }
-  .gloss { grid-template-columns: minmax(0, 1fr); }
-  .gloss dd { margin-bottom: 6px; }
-}
-
-/* ---------- student mode ---------- */
-.card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
-.no-check { font-size: .8rem; color: var(--dim); font-style: italic; }
-.done { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; font-size: .82rem; font-weight: 600; color: var(--muted); cursor: pointer; user-select: none; }
-.done input { width: 17px; height: 17px; accent-color: var(--emerald); cursor: pointer; }
-.card.is-done { border-color: color-mix(in srgb, var(--emerald) 45%, transparent); }
-.card.is-done .done { color: var(--emerald); }
-.progress { display: flex; align-items: center; gap: 10px; font: 600 .82rem var(--font); color: var(--muted); margin-top: 6px; }
-.progress .bar { width: 160px; height: 8px; border-radius: 8px; background: color-mix(in srgb, var(--ink) 10%, transparent); overflow: hidden; }
-.progress .bar span { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--emerald), var(--teal)); transition: width .4s ease; }
-.setup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
-.setup-card { position: relative; overflow: hidden; padding: 20px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, var(--card)), var(--card)); box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent); min-width: 0; }
-.setup-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--sc); }
-.setup-card h3 { margin: 0 0 10px; font-size: 1.05rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
-.setup-card h3 .num { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; font: 800 .8rem var(--mono); color: var(--sc); background: color-mix(in srgb, var(--sc) 15%, transparent); }
-.setup-card p, .setup-card li { color: var(--muted); margin: 0 0 8px; }
-.setup-card ul, .setup-card ol { margin: 0; padding-left: 18px; }
-.setup-card code { font-size: .8rem; }
-.tbl-mini { width: 100%; font-size: .82rem; }
-.tbl-mini td { border: 0; border-bottom: 1px solid var(--line); padding: 5px 6px; vertical-align: top; }
-.tbl-mini td:first-child { font: 700 .8rem var(--mono); color: var(--ink); white-space: nowrap; }
-
-/* ---------- footer ---------- */
-.foot { margin-top: 48px; border-top: 1px solid var(--line); background: var(--surface); padding-block: 44px 24px; }
-.foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px; align-items: stretch; }
-/* Ionic-style glass cards for each footer column */
-.fcol {
-  min-width: 0; position: relative; overflow: hidden; display: flex; flex-direction: column;
-  padding: 22px 22px 24px; border-radius: 18px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, var(--card)), var(--card));
-  border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent), 0 12px 32px rgba(0, 0, 0, .14);
-  backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
-  transition: transform .3s cubic-bezier(.32, .72, 0, 1), box-shadow .3s ease, border-color .3s ease;
-}
-.fcol::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--fc); opacity: .85; }
-.fcol::after { content: ""; position: absolute; top: -60px; right: -60px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--fc) 22%, transparent), transparent 70%); pointer-events: none; }
-.fcol:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--fc) 45%, transparent); box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent), 0 16px 40px rgba(0, 0, 0, .2), 0 0 24px color-mix(in srgb, var(--fc) 16%, transparent); }
-.fcol h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; }
-.fcol h2 .hico { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 11px; color: var(--fc); background: color-mix(in srgb, var(--fc) 15%, transparent); border: 1px solid color-mix(in srgb, var(--fc) 35%, transparent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25); }
-.fcol h2 svg.i { width: 19px; height: 19px; }
-.fcol p { margin: 0; color: var(--muted); line-height: 1.7; }
-.flabel { font: 700 .72rem var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 20px 0 10px; }
-.fcol .flabel.gap { margin: 26px 0 12px; padding-top: 18px; border-top: 1px dashed var(--line); }
-.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.pills span { font-size: .74rem; font-weight: 600; padding: 4px 11px; border-radius: 20px; color: var(--teal); background: color-mix(in srgb, var(--teal) 10%, transparent); border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent); }
-.social { display: flex; flex-wrap: wrap; gap: 12px; }
-.sbtn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 7%, transparent), color-mix(in srgb, var(--ink) 2%, transparent)); box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent); color: var(--ink); font-weight: 700; font-size: .88rem; text-decoration: none; transition: all .25s cubic-bezier(.32, .72, 0, 1); }
-.sbtn:hover { border-color: var(--fc); transform: translateY(-2px); }
-.contact { display: flex; gap: 14px; align-items: center; padding: 12px 14px; margin-bottom: 12px; border-radius: 14px; background: color-mix(in srgb, var(--ink) 4%, transparent); border: 1px solid var(--line); }
-.contact:last-child { margin-bottom: 0; }
-.cico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; border: 1px solid color-mix(in srgb, var(--cyan) 35%, transparent); background: color-mix(in srgb, var(--cyan) 12%, transparent); color: var(--cyan); flex: none; }
-.contact > div { min-width: 0; }
-.cval { color: var(--cyan); font-weight: 700; text-decoration: none; word-break: break-all; }
-a.cval:hover { text-decoration: underline; }
-.ccopy { margin-left: 6px; font: 600 .7rem var(--font); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
-.ccopy:hover { color: var(--cyan); border-color: var(--cyan); }
-.portals { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; padding: 16px 20px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, var(--card)), var(--card)); box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent), 0 12px 32px rgba(0, 0, 0, .12); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); }
-.portals .flabel { margin: 0; }
-.portals nav { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
-.fbar { margin-top: 24px; font-size: .8rem; color: var(--dim); }
-
-@media (max-width: 900px) {
-  .bench { grid-template-columns: minmax(0, 1fr); }
-  .side { display: none; }
-  .topic-select { display: block; }
-  .chip, .nav-links { display: none; }
-  .toolbar { top: calc(env(safe-area-inset-top, 0px) + 56px); }
-  .portals nav { margin-left: 0; }
+@media (max-width: 860px) {
+  .two, .foot-grid { grid-template-columns: minmax(0, 1fr); }
+  .foot-grid { gap: 32px; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tb-btn.label { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .aurora span { animation: none; }
   *, *::before { transition: none !important; }
 }
 </style>
-<style>
-.domains { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 18px; }
-.dcard { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: var(--r-lg);
-  border: 1.5px solid var(--line); background: var(--card); min-width: 0; transition: transform .25s cubic-bezier(.16, 1, .3, 1), border-color .25s ease, box-shadow .25s ease; }
-.dcard { --dc-use: var(--dc); }
-@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .dcard { --dc-use: var(--dl); } }
-:root[data-theme="light"] .dcard { --dc-use: var(--dl); }
-.dcard::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--dc-use); }
-.dcard:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--dc-use) 45%, transparent);
-  box-shadow: var(--shadow), 0 0 24px color-mix(in srgb, var(--dc-use) 16%, transparent); }
-.dtop { display: flex; align-items: center; gap: 14px; }
-.dlogo { width: 46px; height: 46px; flex: none; }
-.dname { min-width: 0; }
-.dind { font: 700 .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--dc-use); }
-.dname h3 { margin: 2px 0 0; font-size: 1.18rem; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
-.dtag { margin: 0; color: var(--muted); }
-.dschema { margin: 0; font-size: .84rem; color: var(--dim); }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chips span { font: 600 .72rem var(--mono); padding: 3px 9px; border-radius: 20px; color: var(--muted); border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--ink) 3%, transparent); }
-.dfoot { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
-.qn { font-size: .84rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.qn strong { font: 800 .95rem var(--mono); color: var(--ink); }
-.open { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--r-md); font-weight: 700; font-size: .86rem;
-  text-decoration: none; color: var(--ink); border: 1px solid color-mix(in srgb, var(--dc-use) 50%, transparent);
-  background: color-mix(in srgb, var(--dc-use) 14%, transparent); }
-.open:hover { background: color-mix(in srgb, var(--dc-use) 24%, transparent); }
-.open.soon { color: var(--dim); border-style: dashed; }
-.note { margin: 18px 0 0; color: var(--muted); max-width: 80ch; }
-.how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
-.how div { padding: 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); }
-.how h4 { margin: 0 0 6px; font-size: 1rem; font-weight: 800; }
-.how p { margin: 0; color: var(--muted); font-size: .92rem; }
-</style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-logo" viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--teal)"/><path d="M19 9h10v10h10v10H29v10H19V29H9V19h10z" fill="#ffffff"/><path d="M11 24h7l2.5-5 4 10 2.5-5h10" fill="none" stroke="var(--teal)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
-  <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></symbol>
-  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
-  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
-  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
-  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
-  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7 15h10"/></symbol>
-  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M2 21h20M8 7h4M8 11h4M8 15h4"/></symbol>
-  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 16 0"/><path d="m17 11 2 2 4-4"/></symbol>
-  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
-  <symbol id="i-in" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M11 17v-7M11 13a3 3 0 0 1 6 0v4"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-7M11 13a3 3 0 0 1 6 0v4"/></symbol>
   <symbol id="i-gh" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5v.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
 </svg>
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 
-<div class="glow a"></div>
-<div class="glow b"></div>
-
-<div class="shell">
-  <header class="nav gutter">
-    <div class="inner">
-      <a class="brand" href="#top" aria-label="Tinitiate SQL assignments">
-        <svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--violet)"/><path d="M12 14h24M12 24h24M12 34h14" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/></svg>
-        <span class="brand-name">Tinitiate</span>
-        <span class="badge">SQL Assignments</span>
-      </a>
-      <nav class="nav-links" aria-label="Sections">
-        <a class="nav-btn" href="https://tinitiateai.com" target="_blank" rel="noopener"><svg class="i"><use href="#i-home"/></svg>Academy Home</a>
-        <a class="nav-btn" href="#domains"><svg class="i"><use href="#i-grid"/></svg>Domains</a>
-        <a class="nav-btn" href="#how"><svg class="i"><use href="#i-flask"/></svg>How it works</a>
+<div class="app">
+  <header class="toolbar gutter">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Tinitiate AI, SQL assignments home">
+        <svg class="chev" viewBox="0 0 30 24" aria-hidden="true"><path d="M0 0h13l13 12-13 12H0l13-12z" fill="#f5d90a"/></svg>
+        <span class="wordmark">TINITI<svg class="lam" viewBox="0 0 20 20" aria-hidden="true"><path d="M1.6 20 10 1.5 18.4 20" fill="none" stroke="currentColor" stroke-width="3.6"/></svg>TE<span class="gap"></span><svg class="lam" viewBox="0 0 20 20" aria-hidden="true"><path d="M1.6 20 10 1.5 18.4 20" fill="none" stroke="currentColor" stroke-width="3.6"/></svg>I</span></a>
+      <a class="sub-brand" href="#domains">Assignments<sup>+academy</sup></a>
+      <nav class="tb-actions" aria-label="Main">
+        <a class="tb-btn plain" href="https://tinitiateai.com" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><span class="label">Home</span></a>
+        <details class="menu"><summary class="tb-btn"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg><span class="label">Workbooks</span><svg class="i caret" aria-hidden="true"><use href="#i-down"/></svg></summary>
+          <div class="menu-panel"><a href="https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ" target="_blank" rel="noopener" style="--dc:#2dd4bf"><i></i>AmeriMed Healthcare<small>Healthcare</small></a><a href="https://claude.ai/artifact/V3aRGRAaw6dZPsoT4RiXJf" target="_blank" rel="noopener" style="--dc:#3b82f6"><i></i>Harborstone Bank<small>Banking</small></a><a href="https://claude.ai/artifact/3uNmMizam1Vx6vNQ1sQUT2" target="_blank" rel="noopener" style="--dc:#8b5cf6"><i></i>Ridgeline Securities<small>Brokerage</small></a><a href="https://claude.ai/artifact/M9fGeCrvKo739tG6oLcpuN" target="_blank" rel="noopener" style="--dc:#ec4899"><i></i>Novacrest Pharmaceuticals<small>Pharma</small></a><a href="https://claude.ai/artifact/LWKJBtBDDJUdvUzjxmYEhs" target="_blank" rel="noopener" style="--dc:#f59e0b"><i></i>Permian Ridge Energy<small>Oil &amp; Gas</small></a><a href="https://claude.ai/artifact/6CFXh4beobRHibannRFYqu" target="_blank" rel="noopener" style="--dc:#6366f1"><i></i>Everyday Bazaar<small>E-commerce</small></a><a href="https://claude.ai/artifact/WnQYTiNXBhEtzEWhLrFUSe" target="_blank" rel="noopener" style="--dc:#ef4444"><i></i>Maple &amp; Main Stores<small>Retail</small></a><a href="https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG" target="_blank" rel="noopener" style="--dc:#10b981"><i></i>Maple &amp; Main Supply Chain<small>Retail Supply Chain</small></a><a href="https://claude.ai/artifact/JKUzw82CbPnQmzD8VoAXjQ" target="_blank" rel="noopener" style="--dc:#06b6d4"><i></i>Maple &amp; Main Distribution<small>Retail Logistics</small></a></div></details>
+        <a class="tb-btn wide" href="#how"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg>How it works</a>
+        <a class="tb-btn wide" href="#contact"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Contact</a>
+        <button id="theme" class="tb-btn icon" type="button" aria-label="Switch between light and dark theme"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg></button>
       </nav>
-      <div class="nav-actions">
-        <button id="theme" class="nav-btn" type="button" aria-label="Toggle light or dark theme"><svg class="i"><use href="#i-theme"/></svg></button>
-        <span class="chip"><span class="dot"></span>Instructor <strong>Jayathirth Kumsiravinder</strong></span>
-      </div>
     </div>
   </header>
 
   <section class="hero gutter" id="top">
-    <div class="inner">
-      <span class="eyebrow"><svg class="i"><use href="#i-db"/></svg>Tinitiate AI Academy &bull; SQL Server Track</span>
-      <h1>Pick an Industry,<br><span class="grad">Practise SQL on Its Data</span></h1>
-      <p class="sub">Nine fictional companies, one per industry. Each workbook has the same 16 topics and 480 questions, written for that company's own tables, with the expected result for every query so you can check your work.</p>
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span>Tinitiate AI Academy &middot; SQL Server track</span>
+      <h1>Assignments,<br><em>one company per industry</em></h1>
+      <p>Pick a company and practise on its own tables. Every workbook has the same 16 topics and 480 questions, from your first SELECT to the window-function patterns interviewers ask, plus 10 multi-step Interview Challenges written for that company. Every query has its expected result.</p>
       <div class="stats">
-        <span class="stat"><svg class="i" style="color:var(--violet)"><use href="#i-building"/></svg>Companies: <strong>9</strong></span>
-        <span class="stat"><svg class="i" style="color:var(--cyan)"><use href="#i-grid"/></svg>Topics each: <strong>16</strong></span>
-        <span class="stat"><svg class="i" style="color:var(--amber)"><use href="#i-db"/></svg>Questions: <strong>4,320</strong></span>
-        <span class="stat"><svg class="i" style="color:var(--emerald)"><use href="#i-check"/></svg>Levels: <strong>B &middot; I &middot; A</strong></span>
+        <div class="stat"><strong>9</strong><span>companies</span></div>
+        <div class="stat"><strong>16 + 10</strong><span>topics, plus interview challenges</span></div>
+        <div class="stat"><strong>4,410</strong><span>questions in total</span></div>
+        <div class="stat"><strong>10&middot;10&middot;10</strong><span>Beginner, Intermediate, Advanced per topic</span></div>
       </div>
     </div>
   </section>
 
-  <section class="sec gutter" id="domains">
-    <div class="inner">
-      <h2 class="sec-title"><svg class="i"><use href="#i-grid"/></svg>Choose a domain</h2>
-      <p class="sec-sub">Each card opens that company's workbook in a new tab. Your Done ticks are saved per workbook, in your browser.</p>
-      <div class="domains">
-      <article class="dcard" style="--dc:#2dd4bf;--dl:#0d9488">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><path d="M19 9h10v10h10v10H29v10H19V29H9V19h10z" fill="#ffffff"/><path d="M11 24h7l2.5-5 4 10 2.5-5h10" fill="none" stroke="var(--dc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div class="dname"><span class="dind">Healthcare</span><h3>AmeriMed Healthcare</h3></div></div>
-        <p class="dtag">Clinic network with patients, doctors, medications, encounters and prescriptions.</p>
-        <p class="dschema">Schema <code>healthcare</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Patients</span><span>Doctors</span><span>Medications</span><span>Encounters</span><span>Prescriptions</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#3b82f6;--dl:#1d4ed8">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z"/></g></svg>
-          <div class="dname"><span class="dind">Banking</span><h3>Harborstone Bank</h3></div></div>
-        <p class="dtag">Retail bank with branches, customers, accounts, transactions and loans.</p>
-        <p class="dschema">Schema <code>banking</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Branches</span><span>Customers</span><span>Accounts</span><span>Transactions</span><span>Loans</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/V3aRGRAaw6dZPsoT4RiXJf" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#8b5cf6;--dl:#6d28d9">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 6-6M16 8h4v4"/></g></svg>
-          <div class="dname"><span class="dind">Brokerage</span><h3>Ridgeline Securities</h3></div></div>
-        <p class="dtag">Broker-dealer with clients, accounts, securities, trade orders and executions.</p>
-        <p class="dschema">Schema <code>brokerage</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Clients</span><span>Securities</span><span>BrokerageAccounts</span><span>TradeOrders</span><span>Executions</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/3uNmMizam1Vx6vNQ1sQUT2" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#ec4899;--dl:#be185d">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3M7 15h10"/></g></svg>
-          <div class="dname"><span class="dind">Pharma</span><h3>Novacrest Pharmaceuticals</h3></div></div>
-        <p class="dtag">Drug maker with suppliers, products, warehouses, batches and inventory.</p>
-        <p class="dschema">Schema <code>pharma</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Suppliers</span><span>Products</span><span>Warehouses</span><span>Batches</span><span>Inventory</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/M9fGeCrvKo739tG6oLcpuN" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#f59e0b;--dl:#b45309">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 4.2 6 7.6 6 10.5A6 6 0 0 1 6 13.5C6 10.6 8.5 7.2 12 3z"/></g></svg>
-          <div class="dname"><span class="dind">Oil &amp; Gas</span><h3>Permian Ridge Energy</h3></div></div>
-        <p class="dtag">Energy shipper with sites, carriers, products, shipments and shipment items.</p>
-        <p class="dschema">Schema <code>oil</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Sites</span><span>Carriers</span><span>Products</span><span>Shipments</span><span>ShipmentItems</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/LWKJBtBDDJUdvUzjxmYEhs" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#ef4444;--dl:#b91c1c">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.6 8.5H7.5zM6 6 5 3H2M9 20.5h.01M18 20.5h.01"/></g></svg>
-          <div class="dname"><span class="dind">Maple &amp;amp; Main group</span><h3>Maple &amp; Main Stores</h3></div></div>
-        <p class="dtag">Store division: customers, products, orders, order items and payments.</p>
-        <p class="dschema">Schema <code>retail</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Customers</span><span>Products</span><span>Orders</span><span>OrderItems</span><span>Payments</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/WnQYTiNXBhEtzEWhLrFUSe" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#10b981;--dl:#047857">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5zM3 8v8l9 5 9-5V8M12 13v8"/></g></svg>
-          <div class="dname"><span class="dind">Maple &amp;amp; Main group</span><h3>Maple &amp; Main Merchandising</h3></div></div>
-        <p class="dtag">Stock division: warehouses, products, suppliers, stock movements and balances.</p>
-        <p class="dschema">Schema <code>retail_inventory</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Warehouses</span><span>Products</span><span>Suppliers</span><span>StockMovements</span><span>StockBalances</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#06b6d4;--dl:#0e7490">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8M6.5 19.5h.01M17.5 19.5h.01"/></g></svg>
-          <div class="dname"><span class="dind">Maple &amp;amp; Main group</span><h3>Maple &amp; Main Distribution</h3></div></div>
-        <p class="dtag">Distribution division: customers, carriers, shipments, packages and tracking scans.</p>
-        <p class="dschema">Schema <code>retail_logistics</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Customers</span><span>Carriers</span><span>Shipments</span><span>ShipmentPackages</span><span>TrackingEvents</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/JKUzw82CbPnQmzD8VoAXjQ" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
-      <article class="dcard" style="--dc:#f97316;--dl:#c2410c">
-        <div class="dtop"><svg class="dlogo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="var(--dc)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V11l6 3.5V11l6 3.5V6l6 3v12zM3 21h18"/></g></svg>
-          <div class="dname"><span class="dind">Maple &amp;amp; Main group</span><h3>Maple &amp; Main Private Label</h3></div></div>
-        <p class="dtag">Own-brand factory: products, materials, production orders, recipes and material usage.</p>
-        <p class="dschema">Schema <code>retail_manufacturing</code> &middot; 5 tables</p>
-        <div class="chips" aria-label="Tables"><span>Products</span><span>Materials</span><span>ProductionOrders</span><span>BillOfMaterials</span><span>MaterialUsage</span></div>
-        <div class="dfoot"><span class="qn"><strong>480</strong> questions &middot; 16 topics</span><a class="open" href="https://claude.ai/artifact/HdfHkXQGFWkMkC1mbpKv6v" target="_blank" rel="noopener">Open workbook <svg class="i"><use href="#i-arrow"/></svg></a></div>
-      </article>
+  <div class="controls gutter">
+    <div class="wrap">
+      <label class="search" for="q"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="q" type="search" placeholder="Search companies or tables, e.g. Loans or Shipments" autocomplete="off"></label>
+      <div class="seg-wrap"><div class="segment" id="seg" role="tablist" aria-label="Filter by group"><span class="seg-thumb"></span>
+        <button class="seg-btn" type="button" role="tab" id="seg-all" data-group="all" aria-selected="true">All<span class="n">9</span></button><button class="seg-btn" type="button" role="tab" id="seg-finance" data-group="finance" aria-selected="false">Health &amp; Finance<span class="n">3</span></button><button class="seg-btn" type="button" role="tab" id="seg-industry" data-group="industry" aria-selected="false">Pharma, Energy &amp; Online<span class="n">3</span></button><button class="seg-btn" type="button" role="tab" id="seg-maple" data-group="maple" aria-selected="false">Maple &amp; Main<span class="n">3</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <main class="section gutter" id="domains">
+    <div class="wrap">
+      <div class="cards" id="cards">
+        <article class="card" data-group="finance" data-search="amerimed healthcare healthcare healthcare clinic network with patients, doctors, medications, encounters and prescriptions patients doctors medications encounters prescriptions" style="--dc:#2dd4bf;--dl:#0d9488">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-healthcare" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-healthcare)"/><path d="M19 9h10v10h10v10H29v10H19V29H9V19h10z" fill="#ffffff"/><path d="M11 24h7l2.5-5 4 10 2.5-5h10" fill="none" stroke="var(--dc-use)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="card-title"><span class="kicker">Healthcare</span><h3>AmeriMed Healthcare</h3></div>
+          </div>
+          <p class="tagline">Clinic network with patients, doctors, medications, encounters and prescriptions.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>healthcare</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Patients</span><span class="chip">Doctors</span><span class="chip">Medications</span><span class="chip">Encounters</span><span class="chip">Prescriptions</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="finance" data-search="harborstone bank banking banking retail bank with branches, customers, accounts, transactions and loans branches customers accounts transactions loans" style="--dc:#3b82f6;--dl:#1d4ed8">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-banking" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-banking)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z"/></g></svg>
+            <div class="card-title"><span class="kicker">Banking</span><h3>Harborstone Bank</h3></div>
+          </div>
+          <p class="tagline">Retail bank with branches, customers, accounts, transactions and loans.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>banking</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Branches</span><span class="chip">Customers</span><span class="chip">Accounts</span><span class="chip">Transactions</span><span class="chip">Loans</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/V3aRGRAaw6dZPsoT4RiXJf" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="finance" data-search="ridgeline securities brokerage brokerage broker-dealer with clients, accounts, securities, trade orders and executions clients securities brokerageaccounts tradeorders executions" style="--dc:#8b5cf6;--dl:#6d28d9">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-brokerage" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-brokerage)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 6-6M16 8h4v4"/></g></svg>
+            <div class="card-title"><span class="kicker">Brokerage</span><h3>Ridgeline Securities</h3></div>
+          </div>
+          <p class="tagline">Broker-dealer with clients, accounts, securities, trade orders and executions.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>brokerage</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Clients</span><span class="chip">Securities</span><span class="chip">BrokerageAccounts</span><span class="chip">TradeOrders</span><span class="chip">Executions</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/3uNmMizam1Vx6vNQ1sQUT2" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="industry" data-search="novacrest pharmaceuticals pharma pharma drug maker with suppliers, products, warehouses, batches and inventory suppliers products warehouses batches inventory" style="--dc:#ec4899;--dl:#be185d">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-pharma" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ec4899"/><stop offset="1" stop-color="#be185d"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-pharma)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3M7 15h10"/></g></svg>
+            <div class="card-title"><span class="kicker">Pharma</span><h3>Novacrest Pharmaceuticals</h3></div>
+          </div>
+          <p class="tagline">Drug maker with suppliers, products, warehouses, batches and inventory.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>pharma</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Suppliers</span><span class="chip">Products</span><span class="chip">Warehouses</span><span class="chip">Batches</span><span class="chip">Inventory</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/M9fGeCrvKo739tG6oLcpuN" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="industry" data-search="permian ridge energy oil &amp; gas oil energy shipper with sites, carriers, products, shipments and shipment items sites carriers products shipments shipmentitems" style="--dc:#f59e0b;--dl:#b45309">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-oil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-oil)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 4.2 6 7.6 6 10.5A6 6 0 0 1 6 13.5C6 10.6 8.5 7.2 12 3z"/></g></svg>
+            <div class="card-title"><span class="kicker">Oil &amp; Gas</span><h3>Permian Ridge Energy</h3></div>
+          </div>
+          <p class="tagline">Energy shipper with sites, carriers, products, shipments and shipment items.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>oil</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Sites</span><span class="chip">Carriers</span><span class="chip">Products</span><span class="chip">Shipments</span><span class="chip">ShipmentItems</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/LWKJBtBDDJUdvUzjxmYEhs" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="industry" data-search="everyday bazaar e-commerce ecommerce online marketplace with about 32,000 orders a year: customers, sellers, products, orders, order items and payments customers sellers products orders orderitems payments" style="--dc:#6366f1;--dl:#4338ca">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-ecommerce" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#4338ca"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-ecommerce)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8zM9 8V6a3 3 0 0 1 6 0v2"/></g></svg>
+            <div class="card-title"><span class="kicker">E-commerce</span><h3>Everyday Bazaar</h3></div>
+          </div>
+          <p class="tagline">Online marketplace with about 32,000 orders a year: customers, sellers, products, orders, order items and payments.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>ecommerce</code></span><span>6 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Customers</span><span class="chip">Sellers</span><span class="chip">Products</span><span class="chip">Orders</span><span class="chip">OrderItems</span><span class="chip">Payments</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/6CFXh4beobRHibannRFYqu" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="maple" data-search="maple &amp; main stores retail retail store division: customers, products, orders, order items and payments customers products orders orderitems payments" style="--dc:#ef4444;--dl:#b91c1c">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-retail" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="1" stop-color="#b91c1c"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-retail)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.6 8.5H7.5zM6 6 5 3H2M9 20.5h.01M18 20.5h.01"/></g></svg>
+            <div class="card-title"><span class="kicker">Maple &amp; Main group</span><h3>Maple &amp; Main Stores</h3></div>
+          </div>
+          <p class="tagline">Store division: customers, products, orders, order items and payments.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>retail</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Customers</span><span class="chip">Products</span><span class="chip">Orders</span><span class="chip">OrderItems</span><span class="chip">Payments</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/WnQYTiNXBhEtzEWhLrFUSe" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="maple" data-search="maple &amp; main supply chain retail supply chain retail_supply_chain buy-or-make division: warehouses, suppliers, products, private label production, stock movements and balances warehouses suppliers products materials billofmaterials productionorders materialusage stockmovements stockbalances" style="--dc:#10b981;--dl:#047857">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-retail_supply_chain" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10b981"/><stop offset="1" stop-color="#047857"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-retail_supply_chain)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5zM3 8v8l9 5 9-5V8M12 13v8"/></g></svg>
+            <div class="card-title"><span class="kicker">Maple &amp; Main group</span><h3>Maple &amp; Main Supply Chain</h3></div>
+          </div>
+          <p class="tagline">Buy-or-make division: warehouses, suppliers, products, private label production, stock movements and balances.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>retail_supply_chain</code></span><span>9 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Warehouses</span><span class="chip">Suppliers</span><span class="chip">Products</span><span class="chip">Materials</span><span class="chip">BillOfMaterials</span><span class="chip">ProductionOrders</span><span class="chip">MaterialUsage</span><span class="chip">StockMovements</span><span class="chip">StockBalances</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="card" data-group="maple" data-search="maple &amp; main distribution retail logistics retail_logistics distribution division: customers, carriers, shipments, packages and tracking scans customers carriers shipments shipmentpackages trackingevents" style="--dc:#06b6d4;--dl:#0e7490">
+          <div class="card-head">
+            <svg class="app-icon" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="g-retail_logistics" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect x="1" y="1" width="46" height="46" rx="13" fill="url(#g-retail_logistics)"/><g transform="translate(9 9) scale(1.25)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8M6.5 19.5h.01M17.5 19.5h.01"/></g></svg>
+            <div class="card-title"><span class="kicker">Maple &amp; Main group</span><h3>Maple &amp; Main Distribution</h3></div>
+          </div>
+          <p class="tagline">Distribution division: customers, carriers, shipments, packages and tracking scans.</p>
+          <div class="meta"><span><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><code>retail_logistics</code></span><span>5 tables</span></div>
+          <div class="chips" aria-label="Tables"><span class="chip">Customers</span><span class="chip">Carriers</span><span class="chip">Shipments</span><span class="chip">ShipmentPackages</span><span class="chip">TrackingEvents</span></div>
+          <div class="card-foot">
+            <span class="count"><strong>490</strong> questions<br><small>16 topics + 10 interview challenges</small></span>
+            <a class="btn" href="https://claude.ai/artifact/JKUzw82CbPnQmzD8VoAXjQ" target="_blank" rel="noopener">Open workbook<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
       </div>
-      <p class="note">The four Maple &amp; Main workbooks are divisions of one retailer: stores, merchandising (stock), distribution (deliveries) and private label (manufacturing).</p>
+      <p class="empty" id="empty">No company matches that search. Try a table name such as Orders, Batches or Executions.</p>
+      <p class="note">The three Maple &amp; Main workbooks are divisions of one retailer: Stores (selling), Supply Chain (buying, making
+        and stocking products) and Distribution (deliveries). Everyday Bazaar is the high-volume one: about 32,000 online orders in a year. Each opens in a new tab, and your Done ticks are kept per workbook in this browser.</p>
+    </div>
+  </main>
+
+  <section class="section gutter" id="how">
+    <div class="wrap two">
+      <div>
+        <h2 class="h2">How it works</h2>
+        <p class="sub">Every workbook follows the same path, so switching industries never means relearning the layout.</p>
+        <ul class="list">
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#8b7bff,#5b46f5)"><svg class="i"><use href="#i-file"/></svg></span>
+            <div class="item-body"><b>Run one setup script</b><span>Each domain folder has a <code>data_setup.sql</code>. Run it once in a new practice database.</span></div></li>
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#4fd1ff,#0891b2)"><svg class="i"><use href="#i-layers"/></svg></span>
+            <div class="item-body"><b>Same 16 topics</b><span>From DQL, joins and aggregates to DDL, constraints, CTEs and window functions.</span></div></li>
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#ff6fb5,#db2777)"><svg class="i"><use href="#i-bars"/></svg></span>
+            <div class="item-body"><b>Three levels per topic</b><span>Advanced questions are interview patterns: top-N per group, running totals, gaps and islands, fan-out traps.</span></div></li>
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#a78bfa,#7c3aed)"><svg class="i"><use href="#i-layers"/></svg></span>
+            <div class="item-body"><b>Then the Interview Challenges</b><span>10 multi-step problems per company, like real interview rounds. The approach hint opens with the expected result, so try first.</span></div></li>
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#34d399,#059669)"><svg class="i"><use href="#i-check"/></svg></span>
+            <div class="item-body"><b>Check your own result</b><span>Run your SQL first, then compare rows. A different query that returns the same rows is still correct.</span></div></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="h2">Your instructor</h2>
+        <p class="sub">Training, course advice, interview preparation and resume help.</p>
+        <ul class="list">
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#8b7bff,#ff6fb5)"><svg class="i"><use href="#i-user"/></svg></span>
+            <div class="item-body"><b>Jayathirth Kumsiravinder</b><span>Director and Instructor, Tinitiate AI Academy</span></div></li>
+          <li><a class="item" href="https://www.linkedin.com/in/jayathirth-kumsi" target="_blank" rel="noopener"><span class="ico" style="--c:#0a66c2"><svg class="i"><use href="#i-in"/></svg></span>
+            <div class="item-body"><b>LinkedIn</b><span>jayathirth-kumsi</span></div><span class="end"><svg class="i"><use href="#i-chev"/></svg></span></a></li>
+          <li><a class="item" href="https://github.com/jaykumsi" target="_blank" rel="noopener"><span class="ico" style="--c:#24292f"><svg class="i"><use href="#i-gh"/></svg></span>
+            <div class="item-body"><b>GitHub</b><span>jaykumsi</span></div><span class="end"><svg class="i"><use href="#i-chev"/></svg></span></a></li>
+          <li class="item"><span class="ico" style="--c:linear-gradient(135deg,#4fd1ff,#0891b2)"><svg class="i"><use href="#i-mail"/></svg></span>
+            <div class="item-body"><b>Email</b><span id="mail">contact@tinitiateai.com</span></div><button class="copy" id="copy" type="button">Copy</button></li>
+          <li><a class="item" href="https://tinitiateai.com" target="_blank" rel="noopener"><span class="ico" style="--c:linear-gradient(135deg,#fbbf24,#f97316)"><svg class="i"><use href="#i-globe"/></svg></span>
+            <div class="item-body"><b>Academy website</b><span>tinitiateai.com</span></div><span class="end"><svg class="i"><use href="#i-chev"/></svg></span></a></li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="sec gutter" id="how">
-    <div class="inner">
-      <h2 class="sec-title"><svg class="i"><use href="#i-flask"/></svg>How it works</h2>
-      <p class="sec-sub">Every workbook follows the same path, so you can switch industries without relearning the layout.</p>
-      <div class="how">
-        <div><h4>Same 16 topics</h4><p>Introduction, DQL, operators, aggregates, joins, set operations, data types, DDL, constraints, DML, security, string and date functions, subqueries, CTEs and window functions.</p></div>
-        <div><h4>10 / 10 / 10 per topic</h4><p>Beginner, Intermediate and Advanced questions. Advanced ones are interview patterns: top-N per group, running totals, gaps and islands, fan-out traps.</p></div>
-        <div><h4>Check your own result</h4><p>Write and run your SQL first, then compare with the expected rows. A different query that returns the same rows is still correct.</p></div>
-        <div><h4>One setup script</h4><p>Each domain folder has a <code>data_setup.sql</code>. Run it once in a new practice database and every question works.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="foot gutter">
-    <div class="inner">
+  <footer class="site-foot gutter" id="contact">
+    <div class="wrap">
       <div class="foot-grid">
-        <section class="fcol" style="--fc:var(--cyan)">
-          <h2><span class="hico"><svg class="i"><use href="#i-building"/></svg></span>Tinitiate AI Academy</h2>
-          <p>Industry-aligned IT training that takes software engineers, cloud architects and data professionals into AI, GenAI and data engineering roles. These workbooks cover SQL Server practice on nine fictional companies, one per industry.</p>
-        </section>
-        <section class="fcol" style="--fc:var(--violet)">
-          <h2><span class="hico"><svg class="i"><use href="#i-user"/></svg></span>Jayathirth Kumsiravinder</h2>
-          <p>Director and Instructor, Tinitiate AI Academy. Trainer in SQL, data engineering and AI, and a career advisor who helps with interview preparation and resumes. Get in touch for training, course consultations, curriculum design or career guidance.</p>
-          <div class="pills" aria-label="Areas of expertise"><span>SQL</span><span>Data Engineering</span><span>AI &amp; GenAI</span><span>Career Advice</span><span>Interview Prep</span><span>Resume Help</span></div>
-          <p class="flabel gap">Jayathirth's profiles</p>
-          <div class="social">
-            <a class="sbtn" href="https://www.linkedin.com/in/jayathirth-kumsi" target="_blank" rel="noopener"><svg class="i" style="color:#0a66c2"><use href="#i-in"/></svg>LinkedIn</a>
-            <a class="sbtn" href="https://github.com/jaykumsi" target="_blank" rel="noopener"><svg class="i"><use href="#i-gh"/></svg>GitHub</a>
-          </div>
-        </section>
-        <section class="fcol" style="--fc:var(--emerald)">
-          <h2><span class="hico"><svg class="i"><use href="#i-phone"/></svg></span>Contact &amp; Call Us</h2>
-          <div class="contact">
-            <span class="cico"><svg class="i"><use href="#i-mail"/></svg></span>
-            <div><p class="flabel" style="margin:0 0 2px">Email support</p><span class="cval">contact@tinitiateai.com</span> <button class="ccopy" type="button" data-copy="contact@tinitiateai.com">Copy</button></div>
-          </div>
-          <div class="contact">
-            <span class="cico"><svg class="i"><use href="#i-globe"/></svg></span>
-            <div><p class="flabel" style="margin:0 0 2px">Official portal</p><a class="cval" href="https://tinitiateai.com" target="_blank" rel="noopener">tinitiateai.com</a></div>
-          </div>
-        </section>
+        <div>
+          <h2 class="foot-h"><svg class="i" aria-hidden="true"><use href="#i-building"/></svg>Tinitiate AI Assignments</h2>
+          <p class="foot-desc">Hands-on SQL assignments on realistic company data, part of Tinitiate AI Academy's industry-aligned training
+            that moves software engineers, cloud architects and data professionals into high-impact AI, GenAI and Distributed Lakehouse Engineering roles.</p>
+          <span class="foot-label">Company social channels</span>
+          <div class="socials"><a class="social" style="--sc:#0a66c2" href="https://www.linkedin.com/company/tinitiate-ai/" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-in"/></svg>LinkedIn</a><a class="social" style="--sc:#ff0033" href="https://www.youtube.com/channel/UCXVm8lbVkHOxEJ4XzggTeJw" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-yt"/></svg>YouTube</a><a class="social" style="--sc:#1877f2" href="https://www.facebook.com/profile.php?id=61589182754060" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-fb"/></svg>Facebook</a><a class="social" style="--sc:#e1306c" href="https://www.instagram.com/tinitiate.ai/" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-ig"/></svg>Instagram</a><a class="social" style="--sc:var(--ink)" href="https://x.com/TinitiateAI" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg>X</a><a class="social" style="--sc:var(--ink)" href="https://github.com/jaykumsi" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-gh"/></svg>GitHub</a></div>
+        </div>
+        <div>
+          <h2 class="foot-h contact"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Contact &amp; Call Us</h2>
+          <div class="contact-row"><span class="contact-ico"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span>
+            <div><span class="foot-label">Email support</span><a href="mailto:contact@tinitiateai.com">contact@tinitiateai.com</a></div></div>
+          <div class="contact-row"><span class="contact-ico"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span>
+            <div><span class="foot-label">Official portal</span><a href="https://tinitiateai.com" target="_blank" rel="noopener">tinitiateai.com</a></div></div>
+        </div>
       </div>
-      <div class="portals">
-        <p class="flabel">Jump to</p>
-        <nav aria-label="Footer links">
-          <a class="nav-btn" href="https://tinitiateai.com" target="_blank" rel="noopener"><svg class="i" style="color:var(--amber)"><use href="#i-home"/></svg>Academy Home</a>
-          <a class="nav-btn" href="#domains"><svg class="i" style="color:var(--violet)"><use href="#i-grid"/></svg>All domains</a>
-          <a class="nav-btn" href="#top"><svg class="i" style="color:var(--cyan)"><use href="#i-arrow"/></svg>Back to top</a>
-        </nav>
-      </div>
-      <p class="fbar">© 2026 Tinitiate AI Academy &middot; SQL Assignments by Domain</p>
+      <div class="foot-base"><span>&copy; 2026 Tinitiate AI Academy. All rights reserved.</span><span>SQL Assignments by Domain</span></div>
     </div>
   </footer>
 </div>
 
 <script>
 const $ = s => document.querySelector(s);
-function copyText(text, btn, selectEl) {
-  const done = () => { const o = btn.textContent; btn.textContent = "Copied"; setTimeout(() => btn.textContent = o, 1200); };
-  const fallback = () => { const r = document.createRange(); r.selectNodeContents(selectEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
-  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+const seg = $("#seg"), thumb = seg.querySelector(".seg-thumb"), cards = [...document.querySelectorAll(".card")];
+let group = "all", query = "";
+function moveThumb() {
+  const on = seg.querySelector('.seg-btn[aria-selected="true"]');
+  if (!on) return;
+  thumb.style.width = on.offsetWidth + "px";
+  thumb.style.transform = "translateX(" + (on.offsetLeft - 4) + "px)";
 }
-$("#theme").onclick = () => {
+function apply() {
+  let shown = 0;
+  cards.forEach(c => {
+    const ok = (group === "all" || c.dataset.group === group) && (!query || c.dataset.search.includes(query));
+    c.hidden = !ok; if (ok) shown++;
+  });
+  $("#empty").classList.toggle("show", shown === 0);
+}
+seg.querySelectorAll(".seg-btn").forEach(b => b.addEventListener("click", () => {
+  seg.querySelectorAll(".seg-btn").forEach(x => x.setAttribute("aria-selected", x === b));
+  group = b.dataset.group; moveThumb(); apply();
+}));
+$("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); apply(); });
+window.addEventListener("resize", moveThumb);
+const menu = $(".menu");
+document.addEventListener("click", e => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") menu.open = false; });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveThumb);
+moveThumb();
+$("#theme").addEventListener("click", () => {
   const r = document.documentElement;
-  const isLight = r.dataset.theme ? r.dataset.theme === "light" : matchMedia("(prefers-color-scheme: light)").matches;
-  const next = isLight ? "dark" : "light";
-  r.dataset.theme = next;
-  try { localStorage.setItem("tinitiate-theme", next); } catch (e) {}
-};
-document.querySelectorAll(".ccopy").forEach(b => b.onclick = () => copyText(b.dataset.copy, b, b.previousElementSibling));
+  const light = r.dataset.theme ? r.dataset.theme === "light" : matchMedia("(prefers-color-scheme: light)").matches;
+  r.dataset.theme = light ? "dark" : "light";
+  try { localStorage.setItem("tinitiate-theme", r.dataset.theme); } catch (e) {}
+});
+$("#copy").addEventListener("click", () => {
+  const b = $("#copy"), done = () => { b.textContent = "Copied"; setTimeout(() => b.textContent = "Copy", 1200); };
+  const sel = () => { const r = document.createRange(); r.selectNodeContents($("#mail")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  try { navigator.clipboard.writeText($("#mail").textContent).then(done, sel); } catch (e) { sel(); }
+});
 </script>

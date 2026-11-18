@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "RETAIL_SUPPLY_CHAIN-CTE-03-A06",
+    "RETAIL_SUPPLY_CHAIN-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "RETAIL_SUPPLY_CHAIN-CTE-03-A06": "b0672e454560949a1316f559992cc67795e22c5291eeba8bbad7a2fb31bfe6ce",
+    "RETAIL_SUPPLY_CHAIN-JOINS-02-A15": "5f58a1b78a38c32e95974b4fac411ab566d82b9df3febdb3ebe46e1e724231ab"
+  },
+  "coding_minutes": 120
+}

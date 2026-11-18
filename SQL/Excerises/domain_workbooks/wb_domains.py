@@ -92,4 +92,25 @@ DOMAINS = {
         lverb='used', n=dict(ev=('production order', 'production orders'), pt=('product', 'products'), amt=('planned cost', 'planned costs'),
                m=('material', 'materials'), l=('material usage record', 'material usage records')),
         color='#f97316', light='#c2410c', icon='factory'),
+    # retail_supply_chain replaced retail_inventory + retail_manufacturing on 2026-11-18; ecommerce was added the same day.
+    'retail_supply_chain': dict(
+        company='Maple & Main Supply Chain', short='Maple & Main Supply Chain', industry='Retail Supply Chain',
+        db='MapleMainSupplyPractice',
+        tagline='Buy-or-make division: warehouses, suppliers, products, private label production, stock movements and balances',
+        P=['Warehouses', 'WarehouseID', 'WarehouseName', 'WarehouseCode', 'Region'],
+        D=['Suppliers', 'SupplierID', 'SupplierName', 'SupplierCode', None],
+        M=['Products', 'ProductID', 'ProductName', 'SKU', 'UnitCost'], L=None,
+        n=dict(ev=('stock movement', 'stock movements'), pt=('warehouse', 'warehouses'), amt=('movement value', 'movement values'),
+               d=('supplier', 'suppliers'), m=('product', 'products')),
+        color='#10b981', light='#047857', icon='box'),
+    'ecommerce': dict(
+        company='Everyday Bazaar', short='Everyday Bazaar', industry='E-commerce', db='EverydayBazaarPractice',
+        tagline='Online marketplace with about 32,000 orders a year: customers, sellers, products, orders, order items and payments',
+        P=['Customers', 'CustomerID', 'CustomerName', 'CustomerCode', 'Region'],
+        D=['Sellers', 'SellerID', 'SellerName', 'SellerCode', 'Department'],
+        M=['Products', 'ProductID', 'ProductName', 'SKU', 'UnitPrice'],
+        L=['OrderItems', 'OrderItemID', None, 'Quantity'],
+        lverb='ordered', n=dict(ev=('order', 'orders'), pt=('customer', 'customers'), amt=('order total', 'order totals'),
+               d=('seller', 'sellers'), m=('product', 'products'), l=('order item', 'order items')),
+        color='#6366f1', light='#4338ca', icon='bag'),
 }

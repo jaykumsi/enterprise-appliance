@@ -3,9 +3,9 @@
   "portableQueriesSkipped": 63,
   "independentExactResultChecks": 11,
   "fixtureDomainsChecked": 9,
-  "connectedTablesChecked": 45,
+  "connectedTablesChecked": 50,
   "domainReportsExecuted": 54,
-  "rejectedInvalidWrites": 138,
+  "rejectedInvalidWrites": 155,
   "constraintAnswerMutationsRejected": 225,
   "scope": "SQLite supplemental relational checks; not SQL Server runtime verification.",
   "translations": [

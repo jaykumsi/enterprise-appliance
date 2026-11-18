@@ -1,0 +1,102 @@
+[
+ {
+  "id": "CHALLENGE-X01",
+  "topic": "CHALLENGES",
+  "title": "Quick repeat trade orders",
+  "q": "A *quick repeat* is a trade order that comes 7 days or less after the same account's previous trade order. For every account with at least one quick repeat, show AccountID, AccountName, QuickRepeats (how many) and ShortestGapDays (the smallest gap in days between two of their consecutive trade orders). Sort by QuickRepeats descending, then ShortestGapDays, then AccountID.",
+  "sql": "WITH e AS (\n    SELECT AccountID,\n           DATEDIFF(day, LAG(OrderDate) OVER (PARTITION BY AccountID ORDER BY OrderDate, OrderID), OrderDate) AS GapDays\n    FROM brokerage.TradeOrders\n)\nSELECT p.AccountID, p.AccountName, COUNT(*) AS QuickRepeats, MIN(e.GapDays) AS ShortestGapDays\nFROM e\nJOIN brokerage.BrokerageAccounts AS p ON p.AccountID = e.AccountID\nWHERE e.GapDays <= 7\nGROUP BY p.AccountID, p.AccountName\nORDER BY QuickRepeats DESC, ShortestGapDays, p.AccountID;",
+  "how": "LAG(OrderDate) OVER (PARTITION BY AccountID ORDER BY OrderDate) gives each row the previous date for the same account. Compute the gap in a CTE first: a window function cannot go in WHERE.",
+  "a": "**Approach hint:** LAG(OrderDate) OVER (PARTITION BY AccountID ORDER BY OrderDate) gives each row the previous date for the same account. Compute the gap in a CTE first: a window function cannot go in WHERE.\n\n**Expected result:** 13 rows, first 6 shown\n\n| AccountID | AccountName | QuickRepeats | ShortestGapDays |\n|---|---|---|---|\n| 77 | Harper Nguyen - Individual | 2 | 2 |\n| 29 | Chloe Turner - Individual | 2 | 3 |\n| 48 | Benjamin Chen - Retirement | 2 | 4 |\n| 21 | Avery Lewis - Retirement | 1 | 1 |\n| 41 | Isabella Brooks - Individual | 1 | 2 |\n| 84 | Samuel Reed - Retirement | 1 | 2 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 13
+ },
+ {
+  "id": "CHALLENGE-X02",
+  "topic": "CHALLENGES",
+  "title": "Median vs average estimated value",
+  "q": "Averages hide outliers. For each RoutingCategory, show RoutingCategory, TradeOrders (how many trade orders), AverageValue, MedianValue and AboveMedian (AverageValue minus MedianValue), all money values rounded to 2 decimals. Use the EstimatedValue column. Sort by RoutingCategory.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT RoutingCategory,\n           COUNT(*) OVER (PARTITION BY RoutingCategory) AS TradeOrders,\n           AVG(EstimatedValue) OVER (PARTITION BY RoutingCategory) AS AvgV,\n           PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY EstimatedValue) OVER (PARTITION BY RoutingCategory) AS MedV\n    FROM brokerage.TradeOrders\n)\nSELECT RoutingCategory, TradeOrders,\n       CAST(AvgV AS decimal(12,2)) AS AverageValue,\n       CAST(MedV AS decimal(12,2)) AS MedianValue,\n       CAST(AvgV - MedV AS decimal(12,2)) AS AboveMedian\nFROM m\nORDER BY RoutingCategory;",
+  "how": "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.",
+  "a": "**Approach hint:** PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.\n\n**Expected result:** 3 rows\n\n| RoutingCategory | TradeOrders | AverageValue | MedianValue | AboveMedian |\n|---|---|---|---|---|\n| A | 131 | 7500.62 | 3165.50 | 4335.12 |\n| B | 53 | 6207.51 | 3484.60 | 2722.91 |\n| C | 56 | 7724.91 | 4126 | 3598.91 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X03",
+  "topic": "CHALLENGES",
+  "title": "Month-to-date running total",
+  "q": "For Closed trade orders only, show each OrderDate with DayTotal (the sum of EstimatedValue that day) and MonthToDate: the running total that starts again on the first day of each month. Sort by OrderDate.",
+  "sql": "WITH d AS (\n    SELECT OrderDate, SUM(EstimatedValue) AS DayTotal\n    FROM brokerage.TradeOrders\n    WHERE WorkflowStatus = 'Closed'\n    GROUP BY OrderDate\n)\nSELECT OrderDate, DayTotal,\n       SUM(DayTotal) OVER (PARTITION BY YEAR(OrderDate), MONTH(OrderDate)\n                           ORDER BY OrderDate ROWS UNBOUNDED PRECEDING) AS MonthToDate\nFROM d\nORDER BY OrderDate;",
+  "how": "Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.",
+  "a": "**Approach hint:** Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.\n\n**Expected result:** 204 rows, first 6 shown\n\n| OrderDate | DayTotal | MonthToDate |\n|---|---|---|\n| 2024-01-01 | 2345.70 | 2345.70 |\n| 2024-01-02 | 2079 | 4424.70 |\n| 2024-01-04 | 2210.20 | 6634.90 |\n| 2024-01-05 | 13653 | 20287.90 |\n| 2024-01-07 | 32416 | 52703.90 |\n| 2024-01-08 | 42234 | 94937.90 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 204
+ },
+ {
+  "id": "CHALLENGE-X04",
+  "topic": "CHALLENGES",
+  "title": "The accounts behind half of all value",
+  "q": "Rank accounts by their total estimated value (all trade orders). Show the smallest group of top accounts that together make up at least 50% of the grand total: AccountID, AccountName, Total and CumulativePct (their running share of the grand total, 2 decimals). Break ties in Total by AccountID. Sort by Total descending, then AccountID.",
+  "sql": "WITH t AS (\n    SELECT AccountID, SUM(EstimatedValue) AS Total\n    FROM brokerage.TradeOrders\n    GROUP BY AccountID\n), r AS (\n    SELECT AccountID, Total,\n           SUM(Total) OVER (ORDER BY Total DESC, AccountID ROWS UNBOUNDED PRECEDING) AS Running,\n           SUM(Total) OVER () AS Grand\n    FROM t\n)\nSELECT r.AccountID, p.AccountName, r.Total, CAST(100.0 * r.Running / r.Grand AS decimal(5,2)) AS CumulativePct\nFROM r\nJOIN brokerage.BrokerageAccounts AS p ON p.AccountID = r.AccountID\nWHERE r.Running - r.Total < 0.5 * r.Grand\nORDER BY r.Total DESC, r.AccountID;",
+  "how": "Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.",
+  "a": "**Approach hint:** Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.\n\n**Expected result:** 16 rows, first 6 shown\n\n| AccountID | AccountName | Total | CumulativePct |\n|---|---|---|---|\n| 21 | Avery Lewis - Retirement | 88229 | 5.06 |\n| 19 | Sofia Patel - Individual | 83742 | 9.86 |\n| 52 | Daniel Reed - Individual | 70281.65 | 13.89 |\n| 48 | Benjamin Chen - Retirement | 56575.40 | 17.13 |\n| 41 | Isabella Brooks - Individual | 56380 | 20.37 |\n| 2 | Liam Shah - Individual | 54748.90 | 23.50 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 16
+ },
+ {
+  "id": "CHALLENGE-X05",
+  "topic": "CHALLENGES",
+  "title": "What comes next? RoutingCategory transitions",
+  "q": "Put each account's trade orders in date order (ties by OrderID). For every pair of consecutive trade orders, the first one's RoutingCategory is the From value and the next one's is the To value. Show FromRoutingCategory, ToRoutingCategory, Transitions (how many times) and PctOfFrom (share of all transitions that start from that From value, 2 decimals). Sort by FromRoutingCategory, then ToRoutingCategory.",
+  "sql": "WITH e AS (\n    SELECT RoutingCategory AS FromV,\n           LEAD(RoutingCategory) OVER (PARTITION BY AccountID ORDER BY OrderDate, OrderID) AS ToV\n    FROM brokerage.TradeOrders\n)\nSELECT FromV AS FromRoutingCategory, ToV AS ToRoutingCategory, COUNT(*) AS Transitions,\n       CAST(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (PARTITION BY FromV) AS decimal(5,2)) AS PctOfFrom\nFROM e\nWHERE ToV IS NOT NULL\nGROUP BY FromV, ToV\nORDER BY FromRoutingCategory, ToRoutingCategory;",
+  "how": "LEAD() looks at the next row in the same partition. The last row per partition has no next value, so filter out the NULLs. SUM(COUNT(*)) OVER (PARTITION BY ...) is a window over the grouped result: it gives the group total for the percentage.",
+  "a": "**Approach hint:** LEAD() looks at the next row in the same partition. The last row per partition has no next value, so filter out the NULLs. SUM(COUNT(*)) OVER (PARTITION BY ...) is a window over the grouped result: it gives the group total for the percentage.\n\n**Expected result:** 9 rows, first 6 shown\n\n| FromRoutingCategory | ToRoutingCategory | Transitions | PctOfFrom |\n|---|---|---|---|\n| A | A | 51 | 60 |\n| A | B | 14 | 16.47 |\n| A | C | 20 | 23.53 |\n| B | A | 17 | 43.59 |\n| B | B | 13 | 33.33 |\n| B | C | 9 | 23.08 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 9
+ },
+ {
+  "id": "CHALLENGE-X06",
+  "topic": "CHALLENGES",
+  "title": "Fill status of every order",
+  "q": "Compare each trade order's RequestedQuantity with the total ExecutedQuantity of its executions. Classify orders as 'Unfilled' (no executions), 'Partial' (less than requested), 'Filled' (exactly requested) or 'Overfilled'. Show FillStatus, Orders and AvgFillPct (average of executed ÷ requested × 100 per order, 2 decimals). Sort by FillStatus.",
+  "sql": "WITH x AS (\n    SELECT OrderID, SUM(ExecutedQuantity) AS Done\n    FROM brokerage.Executions\n    GROUP BY OrderID\n), f AS (\n    SELECT o.OrderID, o.RequestedQuantity, COALESCE(x.Done, 0) AS Done,\n           CASE WHEN x.Done IS NULL THEN 'Unfilled'\n                WHEN x.Done < o.RequestedQuantity THEN 'Partial'\n                WHEN x.Done = o.RequestedQuantity THEN 'Filled'\n                ELSE 'Overfilled' END AS FillStatus\n    FROM brokerage.TradeOrders AS o\n    LEFT JOIN x ON x.OrderID = o.OrderID\n)\nSELECT FillStatus, COUNT(*) AS Orders,\n       CAST(AVG(100.0 * Done / RequestedQuantity) AS decimal(7,2)) AS AvgFillPct\nFROM f\nGROUP BY FillStatus\nORDER BY FillStatus;",
+  "how": "Sum executions per order first, LEFT JOIN so orders with no execution stay, then a CASE builds the label you group by.",
+  "a": "**Approach hint:** Sum executions per order first, LEFT JOIN so orders with no execution stay, then a CASE builds the label you group by.\n\n**Expected result:** 3 rows\n\n| FillStatus | Orders | AvgFillPct |\n|---|---|---|\n| Filled | 204 | 100 |\n| Partial | 24 | 47.33 |\n| Unfilled | 12 | 0 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X07",
+  "topic": "CHALLENGES",
+  "title": "VWAP vs simple average price",
+  "q": "For each security with executions, show Symbol, Executions, SimpleAvgPrice (plain average of ExecutionPrice), VWAP (volume-weighted average price: sum of quantity × price ÷ sum of quantity) and DiffPct ((VWAP − SimpleAvgPrice) ÷ SimpleAvgPrice × 100). Round prices to 4 decimals and DiffPct to 2. Show only securities where the absolute DiffPct is at least 1. Sort by absolute DiffPct descending, then Symbol.",
+  "sql": "WITH v AS (\n    SELECT s.Symbol, COUNT(*) AS Executions,\n           AVG(e.ExecutionPrice) AS AvgP,\n           SUM(e.ExecutedQuantity * e.ExecutionPrice) / SUM(e.ExecutedQuantity) AS Vwap\n    FROM brokerage.Executions AS e\n    JOIN brokerage.TradeOrders AS o ON o.OrderID = e.OrderID\n    JOIN brokerage.Securities AS s ON s.SecurityID = o.SecurityID\n    GROUP BY s.Symbol\n)\nSELECT Symbol, Executions,\n       CAST(AvgP AS decimal(12,4)) AS SimpleAvgPrice,\n       CAST(Vwap AS decimal(12,4)) AS VWAP,\n       CAST(100.0 * (Vwap - AvgP) / AvgP AS decimal(7,2)) AS DiffPct\nFROM v\nWHERE ABS(100.0 * (Vwap - AvgP) / AvgP) >= 1\nORDER BY ABS(100.0 * (Vwap - AvgP) / AvgP) DESC, Symbol;",
+  "how": "VWAP is a ratio of two sums, not an average of ratios. Executions reach a security only through TradeOrders.",
+  "a": "**Approach hint:** VWAP is a ratio of two sums, not an average of ratios. Executions reach a security only through TradeOrders.\n\n**Expected result:** 24 rows, first 6 shown\n\n| Symbol | Executions | SimpleAvgPrice | VWAP | DiffPct |\n|---|---|---|---|---|\n| SIM034 | 5 | 82.3640 | 85.3143 | 3.58 |\n| SIM044 | 8 | 201.2013 | 207.8759 | 3.32 |\n| SIM042 | 5 | 137.6280 | 141.8144 | 3.04 |\n| SIM010 | 5 | 229.4920 | 222.8965 | -2.87 |\n| SIM046 | 4 | 141.3375 | 137.3827 | -2.80 |\n| SIM024 | 5 | 135.0640 | 138.8328 | 2.79 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 24
+ },
+ {
+  "id": "CHALLENGE-X08",
+  "topic": "CHALLENGES",
+  "title": "Value tiers with NTILE",
+  "q": "Split the accounts that have trade orders into 4 equal-sized tiers by total EstimatedValue with NTILE(4), tier 1 = highest (ties broken by AccountID). For each tier show Tier, Accounts (how many), MinTotal, MaxTotal, TierTotal and ShareOfAllPct (the tier's share of the grand total, 2 decimals). Sort by Tier.",
+  "sql": "WITH t AS (\n    SELECT AccountID, SUM(EstimatedValue) AS Total\n    FROM brokerage.TradeOrders\n    GROUP BY AccountID\n), n AS (\n    SELECT AccountID, Total, NTILE(4) OVER (ORDER BY Total DESC, AccountID) AS Tier\n    FROM t\n)\nSELECT Tier, COUNT(*) AS Accounts, MIN(Total) AS MinTotal, MAX(Total) AS MaxTotal, SUM(Total) AS TierTotal,\n       CAST(100.0 * SUM(Total) / SUM(SUM(Total)) OVER () AS decimal(5,2)) AS ShareOfAllPct\nFROM n\nGROUP BY Tier\nORDER BY Tier;",
+  "how": "NTILE(4) OVER (ORDER BY ...) deals rows into 4 buckets. After GROUP BY Tier, SUM(SUM(Total)) OVER () is the grand total across all tiers, so the share needs no second query.",
+  "a": "**Approach hint:** NTILE(4) OVER (ORDER BY ...) deals rows into 4 buckets. After GROUP BY Tier, SUM(SUM(Total)) OVER () is the grand total across all tiers, so the share needs no second query.\n\n**Expected result:** 4 rows\n\n| Tier | Accounts | MinTotal | MaxTotal | TierTotal | ShareOfAllPct |\n|---|---|---|---|---|---|\n| 1 | 22 | 30557.10 | 88229 | 1092891.05 | 62.66 |\n| 2 | 21 | 12315.75 | 28784.55 | 436878.20 | 25.05 |\n| 3 | 21 | 4649.20 | 12004 | 161713.90 | 9.27 |\n| 4 | 21 | 191.85 | 4595.10 | 52691.10 | 3.02 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ },
+ {
+  "id": "CHALLENGE-X09",
+  "topic": "CHALLENGES",
+  "title": "Clients who hold both stocks and ETFs",
+  "q": "List clients who have traded at least one 'Stock' and at least one 'ETF' (any account of theirs). Show ClientID, ClientName, Stocks and ETFs (how many different securities of each class) and TotalOrders. Sort by TotalOrders descending, then ClientID.",
+  "sql": "SELECT c.ClientID, c.ClientName,\n       COUNT(DISTINCT CASE WHEN s.AssetClass = 'Stock' THEN s.SecurityID END) AS Stocks,\n       COUNT(DISTINCT CASE WHEN s.AssetClass = 'ETF' THEN s.SecurityID END) AS ETFs,\n       COUNT(*) AS TotalOrders\nFROM brokerage.TradeOrders AS o\nJOIN brokerage.BrokerageAccounts AS a ON a.AccountID = o.AccountID\nJOIN brokerage.Clients AS c ON c.ClientID = a.ClientID\nJOIN brokerage.Securities AS s ON s.SecurityID = o.SecurityID\nGROUP BY c.ClientID, c.ClientName\nHAVING COUNT(DISTINCT CASE WHEN s.AssetClass = 'Stock' THEN s.SecurityID END) > 0\n   AND COUNT(DISTINCT CASE WHEN s.AssetClass = 'ETF' THEN s.SecurityID END) > 0\nORDER BY TotalOrders DESC, c.ClientID;",
+  "how": "Conditional aggregation: COUNT(DISTINCT CASE WHEN ... THEN id END) counts one class at a time. Put the 'both' test in HAVING, after grouping.",
+  "a": "**Approach hint:** Conditional aggregation: COUNT(DISTINCT CASE WHEN ... THEN id END) counts one class at a time. Put the 'both' test in HAVING, after grouping.\n\n**Expected result:** 54 rows, first 6 shown\n\n| ClientID | ClientName | Stocks | ETFs | TotalOrders |\n|---|---|---|---|---|\n| 29 | Chloe Turner | 2 | 4 | 7 |\n| 12 | Mason Rivera | 5 | 1 | 6 |\n| 31 | Olivia Singh | 3 | 3 | 6 |\n| 41 | Isabella Brooks | 1 | 5 | 6 |\n| 66 | Elijah Shah | 3 | 3 | 6 |\n| 77 | Harper Nguyen | 2 | 4 | 6 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 54
+ },
+ {
+  "id": "CHALLENGE-X10",
+  "topic": "CHALLENGES",
+  "title": "Longest quiet period per region",
+  "q": "For each Region (from BrokerageAccounts), find the longest stretch with no trade orders at all between two consecutive trade order dates in that region. Show Region, GapStart (the last date before the gap), GapEnd (the next date) and DaysWithout. If two gaps tie for longest in a region, show both. Sort by DaysWithout descending, then Region, then GapStart.",
+  "sql": "WITH d AS (\n    SELECT p.Region, e.OrderDate AS GapEnd,\n           LAG(e.OrderDate) OVER (PARTITION BY p.Region ORDER BY e.OrderDate, e.OrderID) AS GapStart\n    FROM brokerage.TradeOrders AS e\n    JOIN brokerage.BrokerageAccounts AS p ON p.AccountID = e.AccountID\n), r AS (\n    SELECT Region, GapStart, GapEnd, DATEDIFF(day, GapStart, GapEnd) AS DaysWithout,\n           RANK() OVER (PARTITION BY Region ORDER BY DATEDIFF(day, GapStart, GapEnd) DESC) AS rk\n    FROM d\n    WHERE GapStart IS NOT NULL\n)\nSELECT Region, GapStart, GapEnd, DaysWithout\nFROM r\nWHERE rk = 1\nORDER BY DaysWithout DESC, Region, GapStart;",
+  "how": "LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.",
+  "a": "**Approach hint:** LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.\n\n**Expected result:** 4 rows\n\n| Region | GapStart | GapEnd | DaysWithout |\n|---|---|---|---|\n| East | 2024-02-11 | 2024-03-24 | 42 |\n| North | 2024-03-06 | 2024-04-13 | 38 |\n| West | 2024-10-26 | 2024-11-16 | 21 |\n| South | 2024-05-23 | 2024-06-07 | 15 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ }
+]

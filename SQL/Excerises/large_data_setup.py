@@ -11,9 +11,9 @@ MASTERS = {
     'pharma': {'Suppliers', 'Products', 'Warehouses'},
     'healthcare': {'Patients', 'Doctors', 'Medications'},
     'oil': {'Sites', 'Carriers', 'Products'},
-    'retail_manufacturing': {'Products', 'Materials'},
+    'retail_supply_chain': {'Warehouses', 'Suppliers', 'Products', 'Materials'},
     'retail_logistics': {'Customers', 'Carriers'},
-    'retail_inventory': {'Warehouses', 'Products', 'Suppliers'},
+    'ecommerce': {'Customers', 'Sellers', 'Products'},
     'brokerage': {'Clients', 'Securities', 'BrokerageAccounts'},
 }
 

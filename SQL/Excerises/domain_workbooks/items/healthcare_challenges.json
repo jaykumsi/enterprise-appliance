@@ -1,0 +1,102 @@
+[
+ {
+  "id": "CHALLENGE-X01",
+  "topic": "CHALLENGES",
+  "title": "Median vs average charge",
+  "q": "Averages hide outliers. For each EncounterType, show EncounterType, Encounters (how many encounters), AverageValue, MedianValue and AboveMedian (AverageValue minus MedianValue), all money values rounded to 2 decimals. Use the Charge column. Sort by EncounterType.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT EncounterType,\n           COUNT(*) OVER (PARTITION BY EncounterType) AS Encounters,\n           AVG(Charge) OVER (PARTITION BY EncounterType) AS AvgV,\n           PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY Charge) OVER (PARTITION BY EncounterType) AS MedV\n    FROM healthcare.Encounters\n)\nSELECT EncounterType, Encounters,\n       CAST(AvgV AS decimal(12,2)) AS AverageValue,\n       CAST(MedV AS decimal(12,2)) AS MedianValue,\n       CAST(AvgV - MedV AS decimal(12,2)) AS AboveMedian\nFROM m\nORDER BY EncounterType;",
+  "how": "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.",
+  "a": "**Approach hint:** PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.\n\n**Expected result:** 3 rows\n\n| EncounterType | Encounters | AverageValue | MedianValue | AboveMedian |\n|---|---|---|---|---|\n| A | 38 | 166.42 | 163 | 3.42 |\n| B | 181 | 156.73 | 154 | 2.73 |\n| C | 21 | 93.86 | 103 | -9.14 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X02",
+  "topic": "CHALLENGES",
+  "title": "Month-to-date running total",
+  "q": "For Closed encounters only, show each EncounterDate with DayTotal (the sum of Charge that day) and MonthToDate: the running total that starts again on the first day of each month. Sort by EncounterDate.",
+  "sql": "WITH d AS (\n    SELECT EncounterDate, SUM(Charge) AS DayTotal\n    FROM healthcare.Encounters\n    WHERE Status = 'Closed'\n    GROUP BY EncounterDate\n)\nSELECT EncounterDate, DayTotal,\n       SUM(DayTotal) OVER (PARTITION BY YEAR(EncounterDate), MONTH(EncounterDate)\n                           ORDER BY EncounterDate ROWS UNBOUNDED PRECEDING) AS MonthToDate\nFROM d\nORDER BY EncounterDate;",
+  "how": "Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.",
+  "a": "**Approach hint:** Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.\n\n**Expected result:** 204 rows, first 6 shown\n\n| EncounterDate | DayTotal | MonthToDate |\n|---|---|---|\n| 2024-01-01 | 159 | 159 |\n| 2024-01-02 | 200 | 359 |\n| 2024-01-04 | 104 | 463 |\n| 2024-01-05 | 117 | 580 |\n| 2024-01-07 | 161 | 741 |\n| 2024-01-08 | 137 | 878 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 204
+ },
+ {
+  "id": "CHALLENGE-X03",
+  "topic": "CHALLENGES",
+  "title": "The patients behind half of all value",
+  "q": "Rank patients by their total charge (all encounters). Show the smallest group of top patients that together make up at least 50% of the grand total: PatientID, PatientName, Total and CumulativePct (their running share of the grand total, 2 decimals). Break ties in Total by PatientID. Sort by Total descending, then PatientID.",
+  "sql": "WITH t AS (\n    SELECT PatientID, SUM(Charge) AS Total\n    FROM healthcare.Encounters\n    GROUP BY PatientID\n), r AS (\n    SELECT PatientID, Total,\n           SUM(Total) OVER (ORDER BY Total DESC, PatientID ROWS UNBOUNDED PRECEDING) AS Running,\n           SUM(Total) OVER () AS Grand\n    FROM t\n)\nSELECT r.PatientID, p.PatientName, r.Total, CAST(100.0 * r.Running / r.Grand AS decimal(5,2)) AS CumulativePct\nFROM r\nJOIN healthcare.Patients AS p ON p.PatientID = r.PatientID\nWHERE r.Running - r.Total < 0.5 * r.Grand\nORDER BY r.Total DESC, r.PatientID;",
+  "how": "Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.",
+  "a": "**Approach hint:** Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.\n\n**Expected result:** 37 rows, first 6 shown\n\n| PatientID | PatientName | Total | CumulativePct |\n|---|---|---|---|\n| 29 | Chloe Turner | 671 | 1.83 |\n| 36 | Elijah Turner | 651 | 3.61 |\n| 24 | Samuel Singh | 614 | 5.28 |\n| 32 | Liam Wilson | 609 | 6.94 |\n| 40 | Lucas Walker | 585 | 8.54 |\n| 30 | Leo Kim | 575 | 10.11 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 37
+ },
+ {
+  "id": "CHALLENGE-X04",
+  "topic": "CHALLENGES",
+  "title": "Value tiers with NTILE",
+  "q": "Split the patients that have encounters into 4 equal-sized tiers by total Charge with NTILE(4), tier 1 = highest (ties broken by PatientID). For each tier show Tier, Patients (how many), MinTotal, MaxTotal, TierTotal and ShareOfAllPct (the tier's share of the grand total, 2 decimals). Sort by Tier.",
+  "sql": "WITH t AS (\n    SELECT PatientID, SUM(Charge) AS Total\n    FROM healthcare.Encounters\n    GROUP BY PatientID\n), n AS (\n    SELECT PatientID, Total, NTILE(4) OVER (ORDER BY Total DESC, PatientID) AS Tier\n    FROM t\n)\nSELECT Tier, COUNT(*) AS Patients, MIN(Total) AS MinTotal, MAX(Total) AS MaxTotal, SUM(Total) AS TierTotal,\n       CAST(100.0 * SUM(Total) / SUM(SUM(Total)) OVER () AS decimal(5,2)) AS ShareOfAllPct\nFROM n\nGROUP BY Tier\nORDER BY Tier;",
+  "how": "NTILE(4) OVER (ORDER BY ...) deals rows into 4 buckets. After GROUP BY Tier, SUM(SUM(Total)) OVER () is the grand total across all tiers, so the share needs no second query.",
+  "a": "**Approach hint:** NTILE(4) OVER (ORDER BY ...) deals rows into 4 buckets. After GROUP BY Tier, SUM(SUM(Total)) OVER () is the grand total across all tiers, so the share needs no second query.\n\n**Expected result:** 4 rows\n\n| Tier | Patients | MinTotal | MaxTotal | TierTotal | ShareOfAllPct |\n|---|---|---|---|---|---|\n| 1 | 24 | 456 | 671 | 12685 | 34.60 |\n| 2 | 24 | 394 | 455 | 10098 | 27.54 |\n| 3 | 24 | 300 | 381 | 8083 | 22.05 |\n| 4 | 23 | 191 | 299 | 5797 | 15.81 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ },
+ {
+  "id": "CHALLENGE-X05",
+  "topic": "CHALLENGES",
+  "title": "Longest quiet period per region",
+  "q": "For each Region (from Patients), find the longest stretch with no encounters at all between two consecutive encounter dates in that region. Show Region, GapStart (the last date before the gap), GapEnd (the next date) and DaysWithout. If two gaps tie for longest in a region, show both. Sort by DaysWithout descending, then Region, then GapStart.",
+  "sql": "WITH d AS (\n    SELECT p.Region, e.EncounterDate AS GapEnd,\n           LAG(e.EncounterDate) OVER (PARTITION BY p.Region ORDER BY e.EncounterDate, e.EncounterID) AS GapStart\n    FROM healthcare.Encounters AS e\n    JOIN healthcare.Patients AS p ON p.PatientID = e.PatientID\n), r AS (\n    SELECT Region, GapStart, GapEnd, DATEDIFF(day, GapStart, GapEnd) AS DaysWithout,\n           RANK() OVER (PARTITION BY Region ORDER BY DATEDIFF(day, GapStart, GapEnd) DESC) AS rk\n    FROM d\n    WHERE GapStart IS NOT NULL\n)\nSELECT Region, GapStart, GapEnd, DaysWithout\nFROM r\nWHERE rk = 1\nORDER BY DaysWithout DESC, Region, GapStart;",
+  "how": "LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.",
+  "a": "**Approach hint:** LAG over the region's dates gives the previous date; DATEDIFF gives the gap. RANK() (not ROW_NUMBER) keeps ties for the top spot.\n\n**Expected result:** 18 rows, first 6 shown\n\n| Region | GapStart | GapEnd | DaysWithout |\n|---|---|---|---|\n| East | 2024-04-29 | 2024-05-29 | 30 |\n| East | 2024-09-21 | 2024-10-21 | 30 |\n| West | 2024-02-18 | 2024-03-05 | 16 |\n| West | 2024-06-04 | 2024-06-20 | 16 |\n| West | 2024-07-12 | 2024-07-28 | 16 |\n| West | 2024-10-27 | 2024-11-12 | 16 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 18
+ },
+ {
+  "id": "CHALLENGE-X06",
+  "topic": "CHALLENGES",
+  "title": "Encounter charge vs medication cost",
+  "q": "For each encounter, the medication cost is the sum of Prescriptions.Quantity × Medications.UnitCost. Per EncounterType, show Encounters, WithPrescriptions (encounters that have at least one prescription), TotalCharge, MedicationCost and MedCostPct (MedicationCost ÷ TotalCharge × 100, 2 decimals). TotalCharge must count every encounter once. Sort by EncounterType.",
+  "sql": "WITH m AS (\n    SELECT rx.EncounterID, SUM(rx.Quantity * md.UnitCost) AS MedCost\n    FROM healthcare.Prescriptions AS rx\n    JOIN healthcare.Medications AS md ON md.MedicationID = rx.MedicationID\n    GROUP BY rx.EncounterID\n)\nSELECT e.EncounterType, COUNT(*) AS Encounters, COUNT(m.EncounterID) AS WithPrescriptions,\n       SUM(e.Charge) AS TotalCharge, COALESCE(SUM(m.MedCost), 0) AS MedicationCost,\n       CAST(100.0 * COALESCE(SUM(m.MedCost), 0) / SUM(e.Charge) AS decimal(5,2)) AS MedCostPct\nFROM healthcare.Encounters AS e\nLEFT JOIN m ON m.EncounterID = e.EncounterID\nGROUP BY e.EncounterType\nORDER BY e.EncounterType;",
+  "how": "Joining Encounters straight to Prescriptions repeats the Charge once per prescription. Total the prescriptions per encounter first. COUNT(m.EncounterID) counts only matched rows.",
+  "a": "**Approach hint:** Joining Encounters straight to Prescriptions repeats the Charge once per prescription. Total the prescriptions per encounter first. COUNT(m.EncounterID) counts only matched rows.\n\n**Expected result:** 3 rows\n\n| EncounterType | Encounters | WithPrescriptions | TotalCharge | MedicationCost | MedCostPct |\n|---|---|---|---|---|---|\n| A | 38 | 32 | 6324 | 309.90 | 4.90 |\n| B | 181 | 115 | 28368 | 1105.50 | 3.90 |\n| C | 21 | 17 | 1971 | 185.10 | 9.39 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X07",
+  "topic": "CHALLENGES",
+  "title": "Month-over-month jumps per region",
+  "q": "Total the Charge per Region (from Patients) and calendar month. Compare each month with the region's *previous calendar month* (if the region had nothing that month, there is nothing to compare). Show Region, Month (yyyy-MM), MonthTotal, PrevMonthTotal and GrowthPct (2 decimals) for every jump of 50% or more. Sort by GrowthPct descending, then Region, then Month.",
+  "sql": "WITH m AS (\n    SELECT p.Region, DATEFROMPARTS(YEAR(e.EncounterDate), MONTH(e.EncounterDate), 1) AS MonthStart, SUM(e.Charge) AS MonthTotal\n    FROM healthcare.Encounters AS e\n    JOIN healthcare.Patients AS p ON p.PatientID = e.PatientID\n    GROUP BY p.Region, DATEFROMPARTS(YEAR(e.EncounterDate), MONTH(e.EncounterDate), 1)\n), l AS (\n    SELECT Region, MonthStart, MonthTotal,\n           LAG(MonthTotal) OVER (PARTITION BY Region ORDER BY MonthStart) AS PrevMonthTotal,\n           LAG(MonthStart) OVER (PARTITION BY Region ORDER BY MonthStart) AS PrevMonth\n    FROM m\n)\nSELECT Region, FORMAT(MonthStart, 'yyyy-MM') AS Month, MonthTotal, PrevMonthTotal,\n       CAST(100.0 * (MonthTotal - PrevMonthTotal) / PrevMonthTotal AS decimal(9,2)) AS GrowthPct\nFROM l\nWHERE PrevMonth = DATEADD(month, -1, MonthStart)\n  AND MonthTotal >= PrevMonthTotal * 1.5\nORDER BY GrowthPct DESC, Region, Month;",
+  "how": "LAG() returns the previous row, which is not always the previous calendar month. Bring back the previous month's date with a second LAG and check it equals DATEADD(month, -1, this month).",
+  "a": "**Approach hint:** LAG() returns the previous row, which is not always the previous calendar month. Bring back the previous month's date with a second LAG and check it equals DATEADD(month, -1, this month).\n\n**Expected result:** 9 rows, first 6 shown\n\n| Region | Month | MonthTotal | PrevMonthTotal | GrowthPct |\n|---|---|---|---|---|\n| East | 2024-11 | 585 | 101 | 479.21 |\n| East | 2024-02 | 636 | 117 | 443.59 |\n| West | 2024-12 | 986 | 302 | 226.49 |\n| East | 2024-08 | 698 | 250 | 179.20 |\n| East | 2024-06 | 431 | 190 | 126.84 |\n| North | 2024-04 | 950 | 589 | 61.29 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 9
+ },
+ {
+  "id": "CHALLENGE-X08",
+  "topic": "CHALLENGES",
+  "title": "First vs latest charge per patient",
+  "q": "For each patient with 2 or more encounters, compare the charge of their first encounter with the charge of their latest one (by EncounterDate, ties by EncounterID). Show PatientID, PatientName, FirstCharge, LatestCharge and Change (latest minus first). Show only patients whose charge went up. Sort by Change descending, then PatientID.",
+  "sql": "WITH e AS (\n    SELECT PatientID, Charge,\n           ROW_NUMBER() OVER (PARTITION BY PatientID ORDER BY EncounterDate, EncounterID) AS FirstN,\n           ROW_NUMBER() OVER (PARTITION BY PatientID ORDER BY EncounterDate DESC, EncounterID DESC) AS LastN,\n           COUNT(*) OVER (PARTITION BY PatientID) AS Visits\n    FROM healthcare.Encounters\n), f AS (\n    SELECT PatientID,\n           MAX(CASE WHEN FirstN = 1 THEN Charge END) AS FirstCharge,\n           MAX(CASE WHEN LastN = 1 THEN Charge END) AS LatestCharge\n    FROM e\n    WHERE Visits >= 2\n    GROUP BY PatientID\n)\nSELECT f.PatientID, p.PatientName, f.FirstCharge, f.LatestCharge, f.LatestCharge - f.FirstCharge AS Change\nFROM f\nJOIN healthcare.Patients AS p ON p.PatientID = f.PatientID\nWHERE f.LatestCharge > f.FirstCharge\nORDER BY Change DESC, f.PatientID;",
+  "how": "Number the rows both ways (oldest first and newest first), then pick row 1 of each with MAX(CASE ...). FIRST_VALUE / LAST_VALUE work too, but LAST_VALUE needs a full window frame.",
+  "a": "**Approach hint:** Number the rows both ways (oldest first and newest first), then pick row 1 of each with MAX(CASE ...). FIRST_VALUE / LAST_VALUE work too, but LAST_VALUE needs a full window frame.\n\n**Expected result:** 53 rows, first 6 shown\n\n| PatientID | PatientName | FirstCharge | LatestCharge | Change |\n|---|---|---|---|---|\n| 14 | Ethan Ahmed | 88 | 250 | 162 |\n| 54 | Samuel Martinez | 80 | 229 | 149 |\n| 12 | Mason Rivera | 70 | 212 | 142 |\n| 59 | Chloe Shah | 103 | 233 | 130 |\n| 3 | Emma Hughes | 104 | 232 | 128 |\n| 8 | James Walker | 95 | 220 | 125 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 53
+ },
+ {
+  "id": "CHALLENGE-X09",
+  "topic": "CHALLENGES",
+  "title": "Three-medication combinations",
+  "q": "Take the 6 medications prescribed in the most encounters (ties by MedicationID). List every combination of 3 of them with CombinationCost (sum of the three UnitCost values). Show Medication1, Medication2, Medication3 (in MedicationID order) and CombinationCost. Sort by CombinationCost descending, then Medication1, Medication2, Medication3.",
+  "sql": "WITH top6 AS (\n    SELECT TOP (6) m.MedicationID, m.MedicationName, m.UnitCost\n    FROM healthcare.Prescriptions AS rx\n    JOIN healthcare.Medications AS m ON m.MedicationID = rx.MedicationID\n    GROUP BY m.MedicationID, m.MedicationName, m.UnitCost\n    ORDER BY COUNT(DISTINCT rx.EncounterID) DESC, m.MedicationID\n)\nSELECT a.MedicationName AS Medication1, b.MedicationName AS Medication2, c.MedicationName AS Medication3,\n       a.UnitCost + b.UnitCost + c.UnitCost AS CombinationCost\nFROM top6 AS a\nJOIN top6 AS b ON b.MedicationID > a.MedicationID\nJOIN top6 AS c ON c.MedicationID > b.MedicationID\nORDER BY CombinationCost DESC, Medication1, Medication2, Medication3;",
+  "how": "A triple self-join with a < b < c on the ID gives each set of three once: 6 choose 3 = 20 rows.",
+  "a": "**Approach hint:** A triple self-join with a < b < c on the ID gives each set of three once: 6 choose 3 = 20 rows.\n\n**Expected result:** 20 rows, first 6 shown\n\n| Medication1 | Medication2 | Medication3 | CombinationCost |\n|---|---|---|---|\n| Ibuprofen 400mg tablet | Cetirizine 10mg tablet | Loratadine 5mg tablet | 0.52 |\n| Acetaminophen 500mg tablet | Cetirizine 10mg tablet | Loratadine 5mg tablet | 0.49 |\n| Ibuprofen 200mg tablet | Cetirizine 10mg tablet | Loratadine 5mg tablet | 0.49 |\n| Acetaminophen 325mg tablet | Cetirizine 10mg tablet | Loratadine 5mg tablet | 0.47 |\n| Acetaminophen 500mg tablet | Ibuprofen 400mg tablet | Cetirizine 10mg tablet | 0.46 |\n| Ibuprofen 200mg tablet | Ibuprofen 400mg tablet | Cetirizine 10mg tablet | 0.46 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 20
+ },
+ {
+  "id": "CHALLENGE-X10",
+  "topic": "CHALLENGES",
+  "title": "Medications nobody was prescribed",
+  "q": "List medications that appear in no prescription at all, with MedicationName, MedicationCode, UnitCost and PriceRank (the medication's rank by UnitCost among *all* medications, 1 = most expensive, ties share a rank). Sort by PriceRank, then MedicationName.",
+  "sql": "WITH r AS (\n    SELECT MedicationID, MedicationName, MedicationCode, UnitCost,\n           RANK() OVER (ORDER BY UnitCost DESC) AS PriceRank\n    FROM healthcare.Medications\n)\nSELECT r.MedicationName, r.MedicationCode, r.UnitCost, r.PriceRank\nFROM r\nWHERE NOT EXISTS (SELECT 1 FROM healthcare.Prescriptions AS rx WHERE rx.MedicationID = r.MedicationID)\nORDER BY r.PriceRank, r.MedicationName;",
+  "how": "Rank first over all medications, then filter with NOT EXISTS. Filtering first would rank only the unused ones and give different numbers: order of operations matters.",
+  "a": "**Approach hint:** Rank first over all medications, then filter with NOT EXISTS. Filtering first would rank only the unused ones and give different numbers: order of operations matters.\n\n**Expected result:** 10 rows, first 6 shown\n\n| MedicationName | MedicationCode | UnitCost | PriceRank |\n|---|---|---|---|\n| Omeprazole 20mg tablet | MED-00010 | 0.31 | 1 |\n| Montelukast 10mg tablet | MED-00040 | 0.26 | 3 |\n| Pravastatin 40mg tablet | MED-00050 | 0.22 | 9 |\n| Atorvastatin 20mg tablet | MED-00030 | 0.20 | 13 |\n| Cetirizine 5mg tablet | MED-00005 | 0.18 | 17 |\n| Melatonin 3mg tablet | MED-00020 | 0.14 | 27 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 10
+ }
+]

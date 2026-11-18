@@ -19,9 +19,9 @@ COMPANIES = {
     'oil': 'Fictional company: **Permian Ridge Energy**.',
     'pharma': 'Fictional company: **Novacrest Pharmaceuticals**.',
     'retail': 'Fictional company: **Maple & Main Stores**, the store division of Maple & Main.',
-    'retail_inventory': 'Fictional company: **Maple & Main Merchandising**, the Maple & Main division that manages stock and replenishment.',
+    'retail_supply_chain': 'Fictional company: **Maple & Main Supply Chain**, the Maple & Main division that buys, makes and stocks products (it combines the former Merchandising and Private Label divisions).',
     'retail_logistics': 'Fictional company: **Maple & Main Distribution**, the Maple & Main division that runs distribution centers, shipments and carriers.',
-    'retail_manufacturing': 'Fictional company: **Maple & Main Private Label**, the Maple & Main division that makes its own-brand goods.',
+    'ecommerce': 'Fictional company: **Everyday Bazaar**, a high-volume online marketplace with tens of thousands of orders a year.',
 }
 
 ROOT=Path(__file__).resolve().parent
@@ -73,6 +73,9 @@ def capture():
     if not data['retail_draft'] and oldbank.exists():
         data['retail_draft']=[q for q in json.loads(oldbank.read_text(encoding='utf-8'))['questions'] if q['subject']=='sql-server']
         assert len(data['retail_draft'])==6075
+    # Retired domains (merged into retail_supply_chain on 2026-11-18) keep no private notes.
+    for retired in ('retail_inventory','retail_manufacturing'):
+        data['private_notes'].pop(retired,None)
     # Preserve private capstone notes and setup information once.
     for directory in (ROOT/'domains').iterdir():
         if not directory.is_dir() or not (directory/'questions/README.md').exists():continue

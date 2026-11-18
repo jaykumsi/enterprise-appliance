@@ -40055,7 +40055,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DQL",
     "subtopic": "Select",
     "rows": [
@@ -40170,7 +40170,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DQL",
     "subtopic": "Where",
     "rows": [
@@ -40240,7 +40240,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DQL",
     "subtopic": "Group By",
     "rows": [
@@ -40355,7 +40355,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DQL",
     "subtopic": "Having",
     "rows": [
@@ -40407,7 +40407,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DQL",
     "subtopic": "Order By",
     "rows": [
@@ -40504,7 +40504,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DQL",
     "subtopic": "Top",
     "rows": [
@@ -40583,7 +40583,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "Equality Operator (=)",
     "rows": [
@@ -40617,7 +40617,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "Inequality Operator (<>)",
     "rows": [
@@ -40696,7 +40696,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "Greater Than (>)",
     "rows": [
@@ -40721,7 +40721,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "Greater Than or Equal To (>=)",
     "rows": [
@@ -40773,7 +40773,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "Less Than (<)",
     "rows": [
@@ -40834,7 +40834,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "Less Than or Equal To (<=)",
     "rows": [
@@ -40922,7 +40922,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "IN Operator",
     "rows": [
@@ -41001,7 +41001,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "NOT IN Operator",
     "rows": [
@@ -41062,7 +41062,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "LIKE Operator",
     "rows": [
@@ -41177,13 +41177,13 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "NOT LIKE Operator",
     "rows": []
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "BETWEEN Operator",
     "rows": [
@@ -41244,7 +41244,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "EXISTS Operator",
     "rows": [
@@ -41296,7 +41296,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "OPERATORS",
     "subtopic": "NOT EXISTS Operator",
     "rows": [
@@ -41366,7 +41366,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "AGGREGATES",
     "subtopic": "Count",
     "rows": [
@@ -41481,7 +41481,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "AGGREGATES",
     "subtopic": "Sum",
     "rows": [
@@ -41596,7 +41596,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "AGGREGATES",
     "subtopic": "Avg",
     "rows": [
@@ -41711,7 +41711,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "AGGREGATES",
     "subtopic": "Max",
     "rows": [
@@ -41826,7 +41826,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "AGGREGATES",
     "subtopic": "Min",
     "rows": [
@@ -41941,7 +41941,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "SET_OPERATIONS",
     "subtopic": "Union",
     "rows": [
@@ -42020,7 +42020,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "SET_OPERATIONS",
     "subtopic": "Union All",
     "rows": [
@@ -42135,7 +42135,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "SET_OPERATIONS",
     "subtopic": "Intersect",
     "rows": [
@@ -42151,7 +42151,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "SET_OPERATIONS",
     "subtopic": "Except",
     "rows": [
@@ -42194,7 +42194,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "JOINS",
     "subtopic": "Inner Join",
     "rows": [
@@ -42309,7 +42309,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "JOINS",
     "subtopic": "Left Join",
     "rows": [
@@ -42424,7 +42424,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "JOINS",
     "subtopic": "Right Join",
     "rows": [
@@ -42539,7 +42539,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "JOINS",
     "subtopic": "Full Join",
     "rows": [
@@ -42654,7 +42654,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "JOINS",
     "subtopic": "Cross Join",
     "rows": [
@@ -42769,7 +42769,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Length Function (LEN)",
     "rows": [
@@ -42884,7 +42884,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Substring Function (SUBSTRING)",
     "rows": [
@@ -42999,7 +42999,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Concatenation Operator (+)",
     "rows": [
@@ -43114,7 +43114,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Lower Function (LOWER)",
     "rows": [
@@ -43229,7 +43229,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Upper Function (UPPER)",
     "rows": [
@@ -43344,7 +43344,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Trim Function (TRIM)",
     "rows": [
@@ -43459,7 +43459,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Ltrim Function (LTRIM)",
     "rows": [
@@ -43574,7 +43574,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Rtrim Function (RTRIM)",
     "rows": [
@@ -43689,7 +43689,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Charindex Function (CHARINDEX)",
     "rows": [
@@ -43804,7 +43804,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Left Function (LEFT)",
     "rows": [
@@ -43919,7 +43919,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Right Function (RIGHT)",
     "rows": [
@@ -44034,7 +44034,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Reverse Function (REVERSE)",
     "rows": [
@@ -44149,7 +44149,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Replace Function (REPLACE)",
     "rows": [
@@ -44264,7 +44264,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Case Statement (CASE)",
     "rows": [
@@ -44379,7 +44379,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "ISNULL Function (ISNULL)",
     "rows": [
@@ -44494,7 +44494,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Coalesce Function (COALESCE)",
     "rows": [
@@ -44609,7 +44609,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Current Date and time (GETDATE)",
     "rows": [
@@ -44724,7 +44724,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Part Function (DATEPART)",
     "rows": [
@@ -44839,7 +44839,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Difference Function (DATEDIFF)",
     "rows": [
@@ -44954,7 +44954,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Addition/Subtraction",
     "rows": [
@@ -45069,7 +45069,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Formatting (FORMAT)",
     "rows": [
@@ -45184,7 +45184,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Weekday Function (DATEPART)",
     "rows": [
@@ -45299,7 +45299,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date to String (Various formats)",
     "rows": [
@@ -45414,7 +45414,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "DateTime to String (Various formats)",
     "rows": [
@@ -45529,7 +45529,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "String to Date (Various formats)",
     "rows": [
@@ -45644,7 +45644,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "String to DateTime (Various formats)",
     "rows": [
@@ -45759,7 +45759,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date and Time",
     "rows": [
@@ -45874,7 +45874,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Timezones",
     "rows": [
@@ -45989,7 +45989,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "UTC",
     "rows": [
@@ -46104,7 +46104,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Offsets",
     "rows": [
@@ -46219,7 +46219,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Applying an Offset to a Date Datatype Column",
     "rows": [
@@ -46334,7 +46334,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Cast a DateTime to DateTime with Timezone (in UTC, EST and IST TimeZones)",
     "rows": [
@@ -46449,7 +46449,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Cast a DateTime Timezone to another TimeZone",
     "rows": [
@@ -46564,7 +46564,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "Aggregate Functions",
     "rows": [
@@ -46679,7 +46679,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "ROW_NUMBER()",
     "rows": [
@@ -46794,7 +46794,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "RANK()",
     "rows": [
@@ -46909,7 +46909,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "DENSE_RANK()",
     "rows": [
@@ -47024,7 +47024,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "NTILE(n)",
     "rows": [
@@ -47139,7 +47139,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "LAG()",
     "rows": [
@@ -47254,7 +47254,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "LEAD()",
     "rows": [
@@ -47369,7 +47369,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "FIRST_VALUE()",
     "rows": [
@@ -47484,7 +47484,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "LAST_VALUE()",
     "rows": [
@@ -47599,7 +47599,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "CTE",
     "subtopic": "Creating a CTE",
     "rows": [
@@ -47714,7 +47714,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "CTE",
     "subtopic": "Using Multiple CTEs",
     "rows": [
@@ -47829,7 +47829,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "CTE",
     "subtopic": "Recursive CTEs",
     "rows": [
@@ -47944,7 +47944,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "CTE",
     "subtopic": "Common Use Cases for CTEs",
     "rows": [
@@ -47960,7 +47960,7 @@
     ]
   },
   {
-    "domain": "retail_manufacturing",
+    "domain": "retail_supply_chain",
     "topic": "CTE",
     "subtopic": "Benefits of Using CTEs",
     "rows": [
@@ -56077,7 +56077,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DQL",
     "subtopic": "Select",
     "rows": [
@@ -56192,7 +56192,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DQL",
     "subtopic": "Where",
     "rows": [
@@ -56262,7 +56262,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DQL",
     "subtopic": "Group By",
     "rows": [
@@ -56377,7 +56377,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DQL",
     "subtopic": "Having",
     "rows": [
@@ -56429,7 +56429,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DQL",
     "subtopic": "Order By",
     "rows": [
@@ -56526,7 +56526,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DQL",
     "subtopic": "Top",
     "rows": [
@@ -56605,7 +56605,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "Equality Operator (=)",
     "rows": [
@@ -56639,7 +56639,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "Inequality Operator (<>)",
     "rows": [
@@ -56718,7 +56718,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "Greater Than (>)",
     "rows": [
@@ -56743,7 +56743,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "Greater Than or Equal To (>=)",
     "rows": [
@@ -56795,7 +56795,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "Less Than (<)",
     "rows": [
@@ -56856,7 +56856,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "Less Than or Equal To (<=)",
     "rows": [
@@ -56944,7 +56944,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "IN Operator",
     "rows": [
@@ -57023,7 +57023,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "NOT IN Operator",
     "rows": [
@@ -57084,7 +57084,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "LIKE Operator",
     "rows": [
@@ -57199,13 +57199,13 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "NOT LIKE Operator",
     "rows": []
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "BETWEEN Operator",
     "rows": [
@@ -57266,7 +57266,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "EXISTS Operator",
     "rows": [
@@ -57318,7 +57318,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "OPERATORS",
     "subtopic": "NOT EXISTS Operator",
     "rows": [
@@ -57388,7 +57388,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "AGGREGATES",
     "subtopic": "Count",
     "rows": [
@@ -57503,7 +57503,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "AGGREGATES",
     "subtopic": "Sum",
     "rows": [
@@ -57618,7 +57618,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "AGGREGATES",
     "subtopic": "Avg",
     "rows": [
@@ -57733,7 +57733,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "AGGREGATES",
     "subtopic": "Max",
     "rows": [
@@ -57848,7 +57848,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "AGGREGATES",
     "subtopic": "Min",
     "rows": [
@@ -57963,7 +57963,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "SET_OPERATIONS",
     "subtopic": "Union",
     "rows": [
@@ -58042,7 +58042,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "SET_OPERATIONS",
     "subtopic": "Union All",
     "rows": [
@@ -58157,7 +58157,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "SET_OPERATIONS",
     "subtopic": "Intersect",
     "rows": [
@@ -58173,7 +58173,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "SET_OPERATIONS",
     "subtopic": "Except",
     "rows": [
@@ -58216,7 +58216,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "JOINS",
     "subtopic": "Inner Join",
     "rows": [
@@ -58331,7 +58331,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "JOINS",
     "subtopic": "Left Join",
     "rows": [
@@ -58446,7 +58446,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "JOINS",
     "subtopic": "Right Join",
     "rows": [
@@ -58561,7 +58561,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "JOINS",
     "subtopic": "Full Join",
     "rows": [
@@ -58676,7 +58676,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "JOINS",
     "subtopic": "Cross Join",
     "rows": [
@@ -58791,7 +58791,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Length Function (LEN)",
     "rows": [
@@ -58906,7 +58906,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Substring Function (SUBSTRING)",
     "rows": [
@@ -59021,7 +59021,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Concatenation Operator (+)",
     "rows": [
@@ -59136,7 +59136,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Lower Function (LOWER)",
     "rows": [
@@ -59251,7 +59251,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Upper Function (UPPER)",
     "rows": [
@@ -59366,7 +59366,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Trim Function (TRIM)",
     "rows": [
@@ -59481,7 +59481,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Ltrim Function (LTRIM)",
     "rows": [
@@ -59596,7 +59596,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Rtrim Function (RTRIM)",
     "rows": [
@@ -59711,7 +59711,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Charindex Function (CHARINDEX)",
     "rows": [
@@ -59826,7 +59826,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Left Function (LEFT)",
     "rows": [
@@ -59941,7 +59941,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Right Function (RIGHT)",
     "rows": [
@@ -60056,7 +60056,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Reverse Function (REVERSE)",
     "rows": [
@@ -60171,7 +60171,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Replace Function (REPLACE)",
     "rows": [
@@ -60286,7 +60286,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Case Statement (CASE)",
     "rows": [
@@ -60401,7 +60401,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "ISNULL Function (ISNULL)",
     "rows": [
@@ -60516,7 +60516,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "STRING_FUNCTIONS",
     "subtopic": "Coalesce Function (COALESCE)",
     "rows": [
@@ -60631,7 +60631,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Current Date and time (GETDATE)",
     "rows": [
@@ -60746,7 +60746,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Part Function (DATEPART)",
     "rows": [
@@ -60861,7 +60861,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Difference Function (DATEDIFF)",
     "rows": [
@@ -60976,7 +60976,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Addition/Subtraction",
     "rows": [
@@ -61091,7 +61091,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date Formatting (FORMAT)",
     "rows": [
@@ -61206,7 +61206,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Weekday Function (DATEPART)",
     "rows": [
@@ -61321,7 +61321,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date to String (Various formats)",
     "rows": [
@@ -61436,7 +61436,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "DateTime to String (Various formats)",
     "rows": [
@@ -61551,7 +61551,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "String to Date (Various formats)",
     "rows": [
@@ -61666,7 +61666,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "String to DateTime (Various formats)",
     "rows": [
@@ -61781,7 +61781,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Date and Time",
     "rows": [
@@ -61896,7 +61896,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Timezones",
     "rows": [
@@ -62011,7 +62011,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "UTC",
     "rows": [
@@ -62126,7 +62126,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Offsets",
     "rows": [
@@ -62241,7 +62241,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Applying an Offset to a Date Datatype Column",
     "rows": [
@@ -62356,7 +62356,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Cast a DateTime to DateTime with Timezone (in UTC, EST and IST TimeZones)",
     "rows": [
@@ -62471,7 +62471,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "DATE_FUNCTIONS",
     "subtopic": "Cast a DateTime Timezone to another TimeZone",
     "rows": [
@@ -62586,7 +62586,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "Aggregate Functions",
     "rows": [
@@ -62701,7 +62701,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "ROW_NUMBER()",
     "rows": [
@@ -62816,7 +62816,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "RANK()",
     "rows": [
@@ -62931,7 +62931,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "DENSE_RANK()",
     "rows": [
@@ -63046,7 +63046,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "NTILE(n)",
     "rows": [
@@ -63161,7 +63161,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "LAG()",
     "rows": [
@@ -63276,7 +63276,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "LEAD()",
     "rows": [
@@ -63391,7 +63391,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "FIRST_VALUE()",
     "rows": [
@@ -63506,7 +63506,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "ANALYTICAL_FUNCTIONS",
     "subtopic": "LAST_VALUE()",
     "rows": [
@@ -63621,7 +63621,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "CTE",
     "subtopic": "Creating a CTE",
     "rows": [
@@ -63736,7 +63736,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "CTE",
     "subtopic": "Using Multiple CTEs",
     "rows": [
@@ -63851,7 +63851,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "CTE",
     "subtopic": "Recursive CTEs",
     "rows": [
@@ -63966,7 +63966,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "CTE",
     "subtopic": "Common Use Cases for CTEs",
     "rows": [
@@ -63982,7 +63982,7 @@
     ]
   },
   {
-    "domain": "retail_inventory",
+    "domain": "ecommerce",
     "topic": "CTE",
     "subtopic": "Benefits of Using CTEs",
     "rows": [

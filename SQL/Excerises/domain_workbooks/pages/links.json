@@ -1,10 +1,12 @@
-{"healthcare": "https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ",
+{
+ "healthcare": "https://claude.ai/artifact/CXX9mdkQoRXVCDQVVXe8LZ",
  "banking": "https://claude.ai/artifact/V3aRGRAaw6dZPsoT4RiXJf",
  "brokerage": "https://claude.ai/artifact/3uNmMizam1Vx6vNQ1sQUT2",
  "oil": "https://claude.ai/artifact/LWKJBtBDDJUdvUzjxmYEhs",
  "pharma": "https://claude.ai/artifact/M9fGeCrvKo739tG6oLcpuN",
  "retail": "https://claude.ai/artifact/WnQYTiNXBhEtzEWhLrFUSe",
- "retail_inventory": "https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG",
+ "retail_supply_chain": "https://claude.ai/artifact/JtGcBZek4mp5qh7BJPLizG",
  "retail_logistics": "https://claude.ai/artifact/JKUzw82CbPnQmzD8VoAXjQ",
- "retail_manufacturing": "https://claude.ai/artifact/HdfHkXQGFWkMkC1mbpKv6v",
- "hub": "https://claude.ai/artifact/TThNAbyikVuhdmT9KgZDMU"}
+ "hub": "https://claude.ai/artifact/TThNAbyikVuhdmT9KgZDMU",
+ "ecommerce": "https://claude.ai/artifact/6CFXh4beobRHibannRFYqu"
+}

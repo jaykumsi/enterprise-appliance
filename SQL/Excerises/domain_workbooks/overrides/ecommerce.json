@@ -1,0 +1,62 @@
+{
+ "CONSTRAINTS-B07": {
+  "title": "DEFAULT fills a value",
+  "q": "Insert an order without giving a OrderStatus, then check which OrderStatus it got.",
+  "sql": "INSERT INTO ecommerce.Orders\n    (OrderID, CustomerID, OrderReference, SalesChannel, OrderTotal,\n     ItemCount, OrderDate, PlacedAt, RecordedAt, SellerID)\nVALUES (990002, 1, N'EB-TEST-2', 'A', 120, 1,\n        '2025-01-02', '2025-01-02 10:00', '2025-01-02 10:01 +00:00', 1);\n\nSELECT OrderID, OrderStatus FROM ecommerce.Orders WHERE OrderID = 990002;",
+  "how": "OrderStatus has DEFAULT ('Open'), so SQL Server fills it when the INSERT leaves the column out."
+ },
+ "CONSTRAINTS-I03": {
+  "title": "ON DELETE CASCADE",
+  "q": "Create ecommerce.CustomerContacts with a foreign key to Customers that deletes contacts automatically when the customer is deleted. Test it with a new customer 9999 who has no orders.",
+  "sql": "INSERT INTO ecommerce.Customers (CustomerID, CustomerName, CustomerCode, Region)\nVALUES (9999, N'Test Customer', 'EBC-0099999', 'North');\n\nCREATE TABLE ecommerce.CustomerContacts (\n    ContactID int NOT NULL PRIMARY KEY,\n    CustomerID int NOT NULL,\n    Phone     varchar(20) NOT NULL,\n    CONSTRAINT FK_Contacts_Customers FOREIGN KEY (CustomerID)\n        REFERENCES ecommerce.Customers (CustomerID) ON DELETE CASCADE\n);\nINSERT INTO ecommerce.CustomerContacts VALUES (1, 9999, '555-0100'), (2, 9999, '555-0101');\n\nDELETE FROM ecommerce.Customers WHERE CustomerID = 9999;\n\nSELECT COUNT(*) AS ContactsLeft FROM ecommerce.CustomerContacts;",
+  "how": "ON DELETE CASCADE deletes child rows with the parent. Use it carefully: one delete can remove a lot of data."
+ },
+ "CTE-A06": {
+  "title": "Find missing IDs",
+  "q": "Interview classic: find missing numbers in an ID column. Copy the order IDs into #Ids, delete IDs 5 and 10 as setup, then find every missing ID between 1 and the highest ID.",
+  "sql": "SELECT OrderID INTO #Ids FROM ecommerce.Orders;\nDELETE FROM #Ids WHERE OrderID IN (5, 10);   -- setup\n\nDECLARE @MaxID int = (SELECT MAX(OrderID) FROM #Ids);\n\nWITH N AS (\n    SELECT 1 AS id\n    UNION ALL\n    SELECT id + 1 FROM N WHERE id < @MaxID\n)\nSELECT n.id AS MissingID\nFROM N AS n\nLEFT JOIN #Ids AS i ON i.OrderID = n.id\nWHERE i.OrderID IS NULL\nOPTION (MAXRECURSION 0);\n\nDROP TABLE #Ids;",
+  "how": "Generate every expected number, then anti-join to find those not present. The maximum goes into a variable first, because the recursive part of a CTE cannot contain an aggregate. Everyday Bazaar has over 30,000 orders, more than the default limit of 100 recursion levels, so OPTION (MAXRECURSION 0) removes the limit."
+ },
+ "DML-B01": {
+  "title": "Insert one row",
+  "q": "Add a new customer: ID 2001, name 'Ava Thompson', number EBC-002001, region West.",
+  "sql": "INSERT INTO ecommerce.Customers (CustomerID, CustomerName, CustomerCode, Region)\nVALUES (2001, N'Ava Thompson', 'EBC-002001', 'West');\n\nSELECT * FROM ecommerce.Customers WHERE CustomerID = 2001;",
+  "how": "Always list the columns in an INSERT. The query keeps working if columns are added or reordered later. N'...' marks Unicode text for nvarchar columns."
+ },
+ "DML-B02": {
+  "title": "Insert several rows",
+  "q": "Add two customers in one statement: IDs 2101 and 2102, names 'Maya Ross' and 'Owen Hart', numbers EBC-002101 and EBC-002102, both in the West region.",
+  "sql": "INSERT INTO ecommerce.Customers (CustomerID, CustomerName, CustomerCode, Region)\nVALUES (2101, N'Maya Ross', 'EBC-002101', 'West'),\n       (2102, N'Owen Hart', 'EBC-002102', 'West');\n\nSELECT CustomerID, CustomerName, CustomerCode, Region\nFROM ecommerce.Customers\nWHERE CustomerID IN (2101, 2102);",
+  "how": "One INSERT can add several rows: separate each row's values with a comma."
+ },
+ "DML-A08": {
+  "title": "Delete parents and children in order",
+  "q": "Add a test customer 9999 with two orders (IDs 99101 and 99102). Then delete the customer and everything that depends on them in the right order, and confirm nothing is left.",
+  "sql": "INSERT INTO ecommerce.Customers (CustomerID, CustomerName, CustomerCode, Region)\nVALUES (9999, N'Test Customer', 'EBC-0099999', 'North');\nINSERT INTO ecommerce.Orders\n    (OrderID, CustomerID, OrderReference, SalesChannel, OrderStatus, OrderTotal,\n     ItemCount, OrderDate, PlacedAt, RecordedAt, SellerID)\nVALUES (99101, 9999, N'EB-TEST-99101', 'A', 'Open', 100, 1, '2025-01-02', '2025-01-02 09:00', '2025-01-02 09:01 +00:00', 1),\n       (99102, 9999, N'EB-TEST-99102', 'A', 'Open', 100, 1, '2025-01-03', '2025-01-03 09:00', '2025-01-03 09:01 +00:00', 1);\n\nDECLARE @CustomerID int = 9999;\nDELETE FROM ecommerce.Orders WHERE CustomerID = @CustomerID;   -- children first\nDELETE FROM ecommerce.Customers   WHERE CustomerID = @CustomerID;   -- then the parent\n\nSELECT (SELECT COUNT(*) FROM ecommerce.Customers   WHERE CustomerID = @CustomerID) AS CustomerLeft,\n       (SELECT COUNT(*) FROM ecommerce.Orders WHERE CustomerID = @CustomerID) AS OrdersLeft;",
+  "how": "Delete from the bottom of the foreign key chain upward: first the child rows (orders), then the parent (the customer). In the other order the foreign key blocks the delete. Real rows are often referenced by more tables, so list every child table before deleting."
+ },
+ "DML-A09": {
+  "title": "Generate test rows with a set",
+  "q": "Insert 20 test orders for customer 1 in one statement, one per day starting 2025-01-01, with IDs 100001-100020.",
+  "sql": "WITH N AS (\n    SELECT TOP (20) ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS n\n    FROM sys.all_objects\n)\nINSERT INTO ecommerce.Orders\n    (OrderID, CustomerID, OrderReference, SalesChannel, OrderStatus, OrderTotal,\n     ItemCount, OrderDate, PlacedAt, RecordedAt, SellerID)\nSELECT 100000 + n, 1, CONCAT(N'EB-TEST-', n), 'A', 'Open', 100, 1,\n       DATEADD(day, n - 1, CAST('2025-01-01' AS date)),\n       DATEADD(day, n - 1, CAST('2025-01-01 09:00' AS datetime2(3))),\n       DATEADD(day, n - 1, CAST('2025-01-01 09:01 +00:00' AS datetimeoffset(3))), 1\nFROM N;\n\nSELECT COUNT(*) AS TestRows, MIN(OrderDate) AS FirstDate, MAX(OrderDate) AS LastDate\nFROM ecommerce.Orders\nWHERE OrderID BETWEEN 100001 AND 100020;",
+  "how": "Generate numbers with ROW_NUMBER over any large table, then build each row from n. One set-based INSERT is much faster than a loop of 20 inserts."
+ },
+ "SET_OPERATIONS-A06": {
+  "title": "Gaps between two sets",
+  "q": "Every day in December 2024 had orders, but not every seller sold every day. List the dates in December 2024 on which seller 73 (Lakeview Hub) had no orders, using a recursive calendar and EXCEPT.",
+  "sql": "WITH Cal AS (\n    SELECT CAST('2024-12-01' AS date) AS d\n    UNION ALL\n    SELECT DATEADD(day, 1, d) FROM Cal WHERE d < '2024-12-31'\n)\nSELECT d FROM Cal\nEXCEPT\nSELECT OrderDate FROM ecommerce.Orders WHERE SellerID = 73;",
+  "how": "Every date in the month minus the dates that have data gives the empty dates."
+ },
+ "AGGREGATES-I09": {
+  "title": "STRING_AGG: list in one cell",
+  "q": "For each department, list all seller names in one comma-separated cell, sorted by name.",
+  "sql": "SELECT Department,\n       STRING_AGG(SellerName, ', ') WITHIN GROUP (ORDER BY SellerName) AS Sellers\nFROM ecommerce.Sellers\nGROUP BY Department;",
+  "how": "STRING_AGG joins text values from a group with a separator. WITHIN GROUP sets the order of the items."
+ },
+ "STRING_FUNCTIONS-I09": {
+  "title": "STRING_AGG",
+  "q": "For each of the first 10 customers (CustomerID 1 to 10), list the sellers they bought from in one comma-separated cell, sorted by seller name.",
+  "sql": "SELECT p.CustomerName,\n       STRING_AGG(d.SellerName, ', ') WITHIN GROUP (ORDER BY d.SellerName) AS Sellers\nFROM (SELECT DISTINCT CustomerID, SellerID FROM ecommerce.Orders WHERE CustomerID BETWEEN 1 AND 10) AS dp\nJOIN ecommerce.Sellers  AS d ON d.SellerID  = dp.SellerID\nJOIN ecommerce.Customers AS p ON p.CustomerID = dp.CustomerID\nGROUP BY p.CustomerID, p.CustomerName\nORDER BY p.CustomerName;",
+  "how": "STRING_AGG concatenates values in a group. The DISTINCT derived table stops a customer being listed once per order."
+ }
+}

@@ -1,6 +1,6 @@
 # Coverage and assignment index
 
-The source hierarchy is mapped to teachable leaves. Each subtopic has 45 assignments across 9 connected domain projects. IDs are reference labels, not dates. The original IDs 01–25 are preserved; additional domains use IDs 26–45. Start with a domain brief, build its five related tables and progress by demonstrated competency.
+The source hierarchy is mapped to teachable leaves. Each subtopic has 45 assignments across 9 connected domain projects. IDs are reference labels, not dates. The original IDs 01–25 are preserved; additional domains use IDs 26–45. Start with a domain brief, build its related tables and progress by demonstrated competency.
 
 | Topic | Subtopic | Count | Assignment range |
 |---|---|---:|---|
@@ -144,7 +144,7 @@ The source hierarchy is mapped to teachable leaves. Each subtopic has 45 assignm
 - Datatypes: the five family headings map to all 26 named data types. Numeric: INT through FLOAT plus MONEY/SMALLMONEY/BIT; date/time: six types; strings: CHAR/VARCHAR/TEXT; binary: BINARY/VARBINARY; additional types: XML, GUID, spatial, hierarchy, rowversion and cursor.
 - DateTime and TimeZone → Date, Timezones, UTC, and Offsets → Date and Time / Timezones / UTC / Offsets / Applying an Offset: each leaf has 45 assignments, as do both casting/conversion leaves.
 - UNION ALL is included because it appears in the linked set-operations lesson, even though omitted from the README contents list.
-- Each industry uses five connected tables with enforced PK/FK relationships. DDL Create and Data Setup work cumulatively on those tables. 54 additional domain reports and 9 capstone checklists connect the topic drills into projects.
+- Each industry uses connected tables (five per domain; six for E-commerce and nine for Retail Supply Chain) with enforced PK/FK relationships. DDL Create and Data Setup work cumulatively on those tables. 54 additional domain reports and 9 capstone checklists connect the topic drills into projects.
 
 **Total: 16 topics, 132 subtopics, 5,940 assignments and matching answers.**
 

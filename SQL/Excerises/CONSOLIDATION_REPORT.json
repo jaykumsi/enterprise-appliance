@@ -272,205 +272,205 @@
     },
     {
       "path": "SQL/Excerises/questions/DML.md",
-      "sha256": "b9632b9bd1b04c15ade92c01c36ef4a75faf7504ff0e015b75a93bef912bdbf5",
+      "sha256": "a7b1b2854241c1f85627c56306c8558a4b76a4de6c6861593e7f0750f5b36015",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DML_SOLUTIONS.md",
-      "sha256": "a5ce268adba3ed64410c66f3eb0ebe70359d6a34d1ee8b2cc3530fd2a187288e",
+      "sha256": "6f0846dfa1ceccb0409ea72f22e4e1515b8863735d08568a99de609f53dc1e75",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/STRING_FUNCTIONS.md",
-      "sha256": "a9b54fb69caf41d0893008a757d62491b6d25549ed684893f3c482ac006ec58b",
+      "sha256": "36db2377a4962bb8f6892018b048567e9733d961327145db618a0b35a17beb67",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/STRING_FUNCTIONS_SOLUTIONS.md",
-      "sha256": "8a324b74fe45df7a8b1bb9d38fd12117ac33a69a563aff50075ee38e069070c4",
+      "sha256": "cd37744d736acabc3c09414a2870a6d198e57d7e4c7c7193462cb8b2632d76d5",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/JOINS.md",
-      "sha256": "2ff2ef83c4d1d6413c7f2d6385fb2a9eb29a204058c21ddb844ad4cf906b6477",
+      "sha256": "95de308b5fcbab09eb163484e08bdd38dafbbbb37b8be27815dbf4650f3c942d",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/JOINS_SOLUTIONS.md",
-      "sha256": "39b96c5de574decb24c624d48bfff3d922992559b010683cb2516a8105d0658c",
+      "sha256": "e1d6ab18b51efa9b42e3faf62fc089c7d76cc09dcf4ad9063d6ab6c2ed3f2176",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/AGGREGATES.md",
-      "sha256": "c9d53a4a03af62ca16fa4cae82d6e6a4c732ede94244ada0de5f6a434b6f606c",
+      "sha256": "2f33944af56338b8c4e206db3a9a71c5f6ff09b59cc3d0ce4a9776caf2fa497d",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/AGGREGATES_SOLUTIONS.md",
-      "sha256": "e8749f83bbb11705b41c7b74aab06bdc4e503b610f4a98aefbd4d2419c47076e",
+      "sha256": "b9e5de5137614190a65c1dc66b4b9f3538e69cfd827e37979f7b56ed98b5d99d",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/CTE.md",
-      "sha256": "18bebe129f757d04459b459baeeef872f5f48d36599a8d864744b0d2ff28c72b",
+      "sha256": "afb148eb659902cca0d4f3ae30144e63a138b45f37d8c3eb395531b88e4b35e0",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/CTE_SOLUTIONS.md",
-      "sha256": "64106dc85a6253d638b624028d37d07d78a7e6fa294b24fcadd5af701dfff911",
+      "sha256": "d2d1bd3cf6568254bf4a86f7f7b3b424134987dafc19983e2ef275a6af77b730",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/DATA_SETUP.md",
-      "sha256": "26cbbb193b39482fa4f87156a20fd1e8671a4b916810719bc9c34517781a91b6",
+      "sha256": "143e8d63e0f48aa4c798b307322ae4c2fc0d586126675b664bef8b7119c9bd3e",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DATA_SETUP_SOLUTIONS.md",
-      "sha256": "264bcec87f7f15099d9c0cfc7ac278c46d78dd3448c70cfd0b5e01b1fb0576f1",
+      "sha256": "353376444d9cb3c633079b4df2cad8545637a37158a65cb8f60e698314e8eedd",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/DDL.md",
-      "sha256": "c54db29c0b1018806ca81f7012aa82e2b04ec15702d2d10de92cc2682b6d3ab2",
+      "sha256": "df78e9a7d455623bb69835745ab6c1d641f14d31b2c629e9cb3ee1cb092244ad",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DDL_SOLUTIONS.md",
-      "sha256": "e853f5a2e9e513795faa88915b09a4646d01d14f3b97d451a68c04c8c3b98008",
+      "sha256": "d10e6ef94b6b9aa4101dff52454651732dff996d6b5065f5686c63ee7b3c431c",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/ANALYTICAL_FUNCTIONS.md",
-      "sha256": "e0c47a38ce28a86788521caf1f562b14e9b5bc01d2411f27680466737ec36008",
+      "sha256": "0bcb1b8a6687aa4e5eff89c774cbdedb2ace1e8527fd86581d2aac4339be24d7",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/ANALYTICAL_FUNCTIONS_SOLUTIONS.md",
-      "sha256": "85981f818175c6e0053f1d80eb0fcee5442132a47294b519403643ef7f771d51",
+      "sha256": "6c7d9a5751493814c014137cf1a3d900691d26098ed50eb67d1d019b4f35aaa6",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/DATATYPES.md",
-      "sha256": "f0a60bb54f665193297e46e00b80b1e547e61b438174b5dbf34b6292beadb9c7",
+      "sha256": "37207f46c79e4e12d03817f0184cdea107a2aa86558b6465854774bfc2cff5b3",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DATATYPES_SOLUTIONS.md",
-      "sha256": "511284231bdc6ca2d47e317bb52ebfeab5050cc79c458987b1e9d54f7d8376be",
+      "sha256": "bb11527b313db1ec2e8bcc7efca7084b9feb0cdd90fd7e3a06b39ea55e23fac1",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/INTRODUCTION.md",
-      "sha256": "e5dfd3cf43e9d9e9e4b32b71c66fafc92950fb92048944103220bb9c746a2748",
+      "sha256": "47816331192ee41a5a4ca845ca7104c0f424cf7438cfa146b210e4890d3a57a5",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/INTRODUCTION_SOLUTIONS.md",
-      "sha256": "1dac41d75d1c7df25815d0515b4a9ab30b1cbf5c6170003765c4deba4a1bad15",
+      "sha256": "74158a347f81dd6ef1ad397ca6ecb94403a09995f49bb6653c3eb057971b7fa5",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/DQL.md",
-      "sha256": "4c9d3d3806005541b016794a6be8230dfe155c097ba639a96cafa570b6305ec5",
+      "sha256": "02434bbce77e1f865f36884a023a8685eac4f2d46bf92b14f3a36b79cc8ded5a",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DQL_SOLUTIONS.md",
-      "sha256": "a029ce7b7e09bc5784a82bf54542b01a49d03c419e63d9321117383aae385ea7",
+      "sha256": "baa0b6bb4181412eafcd66df2ba941293ffdab68a2a710492e694717703c5d54",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/OPERATORS.md",
-      "sha256": "de987aff1fddb8a13833a94ec01a469f261fd1bd7cd772d49d38994ccbcc5767",
+      "sha256": "b58c7d07fd3c803aa3c825e496145e239217c3d3b59ed171b00e96c805f4b497",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/OPERATORS_SOLUTIONS.md",
-      "sha256": "d3d36c02b603444e189b83c66f64deda67df71893ac09a15fd85e90b22e5a2d3",
+      "sha256": "8638dacae8d035e08e27687406c80b51a4cdd96b8c317bd76e1f5dd6e8678c29",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/DATE_FUNCTIONS.md",
-      "sha256": "50679553d053414fde29e3130d4af6d38c7c8814588dbb1a08a526c6dfc1d64f",
+      "sha256": "daa5495de34437710311cbea540ecb435609102744e86512e7f73d489d7f26a3",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DATE_FUNCTIONS_SOLUTIONS.md",
-      "sha256": "be3b704875b748a5f5363023093605bfa7d9afca2c95a4518d83eb79c9578fe3",
+      "sha256": "a4cc6cd6ad17cb1b6cd31cc3e003f895d61bfd6f29d0dae62391f1ca90759e87",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/SET_OPERATIONS.md",
-      "sha256": "be256526ada2d6c2ab21d2989058511f1957a0757b43a917d23218e6536d384a",
+      "sha256": "ad9c4603f5236684d204aa68489616e9b869433f6cbe5df0a1224749f88c0a29",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/SET_OPERATIONS_SOLUTIONS.md",
-      "sha256": "d466b7451d8012393cca467e38658dced3de6bda233e65c7dc7051e6c0a50181",
+      "sha256": "73acc4f3c7151a359a00159d5132264b83cc8aa578190edc0bd724be4e9218a8",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/DATABASE_SCHEMA_USER.md",
-      "sha256": "2d95c8a04fb93c6a7d97ce77b74c9eddd2c45f19e57524b8950025fbed2f62da",
+      "sha256": "e08c693cfa8e1cd96036bcacf33efc75d97acad8e5c5dc05ccf827e12ce13b94",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/DATABASE_SCHEMA_USER_SOLUTIONS.md",
-      "sha256": "077482ac9b2d25ee007f0501270c9c45dd16541b1e2dbde39869d2b781dad25d",
+      "sha256": "3e7864ac7f5293180a5023c277889c1a7fcc069916374d45601fc86980a13096",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/CONSTRAINTS.md",
-      "sha256": "c9aa7c90c610b4d35fce41eb59663a9179650703a4e22055a9f58746d2d51b41",
+      "sha256": "2a2ebe395b15e487a3d17eee6883f87fd0aafa80f5ad238f68b94783ba8cdf19",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/solutions/CONSTRAINTS_SOLUTIONS.md",
-      "sha256": "ea4a4556768667299444e1da8a49fffee5693ceef147c0d009c5156dda535a4b",
+      "sha256": "490fc6a2d2daf8ff9eb8ad90dacd4a7ef7e616dab0d3cb3d7edb024581333373",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Combined book repeats retained domain topic books"
     },
     {
       "path": "SQL/Excerises/questions/ADVANCED_QUERIES.md",
-      "sha256": "5268411e24174edc13db9c2db2f7d0e769bb8ce774ef8eabaf686bf0ca634548",
+      "sha256": "3227963c488c744bb599b1bbf4e8a785fa6ab2eb0aed58eed51b42fb2ee9d833",
       "canonical": "SQL/Excerises/domains/README.md",
       "reason": "Redundant combined navigation"
     },
     {
       "path": "SQL/Excerises/solutions/ADVANCED_QUERIES_SOLUTIONS.md",
-      "sha256": "73ddfefbf4c0d837eb0c61c719c7c9e48951c38559f43d93701f898923f9ba0d",
+      "sha256": "433b1c4a6e7dac53db248f8a6e9c1b0d5c272b659a47432491e68bcd477d40e7",
       "canonical": "SQL/Excerises/solutions/README.md",
       "reason": "Redundant combined navigation"
     },
@@ -1049,9 +1049,93 @@
       "sha256": "c9578fadb591cdb7be58d8a3a47f556c84de7856c683ed37ef74698185512eb1",
       "canonical": "SQL/Excerises/INTERVIEW_GRADING.md",
       "reason": "Common grading rules stored once;unique notes preserved"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/questions/BEGINNER_GUIDE.md",
+      "sha256": "6ce85696a4a4fbbeb2f979f8cf5da174f71117045d78b03cd0ec75b41311146d",
+      "canonical": "SQL/Excerises/BEGINNER_GUIDE.md",
+      "reason": "Identical common guide"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/questions/CODERPAD.md",
+      "sha256": "540c03dfdf39dee31cbadf1c5abc26ef362b1e2c63d13d24204c05d91c391673",
+      "canonical": "SQL/Excerises/CODERPAD.md",
+      "reason": "Common interview rules stored once"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/solutions/INTERVIEW_GRADING.md",
+      "sha256": "397b3a8045c557f54f2c48aa5a0335e2a2cc6c50983d8e9006333fa71e82f552",
+      "canonical": "SQL/Excerises/INTERVIEW_GRADING.md",
+      "reason": "Common grading rules stored once;unique notes preserved"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/REPORTING_ASSIGNMENTS.md",
+      "sha256": "e1ed5aaf9ac8bc773910d21c58101b4e7fe5acd4588aab3bcbb957185bc0fe9c",
+      "canonical": "SQL/Excerises/domains/ecommerce/questions/REPORTING_ASSIGNMENTS.md",
+      "reason": "Merged report/answer copy;capstone notes retained privately"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/REPORTING_SOLUTIONS.md",
+      "sha256": "977ee59b6ba2b83a6791bc3e0e23f41eac1e560f75328209a97f08ba40d14d04",
+      "canonical": "SQL/Excerises/domains/ecommerce/solutions/REPORTING_ASSIGNMENTS.md",
+      "reason": "Merged report/answer copy;capstone notes retained privately"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/ADVANCED_SOLUTIONS.md",
+      "sha256": "1d5ca55682d7d297ae91287d1171454c868a1fd69be3f2524390a405ec7ab91f",
+      "canonical": "SQL/Excerises/domains/ecommerce/solutions/ADVANCED_QUERIES.md",
+      "reason": "Merged report/answer copy;capstone notes retained privately"
+    },
+    {
+      "path": "SQL/Excerises/domains/ecommerce/DATA_SETUP.md",
+      "sha256": "6069f613f74fbed9514443bdd1493ad49a4f4abb32d4f53228bb869b4595a204",
+      "canonical": "SQL/Excerises/domains/ecommerce/questions/PRACTICE_DATA.md",
+      "reason": "Instructions retained once;embedded SQL already has data_setup.sql"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/questions/BEGINNER_GUIDE.md",
+      "sha256": "6ce85696a4a4fbbeb2f979f8cf5da174f71117045d78b03cd0ec75b41311146d",
+      "canonical": "SQL/Excerises/BEGINNER_GUIDE.md",
+      "reason": "Identical common guide"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/questions/CODERPAD.md",
+      "sha256": "74454e87be0ae3ec7f3d8b554937a82b401d0ec3e899bbc653a0162382f0298e",
+      "canonical": "SQL/Excerises/CODERPAD.md",
+      "reason": "Common interview rules stored once"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/solutions/INTERVIEW_GRADING.md",
+      "sha256": "41a4c06c9fb0f6caa26225cb98f13a2c2c8a39d72a3a521aaaad4afd7aa4a3c7",
+      "canonical": "SQL/Excerises/INTERVIEW_GRADING.md",
+      "reason": "Common grading rules stored once;unique notes preserved"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/REPORTING_ASSIGNMENTS.md",
+      "sha256": "a528d4b5ce1c881becec6bb30f87a391d52ddea1c76bf00fb4ba3b2d143e751b",
+      "canonical": "SQL/Excerises/domains/retail_supply_chain/questions/REPORTING_ASSIGNMENTS.md",
+      "reason": "Merged report/answer copy;capstone notes retained privately"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/REPORTING_SOLUTIONS.md",
+      "sha256": "071dfd90967886a7b79a29d206e0d922abbfe25422a7a1beeeb39d99e58d42ec",
+      "canonical": "SQL/Excerises/domains/retail_supply_chain/solutions/REPORTING_ASSIGNMENTS.md",
+      "reason": "Merged report/answer copy;capstone notes retained privately"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/ADVANCED_SOLUTIONS.md",
+      "sha256": "cda84dc274784db770e3930afeaf01fea4b7ee0837467256a1f8a5d42da65735",
+      "canonical": "SQL/Excerises/domains/retail_supply_chain/solutions/ADVANCED_QUERIES.md",
+      "reason": "Merged report/answer copy;capstone notes retained privately"
+    },
+    {
+      "path": "SQL/Excerises/domains/retail_supply_chain/DATA_SETUP.md",
+      "sha256": "d4117b89a954bd03d499464035c072d063f7a82fcc8b471bb5bb53c85bd68304",
+      "canonical": "SQL/Excerises/domains/retail_supply_chain/questions/PRACTICE_DATA.md",
+      "reason": "Instructions retained once;embedded SQL already has data_setup.sql"
     }
   ],
-  "removed_file_count": 175,
+  "removed_file_count": 189,
   "healthcare_questions_preserved": 480,
   "earlier_sql_draft_questions_preserved": 6075,
   "healthcare_applied_cases_published": 55,

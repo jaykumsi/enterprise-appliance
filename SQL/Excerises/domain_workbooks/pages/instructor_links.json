@@ -1,0 +1,11 @@
+{
+ "healthcare": "https://claude.ai/artifact/5SZGPX2UFKzjskMMEupYSG",
+ "banking": "https://claude.ai/artifact/QJPfAnuK6yL18xrP6He9u1",
+ "brokerage": "https://claude.ai/artifact/DRGrRnFqoEiiq5fePDiFz1",
+ "oil": "https://claude.ai/artifact/ERyMjdnq8oKyh8Y1hYzzNY",
+ "pharma": "https://claude.ai/artifact/5rTwciovgjoapuTmk7Dg18",
+ "retail": "https://claude.ai/artifact/Wn92vMFWQHH9fmWJBrRVPt",
+ "retail_supply_chain": "https://claude.ai/artifact/Eim1cYkgTm7qsYqV7tXXQF",
+ "retail_logistics": "https://claude.ai/artifact/MftThQnGGDgvZGLg3b1iBd",
+ "ecommerce": "https://claude.ai/artifact/NrsQtWJFeQmdQZ5GShEaaN"
+}

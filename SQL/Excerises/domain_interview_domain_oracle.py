@@ -42,17 +42,10 @@ def reconciliation(model,eligible_ids):
         elif s=='oil':
             lines=[r for r in tab('ShipmentItems') if r['ShipmentID'] in ids];products=index(tab('Products'),'ProductID');carriers=index(tab('Carriers'),'CarrierID')
             row.update(LineUnits=total(r['Quantity'] for r in lines),HistoricalLineValue=total(number(r['Quantity'])*number(r['PricePerUnit']) for r in lines),CarrierCount=len({r['CarrierID'] for r in fs}),InactiveCarrierShipments=sum(not carriers[r['CarrierID']]['Active'] for r in fs),CatalogPriceDifferences=sum(number(r['PricePerUnit'])!=number(products[r['ProductID']]['PricePerUnit']) for r in lines))
-        elif s=='retail_manufacturing':
-            pairs={};materials=index(tab('Materials'),'MaterialID')
-            for f in fs:
-                for b in tab('BillOfMaterials'):
-                    if b['ProductID']==f['ProductID']:pairs[(f['ProductionOrderID'],b['MaterialID'])]=[number(f['PlannedUnits'])*number(b['QuantityPerUnit']),Decimal(0),False]
-            for u in tab('MaterialUsage'):
-                if u['ProductionOrderID'] in ids:
-                    key=(u['ProductionOrderID'],u['MaterialID'])
-                    if key not in pairs:pairs[key]=[Decimal(0),Decimal(0),True]
-                    pairs[key][1]+=number(u['QuantityUsed'])
-            row.update(RequiredUnits=total(p[0] for p in pairs.values()),ActualUnits=total(p[1] for p in pairs.values()),ActualCostProxy=total(p[1]*number(materials[k[1]]['UnitCost']) for k,p in pairs.items()),UnexpectedUnits=total(p[1] for p in pairs.values() if p[2]),ShortagePairs=sum(p[1]<p[0] for p in pairs.values()))
+        elif s=='ecommerce':
+            lines=[r for r in tab('OrderItems') if r['OrderID'] in ids];paid=[r for r in tab('Payments') if r['OrderID'] in ids]
+            row.update(LineValue=total(number(r['Quantity'])*number(r['UnitPrice']) for r in lines),PaidValue=total(r['PaidAmount'] for r in paid),DistinctProducts=len({r['ProductID'] for r in lines}),SellerCount=len({r['SellerID'] for r in fs}))
+            row['Outstanding']=None if row['TotalValue'] is None else row['TotalValue']-row['PaidValue']
         elif s=='retail_logistics':
             packages=[r for r in tab('ShipmentPackages') if r['ShipmentID'] in ids];carrier=index(tab('Carriers'),'CarrierID');latest_delivered=late=unscanned=scans=0
             for p in packages:
@@ -62,7 +55,7 @@ def reconciliation(model,eligible_ids):
                 ds=[r for r in ts if r['EventStatus']=='Delivered']
                 if ds:late+=min(dt(r['ScanTime']) for r in ds).date()>dt(p['PromisedDate'])
             row.update(ServiceLevelCount=len({carrier[r['CarrierID']]['ServiceLevel'] for r in fs}),PackageCount=len(packages),PackageWeightKg=total(r['WeightKg'] for r in packages),LatestDeliveredCount=latest_delivered,LateFirstDeliveryCount=late,UnscannedCount=unscanned,TrackingScanCount=scans)
-        elif s=='retail_inventory':
+        elif s=='retail_supply_chain':
             net=defaultdict(Decimal)
             for r in fs:net[r['ProductID']]+=number(r['MovedUnits'])*(1 if r['Direction']=='IN' else -1)
             balances=[r for r in tab('StockBalances') if r['WarehouseID']==oid];products=index(tab('Products'),'ProductID');suppliers=index(tab('Suppliers'),'SupplierID');balance_products={r['ProductID'] for r in balances}

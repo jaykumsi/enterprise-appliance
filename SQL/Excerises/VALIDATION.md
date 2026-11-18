@@ -12,21 +12,23 @@ The levelled assignments are in [domains/README.md](domains/README.md),not the e
 
 The historical checks below concern the earlier foundation set. Their legacy-runtime limitation does not negate the native execution evidence for the new query set.
 
+**2026-11-18 revision:** Retail Inventory and Retail Manufacturing were replaced by Retail Supply Chain (nine tables) and E-commerce (six tables). The native differential run was repeated in a new disposable LocalDB database (`Tinitiate_DomainInterview_20261118_v2`): 32,400 report comparisons and 1,320 adversarial comparisons passed. The ScriptDom syntax check was not rerun for this revision (the parser DLL is not installed on this machine); `SYNTAX_VALIDATION.json` still describes the earlier run.
+
 ## Checks performed
 
 - Verified 5,940 question/answer pairs across 132 subtopics and 16 topic books, with 45 exercises per subtopic and no numbered day labels.
-- Verified nine connected domain graphs, exactly five tables each, a primary key on every table and 48 declared foreign-key relationships overall.
+- Verified nine connected domain graphs (five tables each, except E-commerce with six and Retail Supply Chain with nine: 50 tables), a primary key on every table and 55 declared foreign-key relationships overall.
 - Checked student/instructor ID pairing, unique prompts within each subtopic, all source datatype coverage and local links, including domain briefs.
 - Parsed 5,565 SQL blocks with Microsoft's TSql140Parser (SQL Server 2017 grammar): all 5,490 SQL technique answers, 54 domain report answers, three global scripts and eighteen domain schema/seed scripts. [SYNTAX_VALIDATION.json](SYNTAX_VALIDATION.json) records the result and assembly version.
-- Loaded the generated seed INSERT statements into 45 constrained in-memory SQLite tables. Checked all foreign-key references, primary-key uniqueness, required values and CHECK constraints during loading.
+- Loaded the generated seed INSERT statements into 50 constrained in-memory SQLite tables. Checked all foreign-key references, primary-key uniqueness, required values and CHECK constraints during loading.
 - Ran 2,052 portable technique queries plus all 54 domain reports. Checked independently specified results for aggregates, NULLs, outer joins, hierarchy traversal, reporting totals and duplicate-join prevention. Sixty-three selected technique queries with SQL Server-specific grammar were skipped.
-- Attempted 138 independently constructed invalid writes covering duplicate primary keys, required NULL values and every FK relationship. Also extracted and executed the invalid mutation from each of the 225 constraint answers, including UNIQUE and CHECK cases. The constrained portable models rejected all of them. The exact counts are recorded in [PORTABLE_VALIDATION.json](PORTABLE_VALIDATION.json).
+- Attempted 155 independently constructed invalid writes covering duplicate primary keys, required NULL values and every FK relationship. Also extracted and executed the invalid mutation from each of the 225 constraint answers, including UNIQUE and CHECK cases. The constrained portable models rejected all of them. The exact counts are recorded in [PORTABLE_VALIDATION.json](PORTABLE_VALIDATION.json).
 
 ## Limits
 
 **Full native execution of every legacy foundation and every open-ended lab remains unverified.** ScriptDom validates syntax rather than runtime binding,permissions or behavior. SQLite checks translate data types,literals and selected query syntax;they do not prove SQL Server transaction/error,collation,temporal,spatial or permission behavior. See the current-domain section for the new query references that were executed natively.
 
-New independent report assertions cover manufacturing material variance, late deliveries and missing scans, inventory reconciliation/reorder cases.
+New independent report assertions cover supply chain production-to-shelf and ledger reconciliation, e-commerce split-payment settlement and seller activity, late deliveries and missing scans.
 
 Before classroom rollout, use a new SQL Server training database, run schema/seed setup and setup/03_verify_fixture.sql, then execute the constraint, ALTER/DROP and representative query answers. Schema-building students should start from the project specification instead of pre-running the complete setup. The old two-table-per-domain database is not compatible with the revised schema.
 

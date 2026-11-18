@@ -27,6 +27,31 @@ TEACHING_NOTES = {
 }
 
 
+def workbook_answer_keys(models):
+    """Instructor answer keys for the online workbooks (private claude.ai pages), next to each student workbook."""
+    import importlib.util
+    wb = ROOT / 'domain_workbooks'
+    keys_path, links_path = wb / 'pages' / 'instructor_links.json', wb / 'pages' / 'links.json'
+    if not keys_path.exists():
+        return []
+    keys = json.loads(keys_path.read_text(encoding='utf-8'))
+    links = json.loads(links_path.read_text(encoding='utf-8')) if links_path.exists() else {}
+    spec = importlib.util.spec_from_file_location('wb_domains', wb / 'wb_domains.py')
+    cfg = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cfg)
+    company = {'healthcare': 'AmeriMed Healthcare', **{k: v['company'] for k, v in cfg.DOMAINS.items()}}
+    lines = ['', '## Online workbook answer keys (PRIVATE)', '',
+             "Each company's online workbook has an instructor answer key with all 490 questions, answer SQL, an explanation and the "
+             'expected result. The pages are private on claude.ai: share a key only with other instructors, never with students, and '
+             'do not link it from student pages.', '',
+             '| Domain | Company | Instructor answer key | Student workbook |', '|---|---|---|---|']
+    for m in models:
+        if m['slug'] in keys:
+            student = f"[Student page]({links[m['slug']]})" if m['slug'] in links else ''
+            lines.append(f"| {m['title']} | {company[m['slug']]} | [Answer key]({keys[m['slug']]}) | {student} |")
+    return lines
+
+
 def generate(models, records):
     reports = json.loads((ROOT / 'domain_reports.json').read_text(encoding='utf-8'))
     advanced = json.loads((ROOT / 'advanced_queries.json').read_text(encoding='utf-8'))
@@ -79,6 +104,7 @@ def generate(models, records):
                   '[schema_solution.sql](../schema_solution.sql), and the small sample inserts are [seed.sql](../seed.sql).', '']
         (directory / 'README.md').write_text('\n'.join(index), encoding='utf-8')
         master_index.append(f'- [{model["title"]}](../domains/{model["slug"]}/solutions/README.md)')
+    master_index += workbook_answer_keys(models)
     (ROOT / 'solutions' / 'README.md').write_text('\n'.join(master_index) + '\n', encoding='utf-8')
     from substring_practice import generate as generate_substring
     generate_substring(models)

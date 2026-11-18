@@ -1,0 +1,102 @@
+[
+ {
+  "id": "CHALLENGE-X01",
+  "topic": "CHALLENGES",
+  "title": "Quick repeat orders",
+  "q": "A *quick repeat* is an order that comes 14 days or less after the same customer's previous order. For every customer with at least one quick repeat, show CustomerID, CustomerName, QuickRepeats (how many) and ShortestGapDays (the smallest gap in days between two of their consecutive orders). Sort by QuickRepeats descending, then ShortestGapDays, then CustomerID.",
+  "sql": "WITH e AS (\n    SELECT CustomerID,\n           DATEDIFF(day, LAG(OrderDate) OVER (PARTITION BY CustomerID ORDER BY OrderDate, OrderID), OrderDate) AS GapDays\n    FROM retail.Orders\n)\nSELECT p.CustomerID, p.CustomerName, COUNT(*) AS QuickRepeats, MIN(e.GapDays) AS ShortestGapDays\nFROM e\nJOIN retail.Customers AS p ON p.CustomerID = e.CustomerID\nWHERE e.GapDays <= 14\nGROUP BY p.CustomerID, p.CustomerName\nORDER BY QuickRepeats DESC, ShortestGapDays, p.CustomerID;",
+  "how": "LAG(OrderDate) OVER (PARTITION BY CustomerID ORDER BY OrderDate) gives each row the previous date for the same customer. Compute the gap in a CTE first: a window function cannot go in WHERE.",
+  "a": "**Approach hint:** LAG(OrderDate) OVER (PARTITION BY CustomerID ORDER BY OrderDate) gives each row the previous date for the same customer. Compute the gap in a CTE first: a window function cannot go in WHERE.\n\n**Expected result:** 22 rows, first 6 shown\n\n| CustomerID | CustomerName | QuickRepeats | ShortestGapDays |\n|---|---|---|---|\n| 27 | Grace Shah | 3 | 3 |\n| 35 | Amelia Hughes | 2 | 2 |\n| 83 | Ella Patel | 2 | 5 |\n| 8 | James Walker | 1 | 2 |\n| 81 | Avery Foster | 1 | 3 |\n| 10 | Lucas Garcia | 1 | 5 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 22
+ },
+ {
+  "id": "CHALLENGE-X02",
+  "topic": "CHALLENGES",
+  "title": "Median vs average order total",
+  "q": "Averages hide outliers. For each SalesChannel, show SalesChannel, Orders (how many orders), AverageValue, MedianValue and AboveMedian (AverageValue minus MedianValue), all money values rounded to 2 decimals. Use the OrderTotal column. Sort by SalesChannel.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT SalesChannel,\n           COUNT(*) OVER (PARTITION BY SalesChannel) AS Orders,\n           AVG(OrderTotal) OVER (PARTITION BY SalesChannel) AS AvgV,\n           PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY OrderTotal) OVER (PARTITION BY SalesChannel) AS MedV\n    FROM retail.Orders\n)\nSELECT SalesChannel, Orders,\n       CAST(AvgV AS decimal(12,2)) AS AverageValue,\n       CAST(MedV AS decimal(12,2)) AS MedianValue,\n       CAST(AvgV - MedV AS decimal(12,2)) AS AboveMedian\nFROM m\nORDER BY SalesChannel;",
+  "how": "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.",
+  "a": "**Approach hint:** PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ...) OVER (PARTITION BY ...) returns the median on every row of the group; SELECT DISTINCT collapses it to one row per group. When the median is far below the average, a few large values pull the average up.\n\n**Expected result:** 3 rows\n\n| SalesChannel | Orders | AverageValue | MedianValue | AboveMedian |\n|---|---|---|---|---|\n| A | 147 | 61.59 | 52.40 | 9.19 |\n| B | 67 | 75.69 | 66.60 | 9.09 |\n| C | 26 | 73.04 | 68.61 | 4.43 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X03",
+  "topic": "CHALLENGES",
+  "title": "Month-to-date running total",
+  "q": "For Closed orders only, show each OrderDate with DayTotal (the sum of OrderTotal that day) and MonthToDate: the running total that starts again on the first day of each month. Sort by OrderDate.",
+  "sql": "WITH d AS (\n    SELECT OrderDate, SUM(OrderTotal) AS DayTotal\n    FROM retail.Orders\n    WHERE OrderStatus = 'Closed'\n    GROUP BY OrderDate\n)\nSELECT OrderDate, DayTotal,\n       SUM(DayTotal) OVER (PARTITION BY YEAR(OrderDate), MONTH(OrderDate)\n                           ORDER BY OrderDate ROWS UNBOUNDED PRECEDING) AS MonthToDate\nFROM d\nORDER BY OrderDate;",
+  "how": "Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.",
+  "a": "**Approach hint:** Aggregate to one row per day first, then SUM() OVER (PARTITION BY year and month ORDER BY date). The PARTITION BY is what makes the total restart each month.\n\n**Expected result:** 204 rows, first 6 shown\n\n| OrderDate | DayTotal | MonthToDate |\n|---|---|---|\n| 2024-01-01 | 43.90 | 43.90 |\n| 2024-01-02 | 34.50 | 78.40 |\n| 2024-01-04 | 46.85 | 125.25 |\n| 2024-01-05 | 17.95 | 143.20 |\n| 2024-01-07 | 74 | 217.20 |\n| 2024-01-08 | 95.80 | 313 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 204
+ },
+ {
+  "id": "CHALLENGE-X04",
+  "topic": "CHALLENGES",
+  "title": "Payment reconciliation",
+  "q": "Compare each order's OrderTotal with the total of its payments. List every order that is not settled exactly: OrderID, OrderTotal, Paid (0 when there is no payment), Difference (OrderTotal minus Paid) and PaymentState ('Unpaid', 'Underpaid' or 'Overpaid'). Sort by PaymentState, then Difference descending, then OrderID.",
+  "sql": "WITH p AS (\n    SELECT OrderID, SUM(PaidAmount) AS Paid\n    FROM retail.Payments\n    GROUP BY OrderID\n)\nSELECT o.OrderID, o.OrderTotal, COALESCE(p.Paid, 0) AS Paid,\n       o.OrderTotal - COALESCE(p.Paid, 0) AS Difference,\n       CASE WHEN p.Paid IS NULL THEN 'Unpaid'\n            WHEN p.Paid < o.OrderTotal THEN 'Underpaid'\n            ELSE 'Overpaid' END AS PaymentState\nFROM retail.Orders AS o\nLEFT JOIN p ON p.OrderID = o.OrderID\nWHERE COALESCE(p.Paid, 0) <> o.OrderTotal\nORDER BY PaymentState, Difference DESC, o.OrderID;",
+  "how": "An order can have several payments, so total them per order in a CTE before joining. LEFT JOIN keeps orders with no payment, and COALESCE turns their NULL into 0.",
+  "a": "**Approach hint:** An order can have several payments, so total them per order in a CTE before joining. LEFT JOIN keeps orders with no payment, and COALESCE turns their NULL into 0.\n\n**Expected result:** 36 rows, first 6 shown\n\n| OrderID | OrderTotal | Paid | Difference | PaymentState |\n|---|---|---|---|---|\n| 208 | 122.85 | 61.43 | 61.42 | Underpaid |\n| 214 | 117.83 | 58.92 | 58.91 | Underpaid |\n| 210 | 91.91 | 45.96 | 45.95 | Underpaid |\n| 218 | 84.45 | 42.23 | 42.22 | Underpaid |\n| 228 | 78.30 | 39.15 | 39.15 | Underpaid |\n| 225 | 76.07 | 38.04 | 38.03 | Underpaid |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 36
+ },
+ {
+  "id": "CHALLENGE-X05",
+  "topic": "CHALLENGES",
+  "title": "Fan-out trap: one report, three totals",
+  "q": "For each customer Region show Orders, Revenue (sum of OrderTotal), ItemsSold (sum of OrderItems.Quantity) and Paid (sum of Payments.PaidAmount). Every number must be right. Sort by Revenue descending.",
+  "sql": "WITH i AS (\n    SELECT OrderID, SUM(Quantity) AS Qty FROM retail.OrderItems GROUP BY OrderID\n), p AS (\n    SELECT OrderID, SUM(PaidAmount) AS Paid FROM retail.Payments GROUP BY OrderID\n)\nSELECT c.Region, COUNT(*) AS Orders, SUM(o.OrderTotal) AS Revenue,\n       SUM(COALESCE(i.Qty, 0)) AS ItemsSold, SUM(COALESCE(p.Paid, 0)) AS Paid\nFROM retail.Orders AS o\nJOIN retail.Customers AS c ON c.CustomerID = o.CustomerID\nLEFT JOIN i ON i.OrderID = o.OrderID\nLEFT JOIN p ON p.OrderID = o.OrderID\nGROUP BY c.Region\nORDER BY Revenue DESC;",
+  "how": "Joining Orders to OrderItems and Payments in one go repeats each order once per item *and* per payment, which inflates Revenue and Paid. Pre-aggregate each child table to one row per order, then join.",
+  "a": "**Approach hint:** Joining Orders to OrderItems and Payments in one go repeats each order once per item *and* per payment, which inflates Revenue and Paid. Pre-aggregate each child table to one row per order, then join.\n\n**Expected result:** 4 rows\n\n| Region | Orders | Revenue | ItemsSold | Paid |\n|---|---|---|---|---|\n| South | 93 | 6348.85 | 302 | 5638.84 |\n| North | 55 | 3786.90 | 168 | 3470.13 |\n| West | 60 | 3480.29 | 164 | 3243.92 |\n| East | 32 | 2407.29 | 117 | 2152.22 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 4
+ },
+ {
+  "id": "CHALLENGE-X06",
+  "topic": "CHALLENGES",
+  "title": "Bought together",
+  "q": "Find pairs of different products that appear in the same order in at least 2 orders. Show ProductA and ProductB (names; ProductA is the one with the smaller ProductID) and TimesTogether. Sort by TimesTogether descending, then ProductA, then ProductB.",
+  "sql": "SELECT pa.ProductName AS ProductA, pb.ProductName AS ProductB, COUNT(DISTINCT a.OrderID) AS TimesTogether\nFROM retail.OrderItems AS a\nJOIN retail.OrderItems AS b ON b.OrderID = a.OrderID AND b.ProductID > a.ProductID\nJOIN retail.Products AS pa ON pa.ProductID = a.ProductID\nJOIN retail.Products AS pb ON pb.ProductID = b.ProductID\nGROUP BY a.ProductID, b.ProductID, pa.ProductName, pb.ProductName\nHAVING COUNT(DISTINCT a.OrderID) >= 2\nORDER BY TimesTogether DESC, ProductA, ProductB;",
+  "how": "Self-join OrderItems on the same OrderID. The condition b.ProductID > a.ProductID removes self-pairs and keeps each pair once (A,B but not B,A).",
+  "a": "**Approach hint:** Self-join OrderItems on the same OrderID. The condition b.ProductID > a.ProductID removes self-pairs and keeps each pair once (A,B but not B,A).\n\n**Expected result:** 16 rows, first 6 shown\n\n| ProductA | ProductB | TimesTogether |\n|---|---|---|\n| Ceramic Coffee Mug 350ml - Sand | A5 Hardcover Notebook - Navy | 2 |\n| Ceramic Coffee Mug 350ml - Sand | Ceramic Coffee Mug 350ml - Terracotta | 2 |\n| Garden Tool Pouch - Sage | Microfiber Cleaning Cloth Set - Terracotta | 2 |\n| Insulated Water Bottle 750ml - Navy | A5 Hardcover Notebook - Navy | 2 |\n| Insulated Water Bottle 750ml - Navy | Lunch Tote 8L - Sand | 2 |\n| Insulated Water Bottle 750ml - Slate | Cotton Table Runner - Navy | 2 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 16
+ },
+ {
+  "id": "CHALLENGE-X07",
+  "topic": "CHALLENGES",
+  "title": "The customers behind half of all value",
+  "q": "Rank customers by their total order total (all orders). Show the smallest group of top customers that together make up at least 50% of the grand total: CustomerID, CustomerName, Total and CumulativePct (their running share of the grand total, 2 decimals). Break ties in Total by CustomerID. Sort by Total descending, then CustomerID.",
+  "sql": "WITH t AS (\n    SELECT CustomerID, SUM(OrderTotal) AS Total\n    FROM retail.Orders\n    GROUP BY CustomerID\n), r AS (\n    SELECT CustomerID, Total,\n           SUM(Total) OVER (ORDER BY Total DESC, CustomerID ROWS UNBOUNDED PRECEDING) AS Running,\n           SUM(Total) OVER () AS Grand\n    FROM t\n)\nSELECT r.CustomerID, p.CustomerName, r.Total, CAST(100.0 * r.Running / r.Grand AS decimal(5,2)) AS CumulativePct\nFROM r\nJOIN retail.Customers AS p ON p.CustomerID = r.CustomerID\nWHERE r.Running - r.Total < 0.5 * r.Grand\nORDER BY r.Total DESC, r.CustomerID;",
+  "how": "Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.",
+  "a": "**Approach hint:** Total per group, then a running SUM() OVER (ORDER BY Total DESC). Keep a row while the running total *before* it (Running minus Total) is still under half: that includes the row that crosses the line.\n\n**Expected result:** 23 rows, first 6 shown\n\n| CustomerID | CustomerName | Total | CumulativePct |\n|---|---|---|---|\n| 75 | Evelyn Robinson | 548.66 | 3.42 |\n| 87 | Grace Morgan | 464.36 | 6.32 |\n| 27 | Grace Shah | 433.17 | 9.03 |\n| 10 | Lucas Garcia | 395.35 | 11.49 |\n| 77 | Harper Nguyen | 394.15 | 13.95 |\n| 29 | Chloe Turner | 393.30 | 16.41 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 23
+ },
+ {
+  "id": "CHALLENGE-X08",
+  "topic": "CHALLENGES",
+  "title": "First-month cohort retention",
+  "q": "Group customers by the month of their first order. For each first month show FirstMonth (yyyy-MM), NewCustomers (how many customers started that month), ReturnedWithin90 (how many had another order on a later date within 90 days of their first one) and RetentionPct (2 decimals). Sort by FirstMonth.",
+  "sql": "WITH e AS (\n    SELECT CustomerID, OrderDate, MIN(OrderDate) OVER (PARTITION BY CustomerID) AS FirstDate\n    FROM retail.Orders\n), c AS (\n    SELECT CustomerID, FirstDate,\n           MAX(CASE WHEN OrderDate > FirstDate AND OrderDate <= DATEADD(day, 90, FirstDate) THEN 1 ELSE 0 END) AS Returned\n    FROM e\n    GROUP BY CustomerID, FirstDate\n)\nSELECT FORMAT(FirstDate, 'yyyy-MM') AS FirstMonth,\n       COUNT(*) AS NewCustomers,\n       SUM(Returned) AS ReturnedWithin90,\n       CAST(100.0 * SUM(Returned) / COUNT(*) AS decimal(5,2)) AS RetentionPct\nFROM c\nGROUP BY FORMAT(FirstDate, 'yyyy-MM')\nORDER BY FirstMonth;",
+  "how": "Step 1: MIN(date) OVER (PARTITION BY CustomerID) tags every row with that customer's first date. Step 2: one row per customer with a 1/0 flag (MAX of a CASE). Step 3: group by the first month.",
+  "a": "**Approach hint:** Step 1: MIN(date) OVER (PARTITION BY CustomerID) tags every row with that customer's first date. Step 2: one row per customer with a 1/0 flag (MAX of a CASE). Step 3: group by the first month.\n\n**Expected result:** 11 rows, first 6 shown\n\n| FirstMonth | NewCustomers | ReturnedWithin90 | RetentionPct |\n|---|---|---|---|\n| 2024-01 | 17 | 12 | 70.59 |\n| 2024-02 | 10 | 4 | 40 |\n| 2024-03 | 12 | 7 | 58.33 |\n| 2024-04 | 12 | 3 | 25 |\n| 2024-05 | 10 | 4 | 40 |\n| 2024-06 | 5 | 2 | 40 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 11
+ },
+ {
+  "id": "CHALLENGE-X09",
+  "topic": "CHALLENGES",
+  "title": "Longest monthly streak (gaps and islands)",
+  "q": "For each customer, find runs of consecutive calendar months that each have at least one order. Show every run of 3 or more months: CustomerID, CustomerName, StreakStart and StreakEnd (yyyy-MM) and Months. Sort by Months descending, then StreakStart, then CustomerID.",
+  "sql": "WITH m AS (\n    SELECT DISTINCT CustomerID, DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) AS MonthStart\n    FROM retail.Orders\n), g AS (\n    SELECT CustomerID, MonthStart,\n           DATEADD(month, -ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY MonthStart), MonthStart) AS Island\n    FROM m\n), r AS (\n    SELECT CustomerID, MIN(MonthStart) AS StreakStart, MAX(MonthStart) AS StreakEnd, COUNT(*) AS Months\n    FROM g\n    GROUP BY CustomerID, Island\n)\nSELECT r.CustomerID, p.CustomerName, FORMAT(r.StreakStart, 'yyyy-MM') AS StreakStart,\n       FORMAT(r.StreakEnd, 'yyyy-MM') AS StreakEnd, r.Months\nFROM r\nJOIN retail.Customers AS p ON p.CustomerID = r.CustomerID\nWHERE r.Months >= 3\nORDER BY r.Months DESC, r.StreakStart, r.CustomerID;",
+  "how": "The classic gaps-and-islands trick: reduce dates to distinct months, then subtract ROW_NUMBER() months from each month. Consecutive months get the same result, so GROUP BY that value gives one row per streak.",
+  "a": "**Approach hint:** The classic gaps-and-islands trick: reduce dates to distinct months, then subtract ROW_NUMBER() months from each month. Consecutive months get the same result, so GROUP BY that value gives one row per streak.\n\n**Expected result:** 3 rows\n\n| CustomerID | CustomerName | StreakStart | StreakEnd | Months |\n|---|---|---|---|---|\n| 11 | Isabella Robinson | 2024-01 | 2024-03 | 3 |\n| 75 | Evelyn Robinson | 2024-04 | 2024-06 | 3 |\n| 7 | Sophia Parker | 2024-07 | 2024-09 | 3 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 3
+ },
+ {
+  "id": "CHALLENGE-X10",
+  "topic": "CHALLENGES",
+  "title": "Top 3 products per region, ties included",
+  "q": "For each customer Region, rank products by revenue (Quantity × UnitPrice from OrderItems). Show the top 3 ranks, keeping ties (two products with the same revenue share a rank and the next rank is not skipped): Region, RankInRegion, ProductName and Revenue. Sort by Region, RankInRegion, ProductName.",
+  "sql": "WITH s AS (\n    SELECT c.Region, p.ProductID, p.ProductName, SUM(i.Quantity * i.UnitPrice) AS Revenue\n    FROM retail.OrderItems AS i\n    JOIN retail.Orders AS o ON o.OrderID = i.OrderID\n    JOIN retail.Customers AS c ON c.CustomerID = o.CustomerID\n    JOIN retail.Products AS p ON p.ProductID = i.ProductID\n    GROUP BY c.Region, p.ProductID, p.ProductName\n), r AS (\n    SELECT *, DENSE_RANK() OVER (PARTITION BY Region ORDER BY Revenue DESC) AS RankInRegion\n    FROM s\n)\nSELECT Region, RankInRegion, ProductName, Revenue\nFROM r\nWHERE RankInRegion <= 3\nORDER BY Region, RankInRegion, ProductName;",
+  "how": "Four tables lead from Region to product revenue. DENSE_RANK keeps ties without gaps; ROW_NUMBER would drop tied products and RANK would skip a rank after a tie.",
+  "a": "**Approach hint:** Four tables lead from Region to product revenue. DENSE_RANK keeps ties without gaps; ROW_NUMBER would drop tied products and RANK would skip a rank after a tie.\n\n**Expected result:** 12 rows, first 6 shown\n\n| Region | RankInRegion | ProductName | Revenue |\n|---|---|---|---|\n| East | 1 | LED Desk Lamp - Slate | 199.75 |\n| East | 2 | Insulated Water Bottle 750ml - Slate | 189.64 |\n| East | 3 | Canvas Daypack 20L - Navy | 144.86 |\n| North | 1 | Fleece Throw 150cm - Slate | 307.05 |\n| North | 2 | Canvas Daypack 20L - Terracotta | 199.80 |\n| North | 3 | Fleece Throw 150cm - Navy | 172.50 |\n\n\n_Your query may be written differently and still be correct. Compare the number of rows and the values; if the question has no ORDER BY, your rows may come back in a different order._",
+  "rows": 12
+ }
+]

@@ -210,46 +210,46 @@
     "check": "Carrier 5, Active=0."
   },
   {
-    "id": "RETAIL_MANUFACTURING-REPORT-01",
-    "domain": "Retail Manufacturing",
-    "prompt": "Return each Products ID and name, including masters with no ProductionOrders, with the count of related events and total known PlannedCost. Order by master ID.",
-    "sql": "SELECT p.ProductID, p.ProductName, COUNT(f.ProductionOrderID) AS EventCount, SUM(f.PlannedCost) AS TotalAmount FROM [retail_manufacturing].[Products] p LEFT JOIN [retail_manufacturing].[ProductionOrders] f ON p.ProductID=f.ProductID GROUP BY p.ProductID, p.ProductName ORDER BY p.ProductID;",
+    "id": "RETAIL_SUPPLY_CHAIN-REPORT-01",
+    "domain": "Retail Supply Chain",
+    "prompt": "Return each Warehouses ID and name, including masters with no StockMovements, with the count of related events and total known MovementValue. Order by master ID.",
+    "sql": "SELECT p.WarehouseID, p.WarehouseName, COUNT(f.MovementID) AS EventCount, SUM(f.MovementValue) AS TotalAmount FROM [retail_supply_chain].[Warehouses] p LEFT JOIN [retail_supply_chain].[StockMovements] f ON p.WarehouseID=f.WarehouseID GROUP BY p.WarehouseID, p.WarehouseName ORDER BY p.WarehouseID;",
     "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
   },
   {
-    "id": "RETAIL_MANUFACTURING-REPORT-02",
-    "domain": "Retail Manufacturing",
-    "prompt": "Return Products with no related ProductionOrders using NOT EXISTS.",
-    "sql": "SELECT p.ProductID, p.ProductName FROM [retail_manufacturing].[Products] p WHERE NOT EXISTS (SELECT 1 FROM [retail_manufacturing].[ProductionOrders] f WHERE f.ProductID=p.ProductID) ORDER BY p.ProductID;",
+    "id": "RETAIL_SUPPLY_CHAIN-REPORT-02",
+    "domain": "Retail Supply Chain",
+    "prompt": "Return Warehouses with no related StockMovements using NOT EXISTS.",
+    "sql": "SELECT p.WarehouseID, p.WarehouseName FROM [retail_supply_chain].[Warehouses] p WHERE NOT EXISTS (SELECT 1 FROM [retail_supply_chain].[StockMovements] f WHERE f.WarehouseID=p.WarehouseID) ORDER BY p.WarehouseID;",
     "check": "Only master ID 5."
   },
   {
-    "id": "RETAIL_MANUFACTURING-REPORT-03",
-    "domain": "Retail Manufacturing",
-    "prompt": "Use ROW_NUMBER to select the highest PlannedCost event for each active master. Break ties by ProductionOrderID ascending.",
-    "sql": ";WITH Ranked AS (SELECT ProductionOrderID,ProductID,PlannedCost,ROW_NUMBER() OVER(PARTITION BY ProductID ORDER BY PlannedCost DESC,ProductionOrderID) AS rn FROM [retail_manufacturing].[ProductionOrders]) SELECT ProductionOrderID,ProductID,PlannedCost FROM Ranked WHERE rn=1 ORDER BY ProductID;",
+    "id": "RETAIL_SUPPLY_CHAIN-REPORT-03",
+    "domain": "Retail Supply Chain",
+    "prompt": "Use ROW_NUMBER to select the highest MovementValue event for each active master. Break ties by MovementID ascending.",
+    "sql": ";WITH Ranked AS (SELECT MovementID,WarehouseID,MovementValue,ROW_NUMBER() OVER(PARTITION BY WarehouseID ORDER BY MovementValue DESC,MovementID) AS rn FROM [retail_supply_chain].[StockMovements]) SELECT MovementID,WarehouseID,MovementValue FROM Ranked WHERE rn=1 ORDER BY WarehouseID;",
     "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
   },
   {
-    "id": "RETAIL_MANUFACTURING-REPORT-04",
-    "domain": "Retail Manufacturing",
-    "prompt": "For each material-usage row, show production reference, product name, material name, actual quantity and recipe quantity per unit. Join all five tables; keep usage with no matching recipe using a LEFT JOIN to BillOfMaterials.",
-    "sql": "SELECT u.UsageID,o.ProductionReference,p.ProductName,m.MaterialName,u.QuantityUsed,b.QuantityPerUnit FROM retail_manufacturing.MaterialUsage u JOIN retail_manufacturing.ProductionOrders o ON o.ProductionOrderID=u.ProductionOrderID JOIN retail_manufacturing.Products p ON p.ProductID=o.ProductID JOIN retail_manufacturing.Materials m ON m.MaterialID=u.MaterialID LEFT JOIN retail_manufacturing.BillOfMaterials b ON b.ProductID=o.ProductID AND b.MaterialID=u.MaterialID ORDER BY u.UsageID;",
-    "check": "6 rows. Usage 3 is 4.5 units of Fabric for a product requiring 2 units of Fabric per finished unit."
+    "id": "RETAIL_SUPPLY_CHAIN-REPORT-04",
+    "domain": "Retail Supply Chain",
+    "prompt": "Show every stock movement with warehouse, product, sourcing, originating supplier, direction, moved units and the matching current on-hand balance using five tables. Join balances on BOTH warehouse and product.",
+    "sql": "SELECT m.MovementID,w.WarehouseName,p.ProductName,p.Sourcing,s.SupplierName,m.Direction,m.MovedUnits,b.QuantityOnHand FROM retail_supply_chain.StockMovements m JOIN retail_supply_chain.Warehouses w ON w.WarehouseID=m.WarehouseID JOIN retail_supply_chain.Products p ON p.ProductID=m.ProductID JOIN retail_supply_chain.Suppliers s ON s.SupplierID=m.SupplierID LEFT JOIN retail_supply_chain.StockBalances b ON b.WarehouseID=m.WarehouseID AND b.ProductID=m.ProductID ORDER BY m.MovementID;",
+    "check": "12 rows; every seed movement resolves to one warehouse/product snapshot. Movements 3, 4, 7, 8, 11 and 12 are Made products supplied by the Private Label Plant. A warehouse-only join to StockBalances would multiply rows."
   },
   {
-    "id": "RETAIL_MANUFACTURING-REPORT-05",
-    "domain": "Retail Manufacturing",
-    "prompt": "For every production order and recipe material, show planned units, required material quantity, actual usage (zero when missing) and ActualMinusRequired. Multiply recipe quantity by PlannedUnits; aggregate usage for each order and material pair before joining.",
-    "sql": ";WITH Used AS (SELECT ProductionOrderID,MaterialID,SUM(QuantityUsed) AS ActualQuantity FROM retail_manufacturing.MaterialUsage GROUP BY ProductionOrderID,MaterialID) SELECT o.ProductionOrderID,b.MaterialID,o.PlannedUnits,o.PlannedUnits*b.QuantityPerUnit AS RequiredQuantity,COALESCE(u.ActualQuantity,0) AS ActualQuantity,COALESCE(u.ActualQuantity,0)-o.PlannedUnits*b.QuantityPerUnit AS ActualMinusRequired FROM retail_manufacturing.ProductionOrders o JOIN retail_manufacturing.BillOfMaterials b ON b.ProductID=o.ProductID LEFT JOIN Used u ON u.ProductionOrderID=o.ProductionOrderID AND u.MaterialID=b.MaterialID ORDER BY o.ProductionOrderID,b.MaterialID;",
-    "check": "18 rows. Order 2/material 1: planned units=2, required=4, actual=4.5, difference=0.5. Negative values on unstarted orders indicate unrecorded consumption, not necessarily a favorable completed-production variance."
+    "id": "RETAIL_SUPPLY_CHAIN-REPORT-05",
+    "domain": "Retail Supply Chain",
+    "prompt": "For every production order show its reference, product name, status, planned units, required material units (recipe quantity times PlannedUnits), material units used and units received into stock (IN movements that point to the order). Aggregate the recipe, the usage and the receipts separately before joining; missing values count as zero.",
+    "sql": ";WITH Recipe AS (SELECT o.ProductionOrderID,SUM(o.PlannedUnits*b.QuantityPerUnit) AS RequiredUnits FROM retail_supply_chain.ProductionOrders o JOIN retail_supply_chain.BillOfMaterials b ON b.ProductID=o.ProductID GROUP BY o.ProductionOrderID), Used AS (SELECT ProductionOrderID,SUM(QuantityUsed) AS UsedUnits FROM retail_supply_chain.MaterialUsage GROUP BY ProductionOrderID), Received AS (SELECT ProductionOrderID,SUM(MovedUnits) AS ReceivedUnits FROM retail_supply_chain.StockMovements WHERE Direction='IN' AND ProductionOrderID IS NOT NULL GROUP BY ProductionOrderID) SELECT o.ProductionReference,p.ProductName,o.ProductionStatus,o.PlannedUnits,COALESCE(r.RequiredUnits,0) AS RequiredUnits,COALESCE(u.UsedUnits,0) AS UsedUnits,COALESCE(x.ReceivedUnits,0) AS ReceivedUnits FROM retail_supply_chain.ProductionOrders o JOIN retail_supply_chain.Products p ON p.ProductID=o.ProductID LEFT JOIN Recipe r ON r.ProductionOrderID=o.ProductionOrderID LEFT JOIN Used u ON u.ProductionOrderID=o.ProductionOrderID LEFT JOIN Received x ON x.ProductionOrderID=o.ProductionOrderID ORDER BY o.ProductionOrderID;",
+    "check": "4 rows. PO-1: required 30, used 30.5 (0.5 over the recipe) and 3 units received so far. PO-2 is Completed but nothing is received yet. PO-3 has used 8 of 24 required units; PO-4 is Planned with no usage. Joining recipe, usage and receipts before aggregating would multiply the totals."
   },
   {
-    "id": "RETAIL_MANUFACTURING-REPORT-06",
-    "domain": "Retail Manufacturing",
-    "prompt": "Return materials not used in any bill of materials. Explain how this differs from a recipe material that has not yet been consumed.",
-    "sql": "SELECT m.MaterialID,m.MaterialName FROM retail_manufacturing.Materials m WHERE NOT EXISTS(SELECT 1 FROM retail_manufacturing.BillOfMaterials b WHERE b.MaterialID=m.MaterialID) ORDER BY m.MaterialID;",
-    "check": "Material 5 only. Material 4 is in a recipe even though no actual usage is recorded."
+    "id": "RETAIL_SUPPLY_CHAIN-REPORT-06",
+    "domain": "Retail Supply Chain",
+    "prompt": "For each warehouse/product snapshot, show opening quantity, signed net movement (IN positive, OUT negative), expected on-hand, stored on-hand and stored-minus-expected discrepancy. Include snapshots with no movements. All supplied movements are after the opening snapshot.",
+    "sql": ";WITH Net AS (SELECT WarehouseID,ProductID,SUM(CASE Direction WHEN 'IN' THEN MovedUnits ELSE -MovedUnits END) AS NetUnits FROM retail_supply_chain.StockMovements GROUP BY WarehouseID,ProductID) SELECT b.WarehouseID,b.ProductID,b.OpeningQuantity,COALESCE(n.NetUnits,0) AS NetUnits,b.OpeningQuantity+COALESCE(n.NetUnits,0) AS ExpectedOnHand,b.QuantityOnHand,b.QuantityOnHand-(b.OpeningQuantity+COALESCE(n.NetUnits,0)) AS Discrepancy FROM retail_supply_chain.StockBalances b LEFT JOIN Net n ON n.WarehouseID=b.WarehouseID AND n.ProductID=b.ProductID ORDER BY b.WarehouseID,b.ProductID;",
+    "check": "12 rows; all discrepancies=0. Warehouse 2/product 4: opening=10, net=8, on-hand=18. Warehouse 1/product 5 has no movements (net 0). Total opening=120 and total on-hand=130."
   },
   {
     "id": "RETAIL_LOGISTICS-REPORT-01",
@@ -294,46 +294,46 @@
     "check": "12 rows; known freight charges total 1700 once each. Shipment 1 declares 1 package but has 2 recorded packages: flag the mismatch rather than changing the seed."
   },
   {
-    "id": "RETAIL_INVENTORY-REPORT-01",
-    "domain": "Retail Inventory",
-    "prompt": "Return each Warehouses ID and name, including masters with no StockMovements, with the count of related events and total known MovementValue. Order by master ID.",
-    "sql": "SELECT p.WarehouseID, p.WarehouseName, COUNT(f.MovementID) AS EventCount, SUM(f.MovementValue) AS TotalAmount FROM [retail_inventory].[Warehouses] p LEFT JOIN [retail_inventory].[StockMovements] f ON p.WarehouseID=f.WarehouseID GROUP BY p.WarehouseID, p.WarehouseName ORDER BY p.WarehouseID;",
+    "id": "ECOMMERCE-REPORT-01",
+    "domain": "E-commerce",
+    "prompt": "Return each Customers ID and name, including masters with no Orders, with the count of related events and total known OrderTotal. Order by master ID.",
+    "sql": "SELECT p.CustomerID, p.CustomerName, COUNT(f.OrderID) AS EventCount, SUM(f.OrderTotal) AS TotalAmount FROM [ecommerce].[Customers] p LEFT JOIN [ecommerce].[Orders] f ON p.CustomerID=f.CustomerID GROUP BY p.CustomerID, p.CustomerName ORDER BY p.CustomerID;",
     "check": "Five master rows; master 5 has count 0 and NULL total; all counts sum to 12 and known totals sum to 1700."
   },
   {
-    "id": "RETAIL_INVENTORY-REPORT-02",
-    "domain": "Retail Inventory",
-    "prompt": "Return Warehouses with no related StockMovements using NOT EXISTS.",
-    "sql": "SELECT p.WarehouseID, p.WarehouseName FROM [retail_inventory].[Warehouses] p WHERE NOT EXISTS (SELECT 1 FROM [retail_inventory].[StockMovements] f WHERE f.WarehouseID=p.WarehouseID) ORDER BY p.WarehouseID;",
+    "id": "ECOMMERCE-REPORT-02",
+    "domain": "E-commerce",
+    "prompt": "Return Customers with no related Orders using NOT EXISTS.",
+    "sql": "SELECT p.CustomerID, p.CustomerName FROM [ecommerce].[Customers] p WHERE NOT EXISTS (SELECT 1 FROM [ecommerce].[Orders] f WHERE f.CustomerID=p.CustomerID) ORDER BY p.CustomerID;",
     "check": "Only master ID 5."
   },
   {
-    "id": "RETAIL_INVENTORY-REPORT-03",
-    "domain": "Retail Inventory",
-    "prompt": "Use ROW_NUMBER to select the highest MovementValue event for each active master. Break ties by MovementID ascending.",
-    "sql": ";WITH Ranked AS (SELECT MovementID,WarehouseID,MovementValue,ROW_NUMBER() OVER(PARTITION BY WarehouseID ORDER BY MovementValue DESC,MovementID) AS rn FROM [retail_inventory].[StockMovements]) SELECT MovementID,WarehouseID,MovementValue FROM Ranked WHERE rn=1 ORDER BY WarehouseID;",
+    "id": "ECOMMERCE-REPORT-03",
+    "domain": "E-commerce",
+    "prompt": "Use ROW_NUMBER to select the highest OrderTotal event for each active master. Break ties by OrderID ascending.",
+    "sql": ";WITH Ranked AS (SELECT OrderID,CustomerID,OrderTotal,ROW_NUMBER() OVER(PARTITION BY CustomerID ORDER BY OrderTotal DESC,OrderID) AS rn FROM [ecommerce].[Orders]) SELECT OrderID,CustomerID,OrderTotal FROM Ranked WHERE rn=1 ORDER BY CustomerID;",
     "check": "Master/event IDs: 1/2, 2/3, 3/6, 4/9."
   },
   {
-    "id": "RETAIL_INVENTORY-REPORT-04",
-    "domain": "Retail Inventory",
-    "prompt": "Show every stock movement with warehouse, product, originating supplier, direction, moved units and the matching current on-hand balance using all five tables. Join balances on BOTH warehouse and product.",
-    "sql": "SELECT m.MovementID,w.WarehouseName,p.ProductName,s.SupplierName,m.Direction,m.MovedUnits,b.QuantityOnHand FROM retail_inventory.StockMovements m JOIN retail_inventory.Warehouses w ON w.WarehouseID=m.WarehouseID JOIN retail_inventory.Products p ON p.ProductID=m.ProductID JOIN retail_inventory.Suppliers s ON s.SupplierID=m.SupplierID LEFT JOIN retail_inventory.StockBalances b ON b.WarehouseID=m.WarehouseID AND b.ProductID=m.ProductID ORDER BY m.MovementID;",
-    "check": "12 rows; every seed movement resolves to one warehouse/product snapshot. A warehouse-only join would multiply rows."
+    "id": "ECOMMERCE-REPORT-04",
+    "domain": "E-commerce",
+    "prompt": "Show order ID, customer name, seller name, product name, quantity, charged unit price and line total for every order line.",
+    "sql": "SELECT o.OrderID,c.CustomerName,s.SellerName,p.ProductName,i.Quantity,i.UnitPrice,i.Quantity*i.UnitPrice AS LineTotal FROM ecommerce.Orders o JOIN ecommerce.Customers c ON c.CustomerID=o.CustomerID JOIN ecommerce.Sellers s ON s.SellerID=o.SellerID JOIN ecommerce.OrderItems i ON i.OrderID=o.OrderID JOIN ecommerce.Products p ON p.ProductID=i.ProductID ORDER BY o.OrderID,i.OrderItemID;",
+    "check": "6 rows; line totals sum to 850. Orders 1 and 5 are Seller 1 (Electronics); the charged UnitPrice is used, not the catalog price."
   },
   {
-    "id": "RETAIL_INVENTORY-REPORT-05",
-    "domain": "Retail Inventory",
-    "prompt": "For each warehouse/product snapshot, show opening quantity, signed net movement (IN positive, OUT negative), expected on-hand, stored on-hand and stored-minus-expected discrepancy. Include snapshots with no movements. All supplied movements are after the opening snapshot.",
-    "sql": ";WITH Net AS (SELECT WarehouseID,ProductID,SUM(CASE Direction WHEN 'IN' THEN MovedUnits ELSE -MovedUnits END) AS NetUnits FROM retail_inventory.StockMovements GROUP BY WarehouseID,ProductID) SELECT b.WarehouseID,b.ProductID,b.OpeningQuantity,COALESCE(n.NetUnits,0) AS NetUnits,b.OpeningQuantity+COALESCE(n.NetUnits,0) AS ExpectedOnHand,b.QuantityOnHand,b.QuantityOnHand-(b.OpeningQuantity+COALESCE(n.NetUnits,0)) AS Discrepancy FROM retail_inventory.StockBalances b LEFT JOIN Net n ON n.WarehouseID=b.WarehouseID AND n.ProductID=b.ProductID ORDER BY b.WarehouseID,b.ProductID;",
-    "check": "11 rows; all discrepancies=0. Warehouse 2/product 4: opening=10, net=8, on-hand=18. Total opening=110 and total on-hand=120."
+    "id": "ECOMMERCE-REPORT-05",
+    "domain": "E-commerce",
+    "prompt": "For all orders, return OrderID, OrderTotal, line total, paid total and outstanding amount. An order can be split between a gift card and a card, so aggregate lines and payments separately before joining. Preserve unknown OrderTotal; missing lines/payments count as zero.",
+    "sql": ";WITH Lines AS (SELECT OrderID,SUM(Quantity*UnitPrice) AS LineTotal FROM ecommerce.OrderItems GROUP BY OrderID), Paid AS (SELECT OrderID,SUM(PaidAmount) AS PaidTotal FROM ecommerce.Payments GROUP BY OrderID) SELECT o.OrderID,o.OrderTotal,COALESCE(l.LineTotal,0) AS LineTotal,COALESCE(p.PaidTotal,0) AS PaidTotal,o.OrderTotal-COALESCE(p.PaidTotal,0) AS Outstanding FROM ecommerce.Orders o LEFT JOIN Lines l ON l.OrderID=o.OrderID LEFT JOIN Paid p ON p.OrderID=o.OrderID ORDER BY o.OrderID;",
+    "check": "12 rows. Order 1 is split between a gift card (40) and a card (60): paid 100, outstanding 0. Order 3 outstanding=100, order 5 is unpaid (outstanding 50) and order 4 keeps NULL outstanding because its OrderTotal is unknown."
   },
   {
-    "id": "RETAIL_INVENTORY-REPORT-06",
-    "domain": "Retail Inventory",
-    "prompt": "Find warehouse/product balances below ReorderLevel. Show warehouse ID, product name, on-hand units, reorder level, units needed to reach that level and current stock value at the product UnitCost.",
-    "sql": "SELECT b.WarehouseID,p.ProductName,b.QuantityOnHand,b.ReorderLevel,b.ReorderLevel-b.QuantityOnHand AS UnitsToReorder,b.QuantityOnHand*p.UnitCost AS StockValue FROM retail_inventory.StockBalances b JOIN retail_inventory.Products p ON p.ProductID=b.ProductID WHERE b.QuantityOnHand<b.ReorderLevel ORDER BY b.WarehouseID,b.ProductID;",
-    "check": "4 rows: (warehouse,product)=(1,2),(1,3),(3,1),(4,4). Units to reorder are 2,3,1,4 respectively."
+    "id": "ECOMMERCE-REPORT-06",
+    "domain": "E-commerce",
+    "prompt": "Return every seller with its department, order count, known order revenue and distinct customers, including sellers with no orders (zero counts, zero revenue).",
+    "sql": "SELECT s.SellerID,s.SellerName,s.Department,COUNT(o.OrderID) AS OrderCount,COALESCE(SUM(o.OrderTotal),0) AS Revenue,COUNT(DISTINCT o.CustomerID) AS DistinctCustomers FROM ecommerce.Sellers s LEFT JOIN ecommerce.Orders o ON o.SellerID=s.SellerID GROUP BY s.SellerID,s.SellerName,s.Department ORDER BY s.SellerID;",
+    "check": "5 rows. Seller 2 has the highest revenue (580); Seller 4 has 3 orders from 2 distinct customers; the unused seller shows zero orders and zero revenue."
   },
   {
     "id": "BROKERAGE-REPORT-01",

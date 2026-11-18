@@ -101,12 +101,20 @@ oilproducts=entity('Products','ProductID',[col('ProductName','nvarchar(80)','NOT
 shipmentitems=entity('ShipmentItems','ShipmentItemID',[col('ShipmentID','int','NOT NULL'),col('ProductID','int','NOT NULL'),col('Quantity','int','NOT NULL'),col('PricePerUnit','decimal(12,2)','NOT NULL')],[[1,1,1,3,20],[2,1,2,1,40],[3,2,2,5,40],[4,3,1,10,20],[5,6,3,5,60]],unique=['ShipmentID, ProductID'],checks=['Quantity > 0','PricePerUnit >= 0'],fks=[ref('ShipmentID','Shipments','ShipmentID'),ref('ProductID','Products','ProductID')],purpose='Bridge between shipments and oil products; one row per shipment/product combination.')
 MODELS.append(model('oil','Oil',['ShipmentID','SiteID','ShipmentReference','ShipmentType','Status','ShipmentValue','UnitCount','ShipDate','DispatchedAt','RecordedAt','Note','BackupNote','ParentShipmentID'],('Shipments','Sites','SiteName'),[sites,carriers,oilproducts,None,shipmentitems],'Track origin sites, carriers, shipments and product lines; reconcile shipment values and identify missing detail.'))
 
-# Retail manufacturing: finished products, recipes, production runs and consumption.
-mf_products=master('Products','ProductID','ProductName','Finished retail products; Region is the target sales region. A product can have several production orders.')
-materials=entity('Materials','MaterialID',[col('MaterialName','nvarchar(80)','NOT NULL'),col('MaterialCode','varchar(20)','NOT NULL'),col('UnitCost','decimal(12,2)','NOT NULL')],[[i,name,f'MAT-{i}',cost] for i,name,cost in [(1,'Fabric',5),(2,'Thread',1),(3,'Zipper',2),(4,'Packaging',3),(5,'Unused trim',4)]],unique=['MaterialCode'],checks=['UnitCost > 0'],purpose='Raw material catalog. Quantities are in the material-specific unit, held constant in each exercise.')
-bom=entity('BillOfMaterials','BOMID',[col('ProductID','int','NOT NULL'),col('MaterialID','int','NOT NULL'),col('QuantityPerUnit','decimal(12,2)','NOT NULL')],[[1,1,1,2],[2,1,2,1],[3,2,1,1],[4,2,3,2],[5,3,4,1],[6,4,2,3]],unique=['ProductID, MaterialID'],checks=['QuantityPerUnit > 0'],fks=[ref('ProductID','Products','ProductID'),ref('MaterialID','Materials','MaterialID')],purpose='Recipe bridge: one row per finished product and required material.')
-usage=entity('MaterialUsage','UsageID',[col('ProductionOrderID','int','NOT NULL'),col('MaterialID','int','NOT NULL'),col('QuantityUsed','decimal(12,2)','NOT NULL'),col('UsageDate','date','NOT NULL')],[[1,1,1,2,'20240101'],[2,1,2,1,'20240101'],[3,2,1,4.5,'20240102'],[4,2,2,2,'20240102'],[5,3,1,3,'20240102'],[6,3,3,7,'20240102']],unique=['ProductionOrderID, MaterialID'],checks=['QuantityUsed > 0'],fks=[ref('ProductionOrderID','ProductionOrders','ProductionOrderID'),ref('MaterialID','Materials','MaterialID')],purpose='Actual consumption aggregated per production order/material; compare with its product recipe.')
-MODELS.append(model('retail_manufacturing','Retail Manufacturing',['ProductionOrderID','ProductID','ProductionReference','ProductionCategory','Status','PlannedCost','PlannedUnits','ProductionDate','StartedAt','RecordedAt','Note','BackupNote','ParentProductionOrderID'],('ProductionOrders','Products','ProductName'),[mf_products,materials,None,bom,usage],'Turn retail product recipes into production orders. Compare planned material requirements with actual consumption and identify variances.'))
+# Retail supply chain (Maple & Main Supply Chain): buy or make products, move stock and reconcile balances.
+# Replaces the former Retail Inventory and Retail Manufacturing projects; nine connected tables.
+sc_warehouses=master('Warehouses','WarehouseID','WarehouseName','Fulfillment centers and store depots; each warehouse has stock movements and balances and receives private label production.')
+sc_suppliers=entity('Suppliers','SupplierID',[col('SupplierName','nvarchar(80)','NOT NULL'),col('SupplierCode','varchar(20)','NOT NULL'),col('LeadTimeDays','int','NOT NULL')],[[1,'Supply chain supplier 1','SC-SUP-1',2],[2,'Supply chain supplier 2','SC-SUP-2',3],[3,'Supply chain supplier 3','SC-SUP-3',4],[4,'Private Label Plant','SC-SUP-4',1],[5,'Unused supplier','SC-SUP-5',6]],unique=['SupplierCode'],checks=['LeadTimeDays >= 0'],purpose='Where stock comes from. Supplier 4 is the in-house Private Label plant, the source of every Made product.')
+sc_products=entity('Products','ProductID',[col('ProductName','nvarchar(80)','NOT NULL'),col('SKU','varchar(20)','NOT NULL'),col('UnitCost','decimal(12,2)','NOT NULL'),col('Sourcing','varchar(10)',"NOT NULL DEFAULT ('Bought')")],[[1,'Notebook','SC-SKU-1',10,'Bought'],[2,'Pen set','SC-SKU-2',4,'Bought'],[3,'Canvas tote','SC-SKU-3',15,'Made'],[4,'Travel pouch','SC-SKU-4',16,'Made'],[5,'Unused product','SC-SKU-5',8,'Bought']],unique=['SKU'],checks=['UnitCost > 0',"Sourcing IN ('Bought','Made')"],purpose='One catalog: Bought products come from outside suppliers; Made products are produced in the Private Label plant from a recipe.')
+sc_materials=entity('Materials','MaterialID',[col('MaterialName','nvarchar(80)','NOT NULL'),col('MaterialCode','varchar(20)','NOT NULL'),col('UnitCost','decimal(12,2)','NOT NULL')],[[i,name,f'SC-MAT-{i}',cost] for i,name,cost in [(1,'Fabric',5),(2,'Thread',1),(3,'Zipper',2),(4,'Packaging',3),(5,'Unused trim',4)]],unique=['MaterialCode'],checks=['UnitCost > 0'],purpose='Raw materials for Made products. Quantities are in the material-specific unit.')
+sc_bom=entity('BillOfMaterials','BOMID',[col('ProductID','int','NOT NULL'),col('MaterialID','int','NOT NULL'),col('QuantityPerUnit','decimal(12,2)','NOT NULL')],[[1,3,1,2],[2,3,2,1],[3,4,1,1],[4,4,3,2],[5,4,4,1]],unique=['ProductID, MaterialID'],checks=['QuantityPerUnit > 0'],fks=[ref('ProductID','Products','ProductID'),ref('MaterialID','Materials','MaterialID')],purpose='Recipe bridge: one row per Made product and required material, per unit produced.')
+sc_production=entity('ProductionOrders','ProductionOrderID',[col('ProductID','int','NOT NULL'),col('WarehouseID','int','NOT NULL'),col('ProductionReference','varchar(20)','NOT NULL'),col('ProductionStatus','varchar(12)','NOT NULL'),col('PlannedUnits','int','NOT NULL'),col('PlannedCost','decimal(12,2)','NOT NULL'),col('StartDate','date','NOT NULL'),col('CompletedDate','date','NULL')],[[1,3,2,'PO-1','Completed',10,110,'20231220','20231230'],[2,4,1,'PO-2','Completed',5,60,'20231222','20231229'],[3,3,3,'PO-3','InProgress',8,88,'20240201',None],[4,4,4,'PO-4','Planned',6,72,'20240301',None]],unique=['ProductionReference'],checks=["ProductionStatus IN ('Planned','InProgress','Completed')",'PlannedUnits > 0','PlannedCost >= 0','CompletedDate IS NULL OR CompletedDate >= StartDate'],fks=[ref('ProductID','Products','ProductID'),ref('WarehouseID','Warehouses','WarehouseID')],purpose='Factory runs for Made products. PlannedCost is the recipe material cost; finished units are received into WarehouseID.')
+sc_usage=entity('MaterialUsage','UsageID',[col('ProductionOrderID','int','NOT NULL'),col('MaterialID','int','NOT NULL'),col('QuantityUsed','decimal(12,2)','NOT NULL'),col('UsageDate','date','NOT NULL')],[[1,1,1,20,'20231221'],[2,1,2,10.5,'20231221'],[3,2,1,5,'20231223'],[4,2,3,10,'20231223'],[5,2,4,5,'20231223'],[6,3,1,8,'20240202']],unique=['ProductionOrderID, MaterialID'],checks=['QuantityUsed > 0'],fks=[ref('ProductionOrderID','ProductionOrders','ProductionOrderID'),ref('MaterialID','Materials','MaterialID')],purpose='Actual material consumed per production order and material; compare it with the recipe.')
+sc_balances=entity('StockBalances','BalanceID',[col('WarehouseID','int','NOT NULL'),col('ProductID','int','NOT NULL'),col('OpeningQuantity','int','NOT NULL'),col('QuantityOnHand','int','NOT NULL'),col('ReorderLevel','int','NOT NULL')],[],unique=['WarehouseID, ProductID'],checks=['OpeningQuantity >= 0','QuantityOnHand >= 0','ReorderLevel >= 0'],fks=[ref('WarehouseID','Warehouses','WarehouseID'),ref('ProductID','Products','ProductID')],purpose='One snapshot per warehouse and product: opening stock plus the signed seed movements equals QuantityOnHand. No trigger updates it automatically.')
+sc=model('retail_supply_chain','Retail Supply Chain',['MovementID','WarehouseID','MovementReference','MovementCategory','Status','MovementValue','MovedUnits','MovementDate','MovedAt','RecordedAt','Note','BackupNote','ParentMovementID'],('StockMovements','Warehouses','WarehouseName'),[sc_warehouses,sc_suppliers,sc_products,sc_materials,sc_bom,sc_production,sc_usage,None,sc_balances],'Buy or make products, move stock through warehouses, and reconcile production, receipts, dispatches and balances.')
+sc['extra_fks']=[('ProductID','Products','ProductID'),('SupplierID','Suppliers','SupplierID')]
+sc['focus']=['Warehouses','Products','ProductionOrders','StockMovements','StockBalances']
+MODELS.append(sc)
 
 # Retail logistics: customers, carriers, shipments, packages and scan history.
 lg_customers=master('Customers','CustomerID','CustomerName','Customers request retail deliveries; one customer may have many shipments.')
@@ -117,14 +125,16 @@ lg=model('retail_logistics','Retail Logistics',['ShipmentID','CustomerID','Shipm
 lg['extra_fks']=[('CarrierID','Carriers','CarrierID')]
 MODELS.append(lg)
 
-# Retail inventory: a movement ledger reconciled to warehouse/product snapshots.
-iv_warehouses=master('Warehouses','WarehouseID','WarehouseName','Inventory locations; each warehouse has many stock movements and product balances.')
-iv_products=entity('Products','ProductID',[col('ProductName','nvarchar(80)','NOT NULL'),col('SKU','varchar(20)','NOT NULL'),col('UnitCost','decimal(12,2)','NOT NULL')],[[i,f'Inventory product {i}',f'INV-SKU-{i}',i*10] for i in range(1,6)],unique=['SKU'],checks=['UnitCost > 0'],purpose='Retail stock catalog; this training snapshot uses a fixed unit cost for valuation.')
-iv_suppliers=entity('Suppliers','SupplierID',[col('SupplierName','nvarchar(80)','NOT NULL'),col('SupplierCode','varchar(20)','NOT NULL'),col('LeadTimeDays','int','NOT NULL')],[[i,f'Inventory supplier {i}',f'INV-SUP-{i}',i+1] for i in range(1,6)],unique=['SupplierCode'],checks=['LeadTimeDays >= 0'],purpose='Supplier provenance recorded on every movement; outbound movements retain the originating supplier.')
-balances=entity('StockBalances','BalanceID',[col('WarehouseID','int','NOT NULL'),col('ProductID','int','NOT NULL'),col('OpeningQuantity','int','NOT NULL'),col('QuantityOnHand','int','NOT NULL'),col('ReorderLevel','int','NOT NULL')],[[1,1,1,10,11,10],[2,1,2,10,8,10],[3,1,3,10,7,10],[4,2,3,10,13,10],[5,2,4,10,18,10],[6,3,1,10,9,10],[7,3,2,10,12,10],[8,4,3,10,13,10],[9,4,4,10,6,10],[10,4,1,10,11,10],[11,4,2,10,12,10]],unique=['WarehouseID, ProductID'],checks=['OpeningQuantity >= 0','QuantityOnHand >= 0','ReorderLevel >= 0'],fks=[ref('WarehouseID','Warehouses','WarehouseID'),ref('ProductID','Products','ProductID')],purpose='One snapshot per warehouse/product. All seed movements occur after the opening snapshot; no triggers update this table automatically.')
-iv=model('retail_inventory','Retail Inventory',['MovementID','WarehouseID','MovementReference','MovementCategory','Status','MovementValue','MovedUnits','MovementDate','MovedAt','RecordedAt','Note','BackupNote','ParentMovementID'],('StockMovements','Warehouses','WarehouseName'),[iv_warehouses,iv_products,iv_suppliers,None,balances],'Reconcile receipts and issues against warehouse stock snapshots, value on-hand inventory and identify replenishment needs.')
-iv['extra_fks']=[('ProductID','Products','ProductID'),('SupplierID','Suppliers','SupplierID')]
-MODELS.append(iv)
+# E-commerce (Everyday Bazaar): a high-volume online marketplace; six connected tables.
+ec_customers=master('Customers','CustomerID','CustomerName','Shoppers; one customer can place many orders, and heavy buyers order almost every week.')
+ec_sellers=entity('Sellers','SellerID',[col('SellerName','nvarchar(80)','NOT NULL'),col('SellerCode','varchar(20)','NOT NULL'),col('Department','varchar(20)','NOT NULL')],[[1,'Seller 1','SEL-1','Electronics'],[2,'Seller 2','SEL-2','Home & Kitchen'],[3,'Seller 3','SEL-3','Fashion'],[4,'Seller 4','SEL-4','Books'],[5,'Unused seller','SEL-5','Toys & Games']],unique=['SellerCode'],purpose='Third-party sellers; each sells in one department and fulfils its own orders.')
+ec_products=entity('Products','ProductID',[col('ProductName','nvarchar(80)','NOT NULL'),col('SKU','varchar(20)','NOT NULL'),col('UnitPrice','decimal(12,2)','NOT NULL'),col('Department','varchar(20)',"NOT NULL DEFAULT ('General')")],[[1,'Wireless earbuds','EB-SKU-1',25,'Electronics'],[2,'USB-C charger','EB-SKU-2',10,'Electronics'],[3,'French press','EB-SKU-3',50,'Home & Kitchen'],[4,'Rain jacket','EB-SKU-4',40,'Fashion'],[5,'Unused product','EB-SKU-5',15,'Books']],unique=['SKU'],checks=['UnitPrice > 0'],purpose='Catalog listing price; the price actually charged is kept on each order item.')
+ec_items=entity('OrderItems','OrderItemID',[col('OrderID','int','NOT NULL'),col('ProductID','int','NOT NULL'),col('Quantity','int','NOT NULL'),col('UnitPrice','decimal(12,2)','NOT NULL')],[[1,1,1,2,25],[2,1,2,5,10],[3,2,3,4,50],[4,3,4,5,40],[5,5,1,2,25],[6,6,3,6,50]],unique=['OrderID, ProductID'],checks=['Quantity > 0','UnitPrice >= 0'],fks=[ref('OrderID','Orders','OrderID'),ref('ProductID','Products','ProductID')],purpose='Lines of an order; UnitPrice is the price charged, after any deal discount.')
+ec_payments=entity('Payments','PaymentID',[col('OrderID','int','NOT NULL'),col('PaymentMethod','varchar(10)','NOT NULL'),col('PaidAmount','decimal(12,2)','NOT NULL'),col('PaidAt','datetime2(3)','NOT NULL')],[[1,1,'GiftCard',40,'2024-01-01T12:31:00'],[2,1,'Card',60,'2024-01-01T12:31:04'],[3,2,'Wallet',200,'2024-01-02T12:31:00'],[4,3,'Card',100,'2024-01-02T12:32:00'],[5,6,'COD',300,'2024-02-13T10:00:00']],checks=["PaymentMethod IN ('Card','Wallet','GiftCard','COD')",'PaidAmount > 0'],fks=[ref('OrderID','Orders','OrderID')],purpose='Payments per order: an order can be split between a gift card and a card, or be unpaid.')
+ec=model('ecommerce','E-commerce',['OrderID','CustomerID','OrderReference','SalesChannel','OrderStatus','OrderTotal','ItemCount','OrderDate','PlacedAt','RecordedAt','Note','BackupNote','ParentOrderID'],('Orders','Customers','CustomerName'),[ec_customers,ec_sellers,ec_products,None,ec_items,ec_payments],'Run a marketplace with tens of thousands of orders a year: daily volume, sellers, order lines and split payments, reconciled without double-counting.')
+ec['extra_fks']=[('SellerID','Sellers','SellerID')]
+ec['focus']=['Customers','Sellers','Products','Orders','OrderItems']
+MODELS.append(ec)
 
 clients=entity('Clients','ClientID',[col('ClientName','nvarchar(80)','NOT NULL'),col('ClientReference','varchar(20)','NOT NULL'),col('Email','varchar(100)','NOT NULL')],[[i,f'Investor {i}',f'CLIENT-{i}',f'investor{i}@example.test'] for i in range(1,6)],unique=['ClientReference','Email'],purpose='Synthetic individual brokerage clients; each can hold multiple accounts.')
 securities=entity('Securities','SecurityID',[col('SecurityName','nvarchar(80)','NOT NULL'),col('Symbol','varchar(20)','NOT NULL'),col('AssetClass','varchar(10)','NOT NULL')],[[1,'Training Equity Alpha','DEMO-A','Stock'],[2,'Training Equity Beta','DEMO-B','Stock'],[3,'Training Fund Gamma','DEMO-C','ETF'],[4,'Training Fund Delta','DEMO-D','ETF'],[5,'Unused Training Equity','DEMO-E','Stock']],unique=['Symbol'],checks=["AssetClass IN ('Stock','ETF')"],purpose='Fictitious stock and ETF instruments with unique symbols.')
@@ -159,10 +169,23 @@ for m in MODELS:
     facttable=entity(fact,mp['RecordID'],columns[1:],rows,unique=[mp['Label']],checks=[f"{mp['Category']} IN ('A','B','C')",f"{mp['Status']} IN ('Open','Closed','Pending')",f"{mp['Amount']} >= 0",f"{mp['Quantity']} > 0",f"{mp['ParentID']} IS NULL OR {mp['ParentID']} <> {mp['RecordID']}"],fks=fks,purpose='The main business event; linked to its master and optionally to a related earlier event. The parent link is for teaching hierarchy traversal, not a guarantee of an acyclic graph.')
     facttable['columns'][4]['rule']="NOT NULL DEFAULT ('Open')"
     m['tables'][m['tables'].index(None)]=facttable
-    if m['slug']=='retail_inventory':
+    if m['slug']=='retail_supply_chain':
         facttable['columns'].append(col('Direction','varchar(3)','NOT NULL'))
         facttable['checks'].append("Direction IN ('IN','OUT')")
         for i,row in enumerate(facttable['rows']):row.append('OUT' if i%3==1 else 'IN')
+        # Made products (3 and 4) come from the Private Label plant; movement 3 receives production order 1.
+        names=[c['name'] for c in facttable['columns']]
+        pi,si,di,qi=names.index('ProductID'),names.index('SupplierID'),names.index('Direction'),names.index(mp['Quantity'])
+        for row in facttable['rows']:
+            if row[pi] in (3,4):row[si]=4
+        facttable['columns'].append(col('ProductionOrderID','int','NULL'))
+        facttable['fks'].append(ref('ProductionOrderID','ProductionOrders','ProductionOrderID'))
+        for row in facttable['rows']:row.append(1 if row[0]==3 else None)
+        net={}
+        for row in facttable['rows']:
+            key=(row[1],row[pi]);net[key]=net.get(key,0)+(row[qi] if row[di]=='IN' else -row[qi])
+        balances=next(t for t in m['tables'] if t['name']=='StockBalances')
+        balances['rows']=[[i,w,p,10,10+n,10] for i,((w,p),n) in enumerate(sorted(net.items())+[((1,5),0)],1)]
     if m['slug']=='brokerage':
         facttable['columns'].append(col('Side','varchar(3)',"NOT NULL DEFAULT ('Buy')"))
         facttable['checks'].append("Side = 'Buy'")
@@ -201,8 +224,8 @@ def table_brief(m,t):
 def create_setup():
     (ROOT/'domains').mkdir(exist_ok=True)
     allsql=['-- Revised five-table projects. Use a NEW disposable database, not the old two-table fixture.', 'SET NOCOUNT ON;', 'SET XACT_ABORT ON;', 'BEGIN TRANSACTION;', 'BEGIN TRY']
-    reset=[f'-- Drops only the {len(MODELS)*5} named project tables. Deliberate reset in your training database only.', 'SET XACT_ABORT ON;','BEGIN TRANSACTION;','BEGIN TRY']
-    verify=[f'-- Read-only baseline checks for the {len(MODELS)*5}-table projects.', 'SET NOCOUNT ON;']
+    reset=[f'-- Drops only the {sum(len(m["tables"]) for m in MODELS)} named project tables. Deliberate reset in your training database only.', 'SET XACT_ABORT ON;','BEGIN TRANSACTION;','BEGIN TRY']
+    verify=[f'-- Read-only baseline checks for the {sum(len(m["tables"]) for m in MODELS)}-table projects.', 'SET NOCOUNT ON;']
     for m in MODELS:
         s=m['slug']; directory=ROOT/'domains'/s;directory.mkdir(exist_ok=True)
         schema=f"IF SCHEMA_ID(N'{s}') IS NULL EXEC(N'CREATE SCHEMA [{s}] AUTHORIZATION dbo;');"
@@ -210,7 +233,7 @@ def create_setup():
         create=[ddl(m,t) for t in m['tables']]; seed=[insert(m,t) for t in m['tables']]
         allsql += [schema]+guards+create+seed
         (directory/'schema_solution.sql').write_text('-- Instructor schema answer. Execute in an empty training database.\nSET XACT_ABORT ON;\nBEGIN TRANSACTION;\nBEGIN TRY\n'+schema+'\n'+'\n'.join(guards+create)+'\nCOMMIT TRANSACTION;\nEND TRY\nBEGIN CATCH\n IF @@TRANCOUNT>0 ROLLBACK TRANSACTION;\n THROW;\nEND CATCH;\n',encoding='utf-8')
-        (directory/'seed.sql').write_text('-- Load only AFTER all five tables are created; run once.\nSET XACT_ABORT ON;\nBEGIN TRANSACTION;\nBEGIN TRY\n'+'\n'.join(seed)+'\nCOMMIT TRANSACTION;\nEND TRY\nBEGIN CATCH\n IF @@TRANCOUNT>0 ROLLBACK TRANSACTION;\n THROW;\nEND CATCH;\n',encoding='utf-8')
+        (directory/'seed.sql').write_text(f'-- Load only AFTER all {table_count(m)} tables are created; run once.\nSET XACT_ABORT ON;\nBEGIN TRANSACTION;\nBEGIN TRY\n'+'\n'.join(seed)+'\nCOMMIT TRANSACTION;\nEND TRY\nBEGIN CATCH\n IF @@TRANCOUNT>0 ROLLBACK TRANSACTION;\n THROW;\nEND CATCH;\n',encoding='utf-8')
         for t in reversed(m['tables']): reset.append(f'DROP TABLE IF EXISTS {qname(m,t)};')
         for t in m['tables']:
             verify.append(f"IF (SELECT COUNT(*) FROM {qname(m,t)}) <> {len(t['rows'])} THROW 51000, '{s}.{t['name']}: row count mismatch', 1;")
@@ -236,36 +259,65 @@ def fresh_row(t):
         values[idx]='NEW-100' if isinstance(values[idx],str) else 5
     return values
 
+NUMBER_WORDS={5:'five',6:'six',7:'seven',8:'eight',9:'nine',10:'ten'}
+
+def table_count(m):
+    return NUMBER_WORDS.get(len(m['tables']),str(len(m['tables'])))
+
+def build_steps(m):
+    """Split every table into five dependency-ordered build steps (one table per step for five-table domains)."""
+    n=len(m['tables']);sizes=[n//5+(1 if i<n%5 else 0) for i in range(5)];steps=[];start=0
+    for size in sizes:
+        steps.append(m['tables'][start:start+size]);start+=size
+    return steps
+
+def focus_tables(m):
+    """The five tables used for per-table drills (Alter, Drop, DML and constraints)."""
+    names=m.get('focus')
+    return [t for t in m['tables'] if t['name'] in names] if names else list(m['tables'])
+
+def create_prompt(m,t):
+    qn=qname(m,t);key=t['key']
+    lines=[f"Create the `{qn}` table with these columns:", '',
+           '| Column | Data type | Constraints |', '|---|---|---|']
+    for c in t['columns']:
+        rules=[c['rule'] or 'NULL allowed']
+        if c['name']==key: rules.append('PRIMARY KEY')
+        if c['name'] in t['unique']: rules.append('UNIQUE')
+        lines.append(f"| {c['name']} | {c['type']} | {'; '.join(rules)} |")
+    rules=[]
+    for u in t['unique']:
+        if ',' in u: rules.append(f"Add UNIQUE on (`{u}`) together.")
+    for check in t['checks']:
+        rules.append(f"Add CHECK (`{check}`).")
+    for fk in t['fks']:
+        rules.append(f"Add a FOREIGN KEY from `{fk['column']}` to `[{m['slug']}].[{fk['parent']}]({fk['key']})`.")
+    if rules:
+        lines+=['', 'Add these constraints:', '']+[f'{i}. {rule}' for i,rule in enumerate(rules,1)]
+    if t['fks']:
+        lines+=['', 'For foreign keys, use NO ACTION on delete and update.']
+    return lines
+
 def relational_lessons(add,domains):
     for v in range(5):
         for d,m in zip(domains,MODELS):
-            t=m['tables'][v];qn=qname(m,t);key=t['key'];name=t['name']
+            group=build_steps(m)[v]
             link=f"[the {m['title']} project brief](../domains/{m['slug']}/README.md)"
-            earlier=', '.join(x['name'] for x in m['tables'][:v]) or 'none'
-            lines=[f"Create the `{qn}` table with these columns:", '',
-                   '| Column | Data type | Constraints |', '|---|---|---|']
-            for c in t['columns']:
-                rules=[c['rule'] or 'NULL allowed']
-                if c['name']==key: rules.append('PRIMARY KEY')
-                if c['name'] in t['unique']: rules.append('UNIQUE')
-                lines.append(f"| {c['name']} | {c['type']} | {'; '.join(rules)} |")
-            rules=[]
-            for u in t['unique']:
-                if ',' in u: rules.append(f"Add UNIQUE on (`{u}`) together.")
-            for check in t['checks']:
-                rules.append(f"Add CHECK (`{check}`).")
-            for fk in t['fks']:
-                rules.append(f"Add a FOREIGN KEY from `{fk['column']}` to `[{m['slug']}].[{fk['parent']}]({fk['key']})`.")
-            if rules:
-                lines+=['', 'Add these constraints:', '']+[f'{i}. {rule}' for i,rule in enumerate(rules,1)]
-            if t['fks']:
-                lines+=['', 'For foreign keys, use NO ACTION on delete and update.']
+            lines=[]
+            for t in group:
+                if lines: lines+=['', '---', '']
+                lines+=create_prompt(m,t)
             if v==0:
-                lines+=['', f"Before creating this table, create the `{m['slug']}` schema if it does not exist. A schema groups related tables."]
-            lines+=['', f"Table {v+1} of 5. Create the tables in the order listed. Keep them for the next exercises."]
+                lines+=['', f"Before creating {'this table' if len(group)==1 else 'these tables'}, create the `{m['slug']}` schema if it does not exist. A schema groups related tables."]
+            if len(m['tables'])==5:
+                lines+=['', f"Table {v+1} of 5. Create the tables in the order listed. Keep them for the next exercises."]
+            else:
+                lines+=['', f"Step {v+1} of 5 ({len(m['tables'])} tables in all). Create the tables in the order listed. Keep them for the next exercises."]
             prompt='\n'.join(lines)
-            sql=(f"IF SCHEMA_ID(N'{m['slug']}') IS NULL EXEC(N'CREATE SCHEMA [{m['slug']}] AUTHORIZATION dbo;');\n" if v==0 else '')+ddl(m,t)
-            add('DDL','Create',d,v,prompt,sql,f"{name} exists with PK {key}, {len(t['fks'])} FK(s), {len(t['unique'])} UNIQUE rule(s) and {len(t['checks'])} CHECK rule(s). Use the metadata checks in the project brief; matching column names alone is insufficient.")
+            sql=(f"IF SCHEMA_ID(N'{m['slug']}') IS NULL EXEC(N'CREATE SCHEMA [{m['slug']}] AUTHORIZATION dbo;');\n" if v==0 else '')+'\n'.join(ddl(m,t) for t in group)
+            check=' '.join(f"{t['name']} exists with PK {t['key']}, {len(t['fks'])} FK(s), {len(t['unique'])} UNIQUE rule(s) and {len(t['checks'])} CHECK rule(s)." for t in group)
+            add('DDL','Create',d,v,prompt,sql,check[:-1]+'. Use the metadata checks in the project brief; matching column names alone is insufficient.')
+            t=focus_tables(m)[v];qn=qname(m,t);key=t['key'];name=t['name']
             textcol=next((c for c in t['columns'] if 'char' in c['type']),t['columns'][1])
             changes=[('add nullable ContactPhone varchar(30)',f'ALTER TABLE {qn} ADD ContactPhone varchar(30) NULL;'),
                      (f"widen {textcol['name']} to nvarchar(120) while keeping NOT NULL",f"ALTER TABLE {qn} ALTER COLUMN {textcol['name']} nvarchar(120) NOT NULL;"),
@@ -292,9 +344,16 @@ def relational_lessons(add,domains):
             field=candidate['name'];expr=f'{field}+1' if candidate['type'] in ['int','decimal(12,2)'] else "N'Revised name'"
             add('DML','Update',d,v,f'**{m["title"]}: Change one row in {name}**\n\nUse `{qn}` and your earlier sample data.\n\n1. Display the row where `{key} = 1`.\n3. Change only this row. Set `{field}` to `{expr}`.\n4. Immediately run `SELECT @@ROWCOUNT`. It should show 1 changed row.\n5. Display the row again to see the change.\n\n**Explain:** What could happen if you leave out the WHERE condition?',transaction(f'SELECT * FROM {qn} WHERE {key}=1;\nUPDATE {qn} SET {field}={expr} WHERE {key}=1;\nSELECT @@ROWCOUNT AS UpdatedRows;\nSELECT * FROM {qn} WHERE {key}=1;'),'UpdatedRows=1. Only the requested column changes and all constraints remain satisfied. Rollback restores the original value.')
             add('DML','Delete',d,v,f'**{m["title"]}: Delete a practice row from {name}**\n\nUse `{qn}` and your earlier sample data.\n\n**New row values:** `{", ".join(literal(x) for x in vals)}`. Use the column order in your domain guide.\n\n2. Insert the new row above with `{key} = 100`.\n3. Delete only that row. Keep the original sample rows.\n4. Immediately run `SELECT @@ROWCOUNT` to check that 1 row was deleted.\n5. Search for `{key} = 100` again. You should find no row. Check that the original {len(t["rows"])} rows are still there. Keep the foreign key rules turned on.',transaction(insert(m,t,[vals])+f'\nDELETE FROM {qn} WHERE {key}=100;\nSELECT @@ROWCOUNT AS DeletedRows;\nSELECT COUNT(*) AS OriginalRowCount FROM {qn};\nSELECT * FROM {qn} WHERE {key}=100;'),f'DeletedRows=1; original count={len(t["rows"])}; the final ID=100 query is empty. A referenced original parent would require a different deletion plan.')
-            inspect=f"SELECT c.name, TYPE_NAME(c.user_type_id) AS TypeName, c.max_length, c.is_nullable FROM sys.columns c WHERE c.object_id=OBJECT_ID(N'{m['slug']}.{name}') ORDER BY c.column_id;\nSELECT name, is_disabled, is_not_trusted FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID(N'{m['slug']}.{name}');"
-            add('DATA_SETUP','Create tables',d,v,f'{m["title"]}: After building {name} from the DDL Create assignment, verify its column types/nullability and FK metadata using sys.columns and sys.foreign_keys. Compare with {link}; identify its primary key and insert dependencies.',inspect,f'{len(t["columns"])} columns, {len(t["fks"])} foreign keys, all enabled and trusted. This verifies the already-created table; do not create a second copy.')
-            add('DATA_SETUP','Insert data into the tables',d,v,f'{m["title"]}: Load the {len(t["rows"])} sample rows for {name} from {link} into the EMPTY table, after loading its parent tables. Use explicit column lists. Keep the data for DQL, joins and the capstone. Verify count and key values; do not run this if the complete seed script was already used.',insert(m,t)+f'\nSELECT COUNT(*) AS LoadedRows FROM {qn};\nSELECT * FROM {qn} ORDER BY {key};',f'LoadedRows={len(t["rows"])}. PKs are unique and every non-NULL FK has a matching parent. A repeated load fails rather than silently duplicating data.')
+            def inspect(t):
+                return f"SELECT c.name, TYPE_NAME(c.user_type_id) AS TypeName, c.max_length, c.is_nullable FROM sys.columns c WHERE c.object_id=OBJECT_ID(N'{m['slug']}.{t['name']}') ORDER BY c.column_id;\nSELECT name, is_disabled, is_not_trusted FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID(N'{m['slug']}.{t['name']}');"
+            names=' and '.join(t['name'] for t in group)
+            if len(group)==1:
+                t=group[0]
+                add('DATA_SETUP','Create tables',d,v,f'{m["title"]}: After building {t["name"]} from the DDL Create assignment, verify its column types/nullability and FK metadata using sys.columns and sys.foreign_keys. Compare with {link}; identify its primary key and insert dependencies.',inspect(t),f'{len(t["columns"])} columns, {len(t["fks"])} foreign keys, all enabled and trusted. This verifies the already-created table; do not create a second copy.')
+                add('DATA_SETUP','Insert data into the tables',d,v,f'{m["title"]}: Load the {len(t["rows"])} sample rows for {t["name"]} from {link} into the EMPTY table, after loading its parent tables. Use explicit column lists. Keep the data for DQL, joins and the capstone. Verify count and key values; do not run this if the complete seed script was already used.',insert(m,t)+f'\nSELECT COUNT(*) AS LoadedRows FROM {qname(m,t)};\nSELECT * FROM {qname(m,t)} ORDER BY {t["key"]};',f'LoadedRows={len(t["rows"])}. PKs are unique and every non-NULL FK has a matching parent. A repeated load fails rather than silently duplicating data.')
+            else:
+                add('DATA_SETUP','Create tables',d,v,f'{m["title"]}: After building {names} from the DDL Create assignment, verify each table\'s column types/nullability and FK metadata using sys.columns and sys.foreign_keys. Compare with {link}; identify each primary key and insert dependencies.','\n'.join(inspect(t) for t in group),' '.join(f'{t["name"]}: {len(t["columns"])} columns, {len(t["fks"])} foreign keys.' for t in group)+' All foreign keys are enabled and trusted. This verifies the already-created tables; do not create second copies.')
+                add('DATA_SETUP','Insert data into the tables',d,v,f'{m["title"]}: Load the sample rows for {names} ('+', '.join(f'{len(t["rows"])} rows' for t in group)+f') from {link} into the EMPTY tables, in that order and after loading their parent tables. Use explicit column lists. Keep the data for DQL, joins and the capstone. Verify counts and key values; do not run this if the complete seed script was already used.','\n'.join(insert(m,t)+f'\nSELECT COUNT(*) AS LoadedRows FROM {qname(m,t)};\nSELECT * FROM {qname(m,t)} ORDER BY {t["key"]};' for t in group),' '.join(f'{t["name"]} LoadedRows={len(t["rows"])}.' for t in group)+' PKs are unique and every non-NULL FK has a matching parent. A repeated load fails rather than silently duplicating data.')
 
 def rejection(sql,error):
     return f"BEGIN TRY\n {sql}\n THROW 51001, 'Invalid value was unexpectedly accepted', 1;\nEND TRY\nBEGIN CATCH\n IF ERROR_NUMBER()<>{error} THROW;\n SELECT ERROR_NUMBER() AS ExpectedError;\nEND CATCH;"
@@ -303,7 +362,7 @@ def constraint_lessons(add,domains):
     for sub in ['Not Null','Unique','Check','Primary key','Foreign key']:
         for v in range(5):
             for d,m in zip(domains,MODELS):
-                t=m['tables'][v];qn=qname(m,t);key=t['key']
+                t=focus_tables(m)[v];qn=qname(m,t);key=t['key']
                 if sub=='Foreign key':
                     edges=[(table,f) for table in m['tables'] for f in table['fks']]
                     t,f=edges[v];qn=qname(m,t);key=t['key'];column=f['column']
@@ -397,21 +456,21 @@ def project_reports(m):
 
 def additional_reports(m):
     s=m['slug']
-    if s=='retail_manufacturing':
+    if s=='retail_supply_chain':
         return [
-            ('Production consumption trace','For each material-usage row, show production reference, product name, material name, actual quantity and recipe quantity per unit. Join all five tables; preserve usage with no matching recipe using a LEFT JOIN to BillOfMaterials.',"SELECT u.UsageID,o.ProductionReference,p.ProductName,m.MaterialName,u.QuantityUsed,b.QuantityPerUnit FROM retail_manufacturing.MaterialUsage u JOIN retail_manufacturing.ProductionOrders o ON o.ProductionOrderID=u.ProductionOrderID JOIN retail_manufacturing.Products p ON p.ProductID=o.ProductID JOIN retail_manufacturing.Materials m ON m.MaterialID=u.MaterialID LEFT JOIN retail_manufacturing.BillOfMaterials b ON b.ProductID=o.ProductID AND b.MaterialID=u.MaterialID ORDER BY u.UsageID;",'6 rows. Usage 3 is 4.5 units of Fabric for a product requiring 2 units of Fabric per finished unit.'),
-            ('Recipe versus actual','For every production order and recipe material, show planned units, required material quantity, actual usage (zero when missing) and ActualMinusRequired. Multiply recipe quantity by PlannedUnits; aggregate usage at order/material grain before joining.',";WITH Used AS (SELECT ProductionOrderID,MaterialID,SUM(QuantityUsed) AS ActualQuantity FROM retail_manufacturing.MaterialUsage GROUP BY ProductionOrderID,MaterialID) SELECT o.ProductionOrderID,b.MaterialID,o.PlannedUnits,o.PlannedUnits*b.QuantityPerUnit AS RequiredQuantity,COALESCE(u.ActualQuantity,0) AS ActualQuantity,COALESCE(u.ActualQuantity,0)-o.PlannedUnits*b.QuantityPerUnit AS ActualMinusRequired FROM retail_manufacturing.ProductionOrders o JOIN retail_manufacturing.BillOfMaterials b ON b.ProductID=o.ProductID LEFT JOIN Used u ON u.ProductionOrderID=o.ProductionOrderID AND u.MaterialID=b.MaterialID ORDER BY o.ProductionOrderID,b.MaterialID;",'18 rows. Order 2/material 1: planned units=2, required=4, actual=4.5, difference=0.5. Negative values on unstarted orders indicate unrecorded consumption, not necessarily a favorable completed-production variance.'),
-            ('Materials outside recipes','Return materials not used in any bill of materials. Explain how this differs from a recipe material that has not yet been consumed.',"SELECT m.MaterialID,m.MaterialName FROM retail_manufacturing.Materials m WHERE NOT EXISTS(SELECT 1 FROM retail_manufacturing.BillOfMaterials b WHERE b.MaterialID=m.MaterialID) ORDER BY m.MaterialID;",'Material 5 only. Material 4 is in a recipe even though no actual usage is recorded.')]
+            ('Movement provenance','Show every stock movement with warehouse, product, sourcing, originating supplier, direction, moved units and the matching current on-hand balance using five tables. Join balances on BOTH warehouse and product.',"SELECT m.MovementID,w.WarehouseName,p.ProductName,p.Sourcing,s.SupplierName,m.Direction,m.MovedUnits,b.QuantityOnHand FROM retail_supply_chain.StockMovements m JOIN retail_supply_chain.Warehouses w ON w.WarehouseID=m.WarehouseID JOIN retail_supply_chain.Products p ON p.ProductID=m.ProductID JOIN retail_supply_chain.Suppliers s ON s.SupplierID=m.SupplierID LEFT JOIN retail_supply_chain.StockBalances b ON b.WarehouseID=m.WarehouseID AND b.ProductID=m.ProductID ORDER BY m.MovementID;",'12 rows; every seed movement resolves to one warehouse/product snapshot. Movements 3, 4, 7, 8, 11 and 12 are Made products supplied by the Private Label Plant. A warehouse-only join to StockBalances would multiply rows.'),
+            ('Factory to shelf','For every production order show its reference, product name, status, planned units, required material units (recipe quantity times PlannedUnits), material units used and units received into stock (IN movements that point to the order). Aggregate the recipe, the usage and the receipts separately before joining; missing values count as zero.',";WITH Recipe AS (SELECT o.ProductionOrderID,SUM(o.PlannedUnits*b.QuantityPerUnit) AS RequiredUnits FROM retail_supply_chain.ProductionOrders o JOIN retail_supply_chain.BillOfMaterials b ON b.ProductID=o.ProductID GROUP BY o.ProductionOrderID), Used AS (SELECT ProductionOrderID,SUM(QuantityUsed) AS UsedUnits FROM retail_supply_chain.MaterialUsage GROUP BY ProductionOrderID), Received AS (SELECT ProductionOrderID,SUM(MovedUnits) AS ReceivedUnits FROM retail_supply_chain.StockMovements WHERE Direction='IN' AND ProductionOrderID IS NOT NULL GROUP BY ProductionOrderID) SELECT o.ProductionReference,p.ProductName,o.ProductionStatus,o.PlannedUnits,COALESCE(r.RequiredUnits,0) AS RequiredUnits,COALESCE(u.UsedUnits,0) AS UsedUnits,COALESCE(x.ReceivedUnits,0) AS ReceivedUnits FROM retail_supply_chain.ProductionOrders o JOIN retail_supply_chain.Products p ON p.ProductID=o.ProductID LEFT JOIN Recipe r ON r.ProductionOrderID=o.ProductionOrderID LEFT JOIN Used u ON u.ProductionOrderID=o.ProductionOrderID LEFT JOIN Received x ON x.ProductionOrderID=o.ProductionOrderID ORDER BY o.ProductionOrderID;",'4 rows. PO-1: required 30, used 30.5 (0.5 over the recipe) and 3 units received so far. PO-2 is Completed but nothing is received yet. PO-3 has used 8 of 24 required units; PO-4 is Planned with no usage. Joining recipe, usage and receipts before aggregating would multiply the totals.'),
+            ('Ledger reconciliation','For each warehouse/product snapshot, show opening quantity, signed net movement (IN positive, OUT negative), expected on-hand, stored on-hand and stored-minus-expected discrepancy. Include snapshots with no movements. All supplied movements are after the opening snapshot.',";WITH Net AS (SELECT WarehouseID,ProductID,SUM(CASE Direction WHEN 'IN' THEN MovedUnits ELSE -MovedUnits END) AS NetUnits FROM retail_supply_chain.StockMovements GROUP BY WarehouseID,ProductID) SELECT b.WarehouseID,b.ProductID,b.OpeningQuantity,COALESCE(n.NetUnits,0) AS NetUnits,b.OpeningQuantity+COALESCE(n.NetUnits,0) AS ExpectedOnHand,b.QuantityOnHand,b.QuantityOnHand-(b.OpeningQuantity+COALESCE(n.NetUnits,0)) AS Discrepancy FROM retail_supply_chain.StockBalances b LEFT JOIN Net n ON n.WarehouseID=b.WarehouseID AND n.ProductID=b.ProductID ORDER BY b.WarehouseID,b.ProductID;",'12 rows; all discrepancies=0. Warehouse 2/product 4: opening=10, net=8, on-hand=18. Warehouse 1/product 5 has no movements (net 0). Total opening=120 and total on-hand=130.')]
+    if s=='ecommerce':
+        return [
+            ('Order detail','Show order ID, customer name, seller name, product name, quantity, charged unit price and line total for every order line.',"SELECT o.OrderID,c.CustomerName,s.SellerName,p.ProductName,i.Quantity,i.UnitPrice,i.Quantity*i.UnitPrice AS LineTotal FROM ecommerce.Orders o JOIN ecommerce.Customers c ON c.CustomerID=o.CustomerID JOIN ecommerce.Sellers s ON s.SellerID=o.SellerID JOIN ecommerce.OrderItems i ON i.OrderID=o.OrderID JOIN ecommerce.Products p ON p.ProductID=i.ProductID ORDER BY o.OrderID,i.OrderItemID;",'6 rows; line totals sum to 850. Orders 1 and 5 are Seller 1 (Electronics); the charged UnitPrice is used, not the catalog price.'),
+            ('Settlement check','For all orders, return OrderID, OrderTotal, line total, paid total and outstanding amount. An order can be split between a gift card and a card, so aggregate lines and payments separately before joining. Preserve unknown OrderTotal; missing lines/payments count as zero.',";WITH Lines AS (SELECT OrderID,SUM(Quantity*UnitPrice) AS LineTotal FROM ecommerce.OrderItems GROUP BY OrderID), Paid AS (SELECT OrderID,SUM(PaidAmount) AS PaidTotal FROM ecommerce.Payments GROUP BY OrderID) SELECT o.OrderID,o.OrderTotal,COALESCE(l.LineTotal,0) AS LineTotal,COALESCE(p.PaidTotal,0) AS PaidTotal,o.OrderTotal-COALESCE(p.PaidTotal,0) AS Outstanding FROM ecommerce.Orders o LEFT JOIN Lines l ON l.OrderID=o.OrderID LEFT JOIN Paid p ON p.OrderID=o.OrderID ORDER BY o.OrderID;",'12 rows. Order 1 is split between a gift card (40) and a card (60): paid 100, outstanding 0. Order 3 outstanding=100, order 5 is unpaid (outstanding 50) and order 4 keeps NULL outstanding because its OrderTotal is unknown.'),
+            ('Seller activity','Return every seller with its department, order count, known order revenue and distinct customers, including sellers with no orders (zero counts, zero revenue).',"SELECT s.SellerID,s.SellerName,s.Department,COUNT(o.OrderID) AS OrderCount,COALESCE(SUM(o.OrderTotal),0) AS Revenue,COUNT(DISTINCT o.CustomerID) AS DistinctCustomers FROM ecommerce.Sellers s LEFT JOIN ecommerce.Orders o ON o.SellerID=s.SellerID GROUP BY s.SellerID,s.SellerName,s.Department ORDER BY s.SellerID;",'5 rows. Seller 2 has the highest revenue (580); Seller 4 has 3 orders from 2 distinct customers; the unused seller shows zero orders and zero revenue.')]
     if s=='retail_logistics':
         return [
             ('Latest package location','Show every package, its shipment ID, customer name, carrier name, latest tracking status and scan time. Join all five tables, choosing the latest scan by ScanTime descending then TrackingEventID descending. Keep packages with no scan.',";WITH Latest AS (SELECT PackageID,EventStatus,ScanTime,ROW_NUMBER() OVER(PARTITION BY PackageID ORDER BY ScanTime DESC,TrackingEventID DESC) AS rn FROM retail_logistics.TrackingEvents) SELECT p.PackageID,h.ShipmentID,c.CustomerName,r.CarrierName,l.EventStatus,l.ScanTime FROM retail_logistics.ShipmentPackages p JOIN retail_logistics.Shipments h ON h.ShipmentID=p.ShipmentID JOIN retail_logistics.Customers c ON c.CustomerID=h.CustomerID JOIN retail_logistics.Carriers r ON r.CarrierID=h.CarrierID LEFT JOIN Latest l ON l.PackageID=p.PackageID AND l.rn=1 ORDER BY p.PackageID;",'5 rows. Package 1 is Delivered; package 2 is InTransit; package 5 has NULL status/time.'),
             ('Delivered late','Find packages whose first Delivered scan occurred on a calendar date after PromisedDate. Show package ID, promised date and first delivery time. A package without a Delivered scan must not be labeled delivered late.',";WITH Delivered AS (SELECT PackageID,MIN(ScanTime) AS DeliveredAt FROM retail_logistics.TrackingEvents WHERE EventStatus='Delivered' GROUP BY PackageID) SELECT p.PackageID,p.PromisedDate,d.DeliveredAt FROM retail_logistics.ShipmentPackages p JOIN Delivered d ON d.PackageID=p.PackageID WHERE CONVERT(date,d.DeliveredAt)>p.PromisedDate ORDER BY p.PackageID;",'Package 3 only: promised 2024-01-04, first delivered 2024-01-05. Package 1 was delivered on its promised date.'),
             ('Freight and package reconciliation','Return all shipments with recorded freight charge, declared package count and actual package count. Pre-aggregate package rows; do not join raw tracking scans into monetary totals.',";WITH Packages AS (SELECT ShipmentID,COUNT(*) AS ActualPackages FROM retail_logistics.ShipmentPackages GROUP BY ShipmentID) SELECT s.ShipmentID,s.FreightCharge,s.DeclaredPackages,COALESCE(p.ActualPackages,0) AS ActualPackages FROM retail_logistics.Shipments s LEFT JOIN Packages p ON p.ShipmentID=s.ShipmentID ORDER BY s.ShipmentID;",'12 rows; known freight charges total 1700 once each. Shipment 1 declares 1 package but has 2 recorded packages: flag the mismatch rather than changing the seed.')]
-    if s=='retail_inventory':
-        return [
-            ('Movement provenance','Show every stock movement with warehouse, product, originating supplier, direction, moved units and the matching current on-hand balance using all five tables. Join balances on BOTH warehouse and product.',"SELECT m.MovementID,w.WarehouseName,p.ProductName,s.SupplierName,m.Direction,m.MovedUnits,b.QuantityOnHand FROM retail_inventory.StockMovements m JOIN retail_inventory.Warehouses w ON w.WarehouseID=m.WarehouseID JOIN retail_inventory.Products p ON p.ProductID=m.ProductID JOIN retail_inventory.Suppliers s ON s.SupplierID=m.SupplierID LEFT JOIN retail_inventory.StockBalances b ON b.WarehouseID=m.WarehouseID AND b.ProductID=m.ProductID ORDER BY m.MovementID;",'12 rows; every seed movement resolves to one warehouse/product snapshot. A warehouse-only join would multiply rows.'),
-            ('Ledger reconciliation','For each warehouse/product snapshot, show opening quantity, signed net movement (IN positive, OUT negative), expected on-hand, stored on-hand and stored-minus-expected discrepancy. Include snapshots with no movements. All supplied movements are after the opening snapshot.',";WITH Net AS (SELECT WarehouseID,ProductID,SUM(CASE Direction WHEN 'IN' THEN MovedUnits ELSE -MovedUnits END) AS NetUnits FROM retail_inventory.StockMovements GROUP BY WarehouseID,ProductID) SELECT b.WarehouseID,b.ProductID,b.OpeningQuantity,COALESCE(n.NetUnits,0) AS NetUnits,b.OpeningQuantity+COALESCE(n.NetUnits,0) AS ExpectedOnHand,b.QuantityOnHand,b.QuantityOnHand-(b.OpeningQuantity+COALESCE(n.NetUnits,0)) AS Discrepancy FROM retail_inventory.StockBalances b LEFT JOIN Net n ON n.WarehouseID=b.WarehouseID AND n.ProductID=b.ProductID ORDER BY b.WarehouseID,b.ProductID;",'11 rows; all discrepancies=0. Warehouse 2/product 4: opening=10, net=8, on-hand=18. Total opening=110 and total on-hand=120.'),
-            ('Replenishment and stock value','Find warehouse/product balances below ReorderLevel. Show warehouse ID, product name, on-hand units, reorder level, units needed to reach that level and current stock value at the product UnitCost.',"SELECT b.WarehouseID,p.ProductName,b.QuantityOnHand,b.ReorderLevel,b.ReorderLevel-b.QuantityOnHand AS UnitsToReorder,b.QuantityOnHand*p.UnitCost AS StockValue FROM retail_inventory.StockBalances b JOIN retail_inventory.Products p ON p.ProductID=b.ProductID WHERE b.QuantityOnHand<b.ReorderLevel ORDER BY b.WarehouseID,b.ProductID;",'4 rows: (warehouse,product)=(1,2),(1,3),(3,1),(4,4). Units to reorder are 2,3,1,4 respectively.')]
     if s=='brokerage':
         return [
             ('Client-to-execution audit','Join all five tables to show execution reference, client name, account number, security symbol, order ID, executed quantity, price and gross executed value.',"SELECT e.ExecutionReference,c.ClientName,a.AccountNumber,s.Symbol,o.OrderID,e.ExecutedQuantity,e.ExecutionPrice,e.ExecutedQuantity*e.ExecutionPrice AS GrossValue FROM brokerage.Executions e JOIN brokerage.TradeOrders o ON o.OrderID=e.OrderID JOIN brokerage.BrokerageAccounts a ON a.AccountID=o.AccountID JOIN brokerage.Clients c ON c.ClientID=a.ClientID JOIN brokerage.Securities s ON s.SecurityID=o.SecurityID ORDER BY e.ExecutionID;",'6 fills; gross executed values total 702.60. All clients and securities are fictitious.'),
@@ -424,7 +483,7 @@ def write_projects(records):
     for m in MODELS:
         directory=ROOT/'domains'/m['slug'];mp=m['map'];fact,master,pname=m['base']
         lines=[f'# {m["title"]}: connected SQL Server project','',m['business'],'',
-               '**Goal:** build and explain five related tables, prove that constraints protect data, safely change data and produce correct multi-table reports. There is no daily schedule. Advance after passing each checkpoint.','',
+               f'**Goal:** build and explain {table_count(m)} related tables, prove that constraints protect data, safely change data and produce correct multi-table reports. There is no daily schedule. Advance after passing each checkpoint.','',
                '## 1. Understand the relationships','',
                'A primary key identifies one row. A foreign key stores the identity of a related parent row. The parent must exist before inserting a non-NULL child reference. A UNIQUE key protects another business identifier; CHECK enforces a row-level rule; NOT NULL makes a value required.','',
                '```mermaid','erDiagram']
@@ -436,11 +495,11 @@ def write_projects(records):
                 lines.append(f'    {f["parent"]} {"|o" if optional else "||"}--o{{ {t["name"]} : "{f["column"]}"')
         lines += ['```','',
                   'Every FK uses NO ACTION. Delete children before a referenced parent, or redesign the business workflow explicitly. Root events have a NULL parent-event ID. The self-FK verifies parent existence, while a separate CHECK rejects self-parenting; these rules do not prevent longer cycles.','',
-                  '## 2. Build the five tables','',
+                  f'## 2. Build the {table_count(m)} tables','',
                   'Start in a new disposable SQL Server 2017+ database. Work in this order: **'+' → '.join(t['name'] for t in m['tables'])+'**. Use the DDL Create assignments linked below. Do not run the complete setup first if you are practicing CREATE.','']
         for t in m['tables']:
             lines += [f'### {t["name"]}', '',table_brief(m,t),'']
-        lines += ['**Checkpoint:** five tables exist; each has a PK; every specified FK is enabled and trusted. Explain the one-to-many relationships and the purpose of any composite UNIQUE key without reading the solution.','',
+        lines += [f'**Checkpoint:** {table_count(m)} tables exist; each has a PK; every specified FK is enabled and trusted. Explain the one-to-many relationships and the purpose of any composite UNIQUE key without reading the solution.','',
                   '## 3. Load and inspect sample data','',
                   'Use the Data Setup insert exercises in the same parent-before-child order. Alternatively, after completing all CREATE tasks, run [seed.sql](seed.sql) once. Do not both run seed.sql and repeat the inserts. The instructor-only full answer is [schema_solution.sql](schema_solution.sql).','',
                   'The main event table contains training codes A/B/C and statuses Open/Closed/Pending, not a full production workflow. Its reference strings deliberately include case and whitespace for cleaning exercises. Monetary totals are recorded event values; line details exist only for selected events to support missing-detail and reconciliation reports. NULL means unknown, not zero.','']
@@ -461,12 +520,12 @@ def write_projects(records):
             for sub in dict.fromkeys(r['subtopic'] for r in selected):
                 ids=', '.join(r['id'] for r in selected if r['subtopic']==sub)
                 lines.append(f'| [{topic}](questions/{topic}.md) | {sub} | {ids} |')
-        lines += ['', '## 5. Integrate all five tables','',
+        lines += ['', f'## 5. Integrate all {table_count(m)} tables','',
                   'Complete [REPORTING_ASSIGNMENTS.md](REPORTING_ASSIGNMENTS.md) after joins, aggregates and CTEs. These reports follow the domain workflow and include reconciliations that fail when joins multiply rows.','',
                   '## 6. Confidence checkpoint and capstone','',
                   'Using a fresh database and this specification, without copying the solution:',
                   '',
-                  '1. Draw and explain all five tables and relationship cardinalities.',
+                  f'1. Draw and explain all {table_count(m)} tables and relationship cardinalities.',
                   '2. Re-create the schema in dependency order, including every PK, FK, UNIQUE, CHECK and default.',
                   '3. Load valid sample data; demonstrate rejection of a duplicate PK, duplicate business key, NULL required field, invalid CHECK value and nonexistent parent.',
                   '4. Demonstrate that deleting a referenced parent fails; explain a child-first deletion plan. Use a practice database with the supplied sample rows and keep the foreign keys enabled.',

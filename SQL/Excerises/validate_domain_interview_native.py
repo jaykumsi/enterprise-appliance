@@ -17,7 +17,7 @@ from domain_interview_focus import QUERY_TOPICS
 from domain_interview_queries import recipes,instantiate
 
 ROOT=Path(__file__).resolve().parent
-DATABASE='Tinitiate_DomainInterview_20261116_v1'
+DATABASE='Tinitiate_DomainInterview_20261118_v2'  # v2: Retail Supply Chain and E-commerce replace Retail Inventory/Manufacturing
 MARKER='TinitiateDomainInterviewValidation_v1'
 
 

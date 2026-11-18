@@ -1,0 +1,12 @@
+{
+  "layout": "canonical_references",
+  "question_ids": [
+    "ECOMMERCE-CTE-03-A06",
+    "ECOMMERCE-JOINS-02-A15"
+  ],
+  "canonical_prompt_sha256": {
+    "ECOMMERCE-CTE-03-A06": "2f92fc568c74df72a43f198e41e3d36293bc60459a30bc2a6e5470a166755484",
+    "ECOMMERCE-JOINS-02-A15": "3b7f12f8afd6e62f63e0df3cdc993ed58f4b101ed773c10dc0c88e081ae325e0"
+  },
+  "coding_minutes": 120
+}
