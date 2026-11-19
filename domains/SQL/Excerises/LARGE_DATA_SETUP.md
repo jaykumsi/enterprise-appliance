@@ -8,12 +8,12 @@ Each master has at least 50 rows and each transaction/detail table has at least 
 
 | Domain | Setup instructions | Total rows |
 |---|---|---:|
-| Retail | [retail](domains/retail/questions/PRACTICE_DATA.md) | 1224 |
-| Banking / Finance | [banking](domains/banking/questions/PRACTICE_DATA.md) | 590 |
-| Pharma | [pharma](domains/pharma/questions/PRACTICE_DATA.md) | 798 |
-| Healthcare | [healthcare](domains/healthcare/questions/PRACTICE_DATA.md) | 604 |
-| Oil | [oil](domains/oil/questions/PRACTICE_DATA.md) | 882 |
-| Retail Supply Chain | [retail_supply_chain](domains/retail_supply_chain/questions/PRACTICE_DATA.md) | 1360 |
-| Retail Logistics | [retail_logistics](domains/retail_logistics/questions/PRACTICE_DATA.md) | 2011 |
-| E-commerce | [ecommerce](domains/ecommerce/questions/PRACTICE_DATA.md) | 124649 |
-| Brokerage | [brokerage](domains/brokerage/questions/PRACTICE_DATA.md) | 794 |
+| Retail | [retail](../../retail-maple-main-stores/sql/questions/PRACTICE_DATA.md) | 1224 |
+| Banking / Finance | [banking](../../bank-harborstone/sql/questions/PRACTICE_DATA.md) | 590 |
+| Pharma | [pharma](../../pharma-novacrest/sql/questions/PRACTICE_DATA.md) | 798 |
+| Healthcare | [healthcare](../../healthcare-amerimed/sql/questions/PRACTICE_DATA.md) | 604 |
+| Oil | [oil](../../oil-permian-ridge/sql/questions/PRACTICE_DATA.md) | 882 |
+| Retail Supply Chain | [retail_supply_chain](../../retail-supply-chain-maple-main/sql/questions/PRACTICE_DATA.md) | 1360 |
+| Retail Logistics | [retail_logistics](../../retail-logistics-maple-main/sql/questions/PRACTICE_DATA.md) | 2011 |
+| E-commerce | [ecommerce](../../ecommerce-everyday-bazaar/sql/questions/PRACTICE_DATA.md) | 124649 |
+| Brokerage | [brokerage](../../brokerage-ridgeline/sql/questions/PRACTICE_DATA.md) | 794 |

@@ -8,6 +8,8 @@ from pathlib import Path
 import re
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 
 def validate(require_native=True):
@@ -15,7 +17,7 @@ def validate(require_native=True):
     foundation=json.loads((ROOT/'curriculum.json').read_text(encoding='utf-8'))
     expected_subs={(r['topic'],r['subtopic']) for r in foundation};assert len(expected_subs)==132
     groups=defaultdict(Counter);ids=set();book_ids=defaultdict(set);queries=labs=0;prompts={}
-    manifests=list((ROOT/'domains').glob('*/questions/*.manifest.json'))
+    manifests=list((f for d in domain_dirs() for f in d.glob('questions/*.manifest.json')))
     export_ids={i for p in manifests for i in json.loads(p.read_text(encoding='utf-8'))['question_ids']}
     with (ROOT/'domain_interview_questions.jsonl').open(encoding='utf-8') as stream:
         for line in stream:
@@ -41,7 +43,7 @@ def validate(require_native=True):
     assert all(count==Counter(Beginner=15,Intermediate=15,Advanced=15) for count in groups.values())
     for (d,topic),wanted in book_ids.items():
         for folder in ('questions','solutions'):
-            file=ROOT/'domains'/d/folder/f'{topic}.md';text=file.read_text(encoding='utf-8')
+            file=domain_dir(d)/folder/f'{topic}.md';text=file.read_text(encoding='utf-8')
             found=set(re.findall(r'^#### ([A-Z_]+-[A-Z_]+-\d{2}-[BIA]\d{2})$',text,re.M))
             assert found==wanted,(file,len(found),len(wanted))
             if folder=='questions':
@@ -50,7 +52,7 @@ def validate(require_native=True):
                 assert not re.search(r'\bBEGIN\s+TRAN(?:SACTION)?\b|\bROLLBACK\s+TRAN',block,re.I),file
     checked_links=0
     for model in models:
-        student=ROOT/'domains'/model['slug']/'questions'
+        student=domain_dir(model['slug'])/'questions'
         for file in student.glob('*.md'):
             text=re.sub(r'```[\s\S]*?```|`[^`]*`','',file.read_text(encoding='utf-8'))
             for link in re.findall(r'\]\(([^)]+)\)',text):

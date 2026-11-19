@@ -25,6 +25,8 @@ COMPANIES = {
 }
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import slug_of, domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 WORKSPACE=ROOT.parent.parent.parent
 SOURCE=ROOT/'consolidated_supplements.json'
 REPORT=ROOT/'CONSOLIDATION_REPORT.json'
@@ -55,9 +57,9 @@ def blocks(path):
 
 def capture():
     data=json.loads(SOURCE.read_text(encoding='utf-8')) if SOURCE.exists() else dict(healthcare=[],retail_draft=[],private_notes={})
-    legacy=ROOT/'domains/healthcare/interview_ready'
+    legacy=domain_dir('healthcare')/'interview_ready'
     if not data['healthcare'] and legacy.exists():
-        hp=ROOT/'domains/healthcare';student={r['id']:r for t in html_data(hp/'healthcare_sql_assignments.html') for r in t['items']}
+        hp=domain_dir('healthcare');student={r['id']:r for t in html_data(hp/'healthcare_sql_assignments.html') for r in t['items']}
         teacher={r['id']:r for t in html_data(hp/'healthcare_questions_answers.html') for r in t['items']}
         assert len(student)==480 and set(student)==set(teacher)
         for p in sorted((legacy/'questions').glob('*.md')):
@@ -77,9 +79,9 @@ def capture():
     for retired in ('retail_inventory','retail_manufacturing'):
         data['private_notes'].pop(retired,None)
     # Preserve private capstone notes and setup information once.
-    for directory in (ROOT/'domains').iterdir():
+    for directory in domain_dirs():
         if not directory.is_dir() or not (directory/'questions/README.md').exists():continue
-        notes=data['private_notes'].setdefault(directory.name,[])
+        notes=data['private_notes'].setdefault(slug_of(directory),[])
         p=directory/'REPORTING_SOLUTIONS.md'
         if p.exists() and '## Capstone validation' in p.read_text(encoding='utf-8'):
             note=p.read_text(encoding='utf-8').split('## Capstone validation',1)[1].strip()
@@ -123,8 +125,8 @@ def merge(data):
             prefix='**Question:** '+r['body']
             if answer.startswith(prefix):answer=answer[len(prefix):].lstrip()
             a += [f'##### {r["id"]}: {r["title"]}','',f'[Question](../questions/{topic}.md)', '',answer,'']
-        append_unique(ROOT/'domains/healthcare/questions'/f'{topic}.md','\n'.join(q))
-        append_unique(ROOT/'domains/healthcare/solutions'/f'{topic}.md','\n'.join(a))
+        append_unique(domain_dir('healthcare')/'questions'/f'{topic}.md','\n'.join(q))
+        append_unique(domain_dir('healthcare')/'solutions'/f'{topic}.md','\n'.join(a))
     groups=defaultdict(list)
     for r in data['retail_draft']:groups[r['topic']].append(r)
     refs=json.loads((ROOT/'curriculum.json').read_text(encoding='utf-8'));refindex={r['id']:r for r in refs}
@@ -140,8 +142,8 @@ def merge(data):
             a += [f'##### {r["id"]}','',f'[Question](../questions/{topic}.md)','','**Assessment:** '+r['assessment'],'']
             if core.get('sql'):a += ['**Core reference only**','','```sql',core['sql'],'```','']
             if core.get('answer'):a += [core['answer'],'']
-        append_unique(ROOT/'domains/retail/questions'/f'{topic}.md','\n'.join(q))
-        append_unique(ROOT/'domains/retail/solutions'/f'{topic}.md','\n'.join(a))
+        append_unique(domain_dir('retail')/'questions'/f'{topic}.md','\n'.join(q))
+        append_unique(domain_dir('retail')/'solutions'/f'{topic}.md','\n'.join(a))
     notes_by_text=defaultdict(list)
     for slug,notes in data['private_notes'].items():
         for note in notes:notes_by_text[note].append(slug)
@@ -152,7 +154,7 @@ def merge(data):
                     re.sub(r'\[([^]]+)\]\([^)]+\)',r'\1',note),'']
     put(ROOT/'CONSOLIDATED_INSTRUCTOR_NOTES.md','\n'.join(private))
     # Published answers point to the question instead of repeating its text.
-    for p in (ROOT/'domains').glob('*/solutions/*.md'):
+    for p in (f for d in domain_dirs() for f in d.glob('solutions/*.md')):
         text=p.read_text(encoding='utf-8')
         text=re.sub(r'^#### ([A-Z_]+-[A-Z_]+-\d{2}-[BIA]\d{2})\n\n(\*\*[^\n]+\*\*)\n\n[\s\S]*?(?=\*\*Assessment model:\*\*)',
                     lambda m:f'#### {m[1]}\n\n{m[2]}\n\n[Canonical question](../questions/{p.name}#{m[1].lower()})\n\n',text,flags=re.M)
@@ -161,7 +163,7 @@ def merge(data):
         put(p,text)
     for slug in ('healthcare','retail'):
         for role in ('questions','solutions'):
-            index=ROOT/'domains'/slug/role/'README.md'
+            index=domain_dir(slug)/role/'README.md'
             text=index.read_text(encoding='utf-8').split('<!-- CONSOLIDATED_NAV -->')[0].rstrip()
             if slug=='healthcare':
                 target='BEST_EXERCISES.md' if role=='questions' else 'EXERCISE_SELECTION.md'
@@ -182,18 +184,18 @@ def consolidate():
         if path==target:return
         mapping[path]=target
         if path.is_file():plans.append((path,target,why))
-    shared_student=list((ROOT/'domains').glob('*/questions/CODERPAD.md'))
+    shared_student=list((f for d in domain_dirs() for f in d.glob('questions/CODERPAD.md')))
     if shared_student:
         bodies=[p.read_text(encoding='utf-8').split('\n',1)[1] for p in shared_student]
         assert len(set(bodies))==1,'Domain-specific interview rules need merging before deletion'
-        body=bodies[0].replace('(README.md)','(domains/README.md)').replace('(DOMAIN_GUIDE.md)','(domains/README.md)').replace('(INTERVIEW_CHALLENGES.md)','(domains/README.md)')
+        body=bodies[0].replace('(README.md)','(DOMAIN_ASSIGNMENTS.md)').replace('(DOMAIN_GUIDE.md)','(DOMAIN_ASSIGNMENTS.md)').replace('(INTERVIEW_CHALLENGES.md)','(DOMAIN_ASSIGNMENTS.md)')
         put(ROOT/'CODERPAD.md','# SQL interview practice\n'+body)
-    shared_teacher=list((ROOT/'domains').glob('*/solutions/INTERVIEW_GRADING.md'))
+    shared_teacher=list((f for d in domain_dirs() for f in d.glob('solutions/INTERVIEW_GRADING.md')))
     if shared_teacher:
         bodies=[p.read_text(encoding='utf-8').split(SUPPLEMENT)[0].split('\n',1)[1] for p in shared_teacher]
         assert len(set(bodies))==1,'Domain-specific grading rules need merging before deletion'
         put(ROOT/'INTERVIEW_GRADING.md','# SQL interview grading\n'+bodies[0].replace('(README.md)','(solutions/README.md)')+'\n[Preserved setup and capstone notes](CONSOLIDATED_INSTRUCTOR_NOTES.md)\n')
-    for directory in (ROOT/'domains').iterdir():
+    for directory in domain_dirs():
         if not directory.is_dir() or not (directory/'questions/README.md').exists():continue
         q=directory/'questions';a=directory/'solutions'
         remove(q/'BEGINNER_GUIDE.md',ROOT/'BEGINNER_GUIDE.md','Identical common guide')
@@ -213,41 +215,41 @@ def consolidate():
             assert sql and sql[1].strip()==(directory/'data_setup.sql').read_text(encoding='utf-8').strip(),p
         remove(p,q/'PRACTICE_DATA.md','Instructions retained once;embedded SQL already has data_setup.sql')
         # Keep a short entry index,not a second copy of the entire domain guide.
-        put(directory/'README.md',f'# {directory.name.replace("_"," ").title()}\n\n{COMPANIES[directory.name]}\n\n[Student assignments](questions/README.md) · [Table definitions and sample rows](questions/DOMAIN_GUIDE.md) · [Instructor answers](solutions/README.md)\n\nSmall fixture: `schema_solution.sql` then `seed.sql`. Large fixture: `data_setup.sql`,in a separate empty practice database. [Large-data instructions](questions/PRACTICE_DATA.md).\n')
+        put(directory/'README.md',f'# {slug_of(directory).replace("_"," ").title()}\n\n{COMPANIES[slug_of(directory)]}\n\n[Student assignments](questions/README.md) · [Table definitions and sample rows](questions/DOMAIN_GUIDE.md) · [Instructor answers](solutions/README.md)\n\nSmall fixture: `schema_solution.sql` then `seed.sql`. Large fixture: `data_setup.sql`,in a separate empty practice database. [Large-data instructions](questions/PRACTICE_DATA.md).\n')
     # Combined books repeat IDs already published in individual domains.
     foundation=json.loads((ROOT/'curriculum.json').read_text(encoding='utf-8'))
     for topic in set(r['topic'] for r in foundation):
         for role,filename in [('questions',topic+'.md'),('solutions',topic+'_SOLUTIONS.md')]:
             path=ROOT/role/filename
             if path.exists():
-                alltext='\n'.join((ROOT/'domains'/m['slug']/role/(topic+'.md')).read_text(encoding='utf-8') for m in json.loads((ROOT/'domain_models.json').read_text(encoding='utf-8')))
+                alltext='\n'.join((domain_dir(m['slug'])/role/(topic+'.md')).read_text(encoding='utf-8') for m in json.loads((ROOT/'domain_models.json').read_text(encoding='utf-8')))
                 wanted={r['id'] for r in foundation if r['topic']==topic}
                 assert all(i in alltext for i in wanted),(path,'Missing retained IDs')
-            remove(path,ROOT/('domains/README.md' if role=='questions' else 'solutions/README.md'),'Combined book repeats retained domain topic books')
-    remove(ROOT/'questions/ADVANCED_QUERIES.md',ROOT/'domains/README.md','Redundant combined navigation')
+            remove(path,ROOT/('DOMAIN_ASSIGNMENTS.md' if role=='questions' else 'solutions/README.md'),'Combined book repeats retained domain topic books')
+    remove(ROOT/'questions/ADVANCED_QUERIES.md',ASSIGNMENTS_INDEX,'Redundant combined navigation')
     remove(ROOT/'solutions/ADVANCED_QUERIES_SOLUTIONS.md',ROOT/'solutions/README.md','Redundant combined navigation')
-    legacy=ROOT/'domains/healthcare/interview_ready'
+    legacy=domain_dir('healthcare')/'interview_ready'
     for topic in {r['topic'] for r in data['healthcare']}:
         for role in ('questions','solutions'):
-            remove(legacy/role/(topic+'.md'),ROOT/'domains/healthcare'/role/(topic+'.md'),'All480 unique healthcare IDs,answers and self-checks merged')
+            remove(legacy/role/(topic+'.md'),domain_dir('healthcare')/role/(topic+'.md'),'All480 unique healthcare IDs,answers and self-checks merged')
     for name in ('README.md','STUDENT_ASSIGNMENTS.md'):
-        remove(legacy/name,ROOT/'domains/healthcare/questions/README.md','Combined healthcare handout merged into topic files')
+        remove(legacy/name,domain_dir('healthcare')/'questions/README.md','Combined healthcare handout merged into topic files')
     for name in ('healthcare_sql_assignments.html','healthcare_questions_answers.html'):
-        remove(ROOT/'domains/healthcare'/name,ROOT/'domains/healthcare'/('solutions/README.md' if 'answers' in name else 'questions/README.md'),'HTML data merged into canonical topic files')
+        remove(domain_dir('healthcare')/name,domain_dir('healthcare')/('solutions/README.md' if 'answers' in name else 'questions/README.md'),'HTML data merged into canonical topic files')
     standalone=WORKSPACE/'amerimed-healthcare-sql'
     if standalone.exists():
         public=[standalone/name for name in ('README.md','STUDENT_ASSIGNMENTS.md','index.html','data_setup.sql')]
         public += [standalone/'questions'/(topic+'.md') for topic in {r['topic'] for r in data['healthcare']}]
         for p in public:
-            target=(ROOT/'domains/healthcare/data_setup.sql' if p.suffix=='.sql' else ROOT/'domains/healthcare/questions'/ (p.name if p.parent.name=='questions' else 'README.md'))
+            target=(domain_dir('healthcare')/'data_setup.sql' if p.suffix=='.sql' else domain_dir('healthcare')/'questions'/ (p.name if p.parent.name=='questions' else 'README.md'))
             if p.exists() and p.suffix=='.sql':assert sha(p)==sha(target),'Distinct standalone fixture must not be deleted'
             remove(p,target,'Standalone healthcare copy merged into canonical healthcare domain')
     # The earlier cross-subject SQL draft is merged into Retail;other subjects stay.
     broad=WORKSPACE/'interview-practice-bank'
     for p in (broad/'questions/sql-server').glob('*.md'):
-        topic=p.stem.replace('-','_').upper();remove(p,ROOT/'domains/retail/questions'/f'{topic}.md','Unique SQL draft exercises merged into Retail')
+        topic=p.stem.replace('-','_').upper();remove(p,domain_dir('retail')/'questions'/f'{topic}.md','Unique SQL draft exercises merged into Retail')
     for p in [broad/'exports/sql-server-mixed.md',broad/'exports/sql-server-mixed.manifest.json',broad/'fixtures/sqlserver_retail.sql',broad/'fixtures/retail_contract.md',broad/'instructor/legacy_core_references.json']:
-        remove(p,ROOT/'domains/retail/questions/README.md','Superseded SQL-only draft derivative')
+        remove(p,domain_dir('retail')/'questions/README.md','Superseded SQL-only draft derivative')
     # Rewrite links against resolved old targets before removing anything.
     for file in [*ROOT.rglob('*.md'),*broad.glob('*.md'),WORKSPACE/'README.md']:
         if file.resolve() in mapping or not file.exists():continue

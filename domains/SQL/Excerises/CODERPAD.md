@@ -18,4 +18,4 @@ CoderPad lets organizations prepare their own questions;there is no universal co
 
 A suggested progression gate is12/15 independently correct per level/subtopic,including8 timed attempts and no unresolved correctness failure. After completing the assigned track,pass two different mixed-topic mocks at80/100 or higher. These are proposed training gates,not an employment or interview-outcome guarantee.
 
-[Assignment index](domains/README.md) · [Schema and sample rows](domains/README.md) · [Hard sampler](domains/README.md)
+[Assignment index](DOMAIN_ASSIGNMENTS.md) · [Schema and sample rows](DOMAIN_ASSIGNMENTS.md) · [Hard sampler](DOMAIN_ASSIGNMENTS.md)

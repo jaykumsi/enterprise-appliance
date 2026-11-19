@@ -7,6 +7,8 @@ from domain_projects import MODELS
 from domain_question_wording import QUERY_TOPICS, clarify_question
 
 ROOT = Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 
 def validate():
@@ -14,7 +16,7 @@ def validate():
     models = {m['title']: m for m in MODELS}
     checked = 0
     for model in MODELS:
-        directory = ROOT / 'domains' / model['slug']
+        directory = domain_dir(model['slug'])
         schema = (directory / 'schema_solution.sql').read_text(encoding='utf-8')
         ddl = (directory / 'questions' / 'DDL.md').read_text(encoding='utf-8')
         guide = (directory / 'questions' / 'DOMAIN_GUIDE.md').read_text(encoding='utf-8')
@@ -40,7 +42,7 @@ def validate():
         assert clarify_question(row, model) == row['prompt'], row['id']
         prose = re.sub(r'`[^`]*`', '', row['prompt'])
         assert not re.search(r'\b(category|categories|party|parties|label|labels|quantity|amounts?|record IDs?)\b', prose), row['id']
-        for path in (ROOT / 'domains' / model['slug'] / 'questions' / f'{row["topic"]}.md',):
+        for path in (domain_dir(model['slug']) / 'questions' / f'{row["topic"]}.md',):
             assert row['prompt'] in path.read_text(encoding='utf-8'), (row['id'], path)
         if 'Source columns:' in row['prompt']:
             inputs = re.findall(r'`(\w+)`', row['prompt'].split('Source columns:', 1)[1].split('.', 1)[0])

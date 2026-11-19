@@ -3,6 +3,8 @@ from pathlib import Path
 import json
 
 ROOT = Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 GUIDE = """## Read this first
 
@@ -103,7 +105,7 @@ FROM Positions ORDER BY {key};""", None, f'The declared maximum length of {label
 
 def generate(models):
     for m in models:
-        directory=ROOT/'domains'/m['slug']; rows=exercises(m)
+        directory=domain_dir(m['slug']); rows=exercises(m)
         questions=[f'# {m["title"]}: extra SUBSTRING practice', '', '[Question index](README.md)', '', GUIDE, '', '## Practice exercises', '']
         solutions=[f'# {m["title"]}: SUBSTRING practice solutions', '', '[Instructor index](README.md) · [Student practice](../questions/SUBSTRING_PRACTICE.md)', '',
                    'Ask students to count positions and predict the result first. Literal examples are independent of the dataset. Table examples use the small fixture for the stated sample results.', '']

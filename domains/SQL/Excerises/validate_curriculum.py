@@ -10,6 +10,8 @@ import re
 import sqlite3
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 ROWS=json.loads((ROOT/'curriculum.json').read_text(encoding='utf-8'))
 MODELS=json.loads((ROOT/'domain_models.json').read_text(encoding='utf-8'))
 REPORTS=json.loads((ROOT/'domain_reports.json').read_text(encoding='utf-8'))
@@ -36,8 +38,8 @@ def structural():
             assert len({r['prompt'] for r in group})==len(group)
             assert all(r['check'] and (r['sql'] or r['answer']) for r in group)
         for model in MODELS:
-            q=(ROOT/'domains'/model['slug']/'questions'/f'{topic}.md').read_text(encoding='utf-8')
-            a=(ROOT/'domains'/model['slug']/'solutions'/f'{topic}.md').read_text(encoding='utf-8')
+            q=(domain_dir(model['slug'])/'questions'/f'{topic}.md').read_text(encoding='utf-8')
+            a=(domain_dir(model['slug'])/'solutions'/f'{topic}.md').read_text(encoding='utf-8')
             ids={r['id'] for r in selected if r['domain']==model['title']}
             assert ids<=set(re.findall(r'^### (\S+)',q,re.M)),(model['slug'],topic)
             assert ids<=set(re.findall(r'^### (\S+)',a,re.M)),(model['slug'],topic)
@@ -66,7 +68,7 @@ def structural():
             if expanded==seen:break
             seen=expanded
         assert seen==names,(model['slug'],'disconnected model')
-    for file in [ROOT/'README.md',ROOT/'COVERAGE.md',ROOT/'DATA_DICTIONARY.md',ROOT/'INSTRUCTOR_GUIDE.md',*ROOT.glob('questions/*.md'),*ROOT.glob('solutions/*.md'),*ROOT.glob('domains/**/*.md')]:
+    for file in [ROOT/'README.md',ROOT/'COVERAGE.md',ROOT/'DATA_DICTIONARY.md',ROOT/'INSTRUCTOR_GUIDE.md',*ROOT.glob('questions/*.md'),*ROOT.glob('solutions/*.md'),*(f for d in domain_dirs() for f in d.glob('**/*.md'))]:
         prose=re.sub(r'```.*?```|`[^`]*`','',file.read_text(encoding='utf-8'),flags=re.S)
         for link in re.findall(r'\]\(([^)]+)\)',prose):
             if link.startswith(('http://','https://','#')): continue

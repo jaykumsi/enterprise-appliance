@@ -1,23 +1,37 @@
-# Domains: training by tech stack
+# Domains: one folder per company
 
-Every tech stack lives in this folder. They all use the same nine fictional companies
-(Maple & Main Stores, Harborstone Bank, Ridgeline Securities, Permian Ridge Energy,
-Novacrest Pharmaceuticals, AmeriMed Healthcare, Maple & Main Supply Chain,
-Maple & Main Distribution and Everyday Bazaar), so students meet one consistent business world.
+Each fictional company has its own folder with a home page, an Assignments tab, a Control Tower tab
+(placeholder for now) and an `sql` subfolder holding its data, student questions and private instructor solutions.
+Open [the site index](../index.html) to browse them.
 
-| Tech stack | Folder | Status |
+| Company | Industry | Folder |
 |---|---|---|
-| SQL Server | [SQL](SQL/Excerises/README.md) | Complete: nine company projects, workbooks, interview practice |
-| AWS data engineering | [AWS DE](AWS%20DE/aws-data-engineering.md) | Course notes and slides; company labs to come |
-| Azure data engineering | [Azure DE](Azure%20DE/) | Course notes; company labs to come |
-| GCP data engineering | [GCP DE](GCP%20DE/) | Terraform starter |
-| Snowflake | [Snowflake](Snowflake/) | Terraform starter |
-| Postgres | Postgres | Placeholder |
-| Python | Python | Placeholder |
-| Full stack (Java, Node.js) | Full Stack Developer - Java, Full Stack Developer - NodeJs | Placeholder |
+| Harborstone Bank | Banking | [bank-harborstone](bank-harborstone/index.html) |
+| Ridgeline Securities | Brokerage | [brokerage-ridgeline](brokerage-ridgeline/index.html) |
+| Everyday Bazaar | E-commerce | [ecommerce-everyday-bazaar](ecommerce-everyday-bazaar/index.html) |
+| AmeriMed Healthcare | Healthcare | [healthcare-amerimed](healthcare-amerimed/index.html) |
+| Permian Ridge Energy | Oil & Gas | [oil-permian-ridge](oil-permian-ridge/index.html) |
+| Novacrest Pharmaceuticals | Pharma | [pharma-novacrest](pharma-novacrest/index.html) |
+| Maple & Main Stores | Retail | [retail-maple-main-stores](retail-maple-main-stores/index.html) |
+| Maple & Main Supply Chain | Retail Supply Chain | [retail-supply-chain-maple-main](retail-supply-chain-maple-main/index.html) |
+| Maple & Main Distribution | Retail Logistics | [retail-logistics-maple-main](retail-logistics-maple-main/index.html) |
 
-## The nine company domains
+## Inside each company folder
 
-The company definitions (tables, keys, business rules and sample data) are maintained once in
-[SQL/Excerises/domains](SQL/Excerises/domains/README.md). Cloud labs for AWS, Azure and the other
-stacks should load those same tables rather than invent new companies.
+```
+<company>/
+  index.html           home page (header: Home · Assignments · Control Tower)
+  assignments.html     Assignments tab
+  control-tower.html   Control Tower tab (placeholder)
+  sql/
+    schema_solution.sql, seed.sql   small sample fixture
+    data_setup.sql                  large practice dataset
+    questions/                      student assignments (shareable)
+    solutions/                      instructor answers (keep private)
+```
+
+## Shared SQL curriculum
+
+[SQL/Excerises](SQL/Excerises/README.md) holds the shared lessons, the generator and validation scripts and
+the [SQL assignments index](SQL/Excerises/DOMAIN_ASSIGNMENTS.md). The scripts find each company's data through
+`SQL/Excerises/company_paths.py`. Regenerate the HTML pages with `python build_site.py` from the repository root.

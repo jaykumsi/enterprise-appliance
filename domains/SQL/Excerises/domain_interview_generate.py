@@ -15,6 +15,8 @@ from domain_interview_queries import instantiate,recipes
 from domain_interview_labs import extension
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_link, domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 MARKER='<!-- DOMAIN_LEVELLED_INTERVIEW_START -->'
 LEVELS=[('Beginner','B'),('Intermediate','I'),('Advanced','A')]
 
@@ -26,7 +28,7 @@ def write(path,text):
 
 def logical_core(row,model):
     text=row['prompt']
-    text=re.sub(r'\]\(\.\./domains/[^/]+/README\.md\)','](DOMAIN_GUIDE.md)',text)
+    text=re.sub(r'\]\([^)\s]*/sql/README\.md\)','](DOMAIN_GUIDE.md)',text)
     if row['topic']=='INTRODUCTION':
         text=(f'Use `[{model["slug"]}].[{model["base"][0]}]` and `[{model["slug"]}].[{model["base"][1]}]` to demonstrate {row["subtopic"].lower()} through a concrete failure and a corrected native/local implementation. '
               'Use at least two rows with distinct stable keys. Return the failure outcome,the corrected outcome and an assertion proving the business rule. Definition lists alone do not satisfy this task.')
@@ -114,7 +116,7 @@ def generate(models,records):
     bankpath=ROOT/'domain_interview_questions.jsonl'
     with bankpath.open('w',encoding='utf-8',newline='\n') as bank:
         for model in models:
-            s=model['slug'];directory=ROOT/'domains'/s;student=directory/'questions';teacher=directory/'solutions'
+            s=model['slug'];directory=domain_dir(s);student=directory/'questions';teacher=directory/'solutions'
             by_topic=defaultdict(lambda:defaultdict(list))
             for r in records:
                 if r['domain']==model['title']:by_topic[r['topic']][r['subtopic']].append(r)
@@ -193,16 +195,16 @@ def generate(models,records):
             if text.startswith(project_marker):text=text.split('<!-- END_DOMAIN_INTERVIEW_ENTRY -->',1)[1].lstrip()
             notice=f'{project_marker}\n**Start with the [levelled {model["title"]} assignments](questions/README.md):132 subtopics,15 Beginner +15 Intermediate +15 Advanced per subtopic.** The project brief below supplies the schema and earlier foundation path.\n<!-- END_DOMAIN_INTERVIEW_ENTRY -->\n\n'
             write(project,notice+text)
-            domain_index.append(f'| {model["title"]} |132|1980|1980|1980|[Open assignments]({s}/questions/README.md)|')
+            domain_index.append(f'| {model["title"]} |132|1980|1980|1980|[Open assignments]({domain_link(s, ROOT)}/questions/README.md)|')
             print(f'Generated {s}:5,940 levelled questions across132 subtopics',flush=True)
     assert question_count==53460 and query_count==32400
     with (ROOT/'DOMAIN_INTERVIEW_COVERAGE.csv').open('w',encoding='utf-8',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=list(coverage[0]));writer.writeheader();writer.writerows(coverage)
     domain_index += student_workbook_links(models)
-    write(ROOT/'domains/README.md','\n'.join(domain_index)+'\n')
+    write(ASSIGNMENTS_INDEX,'\n'.join(domain_index)+'\n')
     shared=ROOT/'COVERAGE.md'
     previous=shared.read_text(encoding='utf-8').split(MARKER)[0].rstrip()
-    write(shared,previous+'\n\n'+MARKER+'\n\n## Domain interview progression\n\nAll132 original subtopics are retained in every domain. Each domain/subtopic pair has15 Beginner,15 Intermediate and15 Advanced questions:53,460 levelled questions,plus the5,940 earlier foundation exercises. The levelled set contains32,400 runnable query references and21,060 practical lab cases with core references and grading models.\n\nSee [domain assignments](domains/README.md) and `DOMAIN_INTERVIEW_COVERAGE.csv` for the exact per-subtopic counts. Timed mocks reuse existing IDs and are not additional counted questions.\n')
+    write(shared,previous+'\n\n'+MARKER+'\n\n## Domain interview progression\n\nAll132 original subtopics are retained in every domain. Each domain/subtopic pair has15 Beginner,15 Intermediate and15 Advanced questions:53,460 levelled questions,plus the5,940 earlier foundation exercises. The levelled set contains32,400 runnable query references and21,060 practical lab cases with core references and grading models.\n\nSee [domain assignments](DOMAIN_ASSIGNMENTS.md) and `DOMAIN_INTERVIEW_COVERAGE.csv` for the exact per-subtopic counts. Timed mocks reuse existing IDs and are not additional counted questions.\n')
     from export_domain_interview import generate_mocks
     generate_mocks(models)
     from consolidate_sql_materials import consolidate

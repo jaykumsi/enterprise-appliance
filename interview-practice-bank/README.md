@@ -1,6 +1,6 @@
 # Interview practice and assessment bank
 
-**SQL location update:** The canonical SQL assignments are now in [SQL/Excerises/domains](../domains/SQL/Excerises/domains/README.md),with all132 subtopics and15 questions per level in each domain. Use those domain folders for SQL classes and tests;the SQL entries in this earlier cross-subject draft remain supplementary.
+**SQL location update:** The canonical SQL assignments are now in [SQL domain assignments](../domains/SQL/Excerises/DOMAIN_ASSIGNMENTS.md),with all132 subtopics and15 questions per level in each domain. Use those domain folders for SQL classes and tests;the SQL entries in this earlier cross-subject draft remain supplementary.
 
 This is the entry point for the consolidated question bank for all training subjects. Beginner, Intermediate and Advanced each contain 15 questions **per subtopic**. Practice and interview exports read the same question records and retain the same IDs.
 

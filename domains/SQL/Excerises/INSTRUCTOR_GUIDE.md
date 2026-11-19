@@ -2,7 +2,7 @@
 
 ## Domain interview progression
 
-Use [the domain assignment index](domains/README.md). Every domain retains all132 subtopics and has15 Beginner,15 Intermediate and15 Advanced questions per subtopic. Topic files retain earlier foundation IDs and append the new domain-prefixed IDs. The shared technique books below are the earlier foundations,not the new levelled count.
+Use [the domain assignment index](DOMAIN_ASSIGNMENTS.md). Every domain retains all132 subtopics and has15 Beginner,15 Intermediate and15 Advanced questions per subtopic. Topic files retain earlier foundation IDs and append the new domain-prefixed IDs. The shared technique books below are the earlier foundations,not the new levelled count.
 
 Each domain has a hard sampler,a120-minute hard mock and a105-minute mixed mock. They reuse canonical practice IDs and exact prompts. Select different underlying challenge patterns and supply an independently checked adversarial fixture so memorizing a pattern does not count as transfer of reasoning.
 

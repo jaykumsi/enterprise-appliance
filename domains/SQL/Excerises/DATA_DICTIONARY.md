@@ -4,15 +4,15 @@ Each domain has five physical tables (E-commerce has six and Retail Supply Chain
 
 | Domain | Schema brief and seed values |
 |---|---|
-| Retail | [Customers, Products, Orders, OrderItems, Payments](domains/retail/README.md) |
-| Banking | [Branches, Customers, Accounts, Transactions, Loans](domains/banking/README.md) |
-| Pharma | [Suppliers, Products, Warehouses, Batches, Inventory](domains/pharma/README.md) |
-| Healthcare | [Patients, Doctors, Medications, Encounters, Prescriptions](domains/healthcare/README.md) |
-| Oil | [Sites, Carriers, Products, Shipments, ShipmentItems](domains/oil/README.md) |
-| Retail Supply Chain | [Warehouses, Suppliers, Products, Materials, BillOfMaterials, ProductionOrders, MaterialUsage, StockMovements, StockBalances](domains/retail_supply_chain/README.md) |
-| Retail Logistics | [Customers, Carriers, Shipments, ShipmentPackages, TrackingEvents](domains/retail_logistics/README.md) |
-| E-commerce | [Customers, Sellers, Products, Orders, OrderItems, Payments](domains/ecommerce/README.md) |
-| Brokerage | [Clients, Securities, BrokerageAccounts, TradeOrders, Executions](domains/brokerage/README.md) |
+| Retail | [Customers, Products, Orders, OrderItems, Payments](../../retail-maple-main-stores/sql/README.md) |
+| Banking | [Branches, Customers, Accounts, Transactions, Loans](../../bank-harborstone/sql/README.md) |
+| Pharma | [Suppliers, Products, Warehouses, Batches, Inventory](../../pharma-novacrest/sql/README.md) |
+| Healthcare | [Patients, Doctors, Medications, Encounters, Prescriptions](../../healthcare-amerimed/sql/README.md) |
+| Oil | [Sites, Carriers, Products, Shipments, ShipmentItems](../../oil-permian-ridge/sql/README.md) |
+| Retail Supply Chain | [Warehouses, Suppliers, Products, Materials, BillOfMaterials, ProductionOrders, MaterialUsage, StockMovements, StockBalances](../../retail-supply-chain-maple-main/sql/README.md) |
+| Retail Logistics | [Customers, Carriers, Shipments, ShipmentPackages, TrackingEvents](../../retail-logistics-maple-main/sql/README.md) |
+| E-commerce | [Customers, Sellers, Products, Orders, OrderItems, Payments](../../ecommerce-everyday-bazaar/sql/README.md) |
+| Brokerage | [Clients, Securities, BrokerageAccounts, TradeOrders, Executions](../../brokerage-ridgeline/sql/README.md) |
 
 ## Main event tables
 

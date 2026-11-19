@@ -2,7 +2,7 @@
 
 ## Current domain interview set
 
-The levelled assignments are in [domains/README.md](domains/README.md),not the earlier cross-subject draft. Every one of132 original subtopics has15 Beginner,15 Intermediate and15 Advanced questions in each of nine domains:53,460 levelled questions. Existing foundation IDs remain intact.
+The levelled assignments are in [domains/README.md](DOMAIN_ASSIGNMENTS.md),not the earlier cross-subject draft. Every one of132 original subtopics has15 Beginner,15 Intermediate and15 Advanced questions in each of nine domains:53,460 levelled questions. Existing foundation IDs remain intact.
 
 - **32,400 runnable query-report references** were executed on native SQL Server LocalDB and compared with an independent Python calculation of complete expected rows and values. All720 domain/subtopic analysis populations were executed natively.
 - **1,320 adversarial result comparisons across30 populations** passed,including nulls,zeros,negative/mean-centered scores,same-day ties,30/31-day boundaries,leap/year boundaries,cycles with IDs1/11,missing parents,branched corrections,FIFO partial matches,exact fractional remainders and category-role/text-token separation.

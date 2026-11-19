@@ -2,7 +2,7 @@
 
 10 subjects/shared tracks · 180 subtopics · 8,100 questions. Every subtopic has 15 questions at each of three levels.
 
-SQL is maintained once in [the domain assignments](../domains/SQL/Excerises/domains/README.md).
+SQL is maintained once in [the domain assignments](../domains/SQL/Excerises/DOMAIN_ASSIGNMENTS.md).
 
 Read [Student guide](STUDENT_GUIDE.md),[track mapping](TRACKS.md),[CoderPad instructions](CODERPAD.md) and [validation limits](VALIDATION.md).
 

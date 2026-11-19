@@ -5,6 +5,8 @@ import json
 import re
 
 ROOT = Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_link, domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 MASTERS = {
     'retail': {'Customers', 'Products'},
     'banking': {'Branches', 'Customers', 'Accounts'},
@@ -61,7 +63,7 @@ def generate(models):
         model = expand(original)
         validate(model)
         slug = model['slug']
-        directory = ROOT / 'domains' / slug
+        directory = domain_dir(slug)
         counts = [(t['name'], 'Master' if t['name'] in MASTERS[slug] else 'Transaction / detail', len(t['rows'])) for t in model['tables']]
         body = ['-- Instructor setup: select your practice database before running.',
                 '-- Fictional business data. Amounts are illustrative; timestamps are UTC.',
@@ -106,7 +108,7 @@ def generate(models):
                         'Run the entire block together. It loads parent tables first and checks row counts and constraints. You can also use the identical [SQL file](data_setup.sql).', '',
                         '```sql', '\n'.join(body), '```', '']
         (directory / 'DATA_SETUP.md').write_text('\n'.join(setup_guide), encoding='utf-8')
-        index.append(f'| {model["title"]} | [{slug}](domains/{slug}/DATA_SETUP.md) | {sum(c for _, _, c in counts)} |')
+        index.append(f'| {model["title"]} | [{slug}]({domain_link(slug, ROOT)}/DATA_SETUP.md) | {sum(c for _, _, c in counts)} |')
         report.append({'domain': slug, 'tables': [{'name': n, 'role': r, 'rows': c} for n, r, c in counts]})
     (ROOT / 'LARGE_DATA_SETUP.md').write_text('\n'.join(index) + '\n', encoding='utf-8')
     (ROOT / 'LARGE_DATA_VALIDATION.json').write_text(json.dumps({'validation': 'Portable constraint, key, foreign-key, string-length, minimum-count and cross-table business consistency checks passed', 'sql_server_runtime_executed': False, 'domains': report}, indent=2) + '\n', encoding='utf-8')

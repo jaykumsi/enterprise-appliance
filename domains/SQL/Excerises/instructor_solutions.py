@@ -4,6 +4,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_link, domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 TEACHING_NOTES = {
     'INTRODUCTION': 'Ask the student to explain the concept using this domain’s tables and a concrete example. Accept equivalent explanations that address the stated risk and limitations.',
@@ -61,7 +63,7 @@ def generate(models, records):
                     'or model explanation, and validation guidance.', '',
                     'Share the questions folder with students; retain the solutions folder for instructors.', '']
     for model in models:
-        directory = ROOT / 'domains' / model['slug'] / 'solutions'
+        directory = domain_dir(model['slug']) / 'solutions'
         directory.mkdir(exist_ok=True)
         selected = [r for r in records if r['domain'] == model['title']]
         topics = list(dict.fromkeys(r['topic'] for r in selected))
@@ -86,7 +88,7 @@ def generate(models, records):
                      'when values, duplicates, NULL handling and required ordering agree.', '']
             for row in rows:
                 title = row.get('title', row.get('subtopic', ''))
-                prompt = re.sub(r'\]\(\.\./domains/[^/]+/README\.md\)', '](../questions/DOMAIN_GUIDE.md)', row['prompt'])
+                prompt = re.sub(r'\]\([^)\s]*/sql/README\.md\)', '](../questions/DOMAIN_GUIDE.md)', row['prompt'])
                 prompt = prompt.replace('](../BEGINNER_GUIDE.md)', '](../questions/BEGINNER_GUIDE.md)').replace('](../README.md)', '](../questions/DOMAIN_GUIDE.md)')
                 lines += [f'### {row["id"]}' + (f' — {title}' if title else ''), '',
                           '**Question**', '', f'[Canonical question](../questions/{topic}.md) — `{row["id"]}`', '', '**Reference answer**', '']
@@ -103,7 +105,7 @@ def generate(models, records):
                   '[the domain guide](../questions/DOMAIN_GUIDE.md). The complete schema answer is '
                   '[schema_solution.sql](../schema_solution.sql), and the small sample inserts are [seed.sql](../seed.sql).', '']
         (directory / 'README.md').write_text('\n'.join(index), encoding='utf-8')
-        master_index.append(f'- [{model["title"]}](../domains/{model["slug"]}/solutions/README.md)')
+        master_index.append(f'- [{model["title"]}]({domain_link(model["slug"], ROOT / 'solutions')}/solutions/README.md)')
     master_index += workbook_answer_keys(models)
     (ROOT / 'solutions' / 'README.md').write_text('\n'.join(master_index) + '\n', encoding='utf-8')
     from substring_practice import generate as generate_substring

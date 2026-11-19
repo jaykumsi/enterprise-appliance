@@ -9,6 +9,8 @@ import pyodbc
 
 SERVER = r'(localdb)\MSSQLLocalDB'
 ROOT = Path(__file__).resolve().parent.parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 NOTE = ('_Your query may be written differently and still be correct. Compare the number of rows and the values; '
         'if the question has no ORDER BY, your rows may come back in a different order._')
 SHOWN = 6
@@ -58,7 +60,7 @@ def reload(domain):
     subprocess.run(['sqlcmd', '-S', SERVER, '-b', '-Q',
                     f"IF DB_ID('{db}') IS NOT NULL BEGIN ALTER DATABASE [{db}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [{db}]; END; CREATE DATABASE [{db}];"],
                    check=True, capture_output=True)
-    setup = ROOT / 'domains' / domain / 'data_setup.sql'
+    setup = domain_dir(domain) / 'data_setup.sql'
     subprocess.run(['sqlcmd', '-S', SERVER, '-d', db, '-b', '-i', str(setup)],
                    check=True, capture_output=True)
 

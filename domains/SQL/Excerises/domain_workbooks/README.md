@@ -20,7 +20,7 @@ Retired from the hub and menus (2026-11-18): retail_inventory and retail_manufac
 which reuses the Merchandising page URLs. The old Private Label pages (student and instructor) were deleted.
 
 **Data source.** retail_supply_chain and ecommerce are full domains of the `domains/` curriculum (models in
-`../domain_projects.py`, large data in `../large_data_extra.py`); every workbook loads `../domains/<domain>/data_setup.sql`.
+`../domain_projects.py`, large data in `../large_data_extra.py`); every workbook loads `domains/<company>/sql/data_setup.sql` (see `../company_paths.py`).
 Everyday Bazaar's test-ID and STRING_AGG fixes for the large data live in `overrides/ecommerce.json`.
 Loading WB_ecommerce takes about a minute.
 
@@ -28,7 +28,7 @@ Loading WB_ecommerce takes about a minute.
 
 1. `build_items.py <domain>`: translates each AmeriMed item (from `../consolidated_supplements.json`) into the domain's
    tables, columns and nouns (`translate.py`, config in `wb_domains.py`), runs every answer on a disposable LocalDB copy
-   `WB_<domain>` loaded from `../domains/<domain>/data_setup.sql` (each item in a rolled-back transaction; the database is
+   `WB_<domain>` loaded from `domains/<company>/sql/data_setup.sql` (see `../company_paths.py`) (each item in a rolled-back transaction; the database is
    reloaded if anything changes), and writes `items/<domain>.json`. That file holds the answer SQL: keep it private.
 2. Questions that need a table the domain lacks (AmeriMed's Doctors, Medications, Prescriptions, or the parent links that
    only healthcare fills) use a replacement written once in `fallback_hc*.py` with the same topic, level and skill.

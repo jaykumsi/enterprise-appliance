@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 KEEP = {
     'AGGREGATES': 'I06 I07 I10 A02',
     'ANALYTICAL_FUNCTIONS': 'I10',
@@ -113,7 +115,7 @@ def review(rows):
 def publish_review(put, rows):
     report = review(rows)
     put(ROOT / 'HEALTHCARE_EXERCISE_REVIEW.json', json.dumps(report, indent=2) + '\n')
-    student = ROOT / 'domains/healthcare/questions'
+    student = domain_dir('healthcare')/'questions'
     topics = sorted({r['topic'] for r in rows})
     path = ['# Healthcare and AmeriMed: interview practice route', '',
         'AmeriMed and Healthcare use this same question bank. Complete the Beginner, Intermediate and Advanced sections in every subtopic; the 5,940 levelled questions remain the assessed curriculum.', '',
@@ -139,12 +141,12 @@ def publish_review(put, rows):
         eid = r['replacement']
         anchor = eid.lower() if eid.startswith('HEALTHCARE-') else 'legacy-' + eid.lower()
         audit.append(f'| {r["id"]} | {r["decision"]} | [{eid}](../questions/{topic}.md#{anchor}) | {r["reason"]} |')
-    put(ROOT / 'domains/healthcare/solutions/EXERCISE_SELECTION.md', '\n'.join(audit) + '\n')
+    put(domain_dir('healthcare')/'solutions/EXERCISE_SELECTION.md', '\n'.join(audit) + '\n')
     return report
 
 
 def amerimed_menu():
-    prefix = '../domains/SQL/Excerises/domains/healthcare/'
+    prefix = '../domains/healthcare-amerimed/sql/'
     topics = sorted(KEEP)
     lines = ['# AmeriMed Healthcare SQL assignments', '',
         'AmeriMed and Healthcare share one maintained set of questions and instructor answers. Every link below opens the canonical Healthcare file; edits there apply to both names.', '',

@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 
 def choose(ids):
@@ -38,7 +40,7 @@ def fixture(model):
 
 def save(path,questions,models,title):
     path=path.resolve()
-    if not path.is_relative_to(ROOT/'domains'):raise ValueError('Student exports must stay under domains/SQL/Excerises/domains.')
+    if not any(path.is_relative_to(d) for d in domain_dirs()):raise ValueError('Student exports must stay under a company sql folder (domains/<company>/sql).')
     path.parent.mkdir(parents=True,exist_ok=True)
     lines=[f'# {title}','',
            'These are the exact practice-bank contracts with unchanged IDs. Setup is outside coding time. '+
@@ -64,7 +66,7 @@ def generate_mocks(models):
     allids=[i for d in wanted.values() for ids in d.values() for i in ids]
     found={q['id']:q for q in choose(allids)}
     for m in models:
-        directory=ROOT/'domains'/m['slug']/'questions'
+        directory=domain_dir(m['slug'])/'questions'
         for key,filename in [('hard','HARD_MOCK.md'),('mixed','MIXED_MOCK.md')]:
             selected=[found[i] for i in wanted[m['slug']][key]]
             lines=[f'# {m["title"]}: {key} SQL mock','',

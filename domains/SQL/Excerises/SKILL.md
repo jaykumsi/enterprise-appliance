@@ -13,7 +13,7 @@ Last updated: 2026-11-16.
 
 The user subsequently requested one retained copy of duplicate files. These instructions override the older requirements to retain shared topic books and to copy common guides into every standalone student folder.
 
-- Publish assignments once in `domains/<domain>/questions/<TOPIC>.md`;publish matching answers once in `solutions/<TOPIC>.md`. Answer pages link to questions instead of repeating their full text.
+- Publish assignments once in `domains/<company>/sql/questions/<TOPIC>.md` (folder per slug in `company_paths.py`);publish matching answers once in `solutions/<TOPIC>.md`. Answer pages link to questions instead of repeating their full text.
 - Common beginner,interview and grading guides live once at the curriculum root. Domain folders may link to these shared guides;they are no longer completely independent copies.
 - Mock files select canonical IDs and link to the original contracts. Generate full standalone handouts only when explicitly requested.
 - Earlier unique healthcare and cross-subject SQL material is retained as clearly labelled supplements in the canonical Healthcare/Retail topic files. `consolidated_supplements.json` is a private regeneration input,not a second distributed workbook.
@@ -23,7 +23,7 @@ The user subsequently requested one retained copy of duplicate files. These inst
 
 ## Current domain interview requirement
 
-The user explicitly confirmed **15 Beginner,15 Intermediate and15 Advanced questions for every one of the132 existing subtopics in every domain**. The canonical SQL entry is `domains/README.md`;each domain's `questions/README.md` links its levelled topic books. The earlier cross-subject draft under `interview-practice-bank` is not the canonical SQL assignment set.
+The user explicitly confirmed **15 Beginner,15 Intermediate and15 Advanced questions for every one of the132 existing subtopics in every domain**. The canonical SQL entry is `DOMAIN_ASSIGNMENTS.md`;each domain's `questions/README.md` links its levelled topic books. The earlier cross-subject draft under `interview-practice-bank` is not the canonical SQL assignment set.
 
 - Preserve all original foundation IDs. New levelled IDs are domain-prefixed,for example `RETAIL-CTE-03-A06`.
 - `domain_interview_generate.py` runs at the end of `build_curriculum.py` so regeneration retains the new question/solution sections and navigation.
@@ -117,7 +117,7 @@ Current topic files: `DDL`, `DATA_SETUP`, `CONSTRAINTS`, `DML`, `DQL`, `OPERATOR
 
 ## Student handout folders
 
-Every `domains/<domain>/questions/` folder must be independently shareable with students. Include:
+Every `domains/<company>/sql/questions/` folder must be independently shareable with students. Include:
 
 - `README.md`: a short topic index with question counts, linking to the domain's files.
 - One Markdown file per topic, containing only that domain's questions.
@@ -134,7 +134,7 @@ Keep shared topic books available outside these handout folders. Preserve useful
 
 ## Instructor solution folders
 
-Every `domains/<domain>/solutions/` folder mirrors its `questions` folder: same filenames and question IDs, including reporting, advanced queries and SUBSTRING practice. `solutions/README.md` links each student file to its solution file with answer counts.
+Every `domains/<company>/sql/solutions/` folder mirrors its `questions` folder: same filenames and question IDs, including reporting, advanced queries and SUBSTRING practice. `solutions/README.md` links each student file to its solution file with answer counts.
 
 Each answer shows the question, a reference answer (SQL or model explanation), expected results where fixed, and a short “Check and explain” teaching note for diagnosing common mistakes. Topic-level teaching notes live in `TEACHING_NOTES` in `instructor_solutions.py`. Fixed counts and totals assume the small original sample, not the large practice data; say so in the solution index.
 
@@ -142,7 +142,7 @@ The older shared `solutions/*_SOLUTIONS.md` books and the root `solutions/README
 
 ## Large practice data
 
-`large_data_setup.py` with `realistic_data.py` generates a larger fixture per domain: `domains/<domain>/DATA_SETUP.md`, `data_setup.sql` and the student `PRACTICE_DATA.md`. Each master table has at least 50 rows and each transaction/detail table at least 100. Data is deterministic, fictional and plausible (no real people, companies or market quotes), and is validated against the modeled constraints in SQLite. Use it in a separate practice database. It does not change the small `seed.sql` fixture that answer-key totals depend on. `LARGE_DATA_SETUP.md` lists row counts per domain.
+`large_data_setup.py` with `realistic_data.py` generates a larger fixture per domain: `domains/<company>/sql/DATA_SETUP.md`, `data_setup.sql` and the student `PRACTICE_DATA.md`. Each master table has at least 50 rows and each transaction/detail table at least 100. Data is deterministic, fictional and plausible (no real people, companies or market quotes), and is validated against the modeled constraints in SQLite. Use it in a separate practice database. It does not change the small `seed.sql` fixture that answer-key totals depend on. `LARGE_DATA_SETUP.md` lists row counts per domain.
 
 ## Maintaining generated materials
 

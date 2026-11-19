@@ -131,7 +131,7 @@ def fixture_for(subject, row):
 
 
 def main():
-    # SQL is published only in domains/SQL/Excerises/domains.
+    # SQL is published only in each company's domains/<company>/sql folder.
     courses = dict(SUBJECTS)
     bank = dict(schema_version=1, title='Interview practice and assessment bank',
                 levels=[x[0] for x in LEVELS], questions_per_subtopic_per_level=15,
@@ -204,7 +204,7 @@ def main():
             writer.writeheader()
             writer.writerows(rows)
     lines=['# Master question index','',f'{len(courses)} subjects/shared tracks · {len(coverage)} subtopics · {len(bank["questions"]):,} questions. Every subtopic has 15 questions at each of three levels.','',
-           'SQL is maintained once in [the domain assignments](../domains/SQL/Excerises/domains/README.md).\n\nRead [Student guide](STUDENT_GUIDE.md),[track mapping](TRACKS.md),[CoderPad instructions](CODERPAD.md) and [validation limits](VALIDATION.md).','',
+           'SQL is maintained once in [the domain assignments](../domains/SQL/Excerises/DOMAIN_ASSIGNMENTS.md).\n\nRead [Student guide](STUDENT_GUIDE.md),[track mapping](TRACKS.md),[CoderPad instructions](CODERPAD.md) and [validation limits](VALIDATION.md).','',
            '| Subject | Subtopics | Beginner | Intermediate | Advanced | Total |','|---|---:|---:|---:|---:|---:|']
     for subject,course in courses.items():
         count=len(course['rows'])

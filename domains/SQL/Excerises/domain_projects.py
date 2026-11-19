@@ -5,6 +5,8 @@ import re
 from domain_question_wording import clarify_question
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_link, domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 def student_english(text):
     """Simplify directions, preserving SQL identifiers and code examples."""
@@ -222,12 +224,12 @@ def table_brief(m,t):
     return '\n'.join(lines)
 
 def create_setup():
-    (ROOT/'domains').mkdir(exist_ok=True)
+    DOMAINS_ROOT.mkdir(exist_ok=True)
     allsql=['-- Revised five-table projects. Use a NEW disposable database, not the old two-table fixture.', 'SET NOCOUNT ON;', 'SET XACT_ABORT ON;', 'BEGIN TRANSACTION;', 'BEGIN TRY']
     reset=[f'-- Drops only the {sum(len(m["tables"]) for m in MODELS)} named project tables. Deliberate reset in your training database only.', 'SET XACT_ABORT ON;','BEGIN TRANSACTION;','BEGIN TRY']
     verify=[f'-- Read-only baseline checks for the {sum(len(m["tables"]) for m in MODELS)}-table projects.', 'SET NOCOUNT ON;']
     for m in MODELS:
-        s=m['slug']; directory=ROOT/'domains'/s;directory.mkdir(exist_ok=True)
+        s=m['slug']; directory=domain_dir(s);directory.mkdir(exist_ok=True)
         schema=f"IF SCHEMA_ID(N'{s}') IS NULL EXEC(N'CREATE SCHEMA [{s}] AUTHORIZATION dbo;');"
         guards=[f"IF OBJECT_ID(N'{s}.{t['name']}') IS NOT NULL THROW 51000, 'Project tables already exist: use a fresh database', 1;" for t in m['tables']]
         create=[ddl(m,t) for t in m['tables']]; seed=[insert(m,t) for t in m['tables']]
@@ -302,7 +304,7 @@ def relational_lessons(add,domains):
     for v in range(5):
         for d,m in zip(domains,MODELS):
             group=build_steps(m)[v]
-            link=f"[the {m['title']} project brief](../domains/{m['slug']}/README.md)"
+            link=f"[the {m['title']} project brief]({domain_link(m['slug'], ROOT / 'questions')}/README.md)"
             lines=[]
             for t in group:
                 if lines: lines+=['', '---', '']
@@ -398,7 +400,7 @@ def constraint_lessons(add,domains):
                 if sub=='Not Null':
                     idx=next(i for i,c in enumerate(t['columns']) if c['name']==column)
                     original=f" In the supplied sample data, `{column}` is `{t['rows'][0][idx]}`."
-                prompt=f'**{m["title"]}: Practice {sub.upper()} on {t["name"]}**\n\n**Before you start:** Use `{qn}` and the sample rows you added earlier. If you have not added them yet, follow [your domain guide](../domains/{m["slug"]}/README.md).\n\n1. Display the row where `{key} = 1` and note its values.{original}\n3. {description}\n4. Write down the error message SQL Server shows. An error is expected in this exercise.\n5. Display the original row again. Check that its values have not changed.\n\n**Explain:** {why}\n\n**Submit:** Your SQL, the error message, and the row shown before and after the attempt.'
+                prompt=f'**{m["title"]}: Practice {sub.upper()} on {t["name"]}**\n\n**Before you start:** Use `{qn}` and the sample rows you added earlier. If you have not added them yet, follow [your domain guide]({domain_link(m["slug"], ROOT / "questions")}/README.md).\n\n1. Display the row where `{key} = 1` and note its values.{original}\n3. {description}\n4. Write down the error message SQL Server shows. An error is expected in this exercise.\n5. Display the original row again. Check that its values have not changed.\n\n**Explain:** {why}\n\n**Submit:** Your SQL, the error message, and the row shown before and after the attempt.'
                 add('CONSTRAINTS',sub,d,v,prompt,sql,f'SQL Server should show error {err}. The invalid value or extra row should not be saved. The original row should still have the same values. Explain the rule in your own words.')
 
 def remap_library(records):
@@ -481,7 +483,7 @@ def additional_reports(m):
 def write_projects(records):
     report_rows=[]
     for m in MODELS:
-        directory=ROOT/'domains'/m['slug'];mp=m['map'];fact,master,pname=m['base']
+        directory=domain_dir(m['slug']);mp=m['map'];fact,master,pname=m['base']
         lines=[f'# {m["title"]}: connected SQL Server project','',m['business'],'',
                f'**Goal:** build and explain {table_count(m)} related tables, prove that constraints protect data, safely change data and produce correct multi-table reports. There is no daily schedule. Advance after passing each checkpoint.','',
                '## 1. Understand the relationships','',
@@ -569,7 +571,7 @@ def write_projects(records):
                 pages += [f'## {sub}', '']
                 for row in selected:
                     if row['subtopic'] != sub: continue
-                    prompt=re.sub(r'\]\(\.\./domains/[^/]+/README\.md\)', '](DOMAIN_GUIDE.md)', row['prompt'])
+                    prompt=re.sub(r'\]\([^)\s]*/sql/README\.md\)', '](DOMAIN_GUIDE.md)', row['prompt'])
                     prompt=prompt.replace('](../README.md)', '](DOMAIN_GUIDE.md)').replace('](../BEGINNER_GUIDE.md)', '](BEGINNER_GUIDE.md)')
                     pages += [f"### {row['id']}", '', prompt, '']
             (student/f'{topic}.md').write_text('\n'.join(pages),encoding='utf-8')

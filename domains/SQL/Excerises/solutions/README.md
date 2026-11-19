@@ -4,15 +4,15 @@ Choose a domain, then open the solution file matching the student question filen
 
 Share the questions folder with students; retain the solutions folder for instructors.
 
-- [Retail](../domains/retail/solutions/README.md)
-- [Banking / Finance](../domains/banking/solutions/README.md)
-- [Pharma](../domains/pharma/solutions/README.md)
-- [Healthcare](../domains/healthcare/solutions/README.md)
-- [Oil](../domains/oil/solutions/README.md)
-- [Retail Supply Chain](../domains/retail_supply_chain/solutions/README.md)
-- [Retail Logistics](../domains/retail_logistics/solutions/README.md)
-- [E-commerce](../domains/ecommerce/solutions/README.md)
-- [Brokerage](../domains/brokerage/solutions/README.md)
+- [Retail](../../../retail-maple-main-stores/sql/solutions/README.md)
+- [Banking / Finance](../../../bank-harborstone/sql/solutions/README.md)
+- [Pharma](../../../pharma-novacrest/sql/solutions/README.md)
+- [Healthcare](../../../healthcare-amerimed/sql/solutions/README.md)
+- [Oil](../../../oil-permian-ridge/sql/solutions/README.md)
+- [Retail Supply Chain](../../../retail-supply-chain-maple-main/sql/solutions/README.md)
+- [Retail Logistics](../../../retail-logistics-maple-main/sql/solutions/README.md)
+- [E-commerce](../../../ecommerce-everyday-bazaar/sql/solutions/README.md)
+- [Brokerage](../../../brokerage-ridgeline/sql/solutions/README.md)
 
 ## Online workbook answer keys (PRIVATE)
 

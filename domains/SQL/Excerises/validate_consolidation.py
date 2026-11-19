@@ -7,6 +7,8 @@ import re
 from healthcare_exercise_review import KEPT_IDS, review, amerimed_menu
 
 ROOT=Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 
 def validate():
@@ -23,8 +25,8 @@ def validate():
         groups=defaultdict(list)
         for q in source[key]:groups[q['topic']].append(q)
         for topic,qs in groups.items():
-            question=(ROOT/'domains'/slug/'questions'/f'{topic}.md').read_text(encoding='utf-8')
-            answer=(ROOT/'domains'/slug/'solutions'/f'{topic}.md').read_text(encoding='utf-8')
+            question=(domain_dir(slug)/'questions'/f'{topic}.md').read_text(encoding='utf-8')
+            answer=(domain_dir(slug)/'solutions'/f'{topic}.md').read_text(encoding='utf-8')
             qids=Counter(re.findall(r'^##### ([^\s:]+)',question,re.M))
             aids=Counter(re.findall(r'^##### ([^\s:]+)',answer,re.M))
             for q in qs:
@@ -34,7 +36,7 @@ def validate():
     # Both names lead to the very same files; every retired ID has a live replacement.
     standalone=ROOT.parent.parent.parent/'amerimed-healthcare-sql'
     assert (standalone/'README.md').read_text(encoding='utf-8')==amerimed_menu()
-    for file in [standalone/'README.md',ROOT/'domains/healthcare/questions/BEST_EXERCISES.md',ROOT/'domains/healthcare/solutions/EXERCISE_SELECTION.md']:
+    for file in [standalone/'README.md',domain_dir('healthcare')/'questions/BEST_EXERCISES.md',domain_dir('healthcare')/'solutions/EXERCISE_SELECTION.md']:
         for url in re.findall(r'\]\(([^)]+)\)',file.read_text(encoding='utf-8')):
             name,_,anchor=url.partition('#');target=(file.parent/name).resolve()
             assert target.exists(),(file,url)
@@ -43,9 +45,9 @@ def validate():
                 assert f'id="{anchor}"' in text or f'#### {anchor.upper()}\n' in text,(file,url)
     assert not list((ROOT/'questions').glob('*.md'))
     assert not list((ROOT/'solutions').glob('*_SOLUTIONS.md'))
-    assert not (ROOT/'domains/healthcare/interview_ready').exists()
+    assert not (domain_dir('healthcare')/'interview_ready').exists()
     assert not (ROOT.parent.parent.parent/'interview-practice-bank/questions/sql-server').exists()
-    for directory in (ROOT/'domains').iterdir():
+    for directory in domain_dirs():
         if not directory.is_dir():continue
         assert not (directory/'REPORTING_ASSIGNMENTS.md').exists()
         assert not (directory/'REPORTING_SOLUTIONS.md').exists()

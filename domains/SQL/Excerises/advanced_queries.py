@@ -3,6 +3,8 @@ from pathlib import Path
 import json
 
 ROOT = Path(__file__).resolve().parent
+import sys as _sys; _sys.path.insert(0, str(Path(__file__).resolve().parent))
+from company_paths import domain_link, domain_dir, domain_dirs, DOMAINS_ROOT, ASSIGNMENTS_INDEX
 
 
 def exercises(model):
@@ -153,9 +155,9 @@ def generate(models):
     for model in models:
         rows = exercises(model)
         all_rows.extend(rows)
-        question_index.append(f'- [{model["title"]}](../domains/{model["slug"]}/questions/ADVANCED_QUERIES.md)')
-        solution_index.append(f'- [{model["title"]}](../domains/{model["slug"]}/ADVANCED_SOLUTIONS.md)')
-        directory = ROOT / 'domains' / model['slug']
+        question_index.append(f'- [{model["title"]}]({domain_link(model["slug"], ROOT / 'questions')}/questions/ADVANCED_QUERIES.md)')
+        solution_index.append(f'- [{model["title"]}]({domain_link(model["slug"], ROOT / 'solutions')}/ADVANCED_SOLUTIONS.md)')
+        directory = domain_dir(model['slug'])
         q = [f'# {model["title"]}: advanced queries', '',
              'Use the existing domain tables. Prerequisites: joins, grouped aggregates, CTEs and window functions. '
              'Submit SQL, results and an explanation of row counts, NULL handling and tie handling. '
